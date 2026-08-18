@@ -1,51 +1,39 @@
 import { theme } from "../../../shared/brand/theme";
 import { Canvas } from "../../../shared/primitives/Canvas";
-import { SingleServerDiagram } from "./SingleServerDiagram";
 
-export const SingleServerThumbnail: React.FC = () => {
-  return (
-    <Canvas tone="paper" padding={48}>
-      <div
-        style={{
-          position: "absolute",
-          zIndex: 2,
-          top: 54,
-          left: 70,
-          width: 900,
-        }}
-      >
-        <div
-          style={{
-            color: theme.colors.blue,
-            fontSize: 21,
-            fontWeight: 700,
-            letterSpacing: "0.14em",
-          }}
-        >
-          SYSTEM DESIGN 01
-        </div>
-        <div
-          style={{
-            marginTop: 14,
-            color: theme.colors.ink,
-            fontSize: 76,
-            fontWeight: 800,
-            letterSpacing: "-0.075em",
-            lineHeight: 0.88,
-          }}
-        >
-          ONE SERVER.
-          <br />
-          <span style={{ color: theme.colors.blue }}>EVERY REQUEST.</span>
-        </div>
-      </div>
-      <SingleServerDiagram
-        orientation="horizontal"
-        overload
-        focus="server"
-        instant
-        tone="paper"
-      />
-    </Canvas>
-  );
-};
+export const SingleServerThumbnail: React.FC = () => (
+  <Canvas tone="paper" padding={0}>
+    <div
+      style={{
+        position: "absolute",
+        left: 78,
+        right: 78,
+        top: 115,
+        color: theme.colors.ink,
+        fontSize: 88,
+        fontWeight: 600,
+        letterSpacing: "-0.065em",
+        lineHeight: 1.02,
+      }}
+    >
+      You tap Buy.
+      <br />
+      <span style={{ color: theme.colors.blue }}>Then what?</span>
+    </div>
+    <div
+      style={{
+        position: "absolute",
+        left: 82,
+        right: 82,
+        bottom: 72,
+        color: theme.colors.gray,
+        fontSize: 27,
+        fontWeight: 700,
+        letterSpacing: "0.06em",
+        textTransform: "uppercase",
+      }}
+    >
+      How one server handles a web request
+    </div>
+  </Canvas>
+);

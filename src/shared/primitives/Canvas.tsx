@@ -27,15 +27,6 @@ export const Canvas: React.FC<CanvasProps> = ({
           : `linear-gradient(145deg, ${theme.colors.paperBright} 0%, ${theme.colors.paper} 100%)`,
       }}
     >
-      <AbsoluteFill
-        style={{
-          opacity: dark ? 0.08 : 0.16,
-          backgroundImage: dark
-            ? "none"
-            : "radial-gradient(rgba(17,18,20,0.055) 0.7px, transparent 0.7px)",
-          backgroundSize: "7px 7px",
-        }}
-      />
       {children}
     </AbsoluteFill>
   );

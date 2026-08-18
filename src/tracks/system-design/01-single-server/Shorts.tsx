@@ -1,130 +1,161 @@
-import { interpolate, useCurrentFrame } from "remotion";
+import { Easing, interpolate, useCurrentFrame } from "remotion";
 import { theme } from "../../../shared/brand/theme";
 import { Canvas } from "../../../shared/primitives/Canvas";
-import { PrototypeBadge } from "../../../shared/primitives/PrototypeBadge";
 import { clamp, seconds } from "../../../shared/video/timing";
-import { SingleServerDiagram } from "./SingleServerDiagram";
 
-type ShortFrameProps = {
-  eyebrow: string;
-  headline: string;
-  accent: string;
-  answer: string;
-  overload?: boolean;
-  focus?: "flow" | "server" | "database";
+const easeOut = {
+  ...clamp,
+  easing: Easing.bezier(0.16, 1, 0.3, 1),
 };
 
-const ShortFrame: React.FC<ShortFrameProps> = ({
-  eyebrow,
-  headline,
+type EditorialShortProps = {
+  opening: string;
+  accent: string;
+  middle: string;
+  final: string;
+  caption: string;
+};
+
+const EditorialShort: React.FC<EditorialShortProps> = ({
+  opening,
   accent,
-  answer,
-  overload = false,
-  focus = "flow",
+  middle,
+  final,
+  caption,
 }) => {
   const frame = useCurrentFrame();
-  const headlineY = interpolate(frame, [0, 12], [18, 0], clamp);
-  const answerOpacity = interpolate(
+  const accentIn = interpolate(frame, [4, 18], [0, 1], easeOut);
+  const middleIn = interpolate(
     frame,
-    [seconds(4.4), seconds(5), seconds(19)],
-    [0, 1, 1],
-    clamp,
+    [seconds(5), seconds(5.7)],
+    [0, 1],
+    easeOut,
+  );
+  const finalIn = interpolate(
+    frame,
+    [seconds(10), seconds(10.8)],
+    [0, 1],
+    easeOut,
+  );
+  const answerIn = interpolate(
+    frame,
+    [seconds(14), seconds(14.8)],
+    [0, 1],
+    easeOut,
   );
 
   return (
-    <Canvas tone="paper" padding={48}>
-      <PrototypeBadge />
+    <Canvas tone="paper" padding={0}>
       <div
         style={{
           position: "absolute",
-          top: 120,
-          left: 66,
-          right: 66,
-          transform: `translateY(${headlineY}px)`,
+          left: 68,
+          right: 68,
+          top: 220,
+          color: theme.colors.ink,
+          fontSize: 84,
+          fontWeight: 600,
+          letterSpacing: "-0.06em",
+          lineHeight: 1.05,
         }}
       >
-        <div
+        {opening}
+        <br />
+        <span
           style={{
+            display: "inline-block",
             color: theme.colors.blue,
-            fontSize: 23,
-            fontWeight: 700,
-            letterSpacing: "0.14em",
+            opacity: accentIn,
+            transform: `translateY(${interpolate(accentIn, [0, 1], [24, 0], easeOut)}px)`,
           }}
         >
-          {eyebrow}
-        </div>
-        <div
-          style={{
-            marginTop: 20,
-            color: theme.colors.ink,
-            fontSize: 78,
-            fontWeight: 800,
-            letterSpacing: "-0.07em",
-            lineHeight: 0.96,
-          }}
-        >
-          {headline}
-          <br />
-          <span style={{ color: theme.colors.blue }}>{accent}</span>
-        </div>
+          {accent}
+        </span>
       </div>
 
-      <SingleServerDiagram
-        orientation="vertical"
-        overload={overload}
-        focus={focus}
-        instant
-        tone="paper"
-      />
+      <div
+        style={{
+          position: "absolute",
+          left: 68,
+          right: 68,
+          top: 770,
+          color: theme.colors.ink,
+          fontSize: 70,
+          fontWeight: 600,
+          letterSpacing: "-0.055em",
+          lineHeight: 1.1,
+          opacity: middleIn,
+          transform: `translateY(${interpolate(middleIn, [0, 1], [24, 0], easeOut)}px)`,
+        }}
+      >
+        {middle}
+      </div>
 
       <div
         style={{
           position: "absolute",
-          left: 66,
-          right: 66,
-          bottom: 105,
-          paddingTop: 24,
-          borderTop: `8px solid ${theme.colors.blue}`,
-          color: theme.colors.ink,
-          fontSize: 33,
+          left: 68,
+          right: 68,
+          top: 1120,
+          color: theme.colors.blue,
+          fontSize: 76,
           fontWeight: 700,
-          letterSpacing: "-0.035em",
-          lineHeight: 1.2,
-          opacity: answerOpacity,
+          letterSpacing: "-0.06em",
+          lineHeight: 1.05,
+          opacity: finalIn,
+          transform: `translateY(${interpolate(finalIn, [0, 1], [24, 0], easeOut)}px)`,
         }}
       >
-        {answer}
+        {final}
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          left: 70,
+          right: 70,
+          bottom: 170,
+          color: theme.colors.ink,
+          fontSize: 34,
+          fontWeight: 600,
+          letterSpacing: "-0.02em",
+          lineHeight: 1.25,
+          opacity: answerIn,
+          textAlign: "center",
+        }}
+      >
+        {caption}
       </div>
     </Canvas>
   );
 };
 
 export const SingleServerHookShort: React.FC = () => (
-  <ShortFrame
-    eyebrow="ONE REQUEST"
-    headline="YOU TAP"
-    accent="WHAT HAPPENS NEXT?"
-    answer="The client asks, the application computes, the database stores, and a response travels back."
+  <EditorialShort
+    opening="You tap Buy."
+    accent="Then what?"
+    middle="Your browser sends a request."
+    final="Server. Database. Back to you."
+    caption="One request travels through the whole application."
   />
 );
 
 export const SingleServerMetricShort: React.FC = () => (
-  <ShortFrame
-    eyebrow="SCALING MYTH"
-    headline="10,000 USERS"
-    accent="IS NOT A LIMIT."
-    answer="Request rate, concurrency, and work per request determine the pressure, not user count alone."
-    overload
-    focus="server"
+  <EditorialShort
+    opening="10,000 users"
+    accent="is not a limit."
+    middle="The real pressure is requests per second."
+    final="Measure the work, not the audience."
+    caption="Traffic shape determines when one server struggles."
   />
 );
 
 export const SingleServerIoShort: React.FC = () => (
-  <ShortFrame
-    eyebrow="HIDDEN WAIT"
-    headline="LOW CPU"
-    accent="CAN STILL FEEL SLOW."
-    answer="A request can spend most of its time waiting on storage, a database, or the network."
-    focus="database"
+  <EditorialShort
+    opening="Low CPU."
+    accent="Still slow?"
+    middle="The request may be waiting on data."
+    final="Waiting is work too."
+    caption="Storage, database, and network I/O can dominate latency."
   />
 );

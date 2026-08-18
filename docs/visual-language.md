@@ -32,16 +32,16 @@ Typography should often be the primary visual object, not a label placed above a
 
 ## Scene language
 
-Use two principal environments:
+Warm paper is the default environment for the System Design curriculum. It should carry explanations, diagrams, comparisons, scale, and failure states without switching to a dark dashboard treatment.
 
-1. Warm paper for explanations, comparisons, prompts, and measurable state
-2. Near-black for internal mechanics, scale, networks, emphasis, and conceptual transitions
+Near-black remains part of the wider channel palette, but it is optional. Use it only when a specific concept benefits from a cinematic interstitial and the episode's approved storyboard calls for it.
 
 Use cinematic changes in scale and position, but keep each frame visually sparse. Motion should reveal state, causality, or hierarchy.
 
 ## System diagrams
 
-- Use minimal nodes with clear hierarchy
+- Prefer typographic stages and minimal objects over bordered component cards
+- Use minimal nodes with clear hierarchy when a node is genuinely necessary
 - Use thin neutral connectors
 - Use one cobalt signal to show the active request or selected path
 - Prefer typography, spacing, and motion over status-color dashboards

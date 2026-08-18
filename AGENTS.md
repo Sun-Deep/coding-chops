@@ -9,3 +9,5 @@
 - Keep generated renders out of Git.
 - Preserve the visual language established by the How AI Generates Text video. Use the shared palette, Inter typography, warm paper scenes, near-black interstitials, cobalt blue accent, oversized editorial type, sparse diagrams, and restrained material depth.
 - Do not introduce a generic dashboard aesthetic, multi-color infrastructure palette, glassmorphism, neon cyberpunk styling, or decorative grid unless the user explicitly changes the channel visual identity.
+- Keep System Design horizontal masters on the warm paper canvas by default. Do not switch to black merely to make a system bottleneck feel technical.
+- Prefer typography-led flows and minimal objects over boxed infrastructure cards.

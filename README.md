@@ -86,7 +86,7 @@ For each short, record:
 
 See [the retention experiment template](curriculum/templates/retention-experiment.md).
 
-The visual identity is defined in [the visual-language contract](docs/visual-language.md).
+The production workflow is defined in [the video production standard](docs/video-production-standard.md). The visual identity is defined in [the visual-language contract](docs/visual-language.md).
 
 ## Contributing
 

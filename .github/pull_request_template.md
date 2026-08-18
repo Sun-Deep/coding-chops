@@ -6,6 +6,9 @@
 
 - [ ] `npm run check`
 - [ ] `npm run compositions`
+- [ ] Changes follow `docs/video-production-standard.md`
 - [ ] Representative frames reviewed for visual changes
+- [ ] Caption timing and safe areas reviewed when applicable
+- [ ] Complete horizontal and vertical renders watched when marking a lesson publish-ready
 - [ ] New assets have compatible licenses
 - [ ] Curriculum changes include sources and understanding checks

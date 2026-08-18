@@ -1,6 +1,6 @@
 # Coding Chops visual language
 
-The visual source of truth is the style established by the **How AI Generates Text** video. New tracks should feel like chapters from the same publication, not separate visual brands.
+The visual source of truth is the style established by the **How AI Generates Text** video. New tracks should feel like chapters from the same publication, not separate visual brands. The full workflow and quality gates are defined in [the video production standard](video-production-standard.md).
 
 ## Palette
 

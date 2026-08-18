@@ -26,6 +26,11 @@ Do not add technologies merely to make a design appear more advanced. Every comp
 
 ## Development
 
+Before editing a composition, read:
+
+- [Video production standard](docs/video-production-standard.md)
+- [Visual-language contract](docs/visual-language.md)
+
 ```bash
 npm install
 npm run dev
@@ -33,7 +38,7 @@ npm run check
 npm run compositions
 ```
 
-Animations must be driven by Remotion frames, `interpolate()`, and `spring()`. Do not use CSS transitions or CSS keyframe animations because they do not render deterministically.
+Animations must be driven by Remotion frames, `interpolate()`, and explicit easing. Do not use CSS transitions or CSS keyframe animations because they do not render deterministically. Avoid bouncy spring motion unless a storyboard explicitly justifies it.
 
 Keep composition IDs stable. Place redistributable assets in `public/` and reference them with `staticFile()`.
 
@@ -42,5 +47,6 @@ Keep composition IDs stable. Place redistributable assets in `public/` and refer
 - Keep changes focused.
 - Explain the learning or production problem being solved.
 - Include screenshots or representative frames for visual changes.
+- For publish-ready video changes, confirm complete horizontal and vertical renders were watched from beginning to end.
 - Confirm licenses for new assets.
 - Do not commit generated videos or temporary renders.

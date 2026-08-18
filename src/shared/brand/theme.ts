@@ -1,21 +1,22 @@
+import { loadFont } from "@remotion/google-fonts/Inter";
+
+const inter = loadFont("normal", {
+  weights: ["400", "600", "700", "800"],
+  subsets: ["latin"],
+});
+
 export const theme = {
   colors: {
-    background: "#05070A",
-    surface: "rgba(18, 23, 31, 0.82)",
-    surfaceStrong: "#12171F",
-    border: "rgba(255, 255, 255, 0.12)",
-    text: "#F7F8FA",
-    muted: "#99A3B3",
-    blue: "#5EA1FF",
-    cyan: "#58E1DD",
-    green: "#6DE5A6",
-    amber: "#FFCA68",
-    red: "#FF6B73",
+    black: "#050505",
+    blackSoft: "#101113",
+    paper: "#F4F2EC",
+    paperBright: "#FBFAF7",
+    ink: "#111214",
+    gray: "#74767B",
+    grayLight: "#C8C7C2",
+    blue: "#1769E0",
+    blueBright: "#4D9BFF",
+    white: "#FFFFFF",
   },
-  radius: {
-    card: 34,
-    pill: 999,
-  },
-  shadow: "0 30px 90px rgba(0, 0, 0, 0.42)",
-  font: 'Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+  fontFamily: inter.fontFamily,
 } as const;

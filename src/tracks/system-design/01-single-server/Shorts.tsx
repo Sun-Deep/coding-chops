@@ -8,6 +8,7 @@ import { SingleServerDiagram } from "./SingleServerDiagram";
 type ShortFrameProps = {
   eyebrow: string;
   headline: string;
+  accent: string;
   answer: string;
   overload?: boolean;
   focus?: "flow" | "server" | "database";
@@ -16,37 +17,38 @@ type ShortFrameProps = {
 const ShortFrame: React.FC<ShortFrameProps> = ({
   eyebrow,
   headline,
+  accent,
   answer,
   overload = false,
   focus = "flow",
 }) => {
   const frame = useCurrentFrame();
-  const headlineY = interpolate(frame, [0, 12], [24, 0], clamp);
+  const headlineY = interpolate(frame, [0, 12], [18, 0], clamp);
   const answerOpacity = interpolate(
     frame,
-    [seconds(5), seconds(5.5), seconds(19)],
+    [seconds(4.4), seconds(5), seconds(19)],
     [0, 1, 1],
     clamp,
   );
 
   return (
-    <Canvas padding={48}>
+    <Canvas tone="paper" padding={48}>
       <PrototypeBadge />
       <div
         style={{
           position: "absolute",
-          top: 126,
-          left: 64,
-          right: 64,
+          top: 120,
+          left: 66,
+          right: 66,
           transform: `translateY(${headlineY}px)`,
         }}
       >
         <div
           style={{
-            color: overload ? theme.colors.red : theme.colors.blue,
-            fontSize: 25,
-            fontWeight: 780,
-            letterSpacing: 1.5,
+            color: theme.colors.blue,
+            fontSize: 23,
+            fontWeight: 700,
+            letterSpacing: "0.14em",
           }}
         >
           {eyebrow}
@@ -54,13 +56,16 @@ const ShortFrame: React.FC<ShortFrameProps> = ({
         <div
           style={{
             marginTop: 20,
-            fontSize: 72,
-            lineHeight: 1.03,
-            letterSpacing: -3.2,
+            color: theme.colors.ink,
+            fontSize: 78,
             fontWeight: 800,
+            letterSpacing: "-0.07em",
+            lineHeight: 0.96,
           }}
         >
           {headline}
+          <br />
+          <span style={{ color: theme.colors.blue }}>{accent}</span>
         </div>
       </div>
 
@@ -69,22 +74,22 @@ const ShortFrame: React.FC<ShortFrameProps> = ({
         overload={overload}
         focus={focus}
         instant
+        tone="paper"
       />
 
       <div
         style={{
           position: "absolute",
-          left: 64,
-          right: 64,
-          bottom: 92,
-          padding: "30px 34px",
-          borderRadius: 30,
-          border: `1px solid ${theme.colors.border}`,
-          background: "rgba(12, 16, 23, 0.9)",
-          boxShadow: theme.shadow,
-          fontSize: 31,
-          lineHeight: 1.25,
-          fontWeight: 650,
+          left: 66,
+          right: 66,
+          bottom: 105,
+          paddingTop: 24,
+          borderTop: `8px solid ${theme.colors.blue}`,
+          color: theme.colors.ink,
+          fontSize: 33,
+          fontWeight: 700,
+          letterSpacing: "-0.035em",
+          lineHeight: 1.2,
           opacity: answerOpacity,
         }}
       >
@@ -97,7 +102,8 @@ const ShortFrame: React.FC<ShortFrameProps> = ({
 export const SingleServerHookShort: React.FC = () => (
   <ShortFrame
     eyebrow="ONE REQUEST"
-    headline="What happens after you tap a button?"
+    headline="YOU TAP"
+    accent="WHAT HAPPENS NEXT?"
     answer="The client asks, the application computes, the database stores, and a response travels back."
   />
 );
@@ -105,8 +111,9 @@ export const SingleServerHookShort: React.FC = () => (
 export const SingleServerMetricShort: React.FC = () => (
   <ShortFrame
     eyebrow="SCALING MYTH"
-    headline="Can one server handle 10,000 users?"
-    answer="User count is not enough. Request rate, concurrency, and work per request determine the pressure."
+    headline="10,000 USERS"
+    accent="IS NOT A LIMIT."
+    answer="Request rate, concurrency, and work per request determine the pressure, not user count alone."
     overload
     focus="server"
   />
@@ -115,7 +122,8 @@ export const SingleServerMetricShort: React.FC = () => (
 export const SingleServerIoShort: React.FC = () => (
   <ShortFrame
     eyebrow="HIDDEN WAIT"
-    headline="Low CPU does not always mean fast."
+    headline="LOW CPU"
+    accent="CAN STILL FEEL SLOW."
     answer="A request can spend most of its time waiting on storage, a database, or the network."
     focus="database"
   />

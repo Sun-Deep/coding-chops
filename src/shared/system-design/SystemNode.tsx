@@ -15,18 +15,13 @@ type SystemNodeProps = {
   delay?: number;
   danger?: boolean;
   instant?: boolean;
+  tone?: "paper" | "black";
 };
 
-const icons: Record<NodeKind, string> = {
-  client: "◉",
-  server: "▦",
-  database: "▤",
-};
-
-const accent: Record<NodeKind, string> = {
-  client: theme.colors.blue,
-  server: theme.colors.cyan,
-  database: theme.colors.green,
+const step: Record<NodeKind, string> = {
+  client: "01",
+  server: "02",
+  database: "03",
 };
 
 export const SystemNode: React.FC<SystemNodeProps> = ({
@@ -41,9 +36,11 @@ export const SystemNode: React.FC<SystemNodeProps> = ({
   delay = 0,
   danger = false,
   instant = false,
+  tone = "paper",
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const dark = tone === "black";
   const enter = instant
     ? 1
     : spring({
@@ -51,8 +48,12 @@ export const SystemNode: React.FC<SystemNodeProps> = ({
         frame: Math.max(0, frame - delay),
         config: { damping: 18, stiffness: 130, mass: 0.8 },
       });
-  const activePulse = active ? 1 + Math.sin(frame / 5) * 0.018 : 1;
-  const color = danger ? theme.colors.red : accent[kind];
+  const activePulse = active ? 1 + Math.sin(frame / 5) * 0.012 : 1;
+  const borderColor = active
+    ? theme.colors.blue
+    : dark
+      ? "rgba(255,255,255,0.2)"
+      : "rgba(17,18,20,0.18)";
 
   return (
     <div
@@ -64,43 +65,53 @@ export const SystemNode: React.FC<SystemNodeProps> = ({
         height,
         transform: `scale(${enter * activePulse})`,
         opacity: enter,
-        borderRadius: theme.radius.card,
-        border: `2px solid ${active ? color : theme.colors.border}`,
-        background: theme.colors.surface,
+        borderRadius: 26,
+        border: `${active ? 3 : 2}px solid ${borderColor}`,
+        background: dark ? theme.colors.blackSoft : theme.colors.paperBright,
         boxShadow: active
-          ? `0 0 0 8px ${color}18, 0 26px 80px rgba(0,0,0,0.45)`
-          : theme.shadow,
+          ? "0 0 0 7px rgba(23,105,224,0.08), 0 22px 54px rgba(17,18,20,0.10)"
+          : dark
+            ? "0 20px 55px rgba(0,0,0,0.26)"
+            : "0 18px 44px rgba(17,18,20,0.08)",
         display: "flex",
         alignItems: "center",
-        gap: 22,
+        gap: 24,
         padding: "26px 30px",
       }}
     >
       <div
         style={{
-          width: 72,
-          height: 72,
-          borderRadius: 22,
-          display: "grid",
-          placeItems: "center",
-          background: `${color}1E`,
-          color,
-          fontSize: 40,
+          color: theme.colors.blue,
+          fontSize: 26,
           fontWeight: 800,
+          letterSpacing: "-0.06em",
+          lineHeight: 1,
         }}
       >
-        {icons[kind]}
+        {step[kind]}
       </div>
       <div style={{ minWidth: 0 }}>
-        <div style={{ fontSize: 30, fontWeight: 760, letterSpacing: -0.7 }}>
+        <div
+          style={{
+            color: dark ? theme.colors.white : theme.colors.ink,
+            fontSize: 31,
+            fontWeight: 800,
+            letterSpacing: "-0.055em",
+          }}
+        >
           {label}
         </div>
         <div
           style={{
-            marginTop: 8,
-            color: theme.colors.muted,
+            marginTop: 7,
+            color: danger
+              ? theme.colors.blueBright
+              : dark
+                ? theme.colors.grayLight
+                : theme.colors.gray,
             fontSize: 19,
-            lineHeight: 1.25,
+            fontWeight: 600,
+            lineHeight: 1.22,
           }}
         >
           {detail}

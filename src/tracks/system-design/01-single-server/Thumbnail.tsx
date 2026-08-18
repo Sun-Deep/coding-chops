@@ -4,33 +4,39 @@ import { SingleServerDiagram } from "./SingleServerDiagram";
 
 export const SingleServerThumbnail: React.FC = () => {
   return (
-    <Canvas padding={48}>
+    <Canvas tone="paper" padding={48}>
       <div
         style={{
           position: "absolute",
           zIndex: 2,
-          top: 64,
+          top: 54,
           left: 70,
-          width: 720,
+          width: 900,
         }}
       >
         <div
-          style={{ color: theme.colors.blue, fontSize: 24, fontWeight: 800 }}
+          style={{
+            color: theme.colors.blue,
+            fontSize: 21,
+            fontWeight: 700,
+            letterSpacing: "0.14em",
+          }}
         >
           SYSTEM DESIGN 01
         </div>
         <div
           style={{
             marginTop: 14,
-            fontSize: 70,
-            lineHeight: 1,
-            letterSpacing: -3.5,
-            fontWeight: 820,
+            color: theme.colors.ink,
+            fontSize: 76,
+            fontWeight: 800,
+            letterSpacing: "-0.075em",
+            lineHeight: 0.88,
           }}
         >
-          One server.
+          ONE SERVER.
           <br />
-          Every request.
+          <span style={{ color: theme.colors.blue }}>EVERY REQUEST.</span>
         </div>
       </div>
       <SingleServerDiagram
@@ -38,6 +44,7 @@ export const SingleServerThumbnail: React.FC = () => {
         overload
         focus="server"
         instant
+        tone="paper"
       />
     </Canvas>
   );

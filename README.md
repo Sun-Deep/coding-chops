@@ -63,6 +63,7 @@ npm run render:short:hook
 
 ```text
 curriculum/                 Learning notes, sources, scripts, and storyboards
+docs/                       Production and visual-language contracts
 public/                     Redistributable static assets used through staticFile()
 scripts/                    Repository validation scripts
 src/shared/                 Brand, primitives, layouts, and video utilities
@@ -84,6 +85,8 @@ For each short, record:
 - Shares, saves, profile visits, and outbound clicks
 
 See [the retention experiment template](curriculum/templates/retention-experiment.md).
+
+The visual identity is defined in [the visual-language contract](docs/visual-language.md).
 
 ## Contributing
 

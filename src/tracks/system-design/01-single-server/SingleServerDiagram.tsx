@@ -9,6 +9,7 @@ type SingleServerDiagramProps = {
   overload?: boolean;
   focus?: "flow" | "server" | "database";
   instant?: boolean;
+  tone?: "paper" | "black";
 };
 
 export const SingleServerDiagram: React.FC<SingleServerDiagramProps> = ({
@@ -16,6 +17,7 @@ export const SingleServerDiagram: React.FC<SingleServerDiagramProps> = ({
   overload = false,
   focus = "flow",
   instant = false,
+  tone = "paper",
 }) => {
   const frame = useCurrentFrame();
   const { width, height, fps } = useVideoConfig();
@@ -49,6 +51,7 @@ export const SingleServerDiagram: React.FC<SingleServerDiagramProps> = ({
         database={database}
         overload={overload}
         instant={instant}
+        tone={tone}
       />
 
       {overload ? (
@@ -60,7 +63,7 @@ export const SingleServerDiagram: React.FC<SingleServerDiagramProps> = ({
             width: nodeWidth + 36,
             height: nodeHeight + 36,
             borderRadius: 48,
-            border: `3px solid ${theme.colors.red}`,
+            border: `3px solid ${theme.colors.blue}`,
             opacity: dangerOpacity,
           }}
         />
@@ -77,6 +80,7 @@ export const SingleServerDiagram: React.FC<SingleServerDiagramProps> = ({
         active={focus === "flow" && activeClient}
         delay={0}
         instant={instant}
+        tone={tone}
       />
       <SystemNode
         kind="server"
@@ -92,6 +96,7 @@ export const SingleServerDiagram: React.FC<SingleServerDiagramProps> = ({
         danger={overload}
         delay={5}
         instant={instant}
+        tone={tone}
       />
       <SystemNode
         kind="database"
@@ -104,6 +109,7 @@ export const SingleServerDiagram: React.FC<SingleServerDiagramProps> = ({
         active={focus === "database" || (focus === "flow" && activeDatabase)}
         delay={10}
         instant={instant}
+        tone={tone}
       />
     </div>
   );

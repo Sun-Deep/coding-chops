@@ -1,17 +1,21 @@
 {
   "name": "coding-chops",
   "version": "1.0.0",
-  "description": "My Remotion video",
-  "repository": {},
-  "license": "UNLICENSED",
-  "private": true,
+  "description": "Open-source visual curriculum for System Design, DSA, and Problem Solving",
+  "keywords": [
+    "remotion",
+    "system-design",
+    "data-structures",
+    "algorithms",
+    "education"
+  ],
+  "license": "MIT",
+  "private": false,
   "dependencies": {
     "@remotion/cli": "4.0.512",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "remotion": "4.0.512",
-    "@remotion/tailwind-v4": "4.0.512",
-    "tailwindcss": "4.0.0"
+    "remotion": "4.0.512"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.512",
@@ -22,10 +26,18 @@
     "typescript": "5.9.3"
   },
   "scripts": {
-    "dev": "remotion studio",
+    "dev": "remotion studio src/index.ts",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate:curriculum": "node scripts/validate-curriculum.mjs",
+    "compositions": "remotion compositions src/index.ts",
+    "check": "npm run typecheck && npm run lint && npm run validate:curriculum",
+    "render:thumbnail": "remotion still src/index.ts SD01-Thumbnail out/sd01-thumbnail.png",
+    "render:short:hook": "remotion render src/index.ts SD01-Short-Hook out/sd01-short-hook.mp4"
   },
   "sideEffects": [
     "*.css"

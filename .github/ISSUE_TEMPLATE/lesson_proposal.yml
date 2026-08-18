@@ -1,0 +1,26 @@
+name: Lesson proposal
+description: Propose a sourced lesson or curriculum improvement.
+title: "[Lesson]: "
+labels: [curriculum]
+body:
+  - type: input
+    id: objective
+    attributes:
+      label: Learning objective
+      description: What should a beginner understand or be able to do afterward?
+    validations:
+      required: true
+  - type: textarea
+    id: prerequisite
+    attributes:
+      label: Prerequisites and placement
+      description: What must viewers know first, and where should this lesson appear?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Link authoritative sources that support the proposal.
+    validations:
+      required: true

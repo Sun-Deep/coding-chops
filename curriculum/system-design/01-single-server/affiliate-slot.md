@@ -87,7 +87,7 @@ Budget was 22 seconds. The recorded take runs 29.8 seconds and lands at 67 perce
 
 Lock this with the rest of the narration. Do not paraphrase it in the booth.
 
-The same words appear as segment 05b in `script-rewrite-draft.md`, which holds voiceover text only. Change them in both files or in neither.
+The same words appear as section 05b in `script.md`. Change them in both files or in neither.
 
 > Quick disclosure before we fix this.
 >

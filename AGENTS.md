@@ -1,11 +1,14 @@
 # Coding Chops project instructions
 
-## Always-on Unslop skill
+## Writing
 
-- At the start of every turn, read `.agents/skills/unslop/SKILL.md` completely and apply it to all writing.
-- This requirement applies even when the user does not name the skill.
-- Apply it to user-facing responses, scripts, titles, descriptions, captions, documentation, code comments, and review feedback.
-- Before sending a final response or saving written copy, run the skill's self-audit and remove any remaining AI tells.
+Applies to scripts, titles, descriptions, captions, documentation, code
+comments, review feedback, and anything else with words in it.
+
+- Write plainly. No marketing register, no filler, no em dashes, no title-case headings.
+- Cut any sentence that would read the same in another project's docs. If it says nothing about this one, it says nothing.
+- Prefer the plain word, the active voice, and the concrete number over the adjective.
+- Before saving written copy, reread it and remove whatever sounds generated.
 
 - Before planning, scripting, or changing any video composition, read `docs/video-production-standard.md` and `docs/visual-language.md` completely.
 - Do not use em dashes in video titles, descriptions, captions, scripts, thumbnails, or other channel copy.

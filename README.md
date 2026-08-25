@@ -8,7 +8,7 @@ The project follows one non-negotiable publishing rule:
 
 ## Status
 
-Episode 1 is published.
+Episode 1 is published: [How One Server Runs a Web App](https://youtu.be/PyRwPoFdERg).
 
 A script leaves `Status: blocked` only when every box in its understanding check
 is ticked, and `npm run check` fails if the two ever disagree. That check is the
@@ -19,8 +19,8 @@ and no list of announced titles to fall behind on.
 
 ## Tracks
 
-[System design](curriculum/system-design/README.md) has lessons written. It also
-carries the lesson order and the gates each one passes.
+[System design](curriculum/system-design/README.md) has the published lesson,
+the order the rest run in, and the gates each one passes.
 
 [Data structures and algorithms](curriculum/dsa/README.md) and
 [problem solving](curriculum/problem-solving/README.md) have none yet.

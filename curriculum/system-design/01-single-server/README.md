@@ -32,6 +32,7 @@ It does not attempt to teach DNS, TCP, TLS, load balancing, caching, replication
 
 | Field    | Value                                                        |
 | -------- | ------------------------------------------------------------ |
+| Video    | https://youtu.be/PyRwPoFdERg                                 |
 | Title    | How One Server Runs a Web App \| System Design for Beginners |
 | Playlist | System Design for Beginners                                  |
 | Category | Education, concept overview, beginner                        |

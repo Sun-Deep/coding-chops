@@ -36,11 +36,19 @@ A test click on 2026-08-23 registered in AWIN against Digital Ocean Affiliate, s
 
 The original plan was to check that on the first real transaction. That plan has a hole in it. A first transaction on a new channel may be months away, or may not arrive at all, and episode 02 should not ship blind while waiting for an event that might never happen.
 
-So the question to answer is narrower and answerable now. Does the clickref appear anywhere in AWIN's click-level reporting, not just on transactions? Look before assuming it does not.
+Checked on 2026-08-25, with six clicks recorded against program 123996. AWIN's performance report offers eighteen columns and none of them is a click reference. The full list is ID, Program, Subsectors, Sectors, Impressions, Clicks, Earnings per Click, Conversion Rate, Converted Solo, Converted Awin, Assisted Awin, Assisted Awin (1st), Assisted Other Channels, Total Influence, Quantity, No. Products, Amount, Commission.
 
-If it is missing there, per-episode attribution does not have to come from AWIN at all. Point each episode's description at a redirect you own, and forward that to the affiliate link. Your own redirect counts the clicks per episode whatever AWIN records, and AWIN only has to attribute the sale, which the test click already proved it does.
+That report also groups by program, so it holds one row per advertiser and has nothing for a per-episode reference to attach to. The finding matches what this file assumed from the start.
 
-Worth being honest about the scale of the problem. At a few clicks a month, knowing which episode produced them changes no decision. This matters once there is enough traffic for the answer to be actionable, and not before. Do not build the redirect until then.
+The same screen did confirm one documented fact. Program 123996 is Digital Ocean Affiliate, which is the merchant id the shortened link expands to.
+
+So per-episode attribution will not come from AWIN clicks. Two ways forward, and the order matters.
+
+If a transaction ever lands, look for the clickref on it. That costs nothing and answers the question for free.
+
+If per-episode numbers are needed before then, put a redirect you own in front of the affiliate link and let each episode point at its own. Your redirect counts clicks per episode whatever AWIN stores, and AWIN only has to attribute the sale, which the test click already proved it does.
+
+Do not build the redirect yet. At six clicks, knowing which video produced them changes no decision. It becomes worth the work when the answer would change what gets made next, and not before.
 
 Do not swap this for an `m.do.co/c/<code>` URL. That is DigitalOcean's free referral program, it pays account credit rather than commission, and it would make the narration false.
 
@@ -185,7 +193,7 @@ If DigitalOcean ever pays for a placement or hands over credit, the box stops be
 - [x] Real AWIN affiliate URL replaces the placeholder in every location above
 - [x] The URL came from the AWIN dashboard, not the control panel referrals page
 - [x] Link opens in a private window, lands on DigitalOcean, and registers in AWIN
-- [ ] Clickref located in AWIN's click reporting, or a redirect you own put in front of the link instead. Only worth doing once click volume makes the answer actionable
+- [x] Checked whether AWIN exposes the clickref at click level. It does not, and the finding is recorded above with what to do instead
 - [x] Narration matches this file word for word
 - [x] On-screen disclosure covers the whole segment and never overlaps a caption
 - [x] Description line one is under 140 characters and appears before the link

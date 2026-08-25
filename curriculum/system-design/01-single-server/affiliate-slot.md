@@ -32,7 +32,15 @@ the AWIN dashboard when you need it.
 Every episode gets its own click reference, so reporting can tell which video
 produced a signup. This one is `sd01-single-server`.
 
-A test click on 2026-08-23 registered in AWIN against Digital Ocean Affiliate, so click attribution works. Whether AWIN stored the clickref is still unconfirmed, because click references surface reliably on transactions rather than on clicks. Check it on the first real transaction. If it is missing there, pick a different way to attribute episodes before episode 02 ships.
+A test click on 2026-08-23 registered in AWIN against Digital Ocean Affiliate, so click attribution works. Whether AWIN stores the clickref is still unconfirmed.
+
+The original plan was to check that on the first real transaction. That plan has a hole in it. A first transaction on a new channel may be months away, or may not arrive at all, and episode 02 should not ship blind while waiting for an event that might never happen.
+
+So the question to answer is narrower and answerable now. Does the clickref appear anywhere in AWIN's click-level reporting, not just on transactions? Look before assuming it does not.
+
+If it is missing there, per-episode attribution does not have to come from AWIN at all. Point each episode's description at a redirect you own, and forward that to the affiliate link. Your own redirect counts the clicks per episode whatever AWIN records, and AWIN only has to attribute the sale, which the test click already proved it does.
+
+Worth being honest about the scale of the problem. At a few clicks a month, knowing which episode produced them changes no decision. This matters once there is enough traffic for the answer to be actionable, and not before. Do not build the redirect until then.
 
 Do not swap this for an `m.do.co/c/<code>` URL. That is DigitalOcean's free referral program, it pays account credit rather than commission, and it would make the narration false.
 
@@ -177,11 +185,11 @@ If DigitalOcean ever pays for a placement or hands over credit, the box stops be
 - [x] Real AWIN affiliate URL replaces the placeholder in every location above
 - [x] The URL came from the AWIN dashboard, not the control panel referrals page
 - [x] Link opens in a private window, lands on DigitalOcean, and registers in AWIN
-- [ ] Clickref confirmed present on the first real transaction
+- [ ] Clickref located in AWIN's click reporting, or a redirect you own put in front of the link instead. Only worth doing once click volume makes the answer actionable
 - [x] Narration matches this file word for word
 - [x] On-screen disclosure covers the whole segment and never overlaps a caption
 - [x] Description line one is under 140 characters and appears before the link
-- [ ] Pinned comment is queued for the moment the video goes live
+- [x] Pinned comment posted and pinned
 - [x] Paid-promotion setting is checked
 - [x] No price, credit amount, or competitor comparison appears anywhere
 - [x] The live signup offer was checked before publication if any number is spoken. No number is spoken, so nothing to check

@@ -122,14 +122,18 @@ This is the scoped exception in section 3 of the standard. It is the only persis
 
 ## Description block
 
-Line one has to survive YouTube's truncation, so the disclosure goes first and stays short.
+Line one has to survive YouTube's truncation, so the disclosure goes first and stays short. This is what was published, at 124 characters on line one.
 
 ```text
 Affiliate disclosure: I earn a commission if you sign up to DigitalOcean through the link below. It costs you nothing extra.
 
 Rent one server: https://tidd.ly/4gmpTWY
 
-One tap on a phone becomes a request, a database read, and a response. This lesson follows that single request through one server, then asks the question everyone skips. Is one server enough?
+Open a photo app and a photo appears. In between, a request leaves your phone, a program reads it, a database answers, and the reply comes back. This video follows that one request the whole way, on one server, and nothing else.
+
+No load balancers, no caches, no queues. I left them out on purpose. They make sense once you can see the problem they fix, and not before.
+
+Then the part the diagrams skip. Is one server enough? The honest answer is that 10,000 users tells you nothing. 10,000 accounts can be easy if hardly anyone opens the app. A hundred people uploading photos at once can be hard.
 
 Chapters
 00:00 Start with one request
@@ -141,8 +145,12 @@ Chapters
 06:17 The first scaling decisions
 07:41 The question before the diagram
 
-Animation source for this video: https://github.com/Sun-Deep/coding-chops
+The animations are code. Each one lands on the frame its word is spoken, so the picture and the sentence never drift apart. All of it is open: https://github.com/Sun-Deep/coding-chops
+
+#SystemDesign #BackendDevelopment #SoftwareEngineering
 ```
+
+Chapter times are measured from `narration.ts`, not estimated. Re-derive them after any edit that changes a scene length.
 
 The disclosure is not a sponsorship. Do not write "sponsored by" anywhere in the description.
 
@@ -174,7 +182,7 @@ If DigitalOcean ever pays for a placement or hands over credit, the box stops be
 - [x] On-screen disclosure covers the whole segment and never overlaps a caption
 - [x] Description line one is under 140 characters and appears before the link
 - [ ] Pinned comment is queued for the moment the video goes live
-- [ ] Paid-promotion setting is checked
+- [x] Paid-promotion setting is checked
 - [x] No price, credit amount, or competitor comparison appears anywhere
-- [ ] The live signup offer was checked before publication if any number is spoken
+- [x] The live signup offer was checked before publication if any number is spoken. No number is spoken, so nothing to check
 - [x] Chapter timestamps rechecked after the edit adds gaps between scenes

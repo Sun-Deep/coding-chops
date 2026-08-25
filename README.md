@@ -8,8 +8,7 @@ The project follows one non-negotiable publishing rule:
 
 ## Status
 
-Episode 1 is written, recorded, animated and approved. It has not been
-published yet.
+Episode 1 is published.
 
 A script leaves `Status: blocked` only when every box in its understanding check
 is ticked, and `npm run check` fails if the two ever disagree. That check is the

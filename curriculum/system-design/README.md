@@ -1,8 +1,8 @@
 # System Design
 
-## Pilot learning sequence
+## Learning sequence
 
-The first ten lessons form a question-driven progression. A lesson should answer the next question created by the previous lesson without forcing unnecessary infrastructure into the design.
+Lessons run in question order. Each one answers the question the lesson before it created, without adding infrastructure to the design before there is a reason for it.
 
 | Episode | Lesson                                                 | Question answered                                               |
 | ------- | ------------------------------------------------------ | --------------------------------------------------------------- |
@@ -17,4 +17,4 @@ The first ten lessons form a question-driven progression. A lesson should answer
 | 09      | Choosing a Database from Access Patterns               | How do requirements and queries guide storage choice?           |
 | 10      | Design a URL Shortener: Beginner Interview Walkthrough | How do we apply the first nine lessons without overengineering? |
 
-Completion of this pilot is not a promise of interview success. Interview readiness also requires repeated design exercises, feedback, and mock interviews.
+Working through these is not a promise of interview success. That also takes repeated design exercises, feedback, and mock interviews.

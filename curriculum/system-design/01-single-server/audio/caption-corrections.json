@@ -1,0 +1,138 @@
+{
+  "_why": "Whisper mishears the occasional word, often where the reader's accent and a technical term collide. Captions must match what was actually said, so corrections live here rather than being hand-edited into the generated caption files, where the next transcription run would silently revert them. scripts/transcribe-narration.mjs applies these after every run. Prefer `before` over `occurrence` whenever the misheard word appears more than once in a segment: ordinals are counted among the tokens that currently match, so correcting one renumbers the rest and the next run hits the wrong token. `before` anchors to the following word and is stable.",
+  "scene-05b": [
+    {
+      "from": "cost",
+      "to": "costs",
+      "before": "you",
+      "note": "Narration says 'it costs you nothing extra'. This is the disclosure line, so the caption has to be exact."
+    },
+    {
+      "from": "own",
+      "to": "earn",
+      "occurrence": 1,
+      "note": "Narration says 'I earn a commission'. This is the disclosure line, so the caption has to be exact."
+    },
+    {
+      "from": "of",
+      "drop": true,
+      "occurrence": 2,
+      "note": "Whisper doubled it: 'because of of what we are about to'."
+    },
+    {
+      "from": "do",
+      "to": "do to",
+      "occurrence": -1,
+      "note": "Narration says 'about to do to it'."
+    },
+    {
+      "from": "this",
+      "to": "this.",
+      "occurrence": 1,
+      "note": "Whisper returned this segment with no punctuation at all, so lines broke mid-sentence. These restore the sentence ends."
+    },
+    {
+      "from": "link",
+      "to": "link.",
+      "occurrence": 2
+    },
+    {
+      "from": "extra",
+      "to": "extra.",
+      "occurrence": 1
+    },
+    {
+      "from": "script",
+      "to": "script.",
+      "occurrence": 1
+    },
+    {
+      "from": "hour",
+      "to": "hour.",
+      "occurrence": 1
+    },
+    {
+      "from": "drew",
+      "to": "drew.",
+      "occurrence": 1
+    }
+  ],
+  "scene-04": [
+    {
+      "from": "stories",
+      "to": "storage",
+      "occurrence": 1,
+      "note": "Narration says 'read from or write to storage'."
+    },
+    {
+      "from": "rates",
+      "to": "reads",
+      "occurrence": 1,
+      "note": "Narration says 'avoid some storage reads'."
+    }
+  ],
+  "scene-03": [
+    {
+      "from": "trick",
+      "to": "trip",
+      "occurrence": 1,
+      "note": "Narration says 'That is the full trip'."
+    },
+    {
+      "from": "let",
+      "to": "lets",
+      "occurrence": 1,
+      "note": "Narration says 'That lets us focus'. Whisper drops the s before 'us'."
+    }
+  ],
+  "scene-05": [
+    {
+      "from": "request",
+      "to": "requests",
+      "occurrence": 2,
+      "note": "Narration says 'completes requests as fast as they arrive' \u2014 'they' has nothing to refer to otherwise."
+    },
+    {
+      "from": "fail",
+      "to": "failed",
+      "occurrence": 2,
+      "note": "Narration says 'failed dependencies'. 'fail dependencies' is not a phrase."
+    }
+  ],
+  "scene-06": [
+    {
+      "from": "it's",
+      "to": "is",
+      "occurrence": 1,
+      "note": "Narration says '...or more network capacity is called vertical scaling'."
+    },
+    {
+      "from": "resource",
+      "to": "resources",
+      "note": "Narration says 'competing for resources'. Anchored on the next word because 'resource' also appears in 'resource contention' later, where it is correct as heard.",
+      "before": "you"
+    },
+    {
+      "from": "workload",
+      "to": "workloads",
+      "occurrence": 2,
+      "note": "Narration says 'lets the two workloads scale independently'."
+    }
+  ],
+  "scene-07": [
+    {
+      "from": "in",
+      "to": "and",
+      "note": "Narration says 'through the application and database'. Anchored on the next word because 'in' also appears in 'in the repository', where it is correct as heard.",
+      "before": "database"
+    }
+  ],
+  "scene-02": [
+    {
+      "from": "our",
+      "drop": true,
+      "before": "separate",
+      "note": "Narration says 'put them on separate machines'. Whisper inserted 'our'. Anchored on the next word because 'our' also appears in 'in our example', which is correct."
+    }
+  ]
+}

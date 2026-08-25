@@ -3,10 +3,33 @@ dist
 .DS_Store
 .env
 .env.*
-!.env.example
 *.log
 .cache
 
 # Generated renders are never source files.
 out
 renders
+
+# whisper.cpp build and models, downloaded on demand.
+.whisper
+
+# Narration and recording stems.
+#
+# The content licence excludes narration recordings, and these run to about
+# 300 MB across the raw takes, the noise-reduced passes and the masters. The
+# caption JSON beside them IS committed: every animation in every scene is
+# timed off those files, so the project does not build without them.
+#
+# See "Narration audio" in README.md for how to render without the stems.
+curriculum/**/audio/*.m4a
+curriculum/**/audio/*.wav
+curriculum/**/audio/clean/
+curriculum/**/audio/master/
+# A symlink to the masters locally. Not shipped: the target is ignored, so a
+# clone would get a dangling link. Written without a trailing slash so it
+# matches the symlink as well as a real directory.
+public/narration
+
+# Local tooling state and personal agent workflow, not project configuration.
+.serena/
+.agents/

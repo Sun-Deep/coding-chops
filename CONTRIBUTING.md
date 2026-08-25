@@ -47,6 +47,6 @@ Keep composition IDs stable. Place redistributable assets in `public/` and refer
 - Keep changes focused.
 - Explain the learning or production problem being solved.
 - Include screenshots or representative frames for visual changes.
-- For publish-ready video changes, confirm complete horizontal and vertical renders were watched from beginning to end.
+- For publish-ready video changes, confirm the complete render was watched from beginning to end.
 - Confirm licenses for new assets.
 - Do not commit generated videos or temporary renders.

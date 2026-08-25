@@ -1,8 +1,9 @@
 # Episode 01: How a Web Application Works on One Server
 
-Status: research and visual prototype
+Status: approved, rendered, ready to publish
 
-Nothing in this folder is approved channel copy until the understanding check is passed.
+Both gates pass. The understanding check is complete, and the finished render
+has been watched from beginning to end.
 
 ## Learning objective
 
@@ -23,7 +24,6 @@ It does not attempt to teach DNS, TCP, TLS, load balancing, caching, replication
 - `learning-notes.md`: research questions and evolving explanation
 - `sources.md`: authoritative references used by the lesson
 - `understanding-check.md`: creator comprehension gate
-- `script.md`: blocked until the understanding gate passes
+- `script.md`: the recorded narration, approved once the understanding check passes
 - `storyboard.md`: visual plan, not approved narration
-- `shorts.md`: independent micro-lesson hypotheses
-- `retention-review.md`: evidence from the previous short-form baseline
+- `affiliate-slot.md`: the paid segment for this episode, its disclosure copy, and its link

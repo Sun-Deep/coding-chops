@@ -1,39 +1,61 @@
+import { Img, staticFile } from "remotion";
 import { theme } from "../../../shared/brand/theme";
 import { Canvas } from "../../../shared/primitives/Canvas";
 
+/**
+ * The episode cover.
+ *
+ * The art is a generated base in `public/system-design/01-single-server`,
+ * carrying the crowd, the request and the machine. The headline is set here
+ * rather than baked into that image, so the copy stays under version control
+ * and can be re-typeset, moved or corrected without regenerating anything.
+ *
+ * That split is the part worth keeping. Regenerating the base gives a different
+ * picture every time; re-rendering this gives the same cover with the same type
+ * in the same place, which is what a series needs.
+ *
+ * The headline is the whole promise. It names a number and puts the tension
+ * outright, and the episode's answer is that the number on its own settles
+ * nothing. It has to read at 168 by 94 in a phone feed, which is the size that
+ * decides whether anything else here is ever seen.
+ */
 export const SingleServerThumbnail: React.FC = () => (
   <Canvas tone="paper" padding={0}>
+    <Img
+      src={staticFile("system-design/01-single-server/thumbnail-base.png")}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+      }}
+    />
     <div
       style={{
         position: "absolute",
-        left: 78,
-        right: 78,
-        top: 115,
-        color: theme.colors.ink,
-        fontSize: 88,
-        fontWeight: 600,
+        left: 54,
+        top: 56,
+        width: 740,
+        fontFamily: theme.fontFamily,
+        fontWeight: 800,
         letterSpacing: "-0.065em",
-        lineHeight: 1.02,
+        color: theme.colors.ink,
       }}
     >
-      You tap Buy.
-      <br />
-      <span style={{ color: theme.colors.blue }}>Then what?</span>
-    </div>
-    <div
-      style={{
-        position: "absolute",
-        left: 82,
-        right: 82,
-        bottom: 72,
-        color: theme.colors.gray,
-        fontSize: 27,
-        fontWeight: 700,
-        letterSpacing: "0.06em",
-        textTransform: "uppercase",
-      }}
-    >
-      How one server handles a web request
+      <div style={{ fontSize: 100, lineHeight: 1, whiteSpace: "nowrap" }}>
+        <span style={{ color: theme.colors.blue }}>10,000</span> users
+      </div>
+      <div
+        style={{
+          marginTop: 22,
+          fontSize: 104,
+          lineHeight: 1,
+          whiteSpace: "nowrap",
+        }}
+      >
+        One server?
+      </div>
     </div>
   </Canvas>
 );

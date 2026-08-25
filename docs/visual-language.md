@@ -56,8 +56,3 @@ Use cinematic changes in scale and position, but keep each frame visually sparse
 - Neon cyberpunk infrastructure scenes
 - Decorative grids with no teaching function
 - Continuous movement added only to reset attention
-- Automatically cropping horizontal scenes into vertical compositions
-
-## Vertical adaptation
-
-Vertical videos reuse the palette, typography, and animation grammar, but have independent composition and pacing. Start with the useful question or active visual state. Keep key content within platform-safe areas and make the micro-lesson complete without requiring the horizontal video.

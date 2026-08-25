@@ -14,7 +14,7 @@ The creator can explain, draw, evaluate, compare, and apply the concept without 
 
 ### Production gate
 
-The narration, visuals, captions, audio, horizontal composition, and vertical composition have been synchronized, rendered, and watched from beginning to end.
+The narration, visuals, captions, and audio have been synchronized, rendered, and watched from beginning to end.
 
 A polished animation cannot compensate for an unpassed understanding gate. Correct research cannot compensate for an unclear production.
 
@@ -55,22 +55,19 @@ Use separate source-of-truth chains for learning and production.
 
 If the narration, captions, storyboard, and composition disagree, stop and reconcile them. Do not guess which timing is intended.
 
-Prototype composition copy is not an approved script.
+Draft copy in a composition is not an approved script.
 
 ## 4. Format contract
 
 - Frame rate: 30 fps unless an episode documents a justified exception
 - Horizontal: compose natively for the registered horizontal resolution
-- Vertical: 1080 by 1920 and recomposed shot by shot
 - Thumbnail: a dedicated still composition
-
-Never crop, scale down, or automatically rearrange the horizontal master to create the vertical version. The vertical lesson has its own hook, pacing, safe areas, and teaching objective.
 
 Keep composition IDs stable after publication.
 
 ## 5. Visual identity
 
-The style is quiet, premium product-film clarity. It uses Apple-like restraint without copying Apple branding, products, or proprietary typography.
+The style is quiet, premium product-film clarity. Restraint is the whole of it: one hero object, one accent, and nothing on screen that cannot justify itself.
 
 ### Exact palette
 
@@ -116,7 +113,7 @@ Use only two primary text hierarchies in a shot: huge hero type and quiet editor
 5. Treat important words or values as physical material when it improves understanding.
 6. Use restrained directional lighting and shadows.
 7. Do not add persistent top-left scene titles.
-8. Do not keep the channel logo visible throughout the lesson.
+8. Do not keep the channel logo visible throughout the lesson. It appears once, locked up with the wordmark in the outro, in the episode's own accent rather than its native colour.
 9. Do not put every concept inside a card, capsule, node, or panel.
 10. Do not show a decorative element whose meaning cannot be explained in one sentence.
 
@@ -199,18 +196,11 @@ type Caption = {
 
 Captions are subtitles, not part of the main visual hierarchy.
 
-### Horizontal
+### Placement
 
 - Font size: 28px
 - Bottom: 42px
 - Left and right margins: approximately 280px
-
-### Vertical
-
-- Font size: 34px
-- Bottom: approximately 218px
-- Left: 70px
-- Right: 150px
 
 ### Rules
 
@@ -224,18 +214,7 @@ Captions are subtitles, not part of the main visual hierarchy.
 - Do not place editorial notes where they can be mistaken for a second subtitle line.
 - Check the start, midpoint, and end of every caption interval.
 
-## 9. Vertical safe area
-
-For a 1080 by 1920 social composition, treat this as the default safe core:
-
-- Left: 74px
-- Right edge: 900px
-- Top: 430px
-- Bottom edge: 1490px
-
-Assume platform controls can cover the rightmost 180px, the bottom 500px, and the top 150px. A deliberate opening hook may enter the upper area, but critical explanatory content and the final answer must remain safe.
-
-## 10. Audio contract
+## 9. Audio contract
 
 Narration is always the loudest and clearest layer.
 
@@ -256,7 +235,7 @@ Good semantic uses include:
 
 Every committed audio asset must include its source and redistribution terms.
 
-## 11. Thumbnail and cover contract
+## 10. Thumbnail contract
 
 The thumbnail is one clear promise, not a summary slide.
 
@@ -267,9 +246,7 @@ The thumbnail is one clear promise, not a summary slide.
 - No subtitle, episode summary, or unnecessary qualifier
 - No robots, brains, generic circuit boards, dashboards, or decorative technical imagery
 
-Vertical covers must keep critical content inside the vertical safe core.
-
-## 12. Rejected patterns
+## 11. Rejected patterns
 
 Do not repeat these patterns:
 
@@ -288,9 +265,8 @@ Do not repeat these patterns:
 - Orange channel branding
 - Overcrowded frames
 - Decorative robots, brains, circuit boards, HUDs, or cloud icons
-- Horizontal scenes cropped into vertical videos
 
-## 13. Required quality-control process
+## 12. Required quality-control process
 
 Before a lesson can be marked publish-ready:
 
@@ -300,21 +276,20 @@ Before a lesson can be marked publish-ready:
 4. Generate or update timestamped caption JSON.
 5. Align every meaningful visual change to speech.
 6. Inspect the start, midpoint, and end of every caption.
-7. Check horizontal and vertical independently.
-8. Confirm captions do not overlap editorial text.
-9. Confirm every element has an understandable teaching purpose.
-10. Confirm technical simplifications are labeled.
-11. Confirm illustrative numbers are labeled.
-12. Confirm hero objects and words remain readable and uncropped.
-13. Review the full audio mix with headphones.
-14. Run typecheck, lint, formatting, curriculum validation, and composition discovery.
-15. Render the complete horizontal and vertical compositions.
-16. Watch both renders from beginning to end.
-17. Review the thumbnail and each platform cover at final size.
+7. Confirm captions do not overlap editorial text.
+8. Confirm every element has an understandable teaching purpose.
+9. Confirm technical simplifications are labeled.
+10. Confirm illustrative numbers are labeled.
+11. Confirm hero objects and words remain readable and uncropped.
+12. Review the full audio mix with headphones.
+13. Run typecheck, lint, formatting, curriculum validation, and composition discovery.
+14. Render the complete composition.
+15. Watch the complete render from beginning to end.
+16. Review the thumbnail at feed size, not only at full size.
 
 Representative stills are useful during development, but they do not replace full-render review.
 
-## 14. Track-specific application
+## 13. Track-specific application
 
 The standard controls the visual and production grammar, not the metaphor for every topic.
 
@@ -330,7 +305,7 @@ Follow one value, pointer, or invariant. Preserve its identity through compariso
 
 Follow one example input and one decision at a time. Reveal constraints before abstractions, and show why a rejected approach fails before replacing it.
 
-## 15. Rule changes
+## 14. Rule changes
 
 Do not silently change this production language during an episode.
 

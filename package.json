@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.512",
+    "@remotion/install-whisper-cpp": "^4.0.512",
     "@types/react": "19.2.7",
     "@types/web": "0.0.166",
     "eslint": "9.19.0",
@@ -38,9 +39,18 @@
     "compositions": "remotion compositions src/index.ts",
     "check": "npm run typecheck && npm run lint && npm run validate:curriculum",
     "render:thumbnail": "remotion still src/index.ts SD01-Thumbnail out/sd01-thumbnail.png",
-    "render:short:hook": "remotion render src/index.ts SD01-Short-Hook out/sd01-short-hook.mp4"
+    "render:episode": "remotion render src/index.ts SD01-Master out/sd01-single-server.mp4",
+    "narration:silent": "node scripts/silent-narration.mjs system-design/01-single-server"
   },
   "sideEffects": [
     "*.css"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sun-Deep/coding-chops.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sun-Deep/coding-chops/issues"
+  },
+  "homepage": "https://github.com/Sun-Deep/coding-chops#readme"
 }

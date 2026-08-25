@@ -1,5 +1,7 @@
 # Problem Solving
 
-This track will teach problem interpretation, decomposition, pattern recognition, assumption testing, debugging, tradeoff evaluation, and communication.
+No lessons written yet.
 
-It is intentionally distinct from memorizing algorithms or architecture components.
+This track covers problem interpretation, decomposition, pattern recognition, assumption testing, debugging, tradeoff evaluation, and communication.
+
+None of that is memorizing algorithms or architecture components, which is the point of keeping it separate.

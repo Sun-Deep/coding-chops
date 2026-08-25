@@ -1,4 +1,4 @@
-# Storyboard prototype
+# Storyboard
 
 ## Horizontal master
 
@@ -7,12 +7,10 @@
 3. Trace a request into persistent storage
 4. Trace the response back to the client
 5. Introduce a concrete resource bottleneck only after the baseline works
+6. Hold the same machine on screen for the 22 second affiliate segment, then cut straight back into the scaling decisions. Spec lives in `affiliate-slot.md`
+7. End on a dedicated warm paper outro with the channel logo, `One request. Full path.`, and `Like · Share · Subscribe`
 
-## Vertical micro-lessons
-
-Each short begins with useful motion and a complete question. Motion exists to show state change, not merely to reset attention every few seconds.
-
-Prototype subjects:
+Subjects:
 
 1. One request through one server
 2. Why “10,000 users” is not a capacity metric

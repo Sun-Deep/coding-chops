@@ -1,42 +1,45 @@
 # Coding Chops
 
-An open-source visual curriculum for learning System Design, Data Structures and Algorithms, and Problem Solving from first principles.
+An open-source visual curriculum for system design, data structures and algorithms, and problem solving.
 
 The project follows one non-negotiable publishing rule:
 
 > A lesson is not ready because the animation looks good. It is ready when the creator can explain, draw, evaluate, and apply the concept without relying on the script.
 
-## Current status
+## Status
 
-The repository is in pilot development. Episode 1 compositions are visual prototypes and are **not publish-ready lessons**. The educational script must pass the understanding gate before release.
+Episode 1 is written, recorded, animated and approved. It has not been
+published yet.
 
-## System Design pilot
+A script leaves `Status: blocked` only when every box in its understanding check
+is ticked, and `npm run check` fails if the two ever disagree. That check is the
+gate, not a note somebody remembers to update.
 
-| Episode | Lesson                                                 | Status                        |
-| ------- | ------------------------------------------------------ | ----------------------------- |
-| 01      | How a Web Application Works on One Server              | Learning and visual prototype |
-| 02      | How System Designers Discover Requirements             | Planned                       |
-| 03      | Back-of-the-Envelope Estimation for Beginners          | Planned                       |
-| 04      | Vertical Scaling vs Horizontal Scaling                 | Planned                       |
-| 05      | Stateless Servers: The Secret to Horizontal Scaling    | Planned                       |
-| 06      | Load Balancers Explained                               | Planned                       |
-| 07      | Database Indexes: Making Reads Fast                    | Planned                       |
-| 08      | Cache-Aside Explained                                  | Planned                       |
-| 09      | Choosing a Database from Access Patterns               | Planned                       |
-| 10      | Design a URL Shortener: Beginner Interview Walkthrough | Planned                       |
+Lessons come out one at a time, each waiting on the one before it. No schedule,
+and no list of announced titles to fall behind on.
 
-See [the System Design curriculum](curriculum/system-design/README.md) for the learning sequence and gates.
+## Tracks
+
+[System design](curriculum/system-design/README.md) has lessons written. It also
+carries the lesson order and the gates each one passes.
+
+[Data structures and algorithms](curriculum/dsa/README.md) and
+[problem solving](curriculum/problem-solving/README.md) have none yet.
+
+Every track uses the same brand, primitives and production standard, and keeps
+its own curriculum and compositions.
 
 ## Formats
 
-Each approved lesson can produce:
+Each approved lesson produces:
 
 - One horizontal YouTube master
-- Three independently scripted vertical micro-lessons
 - One thumbnail composition
 - Learning notes, sources, understanding checks, script, and storyboard
 
-Vertical videos are not automatic crops. They reuse the visual language while using their own hook, pacing, framing, and teaching objective.
+One lesson, one video. The master never gets cut into vertical clips. A clip
+that needs the full episode to make sense is not a lesson, and one that does
+not is a different lesson that deserves its own script.
 
 ## Quick start
 
@@ -54,35 +57,103 @@ Useful commands:
 
 ```bash
 npm run check
-npm run compositions
-npm run render:thumbnail
-npm run render:short:hook
 ```
+
+```bash
+npm run compositions
+```
+
+```bash
+npm run render:episode
+```
+
+```bash
+npm run render:thumbnail
+```
+
+## Narration audio
+
+The narration recordings are not in this repository. They run to roughly 300 MB
+across the raw takes, the noise-reduced passes and the masters, and the content
+licence excludes narration recordings from what is granted.
+
+The caption JSON in each episode's `audio/captions` directory does ship. That is not a convenience. It is the timing source the whole project is
+built on. Every animation in every scene anchors to the frame a specific word is
+spoken, so the compositions do not even load without it.
+
+To render without the recordings:
+
+```bash
+node scripts/silent-narration.mjs system-design/01-single-server
+```
+
+That writes a silent stem per scene, each exactly as long as the real one. You
+get the finished video with nobody speaking. Subtitles still carry every word,
+so the lesson is followable. It never overwrites a file that is already there,
+so if you do have the real stems it does nothing.
+
+If you re-record, the pipeline is:
+
+```bash
+node scripts/transcribe-narration.mjs curriculum/<track>/<episode>/audio
+```
+
+```bash
+node scripts/narration-durations.mjs curriculum/<track>/<episode>/audio
+```
+
+The first transcribes the masters to word-level captions and applies
+`caption-corrections.json`; the second regenerates `narration.ts`, which is what
+gives each composition its length. Pass `--recorrect` to the first to re-apply
+corrections to existing captions without running transcription again.
+
+Two more sit in front of that, for turning a raw take into a master:
+
+```bash
+scripts/measure-voiceover.sh <file-or-directory>
+```
+
+```bash
+scripts/clean-voiceover.sh <input-audio> [output-dir] [--denoise|--minimal]
+```
+
+Measure first. It reports the room tone in the gaps between phrases, which is
+the number that decides whether denoising is worth doing at all. Then clean,
+with `--minimal` if the take has already been through a repair tool, because
+stacking a second round of EQ and compression is what makes narration sound
+processed. Sound effects are generated rather than licensed. `scripts/build-sfx.sh`
+reproduces the whole set.
 
 ## Repository map
 
 ```text
 curriculum/                 Learning notes, sources, scripts, and storyboards
+curriculum/**/audio/captions   Word-level caption JSON. Every animation is timed off these
 docs/                       Production and visual-language contracts
 public/                     Redistributable static assets used through staticFile()
-scripts/                    Repository validation scripts
-src/shared/                 Brand, primitives, layouts, and video utilities
+public/music, public/sfx    Each carries a README recording its provenance and licence
+scripts/                    Validation, transcription and audio tooling
+src/shared/scene            The world: phone, wire, machine, callouts, meters
+src/shared/primitives       Scene shell, captions, grade, music bed
+src/shared/video            Timing, motion and caption helpers
 src/tracks/                 Track and episode compositions
 ```
 
 ## Retention experiments
 
-The first short-form baseline produced high early abandonment. That result is treated as a hypothesis generator, not proof that any single factor caused the outcome.
+A retention result is a hypothesis generator, not proof that any single factor
+caused the outcome. Recording the same fields every time is what makes two
+episodes comparable at all.
 
-For each short, record:
+For each published lesson, record:
 
 - The exact first frame
 - Spoken and on-screen hook
 - Time until the first useful answer
-- Visual changes during the first five seconds
-- Three-second and five-second retention
-- Average watch time and completion rate
-- Shares, saves, profile visits, and outbound clicks
+- Visual changes during the first fifteen seconds
+- Thirty-second retention and the first large drop
+- Average watch time and percentage viewed
+- Shares, saves, subscriptions gained, and outbound clicks
 
 See [the retention experiment template](curriculum/templates/retention-experiment.md).
 

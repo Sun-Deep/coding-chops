@@ -97,10 +97,18 @@ Chapters
 07:10 What it cost
 07:42 The move you keep
 
-The animations are code. Each one lands on the frame its word is spoken, so the picture and the sentence never drift apart. All of it is open: https://github.com/Sun-Deep/coding-chops
+Every animation here is code. Each one lands on the frame its word is spoken, so the picture and the sentence never drift apart. The whole repository is open, including the script, the storyboard, the narration timing and the Remotion source:
+
+https://github.com/Sun-Deep/coding-chops
 
 #LeetCode #Algorithms #SoftwareEngineering
 ```
+
+The GitHub link sits on its own line rather than trailing a sentence, because
+a URL buried at the end of a paragraph is one nobody clicks. It stays below the
+chapters on purpose. YouTube collapses the description after about three lines,
+and those lines are worth more as the hook than as a link. Episode 01 puts its
+link near the top only because an affiliate disclosure has to go first.
 
 Three hashtags on YouTube, matching episode 01. Facebook gets five because the
 platform actually surfaces them.

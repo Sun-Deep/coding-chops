@@ -10,6 +10,7 @@ import { SingleServerScene05 } from "./01-single-server/Scene05";
 import { SingleServerScene05b } from "./01-single-server/Scene05b";
 import { SingleServerScene06 } from "./01-single-server/Scene06";
 import { SingleServerScene07 } from "./01-single-server/Scene07";
+import { SingleServerSocialCover } from "./01-single-server/SocialCover";
 import { SingleServerThumbnail } from "./01-single-server/Thumbnail";
 
 const masterDuration = narration.reduce(
@@ -120,6 +121,40 @@ export const SystemDesignCompositions: React.FC = () => {
           component={SingleServerThumbnail}
           width={1280}
           height={720}
+        />
+        <Still
+          id="SD01-Social-Cover"
+          component={SingleServerSocialCover}
+          width={1080}
+          height={1920}
+        />
+        <Still
+          id="SD01-Social-Cover-Part-01"
+          component={SingleServerSocialCover}
+          defaultProps={{ part: 1 }}
+          width={1080}
+          height={1920}
+        />
+        <Still
+          id="SD01-Social-Cover-Part-02"
+          component={SingleServerSocialCover}
+          defaultProps={{ part: 2 }}
+          width={1080}
+          height={1920}
+        />
+        <Still
+          id="SD01-Social-Cover-Part-03"
+          component={SingleServerSocialCover}
+          defaultProps={{ part: 3 }}
+          width={1080}
+          height={1920}
+        />
+        <Still
+          id="SD01-Social-Cover-Part-04"
+          component={SingleServerSocialCover}
+          defaultProps={{ part: 4 }}
+          width={1080}
+          height={1920}
         />
       </Folder>
     </>

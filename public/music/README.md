@@ -46,3 +46,16 @@ through and the rest of the scene played dry. The seam falls wherever it falls,
 which is inaudible on an ambient bed sitting under a voice.
 
 If you can identify the melody while someone is speaking, it is too loud.
+
+## What vertical cuts use
+
+Nothing from here. A vertical cut ships with no music bed at all: the sound
+effects are the whole track, and the audio is left clear so the platform's own
+library can be laid on top at upload.
+
+`bed.mp3` is cut to sit under a voice, so it is 14 dB too quiet to be used bare,
+and relevelling a copy for the format was the first thing tried. It was the
+wrong answer: a bed underneath platform audio fights it and loses, and the cut
+is better with the silence between its cues doing the work.
+
+See section 11 of `docs/vertical-format-standard.md`.

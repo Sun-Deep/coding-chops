@@ -71,6 +71,13 @@ gen return 0.70 -20 \
 gen fill 0.13 -26 \
   "aevalsrc='0.4*sin(2*PI*1240*t)*exp(-20*t)':d=0.13:s=48000"
 
+# A sequential scan running. The only sustained sound in the set, because the
+# only thing it marks is duration: the scan is audible for exactly as long as
+# the machine is reading, which is the whole point of the shot it plays under.
+gen scan 7.50 -30 \
+  "anoisesrc=color=brown:duration=7.5:amplitude=0.9:seed=19" \
+  "bandpass=f=420:width_type=o:w=1.6,tremolo=f=11:d=0.35,afade=t=in:st=0:d=0.55,afade=t=out:st=6.5:d=1.0"
+
 # A concept is named and holds. The heaviest sound in the set, used sparingly.
 gen name 0.90 -16 \
   "aevalsrc='0.7*sin(2*PI*82*t)*exp(-3.2*t)+0.34*sin(2*PI*164*t)*exp(-4.5*t)+0.2*sin(2*PI*246*t)*exp(-6*t)':d=0.9:s=48000"

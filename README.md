@@ -17,6 +17,10 @@ gate, not a note somebody remembers to update.
 Lessons come out one at a time, each waiting on the one before it. No schedule,
 and no list of announced titles to fall behind on.
 
+Vertical cuts are separate work on the same standard. The first is
+[how a database index actually works](curriculum/vertical/01-database-index/README.md),
+built and rendered, waiting on its understanding check.
+
 ## Tracks
 
 [System design](curriculum/system-design/README.md) has the published lesson,
@@ -39,6 +43,20 @@ Each approved lesson produces:
 One lesson, one video. The master never gets cut into vertical clips. A clip
 that needs the full episode to make sense is not a lesson, and one that does
 not is a different lesson that deserves its own script.
+
+That second half is what `src/vertical/` is for. A vertical cut is written for
+the format, carries its own script, storyboard, sources and understanding check,
+and stands on its own in a feed with no episode behind it. It is not a crop of a
+horizontal master: 16:9 cropped to 9:16 loses two thirds of its width, and every
+composition here puts its hero object in that width.
+
+Vertical cuts run 20 to 30 seconds. They carry no voiceover and no music, and
+the narration is burned into the frame as a subtitle track, because most people
+watch a reel muted. [The vertical format
+standard](docs/vertical-format-standard.md) holds the safe areas and the type
+scale, and records the two rules the format changes. The channel mark is in
+every frame, and the brand orange is the teaching accent instead of cobalt.
+[The playbook](docs/vertical-cut-playbook.md) is the order to build one in.
 
 ## Quick start
 
@@ -68,6 +86,10 @@ npm run render:episode
 
 ```bash
 npm run render:thumbnail
+```
+
+```bash
+npm run render:reel
 ```
 
 ## Narration audio
@@ -131,11 +153,13 @@ curriculum/**/audio/captions   Word-level caption JSON. Every animation is timed
 docs/                       Production and visual-language contracts
 public/                     Redistributable static assets used through staticFile()
 public/music, public/sfx    Each carries a README recording its provenance and licence
-scripts/                    Validation, transcription and audio tooling
+scripts/                    Validation, transcription, audio and measurement tooling
 src/shared/scene            The world: phone, wire, machine, callouts, meters
 src/shared/primitives       Scene shell, captions, grade, music bed
 src/shared/video            Timing, motion and caption helpers
+src/shared/vertical         9:16 geometry, safe areas, type scale, narration, mark
 src/tracks/                 Track and episode compositions
+src/vertical/               Vertical cuts. A format, so it sits beside the tracks
 ```
 
 ## Retention experiments
@@ -156,7 +180,7 @@ For each published lesson, record:
 
 See [the retention experiment template](curriculum/templates/retention-experiment.md).
 
-The production workflow is defined in [the video production standard](docs/video-production-standard.md). The visual identity is defined in [the visual-language contract](docs/visual-language.md).
+The production workflow is defined in [the video production standard](docs/video-production-standard.md). The visual identity is defined in [the visual-language contract](docs/visual-language.md). Vertical cuts add [the vertical format standard](docs/vertical-format-standard.md) on top of both.
 
 ## Contributing
 

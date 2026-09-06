@@ -1,6 +1,13 @@
 import { theme } from "./theme";
 
 /**
+ * The pre-rebrand wordmark. Inter, cobalt, and no mark beside it.
+ *
+ * Kept only because the episode one outro renders it and that episode is
+ * published. The current logotype is `Lockup`, which is Archivo on the orange
+ * accent. Do not reach for this one in anything new, and delete it once the
+ * outro is re-cut.
+ *
  * The channel wordmark.
  *
  * The name is set in type rather than drawn, because the visual language

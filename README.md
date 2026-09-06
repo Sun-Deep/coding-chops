@@ -8,7 +8,10 @@ The project follows one non-negotiable publishing rule:
 
 ## Status
 
-Episode 1 is published: [How One Server Runs a Web App](https://youtu.be/PyRwPoFdERg).
+Two episodes are published.
+
+- System Design 01: [How One Server Runs a Web App](https://youtu.be/PyRwPoFdERg)
+- Problem Solving 01: [Best Time to Buy and Sell Stock](https://youtu.be/lPAU4g8Y4JE)
 
 A script leaves `Status: blocked` only when every box in its understanding check
 is ticked, and `npm run check` fails if the two ever disagree. That check is the

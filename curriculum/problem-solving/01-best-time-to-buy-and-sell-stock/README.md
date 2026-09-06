@@ -1,9 +1,9 @@
 # Episode 01: Best Time to Buy and Sell Stock
 
-Status: ready to publish.
+Status: published.
 
-Both gates passed. The understanding check is complete, and the finished render
-was watched from beginning to end on 2026-09-06.
+Both gates passed before release. The understanding check is complete, and the
+finished render was watched from beginning to end on 2026-09-06.
 
 The six prediction holds run short. Every one was authored at two seconds and
 the takes give between 0.49 and 0.79, in acts 1, 3 and 5. Watched end to end
@@ -63,10 +63,11 @@ opens on a match cut. Ranges are in `publishing.md`.
 
 Nothing in `out/` is committed.
 
-## Publishing
+## Published as
 
 | Field    | Value                                                         |
 | -------- | ------------------------------------------------------------- |
+| Video    | https://youtu.be/lPAU4g8Y4JE                                  |
 | Title    | Best Time to Buy and Sell Stock \| LeetCode 121 for Beginners |
 | Playlist | LeetCode, Problem Solving                                     |
 | Category | Education, problem walkthrough, beginner                      |
@@ -114,3 +115,72 @@ Scene01 is storyboarded. Scenes 02 to 09 exist as titles and runtime bands
 only. Section 19 of the visual contract blocks Scene01's narration from locking
 until the rest are drafted, because a later scene may need Scene01 to plant
 something first.
+
+### Questions answered, for YouTube's education metadata
+
+The Problems box caps at 800 characters. Fifteen questions fit in 783, which is
+what goes in. The full set of thirty is below it, kept because it is a decent
+map of what the episode actually answers and because the cap may move.
+
+Timecodes come from the caption JSON plus each scene's offset in the master, so
+every one lands on the sentence that answers it rather than on a chapter head.
+Re-derive them after any edit that changes a scene length.
+
+Chosen by what somebody would type into a search box, not by what the episode
+thinks is interesting. The day four beat where nothing updates is the best thing
+in the video and it is not in the list, because nobody searches for it.
+
+```text
+0:00 What is the Best Time to Buy and Sell Stock problem asking for?
+0:43 How do you calculate the profit on a trade?
+1:09 Can you sell before you buy?
+1:23 What is the answer when every trade loses money?
+2:24 Why is checking every pair too slow?
+3:08 Which earlier prices can you throw away?
+4:15 What do you need to track to solve this in one pass?
+4:23 Why does the best profit start at zero?
+5:42 Why does minPrice start at prices[0] instead of Infinity?
+5:52 Why does the loop start at index 1?
+6:35 What does the answer become when prices only fall?
+6:50 What happens when the array has a single day?
+7:25 What is the time complexity of checking every pair?
+7:28 What is the time complexity of the one pass solution?
+7:34 What is the space complexity of the one pass solution?
+```
+
+<details>
+<summary>The other fifteen, cut for the character limit</summary>
+
+```text
+0:10 Can you make more than one trade?
+1:48 How do you check every pair of days?
+2:16 How many pairs are there for six prices?
+2:34 What work does brute force repeat?
+2:57 Why does a cheaper buy price always win?
+3:34 Do you need to remember every earlier price?
+4:05 What is the rule for tracking the cheapest price so far?
+4:29 What happens on a day where selling loses money?
+4:55 What happens on a day where nothing improves?
+6:17 What breaks if you remove the line that updates minPrice?
+6:57 Do these edge cases need a special case?
+7:02 What goes wrong if maxProfit starts at negative infinity?
+7:20 What is the formula for the number of pairs?
+7:49 How do you decide what to remember when solving a problem?
+8:04 Where else does this idea apply?
+```
+
+</details>
+
+### The rest of the education fields
+
+| Field                    | Value               |
+| ------------------------ | ------------------- |
+| Category                 | Education           |
+| Type                     | Problem walkthrough |
+| Academic system          | None                |
+| Level                    | Beginner            |
+| Exam, course or standard | None                |
+
+Academic system and Exam stay empty. Both exist to tie a video to a school
+curriculum, and this is not on one. Filling them in to look thorough puts the
+video in front of people who wanted a syllabus.

@@ -1,6 +1,6 @@
 # Script: Best Time to Buy and Sell Stock
 
-Status: approved
+Status: published
 
 Approved means the understanding check beside this file passes and this is the
 text that goes in front of the microphone. It says nothing about timing.

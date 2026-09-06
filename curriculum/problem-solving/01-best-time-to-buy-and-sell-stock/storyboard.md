@@ -1,6 +1,6 @@
 # PS01 storyboard: Best Time to Buy and Sell Stock
 
-Status: all nine acts drafted. None recorded, none locked.
+Status: published.
 
 The narration in this file is draft copy. It is not the recording script and it
 is not approved. It moves to `script.md` once the understanding check passes.

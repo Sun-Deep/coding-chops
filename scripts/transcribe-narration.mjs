@@ -70,11 +70,15 @@ const applyCorrections = (name, captions) => {
   let working = captions;
 
   for (const rule of rules) {
+    // Digits are kept, the same way `phraseFrame` keeps them. Stripping them
+    // meant a purely numeric token bared to the empty string and no rule could
+    // name it, which matters because whisper's worst mistakes are numbers: it
+    // heard "seven, six, four, three, one" as "76431".
     const bareOf = (caption) =>
       caption.text
         .trim()
         .toLowerCase()
-        .replace(/[^a-z']/g, "");
+        .replace(/[^a-z0-9']/g, "");
     // `before` anchors a rule to the word that follows it. Ordinals are counted
     // among the tokens that currently match, so correcting one renumbers the
     // rest: a rule written as occurrence 1 of two "resource" tokens hits the
@@ -89,7 +93,7 @@ const applyCorrections = (name, captions) => {
     if (matches.length === 0) {
       // A rule whose `to` no longer bare-matches its `from` reads as missing
       // once it has been applied, which is the normal state, not a problem.
-      const bareTo = rule.to?.toLowerCase().replace(/[^a-z']/g, "");
+      const bareTo = rule.to?.toLowerCase().replace(/[^a-z0-9']/g, "");
       const done = bareTo && working.some((c) => bareOf(c) === bareTo);
       console.log(
         `  ${done ? "already applied" : "MISSING"} "${rule.from}" in ${name}`,

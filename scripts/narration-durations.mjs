@@ -1,7 +1,12 @@
 // Write scene durations from the locked narration stems into a TypeScript file
 // the compositions import.
 //
-// Usage: node scripts/narration-durations.mjs
+// Usage: node scripts/narration-durations.mjs <track>/<episode>
+//   e.g. node scripts/narration-durations.mjs system-design/01-single-server
+//
+// The episode argument used to be hardcoded, which made the script invisible to
+// a second track. It derives both the stems directory and the output file, so
+// the two can never point at different episodes.
 //
 // The production standard makes locked narration audio the timing source of
 // truth. Remotion runs in a bundle and cannot read the stems itself, so this
@@ -15,12 +20,18 @@ import { readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
-const episodeDir = "curriculum/system-design/01-single-server";
+const episode = process.argv[2];
+
+if (!episode || !episode.includes("/")) {
+  throw new Error(
+    "Pass the episode as <track>/<episode>, " +
+      "for example system-design/01-single-server.",
+  );
+}
+
+const episodeDir = path.join("curriculum", episode);
 const stemsDir = path.join(repoRoot, episodeDir, "audio/master");
-const outFile = path.join(
-  repoRoot,
-  "src/tracks/system-design/01-single-server/narration.ts",
-);
+const outFile = path.join(repoRoot, "src/tracks", episode, "narration.ts");
 
 const duration = (file) =>
   Number(

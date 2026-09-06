@@ -4,7 +4,7 @@ import { Audio, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { Canvas } from "./Canvas";
 import { Captions } from "./Captions";
 import { Grade } from "./Grade";
-import { MusicBed } from "./MusicBed";
+import { MusicBed, type Hold } from "./MusicBed";
 import { EASE_OUT } from "../video/motion";
 
 type SceneShellProps = {
@@ -20,6 +20,16 @@ type SceneShellProps = {
    * object is meant to stay put across the cut, and fading it up makes it blink.
    */
   fadeIn?: number;
+  /**
+   * Prediction holds and any other authored silence, so the bed stays down
+   * where the scene deliberately stops talking.
+   */
+  holds?: readonly Hold[];
+  /**
+   * Canvas tone. Paper is the channel default. Problem Solving is evaluating
+   * dark under section 14 of the production standard.
+   */
+  tone?: "paper" | "black";
 };
 
 /**
@@ -34,20 +44,28 @@ export const SceneShell: React.FC<SceneShellProps> = ({
   captions,
   narration,
   fadeIn = 0,
+  holds = [],
+  tone = "paper",
 }) => {
   const frame = useCurrentFrame();
   const entry =
     fadeIn > 0 ? interpolate(frame, [0, fadeIn], [0, 1], EASE_OUT) : 1;
 
   return (
-    <Canvas tone="paper" padding={0}>
+    <Canvas tone={tone} padding={0}>
       <Audio src={staticFile(`narration/${narration}.wav`)} />
-      <MusicBed src="music/bed.mp3" captions={captions} gain={1} duck={0.4} />
+      <MusicBed
+        src="music/bed.mp3"
+        captions={captions}
+        gain={1}
+        duck={0.4}
+        holds={holds}
+      />
       <div style={{ position: "absolute", inset: 0, opacity: entry }}>
         {children}
       </div>
-      <Captions captions={captions} />
-      <Grade />
+      <Captions captions={captions} tone={tone} />
+      <Grade tone={tone} />
     </Canvas>
   );
 };

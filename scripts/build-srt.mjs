@@ -22,7 +22,24 @@ if (!episode) {
 }
 
 const root = path.resolve(import.meta.dirname, "..");
-const out = process.argv[3] ?? path.join(root, "out", "sd01-single-server.srt");
+
+/**
+ * Default output, derived from the episode rather than hardcoded.
+ *
+ * The default used to be `out/sd01-single-server.srt` whatever episode was
+ * passed in, so building PS01's subtitles silently overwrote SD01's file with
+ * the wrong episode's words. Same bug the durations and validation scripts had
+ * before they were generalised for a second track.
+ */
+const [track, name] = episode.split("/");
+if (!track || !name) {
+  console.error(
+    "Pass the episode as <track>/<episode>, " +
+      "for example problem-solving/01-best-time-to-buy-and-sell-stock.",
+  );
+  process.exit(1);
+}
+const out = process.argv[3] ?? path.join(root, "out", `${track}--${name}.srt`);
 
 const narration = await readFile(
   path.join(root, "src/tracks", episode, "narration.ts"),

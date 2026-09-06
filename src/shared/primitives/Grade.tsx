@@ -4,6 +4,7 @@ type GradeProps = {
   /** Grain strength. Above about 0.05 it stops reading as film and starts reading as noise. */
   grain?: number;
   vignette?: number;
+  tone?: "paper" | "black";
 };
 
 /**
@@ -17,7 +18,9 @@ type GradeProps = {
 export const Grade: React.FC<GradeProps> = ({
   grain = 0.028,
   vignette = 0.16,
+  tone = "paper",
 }) => {
+  const dark = tone === "black";
   const frame = useCurrentFrame();
   // Reseeded per frame so the grain moves. Deterministic, so renders repeat.
   const seed = Math.floor(random(`grain-${frame}`) * 10000);
@@ -26,8 +29,10 @@ export const Grade: React.FC<GradeProps> = ({
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <AbsoluteFill
         style={{
-          background: `radial-gradient(ellipse 78% 74% at 50% 46%, rgba(0,0,0,0) 42%, rgba(23,20,14,${vignette}) 100%)`,
-          mixBlendMode: "multiply",
+          background: dark
+            ? `radial-gradient(ellipse 78% 74% at 50% 46%, rgba(255,255,255,${vignette * 0.22}) 0%, rgba(0,0,0,0) 62%)`
+            : `radial-gradient(ellipse 78% 74% at 50% 46%, rgba(0,0,0,0) 42%, rgba(23,20,14,${vignette}) 100%)`,
+          mixBlendMode: dark ? "screen" : "multiply",
         }}
       />
       <svg

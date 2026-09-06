@@ -81,14 +81,18 @@ export const wordFrame = (
 /**
  * Frame at which a run of words starts.
  *
- * `wordFrame` cannot address a boundary that falls on a common word — there are
+ * `wordFrame` cannot address a boundary that falls on a common word: there are
  * eleven "the"s in a segment and no useful ordinal among them. A phrase is
- * unambiguous, which is what cutting a reel out of the episode needs.
+ * usually unambiguous, which is what cutting a reel out of the episode needs.
+ *
+ * `occurrence` is for the times it is not. A narration that deliberately says
+ * the same sentence twice, so the second one lands as familiar rather than as
+ * new, leaves two identical phrases and no other way to tell them apart.
  */
 export const phraseFrame = (
   captions: readonly Caption[],
   phrase: string,
-  { end = false }: { end?: boolean } = {},
+  { end = false, occurrence = 1 }: { end?: boolean; occurrence?: number } = {},
 ): number => {
   const bare = (value: string) =>
     value
@@ -97,11 +101,17 @@ export const phraseFrame = (
       .replace(/[^a-z0-9']/g, "");
   const words = phrase.split(/\s+/).map(bare);
 
+  let seen = 0;
+
   for (let i = 0; i <= captions.length - words.length; i += 1) {
     if (words.some((word, k) => bare(captions[i + k].text) !== word)) continue;
+    seen += 1;
+    if (seen < occurrence) continue;
     const token = captions[end ? i + words.length - 1 : i];
     return Math.round(((end ? token.endMs : token.startMs) / 1000) * FPS);
   }
 
-  throw new Error(`Phrase "${phrase}" is not in the captions.`);
+  throw new Error(
+    `Phrase "${phrase}" (occurrence ${occurrence}) is not in the captions.`,
+  );
 };

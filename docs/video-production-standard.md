@@ -88,7 +88,7 @@ Blue is the only meaningful accent color. Do not introduce orange, green, red, p
 
 ### Canvas rule
 
-Warm paper is the default canvas for System Design, DSA, and Problem Solving.
+Warm paper is the default canvas for System Design. Problem Solving and DSA use the near-black canvas, recorded as a section 14 rule change in section 25 of `docs/problem-solving-visual-language.md`.
 
 Near-black is available for a justified cinematic interstitial or a concept that genuinely benefits from light emerging from darkness. Do not add a black scene merely to make a topic feel technical. Do not alternate canvases mechanically.
 

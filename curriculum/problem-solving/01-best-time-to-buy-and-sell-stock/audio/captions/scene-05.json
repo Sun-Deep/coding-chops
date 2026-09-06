@@ -1,0 +1,1227 @@
+[
+  {
+    "text": "Same walk,",
+    "startMs": 280,
+    "endMs": 830,
+    "timestampMs": 660,
+    "confidence": 0.305949
+  },
+  {
+    "text": " this",
+    "startMs": 830,
+    "endMs": 1300,
+    "timestampMs": 1240,
+    "confidence": 0.935021
+  },
+  {
+    "text": " time",
+    "startMs": 1300,
+    "endMs": 1570,
+    "timestampMs": 1540,
+    "confidence": 0.99639
+  },
+  {
+    "text": " carry",
+    "startMs": 1570,
+    "endMs": 2030,
+    "timestampMs": 1860,
+    "confidence": 0.913062
+  },
+  {
+    "text": " 2",
+    "startMs": 2030,
+    "endMs": 2310,
+    "timestampMs": 2100,
+    "confidence": 0.56063
+  },
+  {
+    "text": " numbers.",
+    "startMs": 2310,
+    "endMs": 3260,
+    "timestampMs": 2620,
+    "confidence": 0.982347
+  },
+  {
+    "text": " Day",
+    "startMs": 3260,
+    "endMs": 3520,
+    "timestampMs": 3400,
+    "confidence": 0.554701
+  },
+  {
+    "text": " 1",
+    "startMs": 3520,
+    "endMs": 3780,
+    "timestampMs": 3760,
+    "confidence": 0.890824
+  },
+  {
+    "text": " -",
+    "startMs": 3780,
+    "endMs": 3960,
+    "timestampMs": 4040,
+    "confidence": 0.316576
+  },
+  {
+    "text": " $7,",
+    "startMs": 3960,
+    "endMs": 4390,
+    "timestampMs": 4200,
+    "confidence": 0.765306
+  },
+  {
+    "text": " it's",
+    "startMs": 4390,
+    "endMs": 4900,
+    "timestampMs": 5080,
+    "confidence": 0.610682
+  },
+  {
+    "text": " the",
+    "startMs": 4900,
+    "endMs": 4990,
+    "timestampMs": 5320,
+    "confidence": 0.990777
+  },
+  {
+    "text": " only",
+    "startMs": 4990,
+    "endMs": 5340,
+    "timestampMs": 5580,
+    "confidence": 0.997322
+  },
+  {
+    "text": " price",
+    "startMs": 5340,
+    "endMs": 5770,
+    "timestampMs": 5900,
+    "confidence": 0.947505
+  },
+  {
+    "text": " you",
+    "startMs": 5770,
+    "endMs": 6040,
+    "timestampMs": 6060,
+    "confidence": 0.963791
+  },
+  {
+    "text": " have",
+    "startMs": 6040,
+    "endMs": 6390,
+    "timestampMs": 6180,
+    "confidence": 0.911817
+  },
+  {
+    "text": " seen,",
+    "startMs": 6390,
+    "endMs": 6910,
+    "timestampMs": 6460,
+    "confidence": 0.99739
+  },
+  {
+    "text": " so",
+    "startMs": 6910,
+    "endMs": 7150,
+    "timestampMs": 6880,
+    "confidence": 0.974598
+  },
+  {
+    "text": " it's",
+    "startMs": 7150,
+    "endMs": 7450,
+    "timestampMs": 7140,
+    "confidence": 0.876283
+  },
+  {
+    "text": " the",
+    "startMs": 7450,
+    "endMs": 7680,
+    "timestampMs": 7460,
+    "confidence": 0.946263
+  },
+  {
+    "text": " cheapest.",
+    "startMs": 7680,
+    "endMs": 8800,
+    "timestampMs": 7820,
+    "confidence": 0.996753
+  },
+  {
+    "text": " And",
+    "startMs": 8800,
+    "endMs": 9050,
+    "timestampMs": 8840,
+    "confidence": 0.990293
+  },
+  {
+    "text": " you",
+    "startMs": 9050,
+    "endMs": 9300,
+    "timestampMs": 9020,
+    "confidence": 0.979768
+  },
+  {
+    "text": " haven't",
+    "startMs": 9300,
+    "endMs": 9880,
+    "timestampMs": 9200,
+    "confidence": 0.986353
+  },
+  {
+    "text": " made",
+    "startMs": 9880,
+    "endMs": 10220,
+    "timestampMs": 9520,
+    "confidence": 0.995137
+  },
+  {
+    "text": " a",
+    "startMs": 10220,
+    "endMs": 10290,
+    "timestampMs": 9740,
+    "confidence": 0.967556
+  },
+  {
+    "text": " trade,",
+    "startMs": 10290,
+    "endMs": 10890,
+    "timestampMs": 9980,
+    "confidence": 0.998628
+  },
+  {
+    "text": " so",
+    "startMs": 10890,
+    "endMs": 11110,
+    "timestampMs": 10340,
+    "confidence": 0.991295
+  },
+  {
+    "text": " your",
+    "startMs": 11110,
+    "endMs": 11360,
+    "timestampMs": 10560,
+    "confidence": 0.96954
+  },
+  {
+    "text": " best",
+    "startMs": 11360,
+    "endMs": 11690,
+    "timestampMs": 10800,
+    "confidence": 0.964799
+  },
+  {
+    "text": " profit",
+    "startMs": 11690,
+    "endMs": 12300,
+    "timestampMs": 11180,
+    "confidence": 0.977288
+  },
+  {
+    "text": " is",
+    "startMs": 12300,
+    "endMs": 12350,
+    "timestampMs": 11500,
+    "confidence": 0.993456
+  },
+  {
+    "text": " nothing,",
+    "startMs": 12350,
+    "endMs": 13330,
+    "timestampMs": 11940,
+    "confidence": 0.949097
+  },
+  {
+    "text": " 0.",
+    "startMs": 13330,
+    "endMs": 13440,
+    "timestampMs": 12720,
+    "confidence": 0.591679
+  },
+  {
+    "text": " Day",
+    "startMs": 13440,
+    "endMs": 13720,
+    "timestampMs": 13560,
+    "confidence": 0.997219
+  },
+  {
+    "text": " 2",
+    "startMs": 13720,
+    "endMs": 14090,
+    "timestampMs": 13860,
+    "confidence": 0.994841
+  },
+  {
+    "text": " -",
+    "startMs": 14090,
+    "endMs": 14140,
+    "timestampMs": 14220,
+    "confidence": 0.898116
+  },
+  {
+    "text": " $1,",
+    "startMs": 14140,
+    "endMs": 14640,
+    "timestampMs": 14620,
+    "confidence": 0.973539
+  },
+  {
+    "text": " sell",
+    "startMs": 14640,
+    "endMs": 15290,
+    "timestampMs": 15400,
+    "confidence": 0.836689
+  },
+  {
+    "text": " today",
+    "startMs": 15290,
+    "endMs": 15510,
+    "timestampMs": 15760,
+    "confidence": 0.996052
+  },
+  {
+    "text": " and",
+    "startMs": 15510,
+    "endMs": 15830,
+    "timestampMs": 16000,
+    "confidence": 0.958815
+  },
+  {
+    "text": " you",
+    "startMs": 15830,
+    "endMs": 16060,
+    "timestampMs": 16160,
+    "confidence": 0.995087
+  },
+  {
+    "text": " would",
+    "startMs": 16060,
+    "endMs": 16520,
+    "timestampMs": 16360,
+    "confidence": 0.93343
+  },
+  {
+    "text": " lose",
+    "startMs": 16520,
+    "endMs": 17190,
+    "timestampMs": 16560,
+    "confidence": 0.971892
+  },
+  {
+    "text": " 6,",
+    "startMs": 17190,
+    "endMs": 17380,
+    "timestampMs": 16920,
+    "confidence": 0.935305
+  },
+  {
+    "text": " worse",
+    "startMs": 17380,
+    "endMs": 17840,
+    "timestampMs": 17520,
+    "confidence": 0.948722
+  },
+  {
+    "text": " than",
+    "startMs": 17840,
+    "endMs": 18230,
+    "timestampMs": 17800,
+    "confidence": 0.948068
+  },
+  {
+    "text": " not",
+    "startMs": 18230,
+    "endMs": 18510,
+    "timestampMs": 18060,
+    "confidence": 0.990137
+  },
+  {
+    "text": " trading",
+    "startMs": 18510,
+    "endMs": 19180,
+    "timestampMs": 18400,
+    "confidence": 0.996826
+  },
+  {
+    "text": " at",
+    "startMs": 19180,
+    "endMs": 19440,
+    "timestampMs": 18660,
+    "confidence": 0.986666
+  },
+  {
+    "text": " all,",
+    "startMs": 19440,
+    "endMs": 19870,
+    "timestampMs": 18920,
+    "confidence": 0.998235
+  },
+  {
+    "text": " so",
+    "startMs": 19870,
+    "endMs": 20030,
+    "timestampMs": 19280,
+    "confidence": 0.979227
+  },
+  {
+    "text": " 0",
+    "startMs": 20030,
+    "endMs": 20850,
+    "timestampMs": 19720,
+    "confidence": 0.951092
+  },
+  {
+    "text": " stays.",
+    "startMs": 20850,
+    "endMs": 20940,
+    "timestampMs": 20240,
+    "confidence": 0.98943
+  },
+  {
+    "text": " But",
+    "startMs": 20940,
+    "endMs": 21220,
+    "timestampMs": 21020,
+    "confidence": 0.989481
+  },
+  {
+    "text": " 1",
+    "startMs": 21220,
+    "endMs": 21500,
+    "timestampMs": 21260,
+    "confidence": 0.88729
+  },
+  {
+    "text": " is",
+    "startMs": 21500,
+    "endMs": 21680,
+    "timestampMs": 21440,
+    "confidence": 0.990002
+  },
+  {
+    "text": " cheaper",
+    "startMs": 21680,
+    "endMs": 22330,
+    "timestampMs": 21720,
+    "confidence": 0.995475
+  },
+  {
+    "text": " than",
+    "startMs": 22330,
+    "endMs": 22820,
+    "timestampMs": 22100,
+    "confidence": 0.895533
+  },
+  {
+    "text": " 7,",
+    "startMs": 22820,
+    "endMs": 23200,
+    "timestampMs": 22460,
+    "confidence": 0.99226
+  },
+  {
+    "text": " cheapest",
+    "startMs": 23200,
+    "endMs": 23920,
+    "timestampMs": 23140,
+    "confidence": 0.986961
+  },
+  {
+    "text": " so",
+    "startMs": 23920,
+    "endMs": 24190,
+    "timestampMs": 23540,
+    "confidence": 0.971002
+  },
+  {
+    "text": " far",
+    "startMs": 24190,
+    "endMs": 24380,
+    "timestampMs": 23820,
+    "confidence": 0.997858
+  },
+  {
+    "text": " is",
+    "startMs": 24380,
+    "endMs": 24560,
+    "timestampMs": 24140,
+    "confidence": 0.972548
+  },
+  {
+    "text": " now",
+    "startMs": 24560,
+    "endMs": 25120,
+    "timestampMs": 24480,
+    "confidence": 0.942529
+  },
+  {
+    "text": " 1.",
+    "startMs": 25120,
+    "endMs": 25480,
+    "timestampMs": 24820,
+    "confidence": 0.970917
+  },
+  {
+    "text": " Day",
+    "startMs": 25480,
+    "endMs": 25800,
+    "timestampMs": 25640,
+    "confidence": 0.998039
+  },
+  {
+    "text": " 3",
+    "startMs": 25800,
+    "endMs": 26200,
+    "timestampMs": 25960,
+    "confidence": 0.998361
+  },
+  {
+    "text": " -",
+    "startMs": 26200,
+    "endMs": 26250,
+    "timestampMs": 26280,
+    "confidence": 0.959869
+  },
+  {
+    "text": " $5,",
+    "startMs": 26250,
+    "endMs": 26810,
+    "timestampMs": 26320,
+    "confidence": 0.990622
+  },
+  {
+    "text": " if",
+    "startMs": 26810,
+    "endMs": 27240,
+    "timestampMs": 27440,
+    "confidence": 0.905999
+  },
+  {
+    "text": " you",
+    "startMs": 27240,
+    "endMs": 27340,
+    "timestampMs": 27620,
+    "confidence": 0.993059
+  },
+  {
+    "text": " sold",
+    "startMs": 27340,
+    "endMs": 27760,
+    "timestampMs": 27860,
+    "confidence": 0.995114
+  },
+  {
+    "text": " today,",
+    "startMs": 27760,
+    "endMs": 28590,
+    "timestampMs": 28300,
+    "confidence": 0.99811
+  },
+  {
+    "text": " what",
+    "startMs": 28590,
+    "endMs": 28910,
+    "timestampMs": 28780,
+    "confidence": 0.995824
+  },
+  {
+    "text": " would",
+    "startMs": 28910,
+    "endMs": 29420,
+    "timestampMs": 28980,
+    "confidence": 0.980064
+  },
+  {
+    "text": " you",
+    "startMs": 29420,
+    "endMs": 30060,
+    "timestampMs": 29120,
+    "confidence": 0.990921
+  },
+  {
+    "text": " make,",
+    "startMs": 30060,
+    "endMs": 30370,
+    "timestampMs": 29440,
+    "confidence": 0.998365
+  },
+  {
+    "text": " 5",
+    "startMs": 30370,
+    "endMs": 30770,
+    "timestampMs": 30320,
+    "confidence": 0.987031
+  },
+  {
+    "text": " -",
+    "startMs": 30770,
+    "endMs": 30780,
+    "timestampMs": 30620,
+    "confidence": 0.426085
+  },
+  {
+    "text": " 1,",
+    "startMs": 30780,
+    "endMs": 31380,
+    "timestampMs": 31020,
+    "confidence": 0.923726
+  },
+  {
+    "text": " 4,",
+    "startMs": 31380,
+    "endMs": 31920,
+    "timestampMs": 31660,
+    "confidence": 0.977816
+  },
+  {
+    "text": " 4",
+    "startMs": 31920,
+    "endMs": 32410,
+    "timestampMs": 32600,
+    "confidence": 0.985565
+  },
+  {
+    "text": " beats",
+    "startMs": 32410,
+    "endMs": 32650,
+    "timestampMs": 32880,
+    "confidence": 0.916236
+  },
+  {
+    "text": " 0,",
+    "startMs": 32650,
+    "endMs": 33170,
+    "timestampMs": 33320,
+    "confidence": 0.683442
+  },
+  {
+    "text": " so",
+    "startMs": 33170,
+    "endMs": 33380,
+    "timestampMs": 33820,
+    "confidence": 0.965075
+  },
+  {
+    "text": " 4",
+    "startMs": 33380,
+    "endMs": 33690,
+    "timestampMs": 34140,
+    "confidence": 0.980871
+  },
+  {
+    "text": " is",
+    "startMs": 33690,
+    "endMs": 34000,
+    "timestampMs": 34360,
+    "confidence": 0.99193
+  },
+  {
+    "text": " your",
+    "startMs": 34000,
+    "endMs": 34480,
+    "timestampMs": 34560,
+    "confidence": 0.978368
+  },
+  {
+    "text": " best",
+    "startMs": 34480,
+    "endMs": 34960,
+    "timestampMs": 34880,
+    "confidence": 0.992886
+  },
+  {
+    "text": " profit",
+    "startMs": 34960,
+    "endMs": 36030,
+    "timestampMs": 35240,
+    "confidence": 0.997109
+  },
+  {
+    "text": " now.",
+    "startMs": 36030,
+    "endMs": 36400,
+    "timestampMs": 35700,
+    "confidence": 0.976224
+  },
+  {
+    "text": " Day",
+    "startMs": 36400,
+    "endMs": 36730,
+    "timestampMs": 36560,
+    "confidence": 0.998041
+  },
+  {
+    "text": " 4",
+    "startMs": 36730,
+    "endMs": 37170,
+    "timestampMs": 36920,
+    "confidence": 0.997299
+  },
+  {
+    "text": " -",
+    "startMs": 37170,
+    "endMs": 37280,
+    "timestampMs": 37320,
+    "confidence": 0.964376
+  },
+  {
+    "text": " $3,",
+    "startMs": 37280,
+    "endMs": 37820,
+    "timestampMs": 37760,
+    "confidence": 0.996854
+  },
+  {
+    "text": " sell",
+    "startMs": 37820,
+    "endMs": 38610,
+    "timestampMs": 38720,
+    "confidence": 0.967754
+  },
+  {
+    "text": " today",
+    "startMs": 38610,
+    "endMs": 38820,
+    "timestampMs": 39080,
+    "confidence": 0.997729
+  },
+  {
+    "text": " and",
+    "startMs": 38820,
+    "endMs": 39150,
+    "timestampMs": 39320,
+    "confidence": 0.965186
+  },
+  {
+    "text": " you",
+    "startMs": 39150,
+    "endMs": 39480,
+    "timestampMs": 39500,
+    "confidence": 0.991741
+  },
+  {
+    "text": " make",
+    "startMs": 39480,
+    "endMs": 39920,
+    "timestampMs": 39740,
+    "confidence": 0.978256
+  },
+  {
+    "text": " 2,",
+    "startMs": 39920,
+    "endMs": 40740,
+    "timestampMs": 40100,
+    "confidence": 0.987652
+  },
+  {
+    "text": " does",
+    "startMs": 40740,
+    "endMs": 40910,
+    "timestampMs": 41000,
+    "confidence": 0.98269
+  },
+  {
+    "text": " 2",
+    "startMs": 40910,
+    "endMs": 41240,
+    "timestampMs": 41240,
+    "confidence": 0.932106
+  },
+  {
+    "text": " beat",
+    "startMs": 41240,
+    "endMs": 41680,
+    "timestampMs": 41460,
+    "confidence": 0.973992
+  },
+  {
+    "text": " 4,",
+    "startMs": 41680,
+    "endMs": 42440,
+    "timestampMs": 41920,
+    "confidence": 0.994135
+  },
+  {
+    "text": " no,",
+    "startMs": 42440,
+    "endMs": 42670,
+    "timestampMs": 42760,
+    "confidence": 0.954385
+  },
+  {
+    "text": " so",
+    "startMs": 42670,
+    "endMs": 43130,
+    "timestampMs": 43220,
+    "confidence": 0.990905
+  },
+  {
+    "text": " nothing",
+    "startMs": 43130,
+    "endMs": 43660,
+    "timestampMs": 43620,
+    "confidence": 0.992214
+  },
+  {
+    "text": " changes.",
+    "startMs": 43660,
+    "endMs": 44840,
+    "timestampMs": 44140,
+    "confidence": 0.994628
+  },
+  {
+    "text": " Best",
+    "startMs": 44840,
+    "endMs": 45260,
+    "timestampMs": 44940,
+    "confidence": 0.988146
+  },
+  {
+    "text": " profit",
+    "startMs": 45260,
+    "endMs": 45780,
+    "timestampMs": 45340,
+    "confidence": 0.985483
+  },
+  {
+    "text": " is",
+    "startMs": 45780,
+    "endMs": 46070,
+    "timestampMs": 45560,
+    "confidence": 0.993995
+  },
+  {
+    "text": " still",
+    "startMs": 46070,
+    "endMs": 46590,
+    "timestampMs": 45900,
+    "confidence": 0.99332
+  },
+  {
+    "text": " 4,",
+    "startMs": 46590,
+    "endMs": 46850,
+    "timestampMs": 46280,
+    "confidence": 0.992945
+  },
+  {
+    "text": " cheapest",
+    "startMs": 46850,
+    "endMs": 47590,
+    "timestampMs": 46880,
+    "confidence": 0.987199
+  },
+  {
+    "text": " is",
+    "startMs": 47590,
+    "endMs": 47770,
+    "timestampMs": 47260,
+    "confidence": 0.991386
+  },
+  {
+    "text": " still",
+    "startMs": 47770,
+    "endMs": 48230,
+    "timestampMs": 47680,
+    "confidence": 0.989613
+  },
+  {
+    "text": " 1,",
+    "startMs": 48230,
+    "endMs": 48680,
+    "timestampMs": 48080,
+    "confidence": 0.983344
+  },
+  {
+    "text": " Watch",
+    "startMs": 48680,
+    "endMs": 49540,
+    "timestampMs": 48860,
+    "confidence": 0.916296
+  },
+  {
+    "text": " that,",
+    "startMs": 49540,
+    "endMs": 49780,
+    "timestampMs": 49260,
+    "confidence": 0.998392
+  },
+  {
+    "text": " a",
+    "startMs": 49780,
+    "endMs": 49870,
+    "timestampMs": 49660,
+    "confidence": 0.97188
+  },
+  {
+    "text": " whole",
+    "startMs": 49870,
+    "endMs": 50410,
+    "timestampMs": 50160,
+    "confidence": 0.96668
+  },
+  {
+    "text": " day",
+    "startMs": 50410,
+    "endMs": 50600,
+    "timestampMs": 50620,
+    "confidence": 0.993309
+  },
+  {
+    "text": " went",
+    "startMs": 50600,
+    "endMs": 50970,
+    "timestampMs": 50980,
+    "confidence": 0.994401
+  },
+  {
+    "text": " by",
+    "startMs": 50970,
+    "endMs": 51150,
+    "timestampMs": 51360,
+    "confidence": 0.995114
+  },
+  {
+    "text": " and",
+    "startMs": 51150,
+    "endMs": 51520,
+    "timestampMs": 51660,
+    "confidence": 0.932483
+  },
+  {
+    "text": " nothing",
+    "startMs": 51520,
+    "endMs": 52240,
+    "timestampMs": 52080,
+    "confidence": 0.846766
+  },
+  {
+    "text": " moved,",
+    "startMs": 52240,
+    "endMs": 52810,
+    "timestampMs": 52480,
+    "confidence": 0.88514
+  },
+  {
+    "text": " that's",
+    "startMs": 52810,
+    "endMs": 53300,
+    "timestampMs": 52920,
+    "confidence": 0.9787
+  },
+  {
+    "text": " normal.",
+    "startMs": 53300,
+    "endMs": 54060,
+    "timestampMs": 53500,
+    "confidence": 0.997718
+  },
+  {
+    "text": " Day",
+    "startMs": 54060,
+    "endMs": 54470,
+    "timestampMs": 54200,
+    "confidence": 0.99686
+  },
+  {
+    "text": " 5",
+    "startMs": 54470,
+    "endMs": 54930,
+    "timestampMs": 54600,
+    "confidence": 0.994909
+  },
+  {
+    "text": " -",
+    "startMs": 54930,
+    "endMs": 55010,
+    "timestampMs": 54940,
+    "confidence": 0.958391
+  },
+  {
+    "text": " $6,",
+    "startMs": 55010,
+    "endMs": 55900,
+    "timestampMs": 54980,
+    "confidence": 0.991838
+  },
+  {
+    "text": " your",
+    "startMs": 55900,
+    "endMs": 56360,
+    "timestampMs": 56060,
+    "confidence": 0.956692
+  },
+  {
+    "text": " turn,",
+    "startMs": 56360,
+    "endMs": 57300,
+    "timestampMs": 56440,
+    "confidence": 0.999064
+  },
+  {
+    "text": " 6",
+    "startMs": 57300,
+    "endMs": 57580,
+    "timestampMs": 57260,
+    "confidence": 0.991068
+  },
+  {
+    "text": " -",
+    "startMs": 57580,
+    "endMs": 57710,
+    "timestampMs": 57500,
+    "confidence": 0.788477
+  },
+  {
+    "text": " 1",
+    "startMs": 57710,
+    "endMs": 58330,
+    "timestampMs": 57900,
+    "confidence": 0.937587
+  },
+  {
+    "text": " is",
+    "startMs": 58330,
+    "endMs": 58390,
+    "timestampMs": 58200,
+    "confidence": 0.896688
+  },
+  {
+    "text": " 5,",
+    "startMs": 58390,
+    "endMs": 59480,
+    "timestampMs": 58720,
+    "confidence": 0.991393
+  },
+  {
+    "text": " 5",
+    "startMs": 59480,
+    "endMs": 59500,
+    "timestampMs": 59780,
+    "confidence": 0.991864
+  },
+  {
+    "text": " beats",
+    "startMs": 59500,
+    "endMs": 60020,
+    "timestampMs": 60160,
+    "confidence": 0.213157
+  },
+  {
+    "text": " 4,",
+    "startMs": 60020,
+    "endMs": 60700,
+    "timestampMs": 60660,
+    "confidence": 0.906404
+  },
+  {
+    "text": " best",
+    "startMs": 60700,
+    "endMs": 61260,
+    "timestampMs": 61600,
+    "confidence": 0.979763
+  },
+  {
+    "text": " profit",
+    "startMs": 61260,
+    "endMs": 62060,
+    "timestampMs": 61980,
+    "confidence": 0.994309
+  },
+  {
+    "text": " is",
+    "startMs": 62060,
+    "endMs": 62330,
+    "timestampMs": 62280,
+    "confidence": 0.982066
+  },
+  {
+    "text": " now",
+    "startMs": 62330,
+    "endMs": 62740,
+    "timestampMs": 62520,
+    "confidence": 0.988719
+  },
+  {
+    "text": " 5.",
+    "startMs": 62740,
+    "endMs": 63680,
+    "timestampMs": 63060,
+    "confidence": 0.994355
+  },
+  {
+    "text": " Day",
+    "startMs": 63680,
+    "endMs": 64030,
+    "timestampMs": 63860,
+    "confidence": 0.998178
+  },
+  {
+    "text": " 6",
+    "startMs": 64030,
+    "endMs": 64340,
+    "timestampMs": 64320,
+    "confidence": 0.998296
+  },
+  {
+    "text": " -",
+    "startMs": 64340,
+    "endMs": 64600,
+    "timestampMs": 64520,
+    "confidence": 0.955321
+  },
+  {
+    "text": " $4,",
+    "startMs": 64600,
+    "endMs": 65180,
+    "timestampMs": 64740,
+    "confidence": 0.992511
+  },
+  {
+    "text": " 4",
+    "startMs": 65180,
+    "endMs": 65450,
+    "timestampMs": 65980,
+    "confidence": 0.995961
+  },
+  {
+    "text": " -",
+    "startMs": 65450,
+    "endMs": 65810,
+    "timestampMs": 66280,
+    "confidence": 0.958102
+  },
+  {
+    "text": " 1",
+    "startMs": 65810,
+    "endMs": 65990,
+    "timestampMs": 66720,
+    "confidence": 0.941393
+  },
+  {
+    "text": " is",
+    "startMs": 65990,
+    "endMs": 66220,
+    "timestampMs": 67100,
+    "confidence": 0.983528
+  },
+  {
+    "text": " 3,",
+    "startMs": 66220,
+    "endMs": 66870,
+    "timestampMs": 67640,
+    "confidence": 0.992441
+  },
+  {
+    "text": " 3",
+    "startMs": 66870,
+    "endMs": 67360,
+    "timestampMs": 68320,
+    "confidence": 0.993646
+  },
+  {
+    "text": " doesn't",
+    "startMs": 67360,
+    "endMs": 68160,
+    "timestampMs": 68580,
+    "confidence": 0.97772
+  },
+  {
+    "text": " beat",
+    "startMs": 68160,
+    "endMs": 68440,
+    "timestampMs": 69060,
+    "confidence": 0.9845
+  },
+  {
+    "text": " 5,",
+    "startMs": 68440,
+    "endMs": 69290,
+    "timestampMs": 69700,
+    "confidence": 0.989553
+  },
+  {
+    "text": " nothing",
+    "startMs": 69290,
+    "endMs": 70180,
+    "timestampMs": 70660,
+    "confidence": 0.995383
+  },
+  {
+    "text": " changes",
+    "startMs": 70180,
+    "endMs": 70660,
+    "timestampMs": 71160,
+    "confidence": 0.996177
+  },
+  {
+    "text": " and",
+    "startMs": 70660,
+    "endMs": 71010,
+    "timestampMs": 71780,
+    "confidence": 0.755439
+  },
+  {
+    "text": " you",
+    "startMs": 71010,
+    "endMs": 71620,
+    "timestampMs": 71940,
+    "confidence": 0.99279
+  },
+  {
+    "text": " are",
+    "startMs": 71620,
+    "endMs": 71710,
+    "timestampMs": 72100,
+    "confidence": 0.872265
+  },
+  {
+    "text": " out",
+    "startMs": 71710,
+    "endMs": 72180,
+    "timestampMs": 72380,
+    "confidence": 0.997242
+  },
+  {
+    "text": " of",
+    "startMs": 72180,
+    "endMs": 72290,
+    "timestampMs": 72640,
+    "confidence": 0.99226
+  },
+  {
+    "text": " days,",
+    "startMs": 72290,
+    "endMs": 73410,
+    "timestampMs": 72900,
+    "confidence": 0.978977
+  },
+  {
+    "text": " $5",
+    "startMs": 73410,
+    "endMs": 74480,
+    "timestampMs": 73760,
+    "confidence": 0.812742
+  },
+  {
+    "text": " that's",
+    "startMs": 74480,
+    "endMs": 74790,
+    "timestampMs": 74560,
+    "confidence": 0.934798
+  },
+  {
+    "text": " the",
+    "startMs": 74790,
+    "endMs": 74950,
+    "timestampMs": 74880,
+    "confidence": 0.986591
+  },
+  {
+    "text": " answer.",
+    "startMs": 74950,
+    "endMs": 75280,
+    "timestampMs": 75180,
+    "confidence": 0.997105
+  }
+]

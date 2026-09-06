@@ -1,0 +1,125 @@
+{
+  "scene-02": [
+    {
+      "from": "beers",
+      "to": "pairs"
+    }
+  ],
+  "scene-05": [
+    {
+      "from": "simwalk",
+      "to": "Same walk"
+    },
+    {
+      "from": "what's",
+      "to": "Watch"
+    },
+    {
+      "from": "with",
+      "to": "beats"
+    }
+  ],
+  "scene-06": [
+    {
+      "from": "min",
+      "to": "minPrice."
+    },
+    {
+      "from": "price",
+      "before": "best",
+      "drop": true
+    },
+    {
+      "from": "max",
+      "to": "maxProfit."
+    },
+    {
+      "from": "profit",
+      "before": "same",
+      "drop": true
+    },
+    {
+      "from": "min",
+      "to": "minPrice"
+    },
+    {
+      "from": "price",
+      "before": "starts",
+      "drop": true
+    },
+    {
+      "from": "max",
+      "to": "maxProfit"
+    },
+    {
+      "from": "profit",
+      "before": "starts",
+      "drop": true
+    },
+    {
+      "from": "works",
+      "to": "walks"
+    },
+    {
+      "from": "update",
+      "to": "updates"
+    },
+    {
+      "from": "long",
+      "to": "Wrong"
+    },
+    {
+      "from": "best",
+      "before": "profit",
+      "to": "Best"
+    }
+  ],
+  "scene-07": [
+    {
+      "from": "76431",
+      "to": "seven, six, four, three, one"
+    },
+    {
+      "from": "lose",
+      "to": "loses"
+    },
+    {
+      "from": "users",
+      "to": "you just"
+    },
+    {
+      "from": "max",
+      "to": "maxProfit"
+    },
+    {
+      "from": "profit",
+      "before": "at",
+      "drop": true
+    }
+  ],
+  "scene-08": [
+    {
+      "from": "touch",
+      "to": "touches"
+    },
+    {
+      "from": "is",
+      "before": "its",
+      "drop": true
+    },
+    {
+      "from": "its",
+      "to": "each"
+    },
+    {
+      "from": "billions",
+      "to": "billion"
+    }
+  ],
+  "scene-09": [
+    {
+      "from": "given",
+      "to": "Seen"
+    }
+  ]
+}

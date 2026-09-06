@@ -194,5 +194,17 @@ episode has exactly one of those, and it is not tied to a part number.
 ```text
 Five billion checks, or a hundred thousand. Same answer. The difference is one number you decide to keep.
 
+Every animation is code: github.com/Sun-Deep/coding-chops
+
 #LeetCode #BigO #Algorithms #ProblemSolving #SoftwareEngineering
 ```
+
+Written without the `https://`. Facebook auto-links it either way, and on
+Instagram and TikTok a caption URL is dead text, so the shorter form is the one
+somebody can actually retype.
+
+The link is on this cut and not on parts 01 to 04. This is the one meant to send
+people somewhere. The four parts are meant to be watched, and Facebook has never
+been generous with reach on posts carrying an external link. If you want it on
+the parts too, part 04 is the one to add it to, because anyone who reached the
+end of a four part series has already decided they are interested.

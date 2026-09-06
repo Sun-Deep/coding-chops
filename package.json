@@ -38,8 +38,15 @@
     "validate:curriculum": "node scripts/validate-curriculum.mjs",
     "compositions": "remotion compositions src/index.ts",
     "check": "npm run typecheck && npm run lint && npm run validate:curriculum",
+    "render:brand": "for c in Brand-Avatar-YouTube Brand-Avatar-Instagram Brand-Avatar-Facebook Brand-Avatar-X Brand-Banner-YouTube Brand-Banner-X Brand-Banner-Facebook; do remotion still src/index.ts $c out/brand/$c.png; done",
     "render:thumbnail": "remotion still src/index.ts SD01-Thumbnail out/sd01-thumbnail.png",
+    "render:social-cover": "remotion still src/index.ts SD01-Social-Cover out/sd01-social-cover.png",
     "render:episode": "remotion render src/index.ts SD01-Master out/sd01-single-server.mp4",
+    "render:ps01": "remotion render src/index.ts PS01-Master out/ps01-best-time-to-buy-and-sell-stock.mp4",
+    "render:ps01-packaging": "remotion still src/index.ts PS01-Thumbnail out/ps01-thumbnail.png && remotion still src/index.ts PS01-Social-Cover out/ps01-social-cover.png && remotion still src/index.ts PS01-Social-Cover-Part-01 out/ps01-social-cover-part-01.png --gl=angle && remotion still src/index.ts PS01-Social-Cover-Part-02 out/ps01-social-cover-part-02.png && remotion still src/index.ts PS01-Social-Cover-Part-03 out/ps01-social-cover-part-03.png --gl=swiftshader && remotion still src/index.ts PS01-Social-Cover-Part-04 out/ps01-social-cover-part-04.png",
+    "render:reel": "remotion render src/index.ts VR01-Database-Index out/vertical/vr01-database-index.mp4 && remotion still src/index.ts VR01-Cover out/vertical/vr01-cover.png",
+    "render:safe-area": "remotion still src/index.ts Vertical-Safe-Area out/vertical/safe-area.png",
+    "measure:database-index": "scripts/measure-database-index.sh",
     "narration:silent": "node scripts/silent-narration.mjs system-design/01-single-server"
   },
   "sideEffects": [

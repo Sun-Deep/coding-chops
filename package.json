@@ -45,8 +45,10 @@
     "render:ps01": "remotion render src/index.ts PS01-Master out/ps01-best-time-to-buy-and-sell-stock.mp4",
     "render:ps01-packaging": "remotion still src/index.ts PS01-Thumbnail out/ps01-thumbnail.png && remotion still src/index.ts PS01-Social-Cover out/ps01-social-cover.png && remotion still src/index.ts PS01-Social-Cover-Part-01 out/ps01-social-cover-part-01.png --gl=angle && remotion still src/index.ts PS01-Social-Cover-Part-02 out/ps01-social-cover-part-02.png && remotion still src/index.ts PS01-Social-Cover-Part-03 out/ps01-social-cover-part-03.png --gl=swiftshader && remotion still src/index.ts PS01-Social-Cover-Part-04 out/ps01-social-cover-part-04.png",
     "render:reel": "remotion render src/index.ts VR01-Database-Index out/vertical/vr01-database-index.mp4 && remotion still src/index.ts VR01-Cover out/vertical/vr01-cover.png",
+    "render:hanoi-reel": "remotion render src/index.ts VR02-Tower-Of-Hanoi out/vertical/vr02-tower-of-hanoi.mp4 && remotion still src/index.ts VR02-Cover out/vertical/vr02-cover.png",
     "render:safe-area": "remotion still src/index.ts Vertical-Safe-Area out/vertical/safe-area.png",
     "measure:database-index": "scripts/measure-database-index.sh",
+    "measure:tower-of-hanoi": "node scripts/measure-tower-of-hanoi.mjs",
     "narration:silent": "node scripts/silent-narration.mjs system-design/01-single-server"
   },
   "sideEffects": [

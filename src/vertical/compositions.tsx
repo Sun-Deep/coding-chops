@@ -2,9 +2,12 @@ import { Composition, Folder, Still } from "remotion";
 import { FPS } from "../shared/video/timing";
 import { HEIGHT, WIDTH } from "../shared/vertical/geometry";
 import { SafeArea } from "../shared/vertical/SafeArea";
-import { DURATION } from "./01-database-index/beats";
+import { DURATION as VR01 } from "./01-database-index/beats";
 import { DatabaseIndexCover } from "./01-database-index/Cover";
 import { DatabaseIndexReel } from "./01-database-index/Reel";
+import { DURATION as HANOI_DURATION } from "./02-tower-of-hanoi/beats";
+import { TowerOfHanoiCover } from "./02-tower-of-hanoi/Cover";
+import { TowerOfHanoiReel } from "./02-tower-of-hanoi/Reel";
 
 /**
  * Vertical cuts.
@@ -23,7 +26,15 @@ export const VerticalCompositions: React.FC = () => (
       <Composition
         id="VR01-Database-Index"
         component={DatabaseIndexReel}
-        durationInFrames={DURATION}
+        durationInFrames={VR01}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Composition
+        id="VR02-Tower-Of-Hanoi"
+        component={TowerOfHanoiReel}
+        durationInFrames={HANOI_DURATION}
         fps={FPS}
         width={WIDTH}
         height={HEIGHT}
@@ -34,6 +45,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR01-Cover"
         component={DatabaseIndexCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR02-Cover"
+        component={TowerOfHanoiCover}
         width={WIDTH}
         height={HEIGHT}
       />

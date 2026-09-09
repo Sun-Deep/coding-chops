@@ -78,8 +78,41 @@ gen scan 7.50 -30 \
   "anoisesrc=color=brown:duration=7.5:amplitude=0.9:seed=19" \
   "bandpass=f=420:width_type=o:w=1.6,tremolo=f=11:d=0.35,afade=t=in:st=0:d=0.55,afade=t=out:st=6.5:d=1.0"
 
+# A request is turned away. Short, dull and low, because a rejection is a door
+# closing rather than an alarm going off. Used in runs of three or four with the
+# gain coming down each time, so a hundred blocked requests read as a run that
+# settles rather than as a machine gun.
+gen reject 0.20 -19 \
+  "aevalsrc='0.7*sin(2*PI*(170*t-70*t*t))*exp(-26*t)+0.3*sin(2*PI*88*t)*exp(-16*t)':d=0.2:s=48000"
+
 # A concept is named and holds. The heaviest sound in the set, used sparingly.
 gen name 0.90 -16 \
   "aevalsrc='0.7*sin(2*PI*82*t)*exp(-3.2*t)+0.34*sin(2*PI*164*t)*exp(-4.5*t)+0.2*sin(2*PI*246*t)*exp(-6*t)':d=0.9:s=48000"
+
+# A rubber-coated plate breaks contact with the stack. The low release gives it
+# weight while two short metal partials locate the sound at the steel hub.
+gen plate-lift 0.20 -22 \
+  "aevalsrc='0.62*sin(2*PI*(145*t-95*t*t))*exp(-18*t)+0.18*sin(2*PI*1480*t)*exp(-34*t)+0.10*sin(2*PI*2320*t)*exp(-48*t)':d=0.2:s=48000"
+
+# The plate crosses between pegs. Filtered air follows the horizontal travel;
+# the fades keep it clear of the lift and impact at either end.
+gen plate-swish 0.50 -27 \
+  "anoisesrc=color=pink:duration=0.5:amplitude=0.72:seed=31" \
+  "highpass=f=420,lowpass=f=3200,tremolo=f=6:d=0.18,afade=t=in:st=0:d=0.08,afade=t=out:st=0.31:d=0.19"
+
+# Rubber hits rubber, then the metal hub rings for a fraction longer. This is
+# specific to the weight-plate visual and replaces the generic arrival sound.
+gen plate-land 0.42 -20 \
+  "aevalsrc='0.82*sin(2*PI*(92*t-44*t*t))*exp(-12*t)+0.22*sin(2*PI*1160*t)*exp(-25*t)+0.13*sin(2*PI*2320*t)*exp(-38*t)':d=0.42:s=48000"
+
+# A code line advances after the physical move. Short enough for three steps
+# to remain distinct inside the ten-frame traversal window.
+gen code-step 0.075 -31 \
+  "aevalsrc='0.52*sin(2*PI*880*t)*exp(-52*t)+0.20*sin(2*PI*1320*t)*exp(-68*t)':d=0.075:s=48000"
+
+# The completed stack resolves into a short consonant chord. It marks the
+# algorithm finishing, not the later brand lockup.
+gen solved 0.95 -22 \
+  "aevalsrc='0.34*sin(2*PI*98*t)*exp(-4.2*t)+0.22*sin(2*PI*523.25*t)*exp(-3.0*t)+0.18*sin(2*PI*659.25*t)*exp(-3.3*t)+0.15*sin(2*PI*783.99*t)*exp(-3.6*t)':d=0.95:s=48000"
 
 echo "done"

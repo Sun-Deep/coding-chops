@@ -79,8 +79,43 @@ Four shots is the default. The slow mechanism, the fast one, the verdict, the
 end card. No hook card in front of any of it, for the reasons in section 10 of
 the standard.
 
-Give each shot a hero: one visual event that carries its idea. VR01's are the
-sweep crossing the whole table and the candidate count collapsing.
+Something has to travel across the frame. This is the rule that took VR03 four
+scenes to learn. A bar filling, a grid of squares, a tank draining and two piles
+growing either side of a barrier were all accurate and all static, and none of
+them gave anybody a reason to stop scrolling. The channel's best cuts move
+something through space: a route racing across a real map, plates being
+delivered, a crane lifting a weight. Find the version of the idea where the
+subject crosses the frame and meets the mechanism.
+
+Build objects, not readouts. This channel's back catalogue is physical: weight
+plates, plates of food, glasses filling, routes across a real map. A fill bar, a
+grid of squares and a labelled rectangle can carry exactly the same information
+and still give somebody no reason to stop scrolling. `WeightPlate.tsx` in
+`02-tower-of-hanoi` is the reference for how: layered ellipses for round forms, a
+gradient across each face, a cast shadow under anything with weight, one
+specular sweep.
+
+Two things that mean different things get drawn as different objects. VR03
+first drew requests and tokens as the same disc, lifted whole from the tower of
+hanoi weight plate, and the token bucket shot then could not show a request
+spending a permit, which is the only thing that shot is about. Reusing a
+material treatment is good. Reusing the form without asking whether it is the
+right form is how a representational error gets in, and it also makes two
+consecutive reels look like the same video.
+
+Put the numbers on the objects they describe. A strip of counts under a diagram
+turns the bottom of the frame into a dashboard reporting on the picture above
+it.
+
+Give each shot a hero: one visual event that carries its idea, and a different
+one per shot. VR01's are the sweep crossing the whole table and the candidate
+count collapsing. VR03's are a counter going backwards, a log that fills and
+never empties, and a tank running dry.
+
+Two shots may share a layout only when the comparison is the point and the
+behaviour visibly differs, the way VR03's fixed and sliding window shots share a
+clock so the rollover can happen to one and not the other. Three shots sharing
+one never works.
 
 Write `beats.ts` with the frame ranges and `narration.tsx` with the line
 timings, then check they agree. Both use absolute frames and nothing enforces
@@ -132,8 +167,10 @@ reasoning from the source file levels, and aim for the heaviest cues peaking
 near -5 dBFS.
 
 If a cut needs a sound the set does not have, add it to `scripts/build-sfx.sh`
-and generate it. Do not download one. The repository owns every effect in it and
-that is worth more than a better whoosh.
+and generate it. Do not download one, and do not substitute a sound that means
+something else because it is already there. `reject` was added for VR03 because
+the audio contract had always listed a reject sound for a blocked path and the
+set never had one.
 
 ## 7. Render and review
 
@@ -154,6 +191,24 @@ a reserve.
 
 Then the cover, cropped to 1:1 and to 3:4, because those are the profile grids
 that will cut it.
+
+Then check for frozen stretches, which are the thing a viewer reads as the video
+stalling and the thing a scrub through the timeline hides:
+
+```bash
+ffmpeg -i out/vertical/<slug>.mp4 \
+  -vf "tblend=all_mode=difference,signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=diff.txt" \
+  -f null -
+```
+
+Any run where `YAVG` stays under about 0.06 is a frame that only the film grain
+is changing. Nothing should hold longer than about a second and a half, and the
+one that does should be the end card. VR03 had two and a half seconds of a
+frozen frame starting five seconds in, because its first shot was given 236
+frames and finished animating at 158.
+
+A shot's length is its animation plus the time somebody needs to read the payoff.
+It is not a slot to fill.
 
 Then muted, at feed size, on a phone. If it does not make sense muted, the
 narration is not carrying its share.
@@ -186,7 +241,16 @@ The catch. Every good technical finding has a cost, and naming it is what
 separates this from an engagement post. A cut with no catch is an incomplete
 cut, not an incomplete caption.
 
-Then a blank line and the hashtags. Keep the whole thing under about 400
+Then the repository, on its own line. Every cut is built in the open and the
+measurement run that produced the numbers is in there, so the line is evidence
+rather than promotion. It also means anybody who wants to argue with a figure
+can go and check it.
+
+```text
+Code and measurements: github.com/Sun-Deep/coding-chops
+```
+
+Then a blank line and the hashtags. Keep the whole thing under about 450
 characters, because a reel caption is competing with a video that is already
 playing.
 
@@ -245,6 +309,7 @@ without opening the file.
 - Five hashtags, none of them the channel name?
 - Title under 60 characters with the hook inside the first 40?
 - No em dashes, no call to action, no question mark?
+- Is the repository line there?
 
 ## 9. Ship it
 
@@ -264,9 +329,12 @@ Easing a counter that is already being fed an eased value eases it twice. The
 number lands on its target while the thing it counts is still a row and a half
 short, which is the one detail that tells a viewer the figures are decoration.
 
-`prettier` realigns markdown tables, so an exact-match edit written against the
-unformatted version fails silently in a multi-part script. Check what actually
-changed before rendering.
+`prettier` rewrites what you are about to match against. It realigns markdown
+tables and it collapses a multi-line destructure onto one line, so an exact
+match written against the pre-format text fails silently and the script reports
+success. This cost two full render cycles on VR03, where an audio gain looked
+changed and was not. Assert that the replacement happened, or match with a
+regex, and read the value back out of the file before rendering.
 
 A render can pick up a file you did not mean to change, and the only way to know
 is to measure the output rather than trust the code. A twenty decibel audio
@@ -278,3 +346,41 @@ not measurements. Show the ratio.
 
 A logo at 40 percent in a neutral colour reads as a failed render, not as a
 quiet watermark.
+
+Three lanes of a comparison must not share a hero. The rate limiting cut first
+shipped with the same band, counter and label in all three algorithm shots, and
+the differences between them were real while the pictures were nearly identical.
+It read as one frame shown three times. Give each lane its own event: a counter
+going backwards, a log that fills and stays full, a tank running dry.
+
+A shot that opens on a zero has a dead frame at every cut. Start counters on the
+second frame of their shot, not the eighth. A third of a second times four cuts
+is most of a second of nothing in a twenty-five second cut.
+
+Narration and the shot map are on separate clocks and nothing checks them
+against each other. Every line has to open at least four frames after its shot
+starts and close at least six before it ends, or a payoff fades over the top of
+the next shot's opening.
+
+Draw the event, not its result. The first rate limiting cut showed a band
+filling all the way across and never showed the counter resetting, which is the
+bug the whole cut is about. If a cut has one moment, that moment is a shot.
+
+A full-frame flare reads as a render fault at any opacity worth seeing. Name the
+event in a word instead.
+
+No title card. A card stating the topic buys two seconds of a still frame at the
+exact moment somebody decides whether to keep scrolling. Open on the
+demonstration with the rule already visible in the frame, as a label or as a
+denominator.
+
+A number moving on screen with nothing under it feels broken. Give a counter
+its own cue, one per ten units rather than one per unit, with the gain rising
+into whatever marks the top. That is a meter, and it is tied to the picture.
+
+Never lay a sustained sound under a shot because the shot feels quiet. `scan`
+went under four shots of the rate limiting cut, which put filtered noise across
+most of the reel and had nothing to do with rate limiting. It marks a duration
+and belongs only under a shot that is about how long something takes. If a shot
+feels quiet, find the event in it. Silence during a climb is what makes the
+sound at the top of it land.

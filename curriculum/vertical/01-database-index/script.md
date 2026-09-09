@@ -1,10 +1,10 @@
 # Script
 
-Status: blocked
+Status: approved
 
-Blocked on the understanding check, which is the creator's to tick. The
-composition, the cover, the measurement run and the mix are finished, and the
-full render has been watched end to end.
+The understanding check is complete. The composition, the cover, the copy,
+the mix and the measurement run are finished, and the full render has been
+watched end to end.
 
 There is no voiceover and no music. The narration is burned into the frame as a
 subtitle track, and the sound effects are the whole audio. So this file is the

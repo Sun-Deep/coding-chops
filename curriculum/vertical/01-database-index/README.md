@@ -1,10 +1,9 @@
 # Vertical 01: How a database index actually works
 
-Status: built, understanding gate open
+Status: approved
 
-The composition, the cover and the measurement run are finished. The one thing
-outstanding is the understanding check, which is the creator's to tick and
-cannot be ticked on their behalf.
+Both gates are passed. The understanding check is complete, and the finished
+render was watched from beginning to end.
 
 ## What it claims
 

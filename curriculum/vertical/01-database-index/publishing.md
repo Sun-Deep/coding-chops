@@ -29,6 +29,8 @@ With a b-tree it reads three pages, then the row. Same query, same machine. 104 
 
 That index adds 214 MB to a 498 MB table and makes inserts 3x slower.
 
+Code and measurements: github.com/Sun-Deep/coding-chops
+
 #postgres #database #sql #backend #softwareengineering
 ```
 

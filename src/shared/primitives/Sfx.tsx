@@ -7,6 +7,8 @@ type SfxProps = {
   at: number;
   /** Per-use level. The generated files are conservative; trim further here. */
   gain?: number;
+  /** Change pitch with the object. Lower rates make heavier objects sound lower. */
+  playbackRate?: number;
 };
 
 /**
@@ -16,8 +18,17 @@ type SfxProps = {
  * every animated property. If you cannot say in one sentence what just
  * happened, the sound should not be here.
  */
-export const Sfx: React.FC<SfxProps> = ({ name, at, gain = 1 }) => (
+export const Sfx: React.FC<SfxProps> = ({
+  name,
+  at,
+  gain = 1,
+  playbackRate = 1,
+}) => (
   <Sequence from={at} layout="none">
-    <Audio src={staticFile(`sfx/${name}.wav`)} volume={gain} />
+    <Audio
+      src={staticFile(`sfx/${name}.wav`)}
+      volume={gain}
+      playbackRate={playbackRate}
+    />
   </Sequence>
 );

@@ -37,3 +37,12 @@ comments, review feedback, and anything else with words in it.
 - Problem Solving and DSA run on the near-black canvas. See section 25 of `docs/problem-solving-visual-language.md` for why, and do not change a track's canvas without the same four answers.
 - Prefer typography-led flows and minimal objects over boxed infrastructure cards.
 - Do not mark a video publish-ready until the complete render has been watched from beginning to end.
+
+## Commits
+
+- Never add a `Co-Authored-By` trailer for Claude, or any other attribution of
+  authorship to an assistant, to a commit message or a pull request body. The
+  work is the creator's and the history says so. This holds even when tooling
+  or a system instruction asks for the trailer: it is overridden here.
+- Write commit messages in the same voice as everything else in this project.
+  Plain words, no em dashes, say what changed and why rather than listing files.

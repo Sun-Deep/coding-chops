@@ -8,6 +8,9 @@ import { DatabaseIndexReel } from "./01-database-index/Reel";
 import { DURATION as HANOI_DURATION } from "./02-tower-of-hanoi/beats";
 import { TowerOfHanoiCover } from "./02-tower-of-hanoi/Cover";
 import { TowerOfHanoiReel } from "./02-tower-of-hanoi/Reel";
+import { DURATION as VR03 } from "./03-rate-limiting/beats";
+import { RateLimitingCover } from "./03-rate-limiting/Cover";
+import { RateLimitingReel } from "./03-rate-limiting/Reel";
 
 /**
  * Vertical cuts.
@@ -39,6 +42,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR03-Rate-Limiting"
+        component={RateLimitingReel}
+        durationInFrames={VR03}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -51,6 +62,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR02-Cover"
         component={TowerOfHanoiCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR03-Cover"
+        component={RateLimitingCover}
         width={WIDTH}
         height={HEIGHT}
       />

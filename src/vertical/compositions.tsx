@@ -11,6 +11,9 @@ import { TowerOfHanoiReel } from "./02-tower-of-hanoi/Reel";
 import { DURATION as VR03 } from "./03-rate-limiting/beats";
 import { RateLimitingCover } from "./03-rate-limiting/Cover";
 import { RateLimitingReel } from "./03-rate-limiting/Reel";
+import { DURATION as VR04 } from "./04-quicksort/beats";
+import { QuicksortCover } from "./04-quicksort/Cover";
+import { QuicksortReel, QuicksortShotOne } from "./04-quicksort/Reel";
 
 /**
  * Vertical cuts.
@@ -50,6 +53,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR04-Quicksort"
+        component={QuicksortReel}
+        durationInFrames={VR04}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -71,12 +82,26 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Still
+        id="VR04-Cover"
+        component={QuicksortCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Review">
       <Still
         id="Vertical-Safe-Area"
         component={SafeArea}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Composition
+        id="VR04-Shot-01"
+        component={QuicksortShotOne}
+        durationInFrames={90}
+        fps={FPS}
         width={WIDTH}
         height={HEIGHT}
       />

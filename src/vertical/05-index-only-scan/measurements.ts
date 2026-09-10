@@ -87,6 +87,16 @@ export const STALE_VISIBILITY_MAP = {
   afterVacuumMs: 6,
 } as const;
 
+/**
+ * Pages the bitmap index scan itself read to find all 100,366 entries, from
+ * `Bitmap Index Scan ... Buffers: shared read=88`.
+ *
+ * The number the caption leans on, and the reason the cut is not about indexes
+ * being slow. Finding the rows cost 88 pages. Going and getting them cost the
+ * other 69,123.
+ */
+export const INDEX_PAGES_READ = 88;
+
 /** 69,211 over 281, the scattered plain index against the covering index. */
 export const PAGE_RATIO = 246;
 

@@ -20,6 +20,7 @@ import {
 } from "./Field";
 import {
   CONTIGUOUS,
+  INDEX_PAGES_READ,
   INDEX_SIZE,
   LAYOUT,
   PAGE_RATIO,
@@ -72,7 +73,7 @@ const QUERY = `SELECT sum(amount) FROM events WHERE ${LAYOUT.scattered.column} =
 const heapFraction = (pages: number) => pages / SETUP.heapPages;
 
 /** The fraction of the index a lane touches. About one percent either way. */
-const PLAIN_INDEX_READ = 88 / INDEX_SIZE.plainPages;
+const PLAIN_INDEX_READ = INDEX_PAGES_READ / INDEX_SIZE.plainPages;
 const COVERING_INDEX_READ = COVERING.pages / INDEX_SIZE.coveringPages;
 
 /** 1,322 over 277. The same comparison on a key whose rows are already ordered. */
@@ -129,8 +130,8 @@ export const Fetch: React.FC = () => {
         index recheck: 872,200
       </Provenance>
       <Provenance top={1196} opacity={ramp(frame, 190, 24)}>
-        the index found all {commas(LAYOUT.scattered.matchingRows)} in 88 page
-        reads
+        the index found all {commas(LAYOUT.scattered.matchingRows)} in{" "}
+        {INDEX_PAGES_READ} page reads
       </Provenance>
     </>
   );

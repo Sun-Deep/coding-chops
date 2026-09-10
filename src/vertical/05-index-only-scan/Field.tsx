@@ -108,21 +108,36 @@ export const Heap: React.FC<{
   /** 0 to 1, the fraction of pages an UPDATE has dirtied. */
   stale?: number;
   opacity?: number;
-}> = ({ read, stale = 0, opacity = 1 }) => (
+  /**
+   * Where the field sits and how tall it is. The reel always uses the defaults,
+   * so its three field shots cannot drift apart. The cover overrides them to
+   * get a shorter band, which is honest because the fraction lit is what
+   * carries the meaning and the row count is not: 40 columns of 10 rows at 56
+   * percent says the same thing as 40 of 16 at 56 percent.
+   */
+  top?: number;
+  rows?: number;
+}> = ({
+  read,
+  stale = 0,
+  opacity = 1,
+  top = HEAP_TOP,
+  rows = HEAP_ROWS,
+}) => (
   <div
     style={{
       position: "absolute",
-      top: HEAP_TOP,
+      top,
       left: FIELD_LEFT,
       width: FIELD_WIDTH,
-      height: HEAP_HEIGHT,
+      height: rows * PITCH - (PITCH - TILE),
       display: "grid",
       gridTemplateColumns: `repeat(${COLUMNS}, ${TILE}px)`,
       gap: PITCH - TILE,
       opacity,
     }}
   >
-    {Array.from({ length: HEAP_TILES }, (_, i) => {
+    {Array.from({ length: COLUMNS * rows }, (_, i) => {
       const isRead = rank(i, FETCH_SALT) < read;
       const isStale = rank(i, STALE_SALT) < stale;
 

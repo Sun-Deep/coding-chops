@@ -3,8 +3,9 @@ import { Lockup } from "../../shared/brand/Lockup";
 import { theme } from "../../shared/brand/theme";
 import { SQUARE_BOTTOM, SQUARE_TOP } from "../../shared/vertical/geometry";
 import { ACCENT } from "../../shared/vertical/palette";
-import { Eyebrow, Headline, Label, Punch } from "../../shared/vertical/type";
-import { PAGE_RATIO, SCATTERED, commas } from "./measurements";
+import { Eyebrow, Headline, Label, Readout } from "../../shared/vertical/type";
+import { Heap } from "./Field";
+import { PAGE_RATIO, SCATTERED, SETUP, commas } from "./measurements";
 
 /**
  * The cover.
@@ -15,47 +16,29 @@ import { PAGE_RATIO, SCATTERED, commas } from "./measurements";
  * `SQUARE_BOTTOM` and the strips above and below carry nothing but ground.
  *
  * It states the result rather than teasing it, and the promise it makes is the
- * one the cut delivers in the first seven seconds: the index was already there
+ * one the cut delivers in the first six seconds: the index was already there
  * and it did not save you. A cover asking whether your indexes are working is
  * the version that gets scrolled past.
+ *
+ * The field of tiles is the cut's own picture and it belongs here. The first
+ * version of this cover was type all the way down, which is what VR01 and VR03
+ * did, and both of those read as a page of numbers at thumbnail size. VR02 and
+ * VR04 put their object on the cover and are the two that stop a scroll. The
+ * field is doing the headline's work: "half the table" is a claim in words and
+ * a picture in tiles, and the picture is the one that survives being small.
+ *
+ * The lanes table went to make room. The grid and the one line under it say
+ * what the two rows said, and a cover with a table on it is a cover nobody
+ * reads at grid size.
  */
-const ROW = 728;
-
-const Lane: React.FC<{
-  top: number;
-  name: string;
-  pages: string;
-  color: string;
-  weight?: number;
-}> = ({ top, name, pages, color, weight = 500 }) => (
-  <div
-    style={{
-      position: "absolute",
-      top,
-      left: (1080 - ROW) / 2,
-      width: ROW,
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      alignItems: "baseline",
-      fontFamily: theme.monoFamily,
-      fontSize: 29,
-      fontWeight: weight,
-      fontVariantNumeric: "tabular-nums",
-      color,
-    }}
-  >
-    <span style={{ textAlign: "left" }}>{name}</span>
-    <span style={{ textAlign: "right" }}>{pages}</span>
-  </div>
-);
 
 const Rule: React.FC<{ top: number }> = ({ top }) => (
   <div
     style={{
       position: "absolute",
       top,
-      left: (1080 - ROW) / 2,
-      width: ROW,
+      left: (1080 - 756) / 2,
+      width: 756,
       height: 1,
       background: "rgba(233,228,216,0.16)",
     }}
@@ -74,42 +57,38 @@ export const IndexOnlyScanCover: React.FC = () => (
 
     {/* Both lines have to hold one line at 96. "The index was there." is
         twenty characters and wrapped into the line below it. */}
-    <Headline top={SQUARE_TOP + 138} size={96}>
+    <Headline top={SQUARE_TOP + 128} size={96}>
       Already indexed.
     </Headline>
-    <Headline top={SQUARE_TOP + 250} size={96} color={ACCENT}>
+    <Headline top={SQUARE_TOP + 238} size={96} color={ACCENT}>
       Half the table.
     </Headline>
 
-    <Rule top={SQUARE_TOP + 382} />
+    {/* The same field the reel draws, at the same 56 percent, from the same
+        scatter. Ten rows rather than sixteen so it reads as a band here. */}
+    <Heap
+      read={SCATTERED[1].pages / SETUP.heapPages}
+      top={SQUARE_TOP + 390}
+      rows={10}
+    />
 
-    <Lane
-      top={SQUARE_TOP + 418}
-      name="Index"
-      pages={`${commas(SCATTERED[1].pages)} pages`}
+    <Readout
+      top={SQUARE_TOP + 606}
+      size={30}
       color={theme.colors.grayLight}
-    />
-    <Lane
-      top={SQUARE_TOP + 476}
-      name="Covering index"
-      pages={`${commas(SCATTERED[2].pages)} pages`}
-      color={ACCENT}
-      weight={700}
-    />
+    >
+      {commas(SCATTERED[1].pages)} of {commas(SETUP.heapPages)} pages
+    </Readout>
 
-    <Rule top={SQUARE_TOP + 528} />
+    <Rule top={SQUARE_TOP + 672} />
 
-    <Headline top={SQUARE_TOP + 588} size={158} color={ACCENT}>
+    <Headline top={SQUARE_TOP + 716} size={150} color={ACCENT}>
       {PAGE_RATIO}×
     </Headline>
 
-    <Label top={SQUARE_TOP + 772}>Fewer pages, same machine</Label>
-
-    <Punch top={SQUARE_TOP + 828} size={54}>
-      Same query.
-      <br />
-      One extra column.
-    </Punch>
+    <Label top={SQUARE_TOP + 900}>
+      Fewer pages with a covering index
+    </Label>
 
     <div
       style={{

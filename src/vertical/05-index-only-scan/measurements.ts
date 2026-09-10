@@ -36,9 +36,13 @@ export const LAYOUT = {
 } as const;
 
 /**
- * Scattered rows, three lanes. Pages are from `Buffers: shared`, identical in
- * both runs. Milliseconds are the warm runs, which moved about 7 percent
- * between them, so they are rounded on screen.
+ * Scattered rows, three lanes. Pages are from `Buffers: shared` and are
+ * identical across all three measurement sessions.
+ *
+ * Milliseconds are the mean of six warm executions across those three sessions.
+ * The sequential scan was on screen as 140 until the third run: six warm
+ * executions range 142.0 to 173.7 and mean 150.8, so 140 was below every value
+ * ever measured. That is what the hour-apart rule is for.
  *
  * The plain index lane is a Parallel Bitmap Heap Scan, and its 69,211 is two
  * effects at once: 100,366 scattered rows land on close to 100,000 distinct
@@ -46,7 +50,7 @@ export const LAYOUT = {
  * 872,200 rechecked rows. The cut must not sell it as correlation alone.
  */
 export const SCATTERED = [
-  { lane: "no index", plan: "Parallel Seq Scan", pages: 123_457, ms: 140, heapFetches: null },
+  { lane: "no index", plan: "Parallel Seq Scan", pages: 123_457, ms: 151, heapFetches: null },
   { lane: "plain index", plan: "Parallel Bitmap Heap Scan", pages: 69_211, ms: 117, heapFetches: null },
   { lane: "covering index", plan: "Index Only Scan", pages: 281, ms: 4.8, heapFetches: 0 },
 ] as const;
@@ -57,8 +61,8 @@ export const SCATTERED = [
  * covering index is worth 4.8 times here and 246 times when scattered.
  */
 export const CONTIGUOUS = [
-  { lane: "plain index", plan: "Index Scan", pages: 1_322, ms: 6.8, heapFetches: null },
-  { lane: "covering index", plan: "Index Only Scan", pages: 277, ms: 4.6, heapFetches: 0 },
+  { lane: "plain index", plan: "Index Scan", pages: 1_322, ms: 6.7, heapFetches: null },
+  { lane: "covering index", plan: "Index Only Scan", pages: 277, ms: 4.8, heapFetches: 0 },
 ] as const;
 
 /** What the second copy of `amount` costs. 215 over 66 is 3.3. */

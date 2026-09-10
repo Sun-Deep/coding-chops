@@ -4,8 +4,9 @@ Not ready to post. `script.md` is `Status: blocked`, the understanding check has
 ten unticked boxes, and that gate is the creator's. The copy below is written
 against the finished render and is ready when the gate opens.
 
-Still outstanding: the third measurement run an hour after the other two, and
-hearing the cut on a phone at feed size.
+Still outstanding: hearing the cut on a phone at feed size. The third
+measurement run is done and is recorded in `measurements.md`; it moved the
+sequential scan's time on the verdict frame from 140 ms to 151.
 
 ## Files
 

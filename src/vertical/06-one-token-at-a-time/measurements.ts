@@ -136,12 +136,17 @@ export const STEP_ALT = {
  * Prefill is about 4.5 times cheaper per token because the prompt's tokens go
  * through the stack together and generated ones cannot: each has to exist
  * before the next can be computed.
+ *
+ * The millisecond figures are means of three sessions. Decode is tight across
+ * them, 9.28 / 9.21 / 9.27. Prefill is not, 2.07 / 2.09 / 1.92, which moves the
+ * ratio between 4.4 and 4.8. None of these reach a frame; the cut puts only
+ * counts on screen.
  */
 export const GENERATION = {
   tokens: 40,
   forwardPasses: 40,
-  prefillMsPerToken: 2.07,
-  decodeMsPerToken: 9.28,
+  prefillMsPerToken: 2.03,
+  decodeMsPerToken: 9.25,
   /** 9.28 over 2.07, rounded. Both move a few percent between runs. */
   decodeVsPrefill: 4.5,
   answer:

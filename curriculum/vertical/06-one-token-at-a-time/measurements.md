@@ -172,10 +172,11 @@ out. One run per point was the bug.
 
 ## What is stable and what is not
 
-Both runs were on 2026-09-10, back to back rather than an hour apart. The
-playbook asks for an hour between them and that third run is still owed.
+Three runs. Two on 2026-09-10 at 22:59 and 23:00, and a third on 2026-09-11 at
+01:32, two and a half hours later, which is the separation the playbook asks
+for.
 
-Identical across both runs:
+Identical in all three:
 
 ```text
 raw tokens                       6
@@ -192,15 +193,42 @@ the generated text, character for character
 ```
 
 At temperature 0 the sampling is deterministic, which is why the probabilities
-and the answer reproduce exactly. That is a property of the setting, not luck,
-and changing temperature would break it.
+and the answer reproduce exactly across ten hours and three server starts. That
+is a property of the setting, not luck, and any other temperature would break
+it.
 
 Moved between runs:
 
 ```text
-prompt_per_token       2.07 / 2.09 ms
-predicted_per_token    9.28 / 9.21 ms
-every figure in the decode sweep, by about 1 to 3 percent
+prompt_per_token       2.07 / 2.09 / 1.92 ms
+predicted_per_token    9.28 / 9.21 / 9.27 ms
 ```
 
-Counts and probabilities go on screen as absolutes. Times go on as ratios.
+Decode is tight. Prefill moved 8 percent, wider than the 1 to 3 percent the
+first two runs suggested, which pulls the prefill-to-decode ratio between 4.4
+and 4.8. "About 4.5 times" still holds, and it is a ratio rather than an
+absolute for exactly this reason.
+
+The decode sweep held a third time and is monotonic in every session:
+
+```text
+prompt_n     run 1     run 2     run 3
+   130        8.79      8.78      8.76
+   858        8.82      8.93      8.87
+ 2,522        9.30      9.42      9.46
+ 5,850       10.17     10.45     10.21
+11,674       11.64     11.79     11.68
+```
+
+1.33 times across a 90 times longer conversation, from 1.32 and 1.34. The trend
+is real and the modest size of it is real too.
+
+### What the third run changed
+
+Nothing that reaches a frame. The cut puts only counts on screen, and every
+count was already identical. The recorded millisecond figures moved to the means
+of three sessions, 2.03 and 9.25, and the render is byte for byte the file it
+was before the edit.
+
+That is the useful outcome of a third run on a cut like this: it confirms that
+the figures which are drawn are the figures that do not move.

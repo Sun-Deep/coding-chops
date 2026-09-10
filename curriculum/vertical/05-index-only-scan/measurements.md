@@ -203,13 +203,11 @@ Aggregate (actual time=0.490..0.491 rows=1 loops=1)
 
 ## What is stable and what is not
 
-Both runs were on 2026-09-10, back to back rather than an hour apart. The
-playbook asks for an hour between them and that third run is still owed before
-any of this goes in a frame, though the page counts below were bit identical
-across the two runs that exist, which is the outcome the rule is trying to
-protect.
+Three runs. Two on 2026-09-10 back to back at 15:15 and 15:17, and a third on
+2026-09-11 at 01:30, ten hours later, which is the separation the playbook asks
+for.
 
-Identical in both runs:
+Identical in all three:
 
 ```text
 heap pages                       123,457
@@ -224,16 +222,34 @@ plain index                     66 MB,  8,468 pages
 covering index                 215 MB, 27,460 pages
 ```
 
-Moved between runs:
+Times, as six warm executions across the three sessions with the cold first
+execution of each run discarded:
 
 ```text
-scattered, no index          144.9 ms  /  139.1 ms
-scattered, plain index       116.0 ms  /  122.3 ms
-scattered, covering index      4.76 ms /    4.92 ms
-first run after CREATE INDEX 363.6 ms  /  471.1 ms
+                        min      max     mean
+no index              142.0    173.7    150.8
+plain index           110.2    122.3    116.6
+covering index          4.6      5.0      4.8
+contiguous plain        6.3      7.2      6.7
+contiguous covering     4.6      5.3      4.8
 ```
 
-The warm timings move by about 7 percent and the cold first run moves by 30,
-because it is writing out dirtied pages rather than measuring the plan. Counts
-go on screen as absolutes. Times go on screen rounded, or as a ratio, and the
-cold run is not a measurement of anything and does not go on screen at all.
+### What the third run changed
+
+The sequential scan was on screen as 140 ms. Six warm executions range 142.0 to
+173.7, so 140 was below every value ever measured on this machine. It came from
+reading the first session's numbers as "about 140" when they were 143.9, 141.4
+and 148.1.
+
+It is 151 now, the mean, and the verdict frame was re-rendered.
+
+Nothing else moved enough to matter. The plain index lane was already 117
+against a mean of 116.6, and both covering lanes were inside their range.
+
+This is the whole reason for the rule. Two runs seventeen minutes apart agreed
+with each other and were both slightly low; a run ten hours later, on a cold
+machine, is what showed the spread.
+
+Counts go on screen as absolutes. Times go on rounded to the mean of every warm
+execution, and the cold first execution after `CREATE INDEX` is not a
+measurement of the plan and appears nowhere.

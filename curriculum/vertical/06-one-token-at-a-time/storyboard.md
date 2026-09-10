@@ -91,13 +91,80 @@ than the answer, and the accent has meant "where the answer is" since VR01.
 
 ## Cue map
 
-Deferred to step 6. Effects only, no music, roughly one cue every one and a half
-seconds, levels per section 11 of the standard. The three events that must land
-are the shatter in shot 1, the twenty-four columns going dark in shot 2, and the
-cache lighting across its full width in shot 3.
+Thirty-one cues in twenty-six seconds. No music, no sustained texture. Gains are
+in `Reel.tsx` and were set against the finished render rather than reasoned from
+the source file levels.
 
-No sustained texture. `scan` marks elapsed time and nothing here is about how
-long something takes.
+```text
+shot 1   f2    appear     the window
+         f8    send       the message leaves it
+         f34   settle     your six land, as one thing being placed
+         f76   fill x5    the template's nineteen arrive, as data
+         f146  tick       6 became 25, named
+
+shot 2   f216  process x4 the front crossing thirty-six layers
+         f276  dissolve   twenty-four columns going dark
+         f304  appear     the vocabulary arriving
+         f338  settle     it collapses
+         f350  name       one kept. the heaviest cue in the cut
+         f360  tick       151,936, named
+
+shot 3   f430  process    pass one
+         f448  process    pass two
+         f466  process    pass three
+         f484  fill x6    thirty-seven more, accelerating
+         f560  tick       one pass per token, named
+
+shot 4   f642  settle     the cost is placed
+         f668  name       the mark
+         f716  land       the closing line
+```
+
+Your six tokens and the template's nineteen get different cues on purpose.
+`settle` is an object being placed and `fill` is data arriving one piece at a
+time, and the difference between those two groups is the entire shot. Giving
+them the same sound would flatten the thing shot 1 exists to show.
+
+The three slow passes in shot 3 are cued individually and the thirty-seven fast
+ones are a run of six that accelerates with the picture. Forty cues would be a
+rhythm track, and one cue for forty passes would say the loop happened once.
+
+No `scan`, the same as VR05. It marks elapsed time and nothing here is about how
+long something takes. The layer climb is a machine doing four named pieces of
+work, not a duration, which is why it is `process` and not a texture laid under
+the shot.
+
+### Measured levels
+
+The standard asks for the heaviest cues near -5 dBFS and the quiet ones between
+-14 and -19. On the finished render:
+
+```text
+name, one kept          -5.0     peak of the whole track
+name, the mark          -6.1
+land, closing line      -8.0
+appear, vocabulary      -9.4
+appear, the window     -11.1
+fill, late in a run    -12.0
+tick                   -12.1
+settle, your six       -12.3
+process                -12.3
+dissolve               -14.2
+settle, the card       -14.0
+send                   -14.2
+fill, first of a run   -19.1
+```
+
+Peak level -4.95 dBFS with no clipped samples.
+
+Two cues were re-set after the first measurement. `dissolve` came in at -17.9,
+the bottom of the range, for the moment twenty-four of twenty-five columns go
+dark, which is the shot's first real event and the thing the cut wants people to
+notice. `settle` on your six tokens was at -14.0 for a beat the whole first shot
+turns on. Both went up.
+
+Still owed: hearing it on a phone, at feed size, with the platform's own audio
+laid over the top.
 
 ## Safe areas
 

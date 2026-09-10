@@ -7,12 +7,24 @@ it has been made; step 2, the measurement, is next and gates everything after it
 
 ## What it claims
 
-A model does not write an answer. It writes one token, then reads the entire
-conversation again including the token it just wrote, and picks one more. The
-answer appears a token at a time because that is literally how it is made.
+A model does not write an answer. It writes one token at a time, and every one
+of them is chosen by scoring roughly 152,000 vocabulary entries and keeping one.
 
-Each of those steps is a search space collapsing: about 152,000 vocabulary
-entries scored, one chosen, and then the whole thing runs again.
+The prompt goes through the block stack once. After that only the newest token
+is ever pushed through it again. The keys and values for everything before it
+sit in a cache, which is read in full on every step and grows with the
+conversation.
+
+That second paragraph is a correction to the first version of this plan, which
+said the model "reads the entire conversation again". At the attention level
+that is true, because every new token attends over every earlier position. At
+the compute level it is false, because the KV cache means earlier tokens are
+never recomputed. Drawing the whole prompt climbing the stack on every step
+would be wrong and somebody would say so.
+
+The accurate picture is the better one to draw anyway: one narrow column going
+up the stack, next to a cache that widens every step and is read whole each
+time.
 
 ## Why this topic
 
@@ -28,9 +40,14 @@ end of it, which is the difference the format is built on.
 
 ## The catch
 
-It re-reads the whole conversation on every single token. Nothing is remembered
-between passes in the way people assume. That is why a long chat gets slower and
-costs more as it goes, and it is measurable as prefill against decode.
+The cache is both why generation is fast and why a long conversation gets slow.
+
+Every new token's attention reads every position stored in it, so the per-token
+cost grows with the length of the chat, and the cache itself takes memory that
+grows with it too. Without the cache, decode would be far worse. With it, the
+thing that degrades is the one nobody sees.
+
+Measurable as prefill against decode, in tokens and in ms per token.
 
 A cut that stops at "it predicts the next token" is a fact people have already
 heard. The catch is what makes it land.
@@ -50,24 +67,56 @@ changed, and the badge is the part that would have been false.
 
 Decided with the creator on 2026-09-10.
 
-## Shape
+## The nine steps, and how four shots carry them
 
-Twenty seconds, 600 frames, four shots, about 38 words of narration.
+What actually happens between the send button and the first character of the
+answer is nine steps. Nine shots would be 100 frames and seven words each, which
+is a caption rather than an explanation, and the format asks for one hero per
+shot. They group without losing anything:
 
 ```text
-1  the prompt shatters      0 to 150   a typed line breaks into tokens with real ids
-2  one forward pass       150 to 330   tokens through the stack, out comes a
-                                       distribution over the vocabulary,
-                                       collapsing to one
-3  the loop               330 to 490   the token is appended, it all runs again,
-                                       the answer types itself while the
-                                       forward-pass counter climbs
-4  end card               490 to 600   the catch
+1 template + 2 tokenize     one idea: your words become tokens, more than you think
+3 embed                     the entry to the stack, not a beat of its own
+4 prefill + 5 logits
+        + 6 sample          one idea: it all goes up, one distribution comes out,
+                            and it collapses to one token
+7 decode + 8 repeat         one idea: now only the new token goes up, reading a
+                            cache that keeps growing
+9 detokenize + stream       this is the answer appearing, already on screen in shot 3
+```
+
+Embedding does not get a shot. "Each id looks up a row of numbers" is true and
+foundational and the least visual of the nine, and its hero would be weak. It is
+shown as the tokens entering the stack as columns.
+
+Step 1 is the surprise and it is measured already. The chat template turns a six
+token question into twenty-six tokens before the model sees anything, and most
+people have never been told their raw message is not what gets sent.
+
+## Shape
+
+Twenty-six seconds, 780 frames, four shots, about 52 words of narration.
+
+Not twenty, which was the first plan, because the material is nine steps and
+forty words could not carry the template surprise and the cache together. Not
+thirty either: VR05 was cut from thirty to twenty-two for feeling long, and the
+best performing cut on the page is twenty-seven seconds.
+
+```text
+1  send, template, tokens     0 to 200   six words become twenty-six
+2  the stack, one token out 200 to 420   ~152,000 scored, one chosen
+3  the loop and the cache   420 to 640   one pass per token, cache widening
+4  the catch                640 to 780
 ```
 
 One hero per shot: the sentence shattering into tokens, the vocabulary column
-collapsing to a single row, and the pass counter climbing while the answer
-appears. No hook card, per section 10 of the standard.
+collapsing to a single row, and the cache growing wide while the stack stays one
+token narrow. No hook card, per section 10 of the standard.
+
+The failure mode is not length, it is becoming a tour. The claim stays "one
+token at a time, against a growing cache". The nine steps are how it happens,
+not what it says. If shot 2 starts explaining what a residual is, the cut is
+gone.
 
 ## What step 2 has to produce
 
@@ -75,12 +124,15 @@ Tooling is present and the path is proven. `llama-tokenize` already returns
 exact ids for a real prompt, `llama-server` returns per-token top-k
 probabilities, and Qwen2.5-3B, Qwen3-1.7B and Qwen2.5-0.5B are on disk.
 
-- the exact tokenization of the prompt the cut uses, with ids
+- the exact tokenization of the prompt the cut uses, with ids, both raw and
+  after the chat template, since the gap between them is shot 1
 - block count, attention heads, embedding length and vocabulary size from the
   GGUF metadata
 - the top five candidate tokens with probabilities at two steps worth showing
 - forward passes for the whole answer, which is the output token count
 - prefill against decode, in tokens and in ms per token, for the catch
+- how per-token decode time moves as the cache grows, which is the catch's
+  actual claim and the one figure that has to hold up
 - two runs at least an hour apart, per the playbook, with anything that moves
   between them shown as a ratio rather than an absolute
 
@@ -90,6 +142,11 @@ reads a figure from.
 
 ## Out of scope
 
-Training, attention head internals, sampling parameters beyond naming that one
-was chosen, KV cache mechanics, quantisation effects, and anything about a
-specific commercial model's architecture.
+Training, what happens inside a block (normalisation, the feed-forward, the
+residuals), grouped-query attention, the embedding matrix itself, sampling
+parameters beyond naming that one was chosen, quantisation effects, and anything
+about a specific commercial model's architecture.
+
+The KV cache is in scope now and was not in the first version of this plan. It
+cannot be left out, because leaving it out is what made the original claim
+wrong.

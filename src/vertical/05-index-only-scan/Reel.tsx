@@ -7,6 +7,39 @@ import { narration } from "./narration";
 import { Covering, EndCard, Fetch, Stale, Verdict } from "./shots";
 
 /**
+ * A counter climbing, as a meter rather than a bed.
+ *
+ * One cue per step with the gain rising across the run, because a count is
+ * under more tension near the top of its range than at the bottom. Nothing
+ * sustained plays anywhere in this cut.
+ *
+ * VR04 carries the same helper. If a third cut needs it, it should move to
+ * `shared/vertical` rather than being copied again; it is duplicated here
+ * instead of extracted because VR04 is published and approved, and reaching
+ * into a published cut to refactor a fifteen line helper is the wrong trade.
+ */
+const Counting: React.FC<{
+  from: number;
+  to: number;
+  cues?: number;
+  gain?: readonly [number, number];
+}> = ({ from, to, cues = 7, gain = [7, 11] }) => (
+  <>
+    {Array.from({ length: cues }, (_, i) => {
+      const t = cues === 1 ? 0 : i / (cues - 1);
+      return (
+        <Sfx
+          key={i}
+          name="fill"
+          at={Math.round(from + (to - from) * t)}
+          gain={gain[0] + (gain[1] - gain[0]) * t}
+        />
+      );
+    })}
+  </>
+);
+
+/**
  * The index that still reads the table, in thirty seconds.
  *
  * VR01 asked for one row and compared no index against an index. On one row the
@@ -61,50 +94,71 @@ export const IndexOnlyScanReel: React.FC = () => (
     <Narration lines={narration} />
 
     {/*
-      Placeholder cue map. Step 6 sets these against the finished render rather
-      than by reasoning from the source levels, and the gains below are the
-      set's nominal ones and are certainly wrong. The three events that have to
-      land are the fetches starting in shot one, the silence where shot two's
-      fetches would be, and the field relighting in shot three.
+      The whole audio track. No bed, so every cue has to earn the silence around
+      it and the silence has to be the right length.
+
+      Gains are set from each file's measured peak toward the targets in section
+      11 of the standard: the heaviest cues near -5 dBFS, the quiet ones between
+      -14 and -19. They were checked on the finished render rather than reasoned
+      from the source levels.
+
+      No `scan`, deliberately, even though shot one is a bitmap heap scan running
+      for four seconds. `scan` marks elapsed time, and this shot's claim is a
+      count: the number on screen is climbing and the fill cues are pages
+      arriving. Using it here would also blur it against VR01, where it carried a
+      sequential scan reading the table in order, and the difference between that
+      and fetching scattered pages is the thing this cut exists to draw.
     */}
 
-    {/* The block arrives, index first. */}
-    <Sfx name="appear" at={2} gain={5} />
-    {/* The index does its small piece of work, and finishes. */}
-    <Sfx name="process" at={8} gain={8.5} />
-    {/* Then four seconds of fetching, which is the shot. */}
-    <Sfx name="scan" at={26} gain={12} />
-    {/* Half the table, said out loud. */}
-    <Sfx name="tick" at={160} gain={5} />
+    {/* The block arrives. */}
+    <Sfx name="appear" at={2} gain={2.8} />
+    {/* The index does its one named piece of work, and is finished by frame 24.
+        Everything after this is the heap. */}
+    <Sfx name="process" at={8} gain={11} />
+    {/* Pages arriving, rising as the count does. A counter is under more tension
+        near the top of its range than at the bottom. */}
+    <Counting from={26} to={154} cues={7} gain={[8, 18]} />
+    {/* Half the table, named. */}
+    <Sfx name="tick" at={160} gain={4.9} />
 
-    {/* The index thickens. */}
-    <Sfx name="fill" at={238} gain={8} />
-    {/* The same small piece of work. Deliberately the same cue as frame 8. */}
-    <Sfx name="process" at={282} gain={8.5} />
-    {/* And nothing else. The silence from here to 430 is the shot. */}
-    <Sfx name="land" at={320} gain={5.5} />
+    {/* The index thickens: an object being placed, not data arriving. */}
+    <Sfx name="settle" at={238} gain={4.1} />
+    {/* The identical cue to frame 8, at the identical gain, because the index
+        does the identical work. If it sounded different the shot would be
+        claiming the index got cleverer, and it did not. */}
+    <Sfx name="process" at={282} gain={11} />
+    {/* The answer, without a trip to the table. */}
+    <Sfx name="land" at={320} gain={4.5} />
+    {/* And then nothing for a hundred and ten frames. Shot one put seven cues in
+        this space. The silence is the shot. */}
 
-    {/* The update. */}
-    <Sfx name="send" at={436} gain={6.5} />
-    {/* Pages going stale. */}
-    <Sfx name="dissolve" at={444} gain={7} />
-    {/* The floor going out. */}
-    <Sfx name="reject" at={480} gain={7.5} />
-    <Sfx name="scan" at={484} gain={10} />
-    <Sfx name="tick" at={530} gain={5} />
+    {/* The update departs. */}
+    <Sfx name="send" at={436} gain={5.5} />
+    {/* Pages losing their all-visible bit. */}
+    <Sfx name="dissolve" at={444} gain={8} />
+    {/* The index only scan is refused. `reject` is in the set for a request
+        turned away, which is exactly what the visibility map has just done. */}
+    <Sfx name="reject" at={478} gain={8} />
+    {/* The refill, four cues in thirty-six frames against shot one's seven in a
+        hundred and twenty-eight. Same event, three times the rate. */}
+    <Counting from={484} to={520} cues={4} gain={[13, 18]} />
+    <Sfx name="tick" at={530} gain={4.9} />
 
-    {/* Into the comparison. */}
-    <Sfx name="send" at={626} gain={6.5} />
-    <Sfx name="fill" at={632} gain={8.5} />
-    <Sfx name="fill" at={642} gain={8.5} />
-    <Sfx name="fill" at={652} gain={8.5} />
-    {/* The ratio. */}
+    {/* The fields leave and the three lanes arrive. */}
+    <Sfx name="dissolve" at={626} gain={8} />
+    <Sfx name="fill" at={632} gain={14} />
+    <Sfx name="fill" at={642} gain={14} />
+    <Sfx name="fill" at={652} gain={14} />
+    {/* The ratio. The heaviest cue in the cut and one of two places `name` is
+        used at all. */}
     <Sfx name="name" at={662} gain={5} />
 
-    {/* The cost. */}
-    <Sfx name="settle" at={772} gain={5.5} />
-    <Sfx name="land" at={840} gain={5.5} />
+    {/* The cost is placed. */}
+    <Sfx name="settle" at={772} gain={4.1} />
     {/* The mark. */}
-    <Sfx name="name" at={812} gain={5} />
+    <Sfx name="name" at={812} gain={4.4} />
+    {/* The closing line. */}
+    <Sfx name="land" at={840} gain={4} />
+
   </VerticalShell>
 );

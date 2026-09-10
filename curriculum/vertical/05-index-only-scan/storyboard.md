@@ -89,10 +89,79 @@ accent, because it is the old behaviour returning rather than a new state.
 
 ## Cue map
 
-Deferred to step 6. Effects only, no music, roughly one cue every second and a
-half, levels per section 11 of the standard. The three events that must land are
-the fetches starting in shot 1, the silence where shot 2's fetches would be, and
-the field relighting in shot 3.
+Twenty-two cues in thirty seconds, one every 1.36 seconds. No music, no
+sustained texture. Gains are in `Reel.tsx` and were set against the finished
+render, not reasoned from the source file levels.
+
+```text
+shot 1   f2    appear     the block arrives
+         f8    process    the index does its one piece of work, and finishes
+         f26   fill x7    pages arriving, gain 8 rising to 18 across the run
+         f160  tick       half the table, named
+
+shot 2   f238  settle     the index thickens
+         f282  process    the identical cue to f8, at the identical gain
+         f320  land       the answer, without a trip to the table
+                          then 110 frames of nothing
+
+shot 3   f436  send       the update departs
+         f444  dissolve   pages losing their all-visible bit
+         f478  reject     the index only scan is refused
+         f484  fill x4    the refill, four cues in 36 frames
+         f530  tick       70,103, named
+
+shot 4   f626  dissolve   the fields leave
+         f632  fill x3    three lanes
+         f662  name       the ratio
+
+shot 5   f772  settle     the cost is placed
+         f812  name       the mark
+         f840  land       the closing line
+```
+
+No `scan`, deliberately, even though shot one is a bitmap heap scan running for
+four seconds and the sound set has exactly that cue. `scan` marks elapsed time,
+and this shot's claim is a count: the number on screen is climbing and the fill
+cues are pages arriving. Using it would also blur this cut against VR01, where
+`scan` carried a sequential scan reading the table in order. The difference
+between that and fetching scattered pages is the thing this cut exists to draw,
+so it should not sound the same.
+
+The two `process` cues are identical on purpose, same file and same gain,
+because the index does the same work in both shots. If the second sounded
+bigger, the shot would be claiming the index got cleverer, and it did not.
+
+The silence in shot two is a cue in its own right. Shot one puts seven fill cues
+in that span and shot two puts none, so the thing the frame is not doing is
+audible. Measured across f330 to f428 the track means -47.6 dBFS.
+
+### Measured levels
+
+The standard asks for the heaviest cues near -5 dBFS and the quiet ones between
+-14 and -19. On the finished render:
+
+```text
+name, the ratio          -5.0      peak of the whole track
+reject                   -6.0
+name, the mark           -6.1
+land, shot 2 payoff      -6.9
+land, closing line       -8.0
+appear                  -11.1
+process                 -11.1
+send                    -12.0
+fill, late in a run     -12.1
+tick                    -12.1
+dissolve                -12.6
+settle                  -14.0
+fill, first of a run    -19.1
+```
+
+Peak level -5.03 dBFS with no clipped samples. Integrated loudness is not
+quoted, because the meter's gate throws away a track that is mostly silence and
+reports something close to the level of the cues themselves.
+
+Still owed: hearing it on a phone, at feed size, with the platform's own audio
+laid over the top.
 
 ## Safe areas
 

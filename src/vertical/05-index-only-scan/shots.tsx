@@ -83,13 +83,13 @@ const CONTIGUOUS_RATIO = (CONTIGUOUS[0].pages / CONTIGUOUS[1].pages).toFixed(1);
  * Shot 1. The index is already there and the query still reads the table.
  *
  * The index finishes almost immediately and the heap goes on lighting up for
- * another four seconds. That gap is the shot: the part everybody pictures was
+ * another three seconds. That gap is the shot: the part everybody pictures was
  * never the expensive part.
  */
 export const Fetch: React.FC = () => {
   const frame = useCurrentFrame();
-  const probe = ramp(frame, 6, 16);
-  const t = interpolate(frame, [26, 154], [0, 1], {
+  const probe = ramp(frame, 4, 14);
+  const t = interpolate(frame, [18, 110], [0, 1], {
     ...clamp,
     easing: EASE_IN_OUT.easing,
   });
@@ -125,11 +125,11 @@ export const Fetch: React.FC = () => {
         pages read of {commas(SETUP.heapPages)}
       </Label>
 
-      <Provenance top={1150} opacity={ramp(frame, 158, 28)}>
+      <Provenance top={1150} opacity={ramp(frame, 114, 22)}>
         pg_stats correlation: {LAYOUT.scattered.correlation} · rows removed by
         index recheck: 872,200
       </Provenance>
-      <Provenance top={1196} opacity={ramp(frame, 190, 24)}>
+      <Provenance top={1196} opacity={ramp(frame, 146, 20)}>
         the index found all {commas(LAYOUT.scattered.matchingRows)} in{" "}
         {INDEX_PAGES_READ} page reads
       </Provenance>
@@ -144,17 +144,25 @@ export const Fetch: React.FC = () => {
  * allows for two shots sharing a layout: the comparison is the point and the
  * behaviour visibly differs. The slab thickens by the measured 3.3, the same
  * one percent band lights, and the heap never does.
+ *
+ * The slab growth is a transition rather than a build. The covering index
+ * already exists when the shot opens, which is what the SQL above it says, and
+ * the thickening is there to show the viewer what changed since the last shot.
+ * So it runs fast and the count starts at frame 8, while the slab is still
+ * thickening, rather than waiting for it to finish. At frame 36 the shot opened
+ * on a zero for a second and a quarter, which is the dead frame the playbook
+ * warns about, and at frame 20 it still held it for two thirds of a second.
  */
 export const Covering: React.FC = () => {
   const frame = useCurrentFrame();
   const strips = interpolate(
     frame,
-    [8, 46],
+    [0, 18],
     [INDEX_STRIPS_PLAIN, INDEX_STRIPS_COVERING],
     { ...clamp, ...EASE_OUT },
   );
-  const probe = ramp(frame, 52, 22);
-  const t = interpolate(frame, [52, 120], [0, 1], { ...clamp, ...EASE_OUT });
+  const probe = ramp(frame, 8, 14);
+  const t = interpolate(frame, [8, 62], [0, 1], { ...clamp, ...EASE_OUT });
 
   return (
     <>
@@ -185,10 +193,10 @@ export const Covering: React.FC = () => {
       </Readout>
       <Label top={1046}>pages read of {commas(SETUP.heapPages)}</Label>
 
-      <Provenance top={1150} opacity={ramp(frame, 124, 26)}>
+      <Provenance top={1150} opacity={ramp(frame, 72, 20)}>
         heap fetches: 0 · execution time: {COVERING.ms} ms
       </Provenance>
-      <Provenance top={1196} opacity={ramp(frame, 160, 24)}>
+      <Provenance top={1196} opacity={ramp(frame, 100, 20)}>
         amount is on the leaf pages, so the answer never leaves the index
       </Provenance>
     </>
@@ -205,13 +213,13 @@ export const Covering: React.FC = () => {
  * why 70,103 pages come back and not seven hundred: an update spread thinly
  * over a table hits most of its pages. The derivation is in `learning-notes.md`.
  *
- * The refill is the fastest movement in the cut, 46 frames against the first
- * shot's 128. The other shots explain. This one is the floor going out.
+ * The refill is the fastest movement in the cut, 30 frames against the first
+ * shot's 92. The other shots explain. This one is the floor going out.
  */
 export const Stale: React.FC = () => {
   const frame = useCurrentFrame();
-  const stale = ramp(frame, 14, 30) * 0.56;
-  const t = interpolate(frame, [50, 96], [0, 1], { ...clamp, ...EASE_OUT });
+  const stale = ramp(frame, 8, 24) * 0.56;
+  const t = interpolate(frame, [36, 66], [0, 1], { ...clamp, ...EASE_OUT });
   // Snapped to the exact figure once the refill finishes, the same way
   // `counting` does. Rounding unconditionally held the counter on 70,100 while
   // the payoff line said 70,103.
@@ -259,10 +267,10 @@ export const Stale: React.FC = () => {
       </Readout>
       <Label top={1046}>pages read of {commas(SETUP.heapPages)}</Label>
 
-      <Provenance top={1150} opacity={ramp(frame, 104, 26)}>
+      <Provenance top={1150} opacity={ramp(frame, 74, 18)}>
         the index did not change · vacuum did not run
       </Provenance>
-      <Provenance top={1196} opacity={ramp(frame, 136, 24)}>
+      <Provenance top={1196} opacity={ramp(frame, 98, 18)}>
         one vacuum puts it back to {commas(STALE_VISIBILITY_MAP.afterVacuumPages)}{" "}
         pages
       </Provenance>
@@ -319,23 +327,23 @@ export const Verdict: React.FC = () => {
       <Row
         top={396}
         cells={["", "pages", "time"]}
-        opacity={ramp(frame, 2, 10) * 0.72}
+        opacity={ramp(frame, 0, 8) * 0.72}
         color={theme.colors.gray}
       />
       <Row
         top={466}
         cells={["No index", commas(NO_INDEX.pages), `${NO_INDEX.ms} ms`]}
-        opacity={ramp(frame, 12, 10)}
+        opacity={ramp(frame, 6, 8)}
       />
       <Row
         top={532}
         cells={["Index", commas(PLAIN.pages), `${PLAIN.ms} ms`]}
-        opacity={ramp(frame, 22, 10)}
+        opacity={ramp(frame, 14, 8)}
       />
       <Row
         top={598}
         cells={["Covering index", commas(COVERING.pages), `${COVERING.ms} ms`]}
-        opacity={ramp(frame, 32, 10)}
+        opacity={ramp(frame, 22, 8)}
         color={ACCENT}
         weight={700}
       />
@@ -344,17 +352,17 @@ export const Verdict: React.FC = () => {
         top={760}
         size={172}
         color={ACCENT}
-        opacity={ramp(frame, 42, 20)}
-        dy={interpolate(ramp(frame, 42, 20), [0, 1], [18, 0])}
+        opacity={ramp(frame, 30, 16)}
+        dy={interpolate(ramp(frame, 30, 16), [0, 1], [18, 0])}
       >
         {PAGE_RATIO}×
       </Headline>
 
-      <Label top={966} opacity={ramp(frame, 66, 14)}>
+      <Label top={966} opacity={ramp(frame, 48, 12)}>
         Fewer pages, on the same machine
       </Label>
 
-      <Provenance top={1150} opacity={ramp(frame, 86, 22)}>
+      <Provenance top={1150} opacity={ramp(frame, 60, 16)}>
         postgres {SETUP.postgres} · {commas(SETUP.rows)} rows · {SETUP.heapMb} mb
         · {commas(SETUP.heapPages)} pages · warm cache
       </Provenance>
@@ -372,13 +380,13 @@ export const Verdict: React.FC = () => {
  */
 export const EndCard: React.FC = () => {
   const frame = useCurrentFrame();
-  const lockup = ramp(frame, 40, 20);
+  const lockup = ramp(frame, 28, 18);
 
   return (
     <>
       {/* Broken by hand. Left to wrap, this lands "copy." alone on a second
           row and it sits on the receipt under it. */}
-      <Punch top={330} size={62} opacity={ramp(frame, 0, 12)}>
+      <Punch top={330} size={62} opacity={ramp(frame, 0, 10)}>
         A covering index
         <br />
         is a second copy.
@@ -388,14 +396,14 @@ export const EndCard: React.FC = () => {
         top={508}
         size={29}
         color={theme.colors.gray}
-        opacity={ramp(frame, 10, 14)}
+        opacity={ramp(frame, 8, 12)}
       >
         {INDEX_SIZE.plainMb} MB index becomes {INDEX_SIZE.coveringMb} MB
         <br />
         worth {CONTIGUOUS_RATIO}× on rows already in order, not {PAGE_RATIO}×
       </Readout>
 
-      <Provenance top={648} opacity={ramp(frame, 20, 16)}>
+      <Provenance top={648} opacity={ramp(frame, 16, 14)}>
         measured, not estimated · full run in the repo
       </Provenance>
 

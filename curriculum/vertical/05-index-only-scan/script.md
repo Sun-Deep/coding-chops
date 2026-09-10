@@ -16,8 +16,16 @@ Every figure below is in `measurements.ts` and came off the run in
 
 ## The shape
 
-Thirty seconds, five shots, no hook card. A mechanism and its cost is thirty
-seconds, and this one has two costs.
+Twenty-two seconds, five shots, no hook card.
+
+It was thirty, which is what the format standard allows for a mechanism and its
+cost, and this has a mechanism, a cost and a caveat. Thirty is long for the
+feed: the page's best cuts are 27 seconds and under, and a viewer decides in the
+first two.
+
+The constraint on the way down was words rather than frames. Narration runs at
+about two words a second and never above three, so 63 words will not fit in 22
+seconds however fast the animation goes. It is 44 now.
 
 The visual spine is a single question asked three times: does Postgres open the
 table. Shot one says yes, across most of it. Shot two says no, not once. Shot
@@ -32,40 +40,46 @@ as a row in the verdict.
 
 ## Narration
 
-Eleven lines, 63 words, thirty seconds. Payoff lines are marked, one per shot.
+Eight lines, 44 words, twenty-two seconds. Payoff lines are marked, one per shot.
 
 ```text
-SHOT 1  the index that still reads the table            0 to 230
+SHOT 1  the index that still reads the table            0 to 190
 
-f6      An index on cust_id. 100,366 rows match.
-f96     Scattered, so it fetches each one.
-f160    69,211 pages. Half the table.                   [payoff]
+f4      An index on cust_id. The rows are scattered.
+f116    69,211 pages. Half the table.                   [payoff]
 
-SHOT 2  the covering index                            230 to 430
+SHOT 2  the covering index                            190 to 345
 
-f236    Put amount in the index as well.
-f320    281 pages. The table is never opened.           [payoff]
+f194    Now carry amount in the index.
+f270    281 pages. The table never opens.               [payoff]
 
-SHOT 3  the catch                                     430 to 620
+SHOT 3  the catch                                     345 to 480
 
-f436    Update one percent. Skip VACUUM.
-f530    70,103 pages. Back to the table.                [payoff]
+f349    Update one percent. Skip VACUUM.
+f415    70,103. Back to the table.                      [payoff]
 
-SHOT 4  verdict                                       620 to 770
+SHOT 4  verdict                                       480 to 570
 
-f626    Same query. Same ten million rows.
-f700    246 times fewer pages.                          [payoff]
+f484    246 times fewer pages.                          [payoff]
 
-SHOT 5  end card                                      770 to 900
+SHOT 5  end card                                      570 to 660
 
-f776    Not free, and not automatic.
-f840    Bigger index. Only after VACUUM.                [payoff]
+f574    Bigger index. Only after VACUUM.                [payoff]
 ```
 
-2.1 words a second. The plain lines say what is happening while it happens. The
-payoff lines are the point of their shot.
+2.0 words a second, and no line above 2.7. The plain lines say what is happening
+while it happens. The payoff lines are the point of their shot.
 
-## Shot 1. The index that still reads the table, 0:00 to 7:20
+Two lines went in the cut from thirty seconds, and neither is missed, because
+the frame was already carrying them. The verdict's "Same query. Same ten million
+rows." is that shot's own label, set in the frame above the table. The end
+card's "Not free, and not automatic." is that card's own headline. A line that
+can be deleted without the viewer losing anything was being read twice.
+
+The last two shots therefore carry a payoff and nothing else, which is what an
+end card has always done here and is now what the verdict does too.
+
+## Shot 1. The index that still reads the table, 0:00 to 6:10
 
 ```text
 WITH AN INDEX · BITMAP HEAP SCAN
@@ -81,8 +95,7 @@ CREATE INDEX ON events (cust_id);
 PAGES READ
 0 -> 69,211    of 123,457
 
-An index on cust_id. 100,366 rows match.
-Scattered, so it fetches each one.
+An index on cust_id. The rows are scattered.
 
 69,211 pages.
 Half the table.
@@ -94,7 +107,7 @@ The receipt carries the correlation because the scatter is the mechanism, not a
 composition choice, and it carries the recheck count because the 69,211 is two
 effects at once. See the copy notes.
 
-## Shot 2. The covering index, 7:20 to 14:10
+## Shot 2. The covering index, 6:10 to 11:15
 
 ```text
 CARRYING THE ANSWER · INDEX ONLY SCAN
@@ -107,10 +120,10 @@ CREATE INDEX ON events (cust_id) INCLUDE (amount);
 PAGES READ
 281
 
-Put amount in the index as well.
+Now carry amount in the index.
 
 281 pages.
-The table is never opened.
+The table never opens.
 
 heap fetches: 0 · execution time: 4.8 ms
 ```
@@ -118,7 +131,7 @@ heap fetches: 0 · execution time: 4.8 ms
 `Heap Fetches: 0` is the literal line out of `EXPLAIN` and it belongs on the
 index object rather than in the narration, which has already said it in words.
 
-## Shot 3. The catch, 14:10 to 20:20
+## Shot 3. The catch, 11:15 to 16:00
 
 ```text
 THE VISIBILITY MAP · SAME INDEX
@@ -134,13 +147,13 @@ PAGES READ
 
 Update one percent. Skip VACUUM.
 
-70,103 pages.
+70,103.
 Back to the table.
 
 the index did not change · vacuum did not run
 ```
 
-## Shot 4. Verdict, 20:20 to 25:20
+## Shot 4. Verdict, 16:00 to 19:00
 
 ```text
 SAME QUERY · SAME 10,000,000 ROWS
@@ -153,7 +166,6 @@ Covering index        281    4.8 ms
 246x
 FEWER PAGES, ON THE SAME MACHINE
 
-Same query. Same ten million rows.
 246 times fewer pages.
 
 postgres 15.13 · 965 mb table · 123,457 pages · warm cache
@@ -161,7 +173,7 @@ postgres 15.13 · 965 mb table · 123,457 pages · warm cache
 
 The first row is VR01's sequential scan, appearing once so the two cuts join up.
 
-## Shot 5. End card, 25:20 to 30:00
+## Shot 5. End card, 19:00 to 22:00
 
 ```text
 A covering index is a second copy.
@@ -169,7 +181,6 @@ A covering index is a second copy.
 66 MB index becomes 215 MB
 in-order rows were already 1,322 pages, so this is worth 4.8x there, not 246x
 
-Not free, and not automatic.
 Bigger index. Only after VACUUM.
 
 [Coding Chops lockup]
@@ -201,5 +212,10 @@ is scatter alone, and none should be added later that does.
 The times on the verdict are rounded and the cold first run after `CREATE INDEX`
 is not on screen anywhere. It moved from 364 ms to 471 ms between two runs and
 is measuring dirtied pages being written out, not the plan.
+
+The cut came down from thirty seconds to twenty-two after the first render. The
+frames it lost were mostly shot one's fill, which ran 128 frames and now runs
+92, and the holds at the tail of each shot. Nothing was cut that carries an
+idea, and the narration lost the two lines the frame was already saying.
 
 No em dashes, per the channel writing rules.

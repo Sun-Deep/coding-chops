@@ -40,7 +40,7 @@ const Counting: React.FC<{
 );
 
 /**
- * The index that still reads the table, in thirty seconds.
+ * The index that still reads the table, in twenty-two seconds.
  *
  * VR01 asked for one row and compared no index against an index. On one row the
  * heap fetch is a single page and nobody notices it. This asks for a hundred
@@ -64,7 +64,7 @@ const Counting: React.FC<{
  * explanation.
  */
 export const IndexOnlyScanReel: React.FC = () => (
-  <VerticalShell handOverAt={SHOTS.endCard.from + 34}>
+  <VerticalShell handOverAt={SHOTS.endCard.from + 24}>
     <Sequence from={SHOTS.fetch.from} durationInFrames={length(SHOTS.fetch)}>
       <Fetch />
     </Sequence>
@@ -112,53 +112,55 @@ export const IndexOnlyScanReel: React.FC = () => (
 
     {/* The block arrives. */}
     <Sfx name="appear" at={2} gain={2.8} />
-    {/* The index does its one named piece of work, and is finished by frame 24.
+    {/* The index does its one named piece of work, and is finished by frame 20.
         Everything after this is the heap. */}
-    <Sfx name="process" at={8} gain={11} />
+    <Sfx name="process" at={6} gain={11} />
     {/* Pages arriving, rising as the count does. A counter is under more tension
-        near the top of its range than at the bottom. */}
-    <Counting from={26} to={154} cues={7} gain={[8, 18]} />
+        near the top of its range than at the bottom. Five cues rather than the
+        seven the thirty second cut used, because the run is 92 frames now and
+        not 128, and a counting run is one event stream rather than five events. */}
+    <Counting from={18} to={110} cues={5} gain={[8, 18]} />
     {/* Half the table, named. */}
-    <Sfx name="tick" at={160} gain={4.9} />
+    <Sfx name="tick" at={116} gain={4.9} />
 
     {/* The index thickens: an object being placed, not data arriving. */}
-    <Sfx name="settle" at={238} gain={4.1} />
-    {/* The identical cue to frame 8, at the identical gain, because the index
+    <Sfx name="settle" at={192} gain={4.1} />
+    {/* The identical cue to frame 6, at the identical gain, because the index
         does the identical work. If it sounded different the shot would be
         claiming the index got cleverer, and it did not. */}
-    <Sfx name="process" at={282} gain={11} />
+    <Sfx name="process" at={198} gain={11} />
     {/* The answer, without a trip to the table. */}
-    <Sfx name="land" at={320} gain={4.5} />
-    {/* And then nothing for a hundred and ten frames. Shot one put seven cues in
-        this space. The silence is the shot. */}
+    <Sfx name="land" at={270} gain={4.5} />
+    {/* And then nothing for seventy-five frames. Shot one puts five cues in this
+        space. The silence is the shot. */}
 
     {/* The update departs. */}
-    <Sfx name="send" at={436} gain={5.5} />
+    <Sfx name="send" at={349} gain={5.5} />
     {/* Pages losing their all-visible bit. */}
-    <Sfx name="dissolve" at={444} gain={8} />
+    <Sfx name="dissolve" at={355} gain={8} />
     {/* The index only scan is refused. `reject` is in the set for a request
         turned away, which is exactly what the visibility map has just done. */}
-    <Sfx name="reject" at={478} gain={8} />
-    {/* The refill, four cues in thirty-six frames against shot one's seven in a
-        hundred and twenty-eight. Same event, three times the rate. */}
-    <Counting from={484} to={520} cues={4} gain={[13, 18]} />
-    <Sfx name="tick" at={530} gain={4.9} />
+    <Sfx name="reject" at={379} gain={8} />
+    {/* The refill, three cues in thirty frames against shot one's five in
+        ninety-two. Same event, three times the rate. */}
+    <Counting from={381} to={411} cues={3} gain={[13, 18]} />
+    <Sfx name="tick" at={415} gain={4.9} />
 
     {/* The fields leave and the three lanes arrive. */}
-    <Sfx name="dissolve" at={626} gain={8} />
-    <Sfx name="fill" at={632} gain={14} />
-    <Sfx name="fill" at={642} gain={14} />
-    <Sfx name="fill" at={652} gain={14} />
+    <Sfx name="dissolve" at={484} gain={8} />
+    <Sfx name="fill" at={488} gain={14} />
+    <Sfx name="fill" at={496} gain={14} />
+    <Sfx name="fill" at={504} gain={14} />
     {/* The ratio. The heaviest cue in the cut and one of two places `name` is
         used at all. */}
-    <Sfx name="name" at={662} gain={5} />
+    <Sfx name="name" at={512} gain={5} />
 
     {/* The cost is placed. */}
-    <Sfx name="settle" at={772} gain={4.1} />
-    {/* The mark. */}
-    <Sfx name="name" at={812} gain={4.4} />
+    <Sfx name="settle" at={572} gain={4.1} />
     {/* The closing line. */}
-    <Sfx name="land" at={840} gain={4} />
+    <Sfx name="land" at={576} gain={4} />
+    {/* The mark. */}
+    <Sfx name="name" at={600} gain={4.4} />
 
   </VerticalShell>
 );

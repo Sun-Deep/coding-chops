@@ -10,7 +10,7 @@ hearing the cut on a phone at feed size.
 ## Files
 
 ```text
-reel     out/vertical/vr05-index-only-scan.mp4    1080x1920, 900 frames, 30.1s
+reel     out/vertical/vr05-index-only-scan.mp4    1080x1920, 660 frames, 22.1s
 cover    out/vertical/vr05-cover.png              1080x1920
 cover    out/vertical/vr05-cover-crop-1x1.png     1080x1080, the TikTok grid
 cover    out/vertical/vr05-cover-crop-3x4.png     1080x1440, the Instagram grid

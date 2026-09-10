@@ -1,8 +1,12 @@
 # Storyboard
 
-Thirty seconds, 900 frames at 30 fps, five shots, no hook card. The copy is in
-`script.md` and the figures are in `src/vertical/05-index-only-scan/
+Twenty-two seconds, 660 frames at 30 fps, five shots, no hook card. The copy is
+in `script.md` and the figures are in `src/vertical/05-index-only-scan/
 measurements.ts`.
+
+It was thirty seconds through the first render. The reasoning for the cut down
+is in `script.md` under "The shape"; the short version is that thirty is long
+for the feed and the narration had to come from 63 words to 44 to fit.
 
 ## The spine
 
@@ -21,11 +25,11 @@ it is the reason the cut does not need a card to state the claim.
 ## Shot map
 
 ```text
-shot 1   the index that still reads the table     0 to 230    230f   7.7s
-shot 2   the covering index                     230 to 430    200f   6.7s
-shot 3   the catch                              430 to 620    190f   6.3s
-shot 4   verdict                                620 to 770    150f   5.0s
-shot 5   end card                               770 to 900    130f   4.3s
+shot 1   the index that still reads the table     0 to 190    190f   6.3s
+shot 2   the covering index                     190 to 345    155f   5.2s
+shot 3   the catch                              345 to 480    135f   4.5s
+shot 4   verdict                                480 to 570     90f   3.0s
+shot 5   end card                               570 to 660     90f   3.0s
 ```
 
 ## Shot 1. The index that still reads the table
@@ -89,38 +93,42 @@ accent, because it is the old behaviour returning rather than a new state.
 
 ## Cue map
 
-Twenty-two cues in thirty seconds, one every 1.36 seconds. No music, no
-sustained texture. Gains are in `Reel.tsx` and were set against the finished
-render, not reasoned from the source file levels.
+Twenty-five cues in twenty-two seconds. No music, no sustained texture. Gains
+are in `Reel.tsx` and were set against the finished render, not reasoned from
+the source file levels.
 
 ```text
 shot 1   f2    appear     the block arrives
-         f8    process    the index does its one piece of work, and finishes
-         f26   fill x7    pages arriving, gain 8 rising to 18 across the run
-         f160  tick       half the table, named
+         f6    process    the index does its one piece of work, and finishes
+         f18   fill x5    pages arriving, gain 8 rising to 18 across the run
+         f116  tick       half the table, named
 
-shot 2   f238  settle     the index thickens
-         f282  process    the identical cue to f8, at the identical gain
-         f320  land       the answer, without a trip to the table
-                          then 110 frames of nothing
+shot 2   f192  settle     the index thickens
+         f198  process    the identical cue to f6, at the identical gain
+         f270  land       the answer, without a trip to the table
+                          then seventy-five frames of nothing
 
-shot 3   f436  send       the update departs
-         f444  dissolve   pages losing their all-visible bit
-         f478  reject     the index only scan is refused
-         f484  fill x4    the refill, four cues in 36 frames
-         f530  tick       70,103, named
+shot 3   f349  send       the update departs
+         f355  dissolve   pages losing their all-visible bit
+         f379  reject     the index only scan is refused
+         f381  fill x3    the refill, three cues in thirty frames
+         f415  tick       70,103, named
 
-shot 4   f626  dissolve   the fields leave
-         f632  fill x3    three lanes
-         f662  name       the ratio
+shot 4   f484  dissolve   the fields leave
+         f488  fill x3    three lanes
+         f512  name       the ratio
 
-shot 5   f772  settle     the cost is placed
-         f812  name       the mark
-         f840  land       the closing line
+shot 5   f572  settle     the cost is placed
+         f576  land       the closing line
+         f600  name       the mark
 ```
 
+Two of those entries are counting runs rather than single events, which is why
+the count is twenty-five and the felt density is closer to fourteen. A counter
+climbing is one event stream, and the run marks it the way a meter does.
+
 No `scan`, deliberately, even though shot one is a bitmap heap scan running for
-four seconds and the sound set has exactly that cue. `scan` marks elapsed time,
+three seconds and the sound set has exactly that cue. `scan` marks elapsed time,
 and this shot's claim is a count: the number on screen is climbing and the fill
 cues are pages arriving. Using it would also blur this cut against VR01, where
 `scan` carried a sequential scan reading the table in order. The difference
@@ -131,9 +139,9 @@ The two `process` cues are identical on purpose, same file and same gain,
 because the index does the same work in both shots. If the second sounded
 bigger, the shot would be claiming the index got cleverer, and it did not.
 
-The silence in shot two is a cue in its own right. Shot one puts seven fill cues
+The silence in shot two is a cue in its own right. Shot one puts five fill cues
 in that span and shot two puts none, so the thing the frame is not doing is
-audible. Measured across f330 to f428 the track means -47.6 dBFS.
+audible. Measured across f290 to f343 the track is digital silence at -91 dBFS.
 
 ### Measured levels
 
@@ -156,7 +164,8 @@ settle                  -14.0
 fill, first of a run    -19.1
 ```
 
-Peak level -5.03 dBFS with no clipped samples. Integrated loudness is not
+Peak level -5.0 dBFS with no clipped samples, unchanged by the retime because
+the gains did not move, only the frames they sit on. Integrated loudness is not
 quoted, because the meter's gate throws away a track that is mostly silence and
 reports something close to the level of the cues themselves.
 

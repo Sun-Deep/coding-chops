@@ -1,9 +1,18 @@
 # Vertical 06: One token at a time
 
-Status: planned. No measurement run, no script, no render.
+Status: measured. No script, no storyboard, no render.
 
 This file is the plan of record. The playbook's step 1 is the creator's call and
-it has been made; step 2, the measurement, is next and gates everything after it.
+it has been made. Step 2 is done: `scripts/measure-token-generation.sh` and
+`measurements.md` carry the run, and `src/vertical/06-one-token-at-a-time/
+measurements.ts` carries the figures. Step 3, the narration, is next.
+
+One thing the run changed. The catch was going to be "per-token time grows as
+the conversation grows", and it does, but only about 1.3 times across a 90 times
+longer chat, because at these lengths the model's weights dominate and attention
+does not. The figure that is actually dramatic is memory: 36 KB of cache per
+token, 288 MB at eight thousand tokens. The cut should lead with the memory and
+mention the clock, not the other way round.
 
 ## What it claims
 
@@ -89,9 +98,11 @@ Embedding does not get a shot. "Each id looks up a row of numbers" is true and
 foundational and the least visual of the nine, and its hero would be weak. It is
 shown as the tokens entering the stack as columns.
 
-Step 1 is the surprise and it is measured already. The chat template turns a six
-token question into twenty-six tokens before the model sees anything, and most
-people have never been told their raw message is not what gets sent.
+Step 1 is the surprise and it is measured. The chat template turns a six token
+question into twenty-five tokens before the model sees anything, and most people
+have never been told their raw message is not what gets sent. An early note in
+this plan said twenty-six, from counting the printed list by eye; the script
+counts it two ways and the server confirms it as `prompt_n`.
 
 ## Shape
 
@@ -103,7 +114,7 @@ thirty either: VR05 was cut from thirty to twenty-two for feeling long, and the
 best performing cut on the page is twenty-seven seconds.
 
 ```text
-1  send, template, tokens     0 to 200   six words become twenty-six
+1  send, template, tokens     0 to 200   six tokens become twenty-five
 2  the stack, one token out 200 to 420   ~152,000 scored, one chosen
 3  the loop and the cache   420 to 640   one pass per token, cache widening
 4  the catch                640 to 780

@@ -17,6 +17,9 @@ import { QuicksortReel, QuicksortShotOne } from "./04-quicksort/Reel";
 import { DURATION as VR05 } from "./05-index-only-scan/beats";
 import { IndexOnlyScanCover } from "./05-index-only-scan/Cover";
 import { IndexOnlyScanReel } from "./05-index-only-scan/Reel";
+import { DURATION as VR06 } from "./06-one-token-at-a-time/beats";
+import { OneTokenAtATimeCover } from "./06-one-token-at-a-time/Cover";
+import { OneTokenAtATimeReel } from "./06-one-token-at-a-time/Reel";
 
 /**
  * Vertical cuts.
@@ -72,6 +75,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR06-One-Token-At-A-Time"
+        component={OneTokenAtATimeReel}
+        durationInFrames={VR06}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -102,6 +113,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR05-Cover"
         component={IndexOnlyScanCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR06-Cover"
+        component={OneTokenAtATimeCover}
         width={WIDTH}
         height={HEIGHT}
       />

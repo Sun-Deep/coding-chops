@@ -46,6 +46,51 @@ export const PROMPT = {
   templatedTokens: 25,
 } as const;
 
+/**
+ * The twenty-five tokens the model actually receives, in order, from the run.
+ *
+ * `own` marks the six that came from the question. The other nineteen are the
+ * template: the system message and the role markers. Shot 1 is the difference
+ * between those two groups, so the flag is a measurement and not a styling
+ * choice.
+ *
+ * Newlines are written as "\\n" because a chip has to show something. The token
+ * is a real newline, id 198, and it appears four times.
+ */
+export const TEMPLATED = [
+  { text: "<|im_start|>", id: 151644, own: false },
+  { text: "system", id: 8948, own: false },
+  { text: "\\n", id: 198, own: false },
+  { text: "You", id: 2610, own: false },
+  { text: " are", id: 525, own: false },
+  { text: " a", id: 264, own: false },
+  { text: " helpful", id: 10950, own: false },
+  { text: " assistant", id: 17847, own: false },
+  { text: ".", id: 13, own: false },
+  { text: "<|im_end|>", id: 151645, own: false },
+  { text: "\\n", id: 198, own: false },
+  { text: "<|im_start|>", id: 151644, own: false },
+  { text: "user", id: 872, own: false },
+  { text: "\\n", id: 198, own: false },
+  { text: "Why", id: 10234, own: true },
+  { text: " is", id: 374, own: true },
+  { text: " the", id: 279, own: true },
+  { text: " sky", id: 12884, own: true },
+  { text: " blue", id: 6303, own: true },
+  { text: "?", id: 30, own: true },
+  { text: "<|im_end|>", id: 151645, own: false },
+  { text: "\\n", id: 198, own: false },
+  { text: "<|im_start|>", id: 151644, own: false },
+  { text: "assistant", id: 77091, own: false },
+  { text: "\\n", id: 198, own: false },
+] as const;
+
+/** The words of the answer, for the chat frame filling in shot 3. */
+export const ANSWER_PIECES = [
+  "The", " sky", " appears", " blue", " due", " to", " a", " phenomenon",
+  " called", " Ray", "leigh", " scattering", ".",
+] as const;
+
 /** 25 over 6, for the shot 1 payoff. */
 export const TEMPLATE_GROWTH = +(
   PROMPT.templatedTokens / PROMPT.rawTokens

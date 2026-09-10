@@ -4,15 +4,23 @@ Not ready to post. `script.md` is `Status: blocked`, the understanding check has
 ten unticked boxes, and that gate is the creator's. The copy below is written
 against the finished render and is ready when the gate opens.
 
-Still outstanding: the third measurement run an hour after the other two, the
-1:1 and 3:4 cover crops, and hearing the cut on a phone at feed size.
+Still outstanding: the third measurement run an hour after the other two, and
+hearing the cut on a phone at feed size.
 
 ## Files
 
 ```text
 reel     out/vertical/vr05-index-only-scan.mp4    1080x1920, 900 frames, 30.1s
 cover    out/vertical/vr05-cover.png              1080x1920
+cover    out/vertical/vr05-cover-crop-1x1.png     1080x1080, the TikTok grid
+cover    out/vertical/vr05-cover-crop-3x4.png     1080x1440, the Instagram grid
 ```
+
+The crops are the upload's proof that the cover was laid out against
+`SQUARE_TOP` and `SQUARE_BOTTOM` rather than against the full 1920. Both come
+from `scripts/crop-cover.sh`, which derives them from the input rather than
+hardcoding the offsets. Only the 9:16 file is uploaded; the crops exist so the
+grids can be checked before it is.
 
 ## Facebook, Instagram, TikTok caption
 

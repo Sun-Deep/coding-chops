@@ -192,6 +192,15 @@ a reserve.
 Then the cover, cropped to 1:1 and to 3:4, because those are the profile grids
 that will cut it.
 
+```bash
+scripts/crop-cover.sh out/vertical/<slug>-cover.png
+```
+
+It derives both crops from the input rather than hardcoding the offsets, so a
+change to the canvas cannot leave it behind. Look at them. The square is the
+tighter of the two and it is the one that catches a cover laid out against the
+full 1920 instead of against `SQUARE_TOP` and `SQUARE_BOTTOM`.
+
 Then check for frozen stretches, which are the thing a viewer reads as the video
 stalling and the thing a scrub through the timeline hides:
 

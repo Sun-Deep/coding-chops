@@ -14,6 +14,9 @@ import { RateLimitingReel } from "./03-rate-limiting/Reel";
 import { DURATION as VR04 } from "./04-quicksort/beats";
 import { QuicksortCover } from "./04-quicksort/Cover";
 import { QuicksortReel, QuicksortShotOne } from "./04-quicksort/Reel";
+import { DURATION as VR05 } from "./05-index-only-scan/beats";
+import { IndexOnlyScanCover } from "./05-index-only-scan/Cover";
+import { IndexOnlyScanReel } from "./05-index-only-scan/Reel";
 
 /**
  * Vertical cuts.
@@ -61,6 +64,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR05-Index-Only-Scan"
+        component={IndexOnlyScanReel}
+        durationInFrames={VR05}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -85,6 +96,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR04-Cover"
         component={QuicksortCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR05-Cover"
+        component={IndexOnlyScanCover}
         width={WIDTH}
         height={HEIGHT}
       />

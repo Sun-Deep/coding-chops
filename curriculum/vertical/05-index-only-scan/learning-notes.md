@@ -104,6 +104,26 @@ after VACUUM              281 pages     Heap Fetches: 0     4.8 ms
 Same index, same query, same rows. The plan fell all the way back. Then one
 `VACUUM` with no schema change put it at 284 pages.
 
+## Why one percent of rows costs fifty-six percent of pages
+
+The `UPDATE` touches every hundredth row, which sounds like one percent of the
+damage. The plan comes back reading 70,103 pages, which is more than half the
+table, and the first instinct is that the measurement is wrong.
+
+It is not. Ten million rows over 123,457 pages is 81 rows a page. A page keeps
+its all-visible bit only if none of its 81 rows was touched, and the chance of
+that is 0.99^81, about 0.44. So roughly 56 percent of pages lose the bit.
+
+That is why the shot draws 56 percent of the field going stale rather than one
+percent, and it is the reason the fallback is total rather than partial. An
+update spread thinly across a table is the worst case for the visibility map,
+because it costs almost nothing in rows and takes out most of the pages. A
+thousand rows updated in one place would have cost about twelve pages.
+
+The 56 percent is derived from measured quantities rather than measured
+directly. The row count, the page count and the `WHERE` clause are all in
+`measurements.md`; the arithmetic above is the only step that is not.
+
 This is the part that bites in production, because autovacuum runs on its own
 schedule. A table taking steady writes can have a covering index that is doing
 nothing for most of the day, and nothing in the schema will tell you.

@@ -32,7 +32,7 @@ as a row in the verdict.
 
 ## Narration
 
-Nine lines, 63 words, thirty seconds. Payoff lines are marked, one per shot.
+Eleven lines, 63 words, thirty seconds. Payoff lines are marked, one per shot.
 
 ```text
 SHOT 1  the index that still reads the table            0 to 230

@@ -1,5 +1,8 @@
-import { Sequence } from "remotion";
+import { Sequence, interpolate } from "remotion";
 import { Sfx } from "../../shared/primitives/Sfx";
+import { EASE_IN_OUT } from "../../shared/video/motion";
+import { clamp } from "../../shared/video/timing";
+import { GENERATION } from "./measurements";
 import { Narration } from "../../shared/vertical/Narration";
 import { VerticalShell } from "../../shared/vertical/VerticalShell";
 import { SHOTS, length } from "./beats";
@@ -7,14 +10,87 @@ import { narration } from "./narration";
 import { EndCard, Forward, Loop, Tokenize } from "./shots";
 
 /**
- * A run of cues standing in for one stream of events, with the gain rising
- * across it.
+ * Cue times derived from the animation, not typed in beside it.
  *
- * VR04 and VR05 carry the same helper. It stays local because both of those are
- * published or finished, and reaching into a finished cut to extract fifteen
- * lines is the wrong trade. If a seventh cut needs it, it moves to
- * `shared/vertical`.
+ * Every event below is found by sampling the same interpolation the shot uses,
+ * so a cue cannot drift from the thing it marks. The previous cue map was
+ * written against an earlier animation and survived two rebuilds pointing at
+ * events that no longer existed: `process` cues for a layer climb that had been
+ * deleted, a `dissolve` for columns that no longer went dark.
  */
+
+/** Frames on which each of the six typed tokens lands in its slot. */
+const LANDINGS = (() => {
+  const out: number[] = [];
+  let seen = 0;
+  for (let f = 34; f <= 100; f++) {
+    const fly = interpolate(f, [34, 92], [0, 1], {
+      ...clamp,
+      easing: EASE_IN_OUT.easing,
+    });
+    // The same stagger TokenArrival applies.
+    const landed = [0, 1, 2, 3, 4, 5].filter(
+      (i) => (fly * (6 + 2.5) - i) / 2.6 >= 1,
+    ).length;
+    if (landed > seen) {
+      for (let k = seen; k < landed; k++) out.push(f);
+      seen = landed;
+    }
+  }
+  return out;
+})();
+
+/**
+ * Frames on which each forward pass completes, from shot 3's own clock, thinned
+ * to a floor of three frames between cues.
+ *
+ * All forty land between frames 25 and 126, and the easing puts some of them a
+ * single frame apart. Thirty cues a second do not read as thirty events, they
+ * fuse into a tone, and a rasp under this shot would be the sustained texture
+ * the sound set's own notes warn about. Three frames is about ten a second,
+ * which is the fastest a listener still hears as separate.
+ *
+ * The passes that lose a cue are not passes the cut pretends did not happen:
+ * the counter shows forty and the row grows forty times. The run marks the
+ * stream, the way the standard already treats a counting run.
+ */
+const PASSES = (() => {
+  const out: number[] = [];
+  let seen = 0;
+  for (let f = 14; f <= 136; f++) {
+    const step = interpolate(f, [14, 136], [0, GENERATION.tokens], {
+      ...clamp,
+      easing: EASE_IN_OUT.easing,
+    });
+    const n = Math.min(Math.round(step), GENERATION.tokens);
+    if (n > seen) {
+      if (out.length === 0 || f - out[out.length - 1] >= 3) out.push(f);
+      seen = n;
+    }
+  }
+  return out;
+})();
+
+/**
+ * One cue per pass, quieter where they crowd.
+ *
+ * Gain scales with the gap to the previous pass, so the dense middle of the run
+ * sits back and the slow ends step forward. The sound accelerates and slows
+ * with the picture rather than keeping its own time against it.
+ */
+const PassCues: React.FC<{ from: number }> = ({ from }) => (
+  <>
+    {PASSES.map((f, i) => {
+      const gap = i === 0 ? 8 : f - PASSES[i - 1];
+      // code-step peaks at -36.6 dBFS, the quietest file in the set, so these
+      // run higher than any other cue in the cut to land in the same band.
+      const gain = interpolate(gap, [3, 8], [12, 16], clamp);
+      return <Sfx key={i} name="code-step" at={from + f} gain={gain} />;
+    })}
+  </>
+);
+
+/** A stream of arrivals, rising across the run. */
 const Run: React.FC<{
   name: string;
   at: readonly number[];
@@ -77,55 +153,56 @@ export const OneTokenAtATimeReel: React.FC = () => (
     <Narration lines={narration} />
 
     {/*
-      Thirty-one cues in twenty-six seconds. No bed, no sustained texture.
+      The whole audio track. No bed, so every cue has to earn the silence around
+      it and the silence has to be the right length.
 
-      Gains are set from each file's measured peak toward the targets in section
-      11 of the standard: the heaviest cues near -5 dBFS, the quiet ones between
-      -14 and -19, checked on the finished render rather than reasoned from the
-      source levels.
+      Rebuilt on 2026-09-11 against the rebuilt animation. Gains are set from
+      each file's measured peak toward section 11's targets: the heaviest near
+      -5 dBFS, the quiet ones between -14 and -19, checked on the finished
+      render rather than reasoned from the source levels.
 
-      No `scan`. It marks elapsed time, and nothing here is about how long
-      something takes. The layer climb is a machine doing work, not a duration.
+      No `scan` anywhere. It marks elapsed time and nothing here is about how
+      long something takes.
     */}
 
-    {/* The window, then the message leaving it. */}
+    {/* Shot 1. The window, the send, the sentence coming apart. */}
     <Sfx name="appear" at={2} gain={2.8} />
-    <Sfx name="send" at={8} gain={5.5} />
-    {/* Your six land as one thing being placed. */}
-    <Sfx name="settle" at={34} gain={5} />
-    {/* The template's nineteen arrive as data, one piece at a time. Different
-        cue from the six on purpose: the shot is the difference between them. */}
-    <Run name="fill" at={[76, 88, 100, 114, 128]} gain={[8, 18]} />
+    <Sfx name="send" at={8} gain={6} />
+    {/* One per token landing in its slot, from the flight's own stagger. */}
+    {LANDINGS.map((f, i) => (
+      <Sfx key={i} name="settle" at={f} gain={4 + i * 0.35} />
+    ))}
+    {/* The nineteen the template adds, arriving as data rather than as objects.
+        A different cue from the six because the difference between those two
+        groups is the entire shot. */}
+    <Run name="fill" at={[98, 108, 118, 128, 138]} gain={[8, 17]} />
     <Sfx name="tick" at={146} gain={4.9} />
 
-    {/* The front crossing thirty-six layers. `process` is one named piece of
-        work and the climb is four of them, not a texture under the shot. */}
-    <Run name="process" at={[216, 232, 248, 264]} gain={[9, 12]} />
-    {/* Twenty-four columns going dark. Louder than the same cue is in VR05,
-        because there it dismissed a field that had finished and here it is the
-        shot's first real event. At gain 8 it measured -17.9, the bottom of the
-        range, for the moment the cut is trying to make people notice. */}
-    <Sfx name="dissolve" at={276} gain={12} />
+    {/* Shot 2. The network forming, converging, and firing. */}
+    {/* Rows of arcs arriving as the front crosses the layers. */}
+    <Run name="fill" at={[206, 218, 230, 242, 254, 266]} gain={[9, 15]} />
+    {/* Twenty-four columns' worth of arcs going out, leaving one. */}
+    <Sfx name="dissolve" at={292} gain={12} />
     {/* The vocabulary arriving. */}
-    <Sfx name="appear" at={304} gain={3.4} />
+    <Sfx name="appear" at={334} gain={3.6} />
     {/* It collapses. */}
-    <Sfx name="settle" at={338} gain={4.1} />
-    {/* One kept. The heaviest cue in the cut, and the moment the whole reel is
-        built around. */}
-    <Sfx name="name" at={350} gain={5} />
-    <Sfx name="tick" at={360} gain={4.9} />
+    <Sfx name="settle" at={350} gain={4.4} />
+    {/* Five candidates, then the one that is kept. The heaviest cue in the cut
+        and the moment the whole reel is built around. */}
+    {/* The candidate ticks sit back and the name carries the beat. At [3, 4.4]
+        the fourth tick landed on the same frame as the name and the two summed
+        to -3.2 dBFS, over the target for the loudest thing in the cut. */}
+    <Run name="tick" at={[353, 358, 363, 368, 373]} gain={[2, 3]} />
+    <Sfx name="name" at={368} gain={4.2} />
 
-    {/* Three passes slowly enough to hear, then thirty-seven that are not. The
-        cues accelerate with the picture rather than keeping time against it. */}
-    <Sfx name="process" at={430} gain={11} />
-    <Sfx name="process" at={448} gain={11} />
-    <Sfx name="process" at={466} gain={11} />
-    <Run name="fill" at={[484, 502, 518, 532, 544, 554]} gain={[10, 18]} />
-    <Sfx name="tick" at={560} gain={4.9} />
+    {/* Shot 3. Forty passes, on the animation's own clock. */}
+    <PassCues from={SHOTS.loop.from} />
+    <Sfx name="tick" at={SHOTS.loop.from + 140} gain={4.9} />
 
-    {/* The cost is placed, the mark, then the closing line. */}
+    {/* Shot 4. The cost is placed, the mark, the closing line. */}
     <Sfx name="settle" at={642} gain={4.1} />
-    <Sfx name="name" at={668} gain={4.4} />
+    <Sfx name="name" at={684} gain={4.4} />
     <Sfx name="land" at={716} gain={4} />
+
   </VerticalShell>
 );

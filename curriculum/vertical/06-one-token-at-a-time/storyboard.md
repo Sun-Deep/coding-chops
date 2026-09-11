@@ -167,48 +167,70 @@ than the answer, and the accent has meant "where the answer is" since VR01.
 
 ## Cue map
 
-Thirty-one cues in twenty-six seconds. No music, no sustained texture. Gains are
-in `Reel.tsx` and were set against the finished render rather than reasoned from
-the source file levels.
+Rebuilt on 2026-09-11 against the rebuilt animation. The previous map had
+survived two rebuilds still pointing at events that no longer existed: `process`
+cues for a layer climb that had been deleted, a `dissolve` for columns that no
+longer went dark.
+
+**Cue times are derived, not typed in.** The six landings and the forty passes
+are found by sampling the same interpolation the shots use, in `Reel.tsx`, so a
+cue cannot drift from the thing it marks. Change the animation and the cues move
+with it.
 
 ```text
-shot 1   f2    appear     the window
-         f8    send       the message leaves it
-         f34   settle     your six land, as one thing being placed
-         f76   fill x5    the template's nineteen arrive, as data
-         f146  tick       6 became 25, named
+shot 1   f2     appear       the window
+         f8     send         the message leaves it
+         f57-79 settle x6    each typed token landing in its slot, on the
+                             flight's own stagger
+         f98    fill x5      the nineteen the template adds
+         f146   tick         6 became 25, named
 
-shot 2   f216  process x4 the front crossing thirty-six layers
-         f276  dissolve   twenty-four columns going dark
-         f304  appear     the vocabulary arriving
-         f338  settle     it collapses
-         f350  name       one kept. the heaviest cue in the cut
-         f360  tick       151,936, named
+shot 2   f206   fill x6      rows of arcs arriving as the front crosses layers
+         f292   dissolve     the arcs going out, leaving one
+         f334   appear       the vocabulary
+         f350   settle       it collapses
+         f353   tick x5      five candidates
+         f368   name         one kept. the heaviest cue in the cut
 
-shot 3   f430  process    pass one
-         f448  process    pass two
-         f466  process    pass three
-         f484  fill x6    thirty-seven more, accelerating
-         f560  tick       one pass per token, named
+shot 3   f445+  code-step    one per forward pass, 27 of them
+         f560   tick         one pass per token, named
 
-shot 4   f642  settle     the cost is placed
-         f668  name       the mark
-         f716  land       the closing line
+shot 4   f642   settle       the cost is placed
+         f684   name         the mark
+         f716   land         the closing line
 ```
 
-Your six tokens and the template's nineteen get different cues on purpose.
-`settle` is an object being placed and `fill` is data arriving one piece at a
-time, and the difference between those two groups is the entire shot. Giving
-them the same sound would flatten the thing shot 1 exists to show.
+Sixty cues, of which twenty-seven are the pass run. Counting that run as the one
+event stream it is, there are thirty-three discrete cues in twenty-six seconds.
 
-The three slow passes in shot 3 are cued individually and the thirty-seven fast
-ones are a run of six that accelerates with the picture. Forty cues would be a
-rhythm track, and one cue for forty passes would say the loop happened once.
+### Why the passes are thinned
 
-No `scan`, the same as VR05. It marks elapsed time and nothing here is about how
-long something takes. The layer climb is a machine doing four named pieces of
-work, not a duration, which is why it is `process` and not a texture laid under
-the shot.
+All forty passes land between frames 25 and 126 of shot 3, and the easing puts
+some of them a single frame apart. Thirty cues a second do not read as thirty
+events, they fuse into a tone, and a rasp under this shot would be exactly the
+sustained texture the sound set's own notes warn about. The cues are floored at
+three frames apart, about ten a second, which is the fastest a listener still
+hears as separate. That leaves twenty-seven.
+
+The passes that lose a cue are not passes the cut pretends did not happen. The
+counter shows forty and the row grows forty times. The run marks the stream, the
+way the standard already treats a counting run.
+
+Gain scales with the gap to the previous pass, so the dense middle sits back and
+the slow ends step forward. The sound accelerates and slows with the picture
+instead of keeping its own time against it.
+
+`code-step` is the right cue for it: the set lists it for execution advancing to
+the next line, and a forward pass is the machine taking one step. It is also the
+quietest file in the set at -36.6 dBFS, which is why its gains run higher than
+anything else in the cut.
+
+Your six tokens and the template's nineteen still get different cues. `settle`
+is an object being placed and `fill` is data arriving one piece at a time, and
+the difference between those two groups is the whole of shot 1.
+
+No `scan` anywhere. It marks elapsed time and nothing here is about how long
+something takes.
 
 ### Measured levels
 
@@ -219,25 +241,25 @@ The standard asks for the heaviest cues near -5 dBFS and the quiet ones between
 name, one kept          -5.0     peak of the whole track
 name, the mark          -6.1
 land, closing line      -8.0
-appear, vocabulary      -9.4
+appear, the vocabulary  -8.9
+settle, sixth landing   -9.7
 appear, the window     -11.1
-fill, late in a run    -12.0
 tick                   -12.1
-settle, your six       -12.3
-process                -12.3
-dissolve               -14.2
-settle, the card       -14.0
-send                   -14.2
+settle, the collapse   -12.6
+settle, first landing  -13.6
+send / dissolve        -14.0
+code-step, sparse      -15.5
+code-step, dense       -17.4
 fill, first of a run   -19.1
 ```
 
-Peak level -4.95 dBFS with no clipped samples.
+Peak level -5.02 dBFS with no clipped samples.
 
-Two cues were re-set after the first measurement. `dissolve` came in at -17.9,
-the bottom of the range, for the moment twenty-four of twenty-five columns go
-dark, which is the shot's first real event and the thing the cut wants people to
-notice. `settle` on your six tokens was at -14.0 for a beat the whole first shot
-turns on. Both went up.
+Two cues were re-set after the first measurement. The fourth candidate tick
+landed on the same frame as the name and the two summed to -3.2, over the target
+for the loudest thing in the cut. And the pass cues were first set from the
+gains the old map used, which put them at -21 because `code-step` is fifteen
+decibels quieter than the files those gains were written for.
 
 Still owed: hearing it on a phone, at feed size, with the platform's own audio
 laid over the top.

@@ -40,3 +40,6 @@ public/narration
 # Local tooling state and personal agent workflow, not project configuration.
 .serena/
 .agents/
+
+# Attention measurement environment. Rebuilt by scripts/measure-attention.sh.
+.attention-venv

@@ -49,11 +49,14 @@ export const narration: readonly NarrationLine[] = [
   },
   {
     from: SHOTS.stack.from + 88,
-    to: SHOTS.stack.from + 152,
+    to: SHOTS.stack.from + 160,
     text: "Only the last one produces anything.",
   },
   {
-    from: SHOTS.stack.from + 160,
+    // Lands at 168 rather than 160: the counter reaches 151,936 at 150 and the
+    // collapse to one finishes at 166, and a payoff saying "one kept" before
+    // anything has been kept is a line making a promise instead of a report.
+    from: SHOTS.stack.from + 168,
     to: SHOTS.stack.to - 8,
     text: `${commas(MODEL.vocab)} scored. One kept.`,
     emphasis: true,

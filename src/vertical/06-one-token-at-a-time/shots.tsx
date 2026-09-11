@@ -10,6 +10,8 @@ import {
   Punch,
   Readout,
 } from "../../shared/vertical/type";
+import { AttentionField } from "./AttentionField";
+import { ATTENTION_WEIGHTS_TOTAL, WEIGHTS_PER_HEAD } from "./attention";
 import { ChatFrame } from "./ChatFrame";
 import {
   Cache,
@@ -134,58 +136,69 @@ export const Tokenize: React.FC = () => {
 };
 
 /**
- * Shot 2. Up the stack, and one token out.
+ * Shot 2. The network, and the one token that comes out of it.
  *
- * Thirty-six is `n_layer` and twenty-five is the templated token count. Both
- * are measured and both are said out loud, so the picture and the words cannot
- * disagree.
+ * This is the shot the first version of this cut did not have. It drew
+ * thirty-six layers as a grid of squares and a list of percentages, which
+ * carried the same information and gave nobody a reason to stop scrolling. The
+ * playbook says to build objects rather than readouts and that version broke
+ * its own rule.
  *
- * The first event is twenty-four columns going dark. Only the final position's
- * vector is multiplied by the output matrix, and that is the part people are
- * most often surprised by.
+ * Every arc is a measured attention weight. Twenty-five tokens, each attending
+ * to everything before it, is 325 weights per head; sixteen heads across
+ * thirty-six layers is 187,200 of them for one six-word question. The triangle
+ * the arcs make is the causal mask, not a composition choice.
+ *
+ * Three beats, each landing under its own narration line. The field fills as
+ * the front crosses the layers, then everything fades except the arcs into the
+ * token that speaks next, then that token fires into the vocabulary.
  */
 export const Forward: React.FC = () => {
   const frame = useCurrentFrame();
-  const rise = interpolate(frame, [16, 70], [0, 1], {
+  const reveal = interpolate(frame, [4, 74], [0, 1], { ...clamp, ...EASE_OUT });
+  const depth = interpolate(frame, [10, 88], [0, 1], {
     ...clamp,
     easing: EASE_IN_OUT.easing,
   });
-  const keep = ramp(frame, 76, 24);
-  const stackOut = interpolate(frame, [104, 126], [1, 0], clamp);
-  const arrive = interpolate(frame, [104, 134], [0, 1], { ...clamp, ...EASE_OUT });
-  const collapse = ramp(frame, 138, 20);
-  // "One kept" happens on screen rather than only in the narration line. It is
-  // also the only movement in the last two seconds of the shot, which was
-  // otherwise a 1.7 second hold and the one thing the frozen-frame check flags.
-  const chosen = ramp(frame, 162, 30);
+  const converge = ramp(frame, 92, 40);
+  const fieldOut = interpolate(frame, [132, 148], [1, 0], clamp);
+  const arrive = interpolate(frame, [134, 150], [0, 1], { ...clamp, ...EASE_OUT });
+  const collapse = ramp(frame, 150, 16);
+
+  // The readout is live from the first frame. Holding a 0 under the field for
+  // four seconds while the layers climbed is what the previous version did, and
+  // a shot that opens on a zero has a dead frame at every cut.
+  const layer = Math.max(1, Math.round(depth * MODEL.layers));
+  const showingVocab = frame >= 134;
 
   return (
     <>
       <Label top={292} opacity={ramp(frame, -6, 10)}>
-        One forward pass · {MODEL.layers} layers
+        Every token reads every token before it
       </Label>
 
-      <Stack
-        top={366}
-        rise={rise}
-        keep={keep}
-        opacity={ramp(frame, 2, 12) * stackOut}
+      <AttentionField
+        top={398}
+        depth={depth}
+        reveal={reveal}
+        converge={converge}
+        opacity={ramp(frame, 0, 10) * fieldOut}
       />
 
       <Vocabulary
-        top={400}
+        top={452}
         arrive={arrive}
         collapse={collapse}
-        opacity={interpolate(frame, [104, 124], [0, 1], clamp)}
+        opacity={interpolate(frame, [136, 152], [0, 1], clamp)}
       />
 
       <div
         style={{
           position: "absolute",
-          top: 600,
+          top: 616,
           left: (1080 - 620) / 2,
           width: 620,
-          opacity: ramp(frame, 140, 22),
+          opacity: ramp(frame, 152, 16),
         }}
       >
         {STEP.candidates.map((c, i) => (
@@ -196,9 +209,7 @@ export const Forward: React.FC = () => {
               gridTemplateColumns: "150px 1fr",
               alignItems: "baseline",
               marginBottom: 12,
-              opacity:
-                ramp(frame, 140 + i * 6, 18) *
-                (i === 0 ? 1 : 1 - chosen * 0.72),
+              opacity: ramp(frame, 152 + i * 5, 14),
               fontFamily: theme.monoFamily,
               fontSize: 30,
               fontVariantNumeric: "tabular-nums",
@@ -214,40 +225,19 @@ export const Forward: React.FC = () => {
         ))}
       </div>
 
-      {/* Two counters, one after the other, because the shot has two phases
-          and a readout that sits on zero for three and a half seconds is the
-          dead frame the playbook warns about. The stack counts the layer the
-          front is crossing; the vocabulary counts what the last column scored. */}
-      <Readout
-        top={956}
-        size={62}
-        weight={600}
-        opacity={interpolate(frame, [96, 112], [1, 0], clamp)}
-      >
-        {Math.min(MODEL.layers, Math.round(rise * MODEL.layers))}
+      <Readout top={956} size={62} weight={600}>
+        {showingVocab ? commas(counting(arrive, MODEL.vocab, 1_000)) : layer}
       </Readout>
-      <Label
-        top={1046}
-        opacity={ramp(frame, -2, 12) * interpolate(frame, [96, 112], [1, 0], clamp)}
-      >
-        of {MODEL.layers} layers
+      <Label top={1046}>
+        {showingVocab ? "candidates scored" : `of ${MODEL.layers} layers`}
       </Label>
 
-      <Readout
-        top={956}
-        size={62}
-        weight={600}
-        opacity={ramp(frame, 112, 12)}
-      >
-        {commas(counting(arrive, MODEL.vocab, 1_000))}
-      </Readout>
-      <Label top={1046} opacity={ramp(frame, 118, 12)}>
-        candidates scored
-      </Label>
-
-      <Provenance top={1150} opacity={ramp(frame, 166, 22)}>
-        step {STEP.index} · temperature 0 · the top five of{" "}
-        {commas(MODEL.vocab)}
+      <Provenance top={1150} opacity={ramp(frame, 40, 24)}>
+        {WEIGHTS_PER_HEAD} weights per head · {MODEL.heads} heads ·{" "}
+        {MODEL.layers} layers · {commas(ATTENTION_WEIGHTS_TOTAL)} in total
+      </Provenance>
+      <Provenance top={1196} opacity={ramp(frame, 176, 20)}>
+        step {STEP.index} · temperature 0 · arc brightness is the measured weight
       </Provenance>
     </>
   );

@@ -261,15 +261,16 @@ export const Vocabulary: React.FC<{
         const x = Math.sin(i * 12.9898) * 43758.5453;
         const rank = x - Math.floor(x);
         const on = interpolate(arrive * 1.4 - rank * 0.4, [0, 1], [0, 1], clamp);
-        // The five that survive are a fixed scatter, so the eye can follow
-        // them out of the field rather than losing them.
-        const survives = rank > 0.994;
-        // The field fades to a ghost rather than to nothing. Taking it to zero
-        // left five dots floating in space and threw away the only thing that
-        // showed what they were the top five of.
-        const level = survives
-          ? 0.22 + collapse * 0.6
-          : 0.22 * (1 - collapse * 0.72);
+        // The five that survive are a fixed scatter, so the eye can follow them
+        // out of the field rather than losing them.
+        const survives = rank > 0.9944;
+
+        // Survivors grow and brighten while everything else goes out. The first
+        // version left them the same eight pixels as the 890 marks around them,
+        // so the collapse the whole shot builds to registered as a few dots
+        // getting slightly oranger.
+        const grow = survives ? 1 + collapse * 1.9 : 1;
+        const level = survives ? 0.3 + collapse * 0.7 : 0.22 * (1 - collapse);
 
         return (
           <div
@@ -277,8 +278,9 @@ export const Vocabulary: React.FC<{
             style={{
               borderRadius: 1,
               opacity: on,
-              background: survives && collapse > 0.5
-                ? ACCENT
+              transform: `scale(${grow})`,
+              background: survives
+                ? `rgba(240,110,42,${level})`
                 : `rgba(233,228,216,${level})`,
             }}
           />

@@ -34,25 +34,49 @@ that four times as much of it arrives as was typed.
 Tokens are drawn with their leading spaces shown, because `' is'` is the thing
 that makes a token not a word.
 
-## Shot 2. Up the stack, and one token out
+## Shot 2. The network, and the one token that comes out of it
 
-The twenty-five tiles turn on their side and become columns. They rise together
-through a stack of thirty-six blocks, which is the measured `n_layer` and not a
-decorative number.
+This shot was rebuilt on 2026-09-11. The first version drew thirty-six layers as
+a grid of squares with a list of percentages under it, which carried the same
+information and gave nobody a reason to stop scrolling. The playbook says to
+build objects rather than readouts and that version broke its own rule inside
+its own storyboard.
 
-At the top, twenty-four of the columns go dark and one stays lit. That is the
-shot's first event and it is the one people do not expect.
+Twenty-five nodes on a line, one per token, and an arc from every token back to
+every token before it. The triangle those arcs make is the causal mask: position
+i reaches everything up to itself and nothing after. No arc is ever drawn
+forwards, because there is nothing there to draw.
 
-The lit column then fans out into the vocabulary: a dense field of marks
-standing for 151,936, collapsing to five labelled candidates and then to one.
-The five are the measured top five at step 5, with their real percentages.
+**Every arc is a measured attention weight.** `scripts/measure-attention.sh`
+pulls the head-averaged matrices out of the same model at four depths, and
+`src/vertical/06-one-token-at-a-time/attention.ts` is generated from that run.
+An arc's brightness is its weight normalised against the strongest weight in its
+own row. Raw weights would draw almost nothing, since a row of twenty-five sums
+to one and averages 0.04; normalising per row shows where each token actually
+looks. That is a contrast choice and it does not change a number.
 
-The hero is that collapse. It is the same shape as VR01's ten million rows going
-to one, which is the shape this page rewards, and it is why the reel exists.
+Three beats, each under its own narration line.
+
+The field fills as the front crosses the layers, and the readout counts the
+layer rather than sitting on a zero. The first version held a 0 under the stack
+for four seconds before the vocabulary arrived.
+
+Then everything fades except the arcs into the token that speaks next, under
+"only the last one produces anything". That is the shot's first real surprise
+and it is the part people are least likely to know.
+
+Then that token fires into the vocabulary, which collapses to five labelled
+candidates and then to one. The survivors grow and brighten; leaving them the
+same size as the 890 marks around them made the collapse register as a few dots
+getting slightly oranger.
+
+The receipt carries the number the shot is really about: 325 weights per head,
+sixteen heads, thirty-six layers, 187,200 attention weights for one six-word
+question.
 
 Nothing inside a block is drawn. No normalisation, no feed-forward, no
-residuals. A block is a block. The moment shot 2 starts teaching what is inside
-one, the cut has become a tour.
+residuals. The moment this shot teaches what is inside a layer it is a tour
+rather than a claim.
 
 ## Shot 3. The loop, and the cache
 

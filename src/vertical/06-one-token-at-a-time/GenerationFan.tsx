@@ -60,7 +60,7 @@ export const GenerationFan: React.FC<{
 
       const x0 = x(j);
       const x1 = x(from);
-      const dip = NODE_Y + (Math.abs(from - j) / total) * 700;
+      const dip = NODE_Y + (Math.abs(from - j) / total) * 580;
       arcs.push(
         <path
           key={`${gi}-${j}`}

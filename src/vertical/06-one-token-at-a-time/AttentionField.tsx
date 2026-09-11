@@ -29,7 +29,7 @@ export const FIELD_X = 96;
 export const FIELD_W = 888;
 export const PITCH = FIELD_W / N;
 export const NODE_Y = 16;
-export const SVG_H = 400;
+export const SVG_H = 330;
 
 export const nodeX = (i: number) => FIELD_X + PITCH * (i + 0.5);
 
@@ -37,11 +37,13 @@ export const nodeX = (i: number) => FIELD_X + PITCH * (i + 0.5);
  * The control point for the deepest arc, not the depth it reaches.
  *
  * A quadratic bezier only travels half way to its control, so a curve with its
- * control at y peaks at about y/2. The first version set this to the depth the
- * band wanted and the arcs came out half as deep as intended, leaving the frame
- * top heavy with two thirds of it empty.
+ * control at y peaks at about y/2. An early version set this to the depth the
+ * band wanted and the arcs came out half as deep as intended.
+ *
+ * 580 rather than 700 since the chat window became permanent: the deepest arc
+ * now peaks around 306, which keeps it clear of the counter at 956.
  */
-const MAX_DIP = 700;
+const MAX_DIP = 580;
 
 /**
  * Interpolate between the captured depths.

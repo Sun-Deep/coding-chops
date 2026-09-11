@@ -26,7 +26,16 @@ import { TEMPLATED } from "./measurements";
 
 const OWN = TEMPLATED.map((p, i) => ({ ...p, index: i })).filter((p) => p.own);
 const CHIP_FONT = 22;
-const SOURCE_Y = 96;
+/**
+ * Where the six start, relative to the row they are flying to.
+ *
+ * Negative because the chat window sits above the network now and stays there.
+ * The six lift off the question bubble, which is right aligned, so the pack is
+ * right aligned to match rather than centred: a token has to leave from the
+ * word it is.
+ */
+const SOURCE_Y = -222;
+const PACK_RIGHT = 906;
 
 /** Rough advance width of the mono face at the flight size, plus padding. */
 const chipWidth = (text: string) => text.length * (CHIP_FONT * 0.6) + 22;
@@ -54,7 +63,7 @@ const TEMPLATE_RANK = (() => {
 const packX = (() => {
   const widths = OWN.map((p) => chipWidth(p.text));
   const total = widths.reduce((a, b) => a + b, 0) + (OWN.length - 1) * 8;
-  let x = (1080 - total) / 2;
+  let x = PACK_RIGHT - total;
   return widths.map((w) => {
     const at = x + w / 2;
     x += w + 8;

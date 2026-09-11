@@ -6,10 +6,31 @@ in `script.md` and the figures are in
 
 ## The spine
 
-The chat frame is on screen at the start and at the end, and the middle is what
-happens between them. The viewer sends a message in shot 1 and watches the
-answer type itself in shot 3, so the interior is not an abstraction sitting
-beside the interface, it is inside it.
+The chat window is on screen for the whole cut, in one place, at a fixed height.
+It does not fade out between shots and it does not move. The viewer sends a
+message, watches it come apart, watches it go through the network, and watches
+the answer come back, without ever losing sight of the thing they typed.
+
+Earlier versions faded it out after shot 1 and brought a differently shaped card
+back in shot 3, which meant the one anchor the cut has disappeared for eight
+seconds and then reappeared somewhere else.
+
+The height is reserved from frame zero, including the space the answer will take.
+Letting the card grow as the answer filled is what ran it sixty-two pixels into
+the object below it, and reserving the space is also what a real chat window
+does while it waits.
+
+Both bubbles are the accent with white text: the question right aligned, the
+answer left. That is a deliberate exception to the one-accent rule in
+`palette.ts`, which says the orange is the thing being looked for. Inside the
+window the orange reads as the interface and outside it the orange reads as
+signal, and the window's border is what separates the two. It is worth watching
+for: if a frame ever reads as orange-on-orange, the bubbles are the thing to
+pull back, not the network.
+
+The network sits below the window at 606 and the arcs are shallower than they
+were, peaking around 306 rather than 358, which is what makes room for a
+permanent window without the deepest arc reaching the counter.
 
 ```text
 shot 1   the message comes apart          0 to 140   140f   4.7s

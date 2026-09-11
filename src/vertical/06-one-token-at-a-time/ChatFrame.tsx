@@ -7,46 +7,49 @@ import { ACCENT } from "../../shared/vertical/palette";
  * The figures in this cut come from a model that can be measured, which means a
  * local open one. No commercial model publishes its vocabulary size, block
  * count or logits. Drawing Claude's or ChatGPT's interface around measured Qwen
- * internals would be claiming those numbers belong to them, and the whole point
- * of this format is that a figure on screen came off a real machine and can be
- * checked. The mechanism is identical across transformers; only the badge would
- * have differed, and the badge is the part that would have been false.
+ * internals would be claiming those numbers belong to them.
  *
- * It is on screen in shot 1 and shot 3 so the interior of the cut sits inside
- * the interface rather than beside it. The viewer sends the message and then
- * watches the answer arrive in the same window.
+ * It is on screen for the whole cut, in one place, at a fixed height. The
+ * viewer sends a message and watches it come apart, go through the network and
+ * come back as an answer without ever losing the thing they typed.
+ *
+ * Fixed height matters. The first version let the card grow as the answer
+ * filled and it ran sixty-two pixels into the object below it, then a later one
+ * moved the card between shots so the interface jumped. The answer's space is
+ * reserved from the first frame, which is also what a real chat window does
+ * while it waits.
  */
 
 export const FRAME_WIDTH = 820;
 export const FRAME_LEFT = (1080 - FRAME_WIDTH) / 2;
+/** Reserved from frame zero so nothing below it ever moves. */
+export const FRAME_HEIGHT = 216;
+export const FRAME_BOTTOM_GAP = 26;
 
 const Bubble: React.FC<{
-  role: string;
   text: string;
-  own?: boolean;
+  align: "left" | "right";
   opacity?: number;
   caret?: boolean;
-}> = ({ role, text, own = false, opacity = 1, caret = false }) => (
-  <div style={{ opacity, marginBottom: 26 }}>
+}> = ({ text, align, opacity = 1, caret = false }) => (
+  <div
+    style={{
+      display: "flex",
+      justifyContent: align === "right" ? "flex-end" : "flex-start",
+      opacity,
+    }}
+  >
     <div
       style={{
-        fontFamily: theme.monoFamily,
-        fontSize: 17,
-        letterSpacing: "0.18em",
-        textTransform: "uppercase",
-        color: own ? ACCENT : theme.colors.grayDark,
-        marginBottom: 10,
-      }}
-    >
-      {role}
-    </div>
-    <div
-      style={{
-        fontSize: 30,
+        maxWidth: "86%",
+        padding: "13px 20px 14px",
+        borderRadius: 18,
+        background: ACCENT,
+        color: theme.colors.paperBright,
+        fontSize: 29,
         fontWeight: 600,
-        lineHeight: 1.34,
-        letterSpacing: "-0.015em",
-        color: theme.colors.chalk,
+        lineHeight: 1.3,
+        letterSpacing: "-0.012em",
       }}
     >
       {text}
@@ -55,10 +58,10 @@ const Bubble: React.FC<{
           style={{
             display: "inline-block",
             width: 3,
-            height: 30,
-            marginLeft: 6,
+            height: 27,
+            marginLeft: 5,
             transform: "translateY(4px)",
-            background: ACCENT,
+            background: theme.colors.paperBright,
           }}
         />
       ) : null}
@@ -71,77 +74,51 @@ export const ChatFrame: React.FC<{
   question: string;
   /** The assistant text so far. Empty until shot 3 starts filling it. */
   answer?: string;
-  /** Shows the blinking edge while the answer is being written. */
+  /** Shows the writing edge while the answer is being produced. */
   writing?: boolean;
   opacity?: number;
   /** 0 to 1, how lit the send control is. */
   send?: number;
-  /**
-   * Reply only: no header, no question bubble.
-   *
-   * Shot 3 needs the answer arriving without spending three hundred pixels
-   * restating what shot 1 established. The full frame there ran a two line
-   * answer sixty-two pixels into the object below it.
-   */
-  reply?: boolean;
-}> = ({
-  top,
-  question,
-  answer = "",
-  writing = false,
-  opacity = 1,
-  send = 0,
-  reply = false,
-}) => (
+}> = ({ top, question, answer = "", writing = false, opacity = 1, send = 0 }) => (
   <div
     style={{
       position: "absolute",
       top,
       left: FRAME_LEFT,
       width: FRAME_WIDTH,
+      height: FRAME_HEIGHT,
       opacity,
-      padding: "34px 36px 30px",
+      padding: "22px 24px",
       boxSizing: "border-box",
       borderRadius: 22,
       border: `1px solid rgba(233,228,216,0.13)`,
       background: "rgba(233,228,216,0.028)",
+      display: "flex",
+      flexDirection: "column",
+      gap: 16,
     }}
   >
-    {reply ? null : (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginBottom: 26,
-      }}
-    >
+    {/* Never dimmed. Dimming it to a quarter turned the bubble muddy brown with
+        grey text, which reads as a broken render rather than as a deliberate
+        step back, and the whole reason the window stays is that the viewer can
+        see what they typed for the entire cut. */}
+    <Bubble text={question} align="right" />
+    {answer || writing ? (
+      <Bubble text={answer} align="left" caret={writing} />
+    ) : null}
+
+    {send > 0 ? (
       <div
         style={{
-          fontFamily: theme.monoFamily,
-          fontSize: 16,
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          color: theme.colors.grayDark,
-        }}
-      >
-        Coding Chops
-      </div>
-      <div
-        style={{
-          width: 34,
-          height: 34,
-          borderRadius: 17,
-          border: `1px solid rgba(233,228,216,${0.12 + send * 0.5})`,
-          background: send > 0 ? `rgba(240,110,42,${send * 0.9})` : "transparent",
+          position: "absolute",
+          right: 24,
+          bottom: 20,
+          width: 26,
+          height: 26,
+          borderRadius: 13,
+          background: `rgba(240,110,42,${send * 0.9})`,
         }}
       />
-    </div>
-    )}
-
-    {reply ? null : <Bubble role="You" text={question} own />}
-    {answer || writing ? (
-      <Bubble role="Model" text={answer} caret={writing} />
     ) : null}
   </div>
 );

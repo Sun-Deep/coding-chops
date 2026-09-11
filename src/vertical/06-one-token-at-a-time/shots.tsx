@@ -74,7 +74,6 @@ const counting = (t: number, to: number, step: number) => {
 export const Tokenize: React.FC = () => {
   const frame = useCurrentFrame();
   const send = ramp(frame, 6, 14);
-  const frameOut = interpolate(frame, [16, 40], [1, 0], clamp);
   // EASE_IN_OUT, not EASE_OUT. The out curve is heavily front loaded and the
   // six had landed by frame 62 of a window that runs to 92, so two thirds of
   // the flight happened in the first third of its time and the words were
@@ -102,13 +101,13 @@ export const Tokenize: React.FC = () => {
       </Label>
 
       <ChatFrame
-        top={366}
+        top={330}
         question={PROMPT.text}
-        opacity={ramp(frame, -4, 12) * frameOut}
-        send={send}
+        opacity={ramp(frame, -4, 12)}
+        send={send * (1 - fly)}
       />
 
-      <TokenArrival top={398} fly={fly} template={template} />
+      <TokenArrival top={606} fly={fly} template={template} />
 
       {/* The counter arrives with the first token rather than sitting on a zero
           for the opening second, which is the dead frame the playbook warns
@@ -175,8 +174,10 @@ export const Forward: React.FC = () => {
         Every token reads every token before it
       </Label>
 
+      <ChatFrame top={330} question={PROMPT.text} />
+
       <AttentionField
-        top={398}
+        top={606}
         depth={depth}
         reveal={reveal}
         converge={converge}
@@ -184,7 +185,7 @@ export const Forward: React.FC = () => {
       />
 
       <Vocabulary
-        top={452}
+        top={640}
         arrive={arrive}
         collapse={collapse}
         opacity={interpolate(frame, [128, 146], [0, 1], clamp)}
@@ -193,7 +194,7 @@ export const Forward: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: 616,
+          top: 790,
           left: (1080 - 620) / 2,
           width: 620,
           opacity: ramp(frame, 150, 18),
@@ -285,16 +286,14 @@ export const Loop: React.FC = () => {
         And again · once per token
       </Label>
 
-      <GenerationFan top={398} step={step} opacity={ramp(frame, 0, 10)} />
-
       <ChatFrame
-        top={744}
+        top={330}
         question={PROMPT.text}
         answer={ANSWER_PIECES.slice(0, words).join("")}
         writing={passes > 0 && passes < GENERATION.tokens}
-        opacity={ramp(frame, 8, 14)}
-        reply
       />
+
+      <GenerationFan top={606} step={step} opacity={ramp(frame, 0, 10)} />
 
       <Readout top={956} size={62} weight={600}>
         {passes}

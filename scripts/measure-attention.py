@@ -75,6 +75,29 @@ last_row = {
     for li in shown
 }
 
+# ---------------------------------------------------------------------------
+# Generation. Shot 3 draws an arc from each generated token back across the
+# whole context, so those weights have to be measured too or they are
+# decoration. Only the final position's row matters there: it is the one doing
+# the attending, and it is what the shot draws.
+# ---------------------------------------------------------------------------
+GEN_STEPS = int(os.environ.get("GEN_STEPS", "40"))
+GEN_LAYER = layers - 1
+
+cur = ids
+gen_rows = []
+gen_pieces = []
+for _ in range(GEN_STEPS):
+    with torch.no_grad():
+        step = model(cur, output_attentions=True, use_cache=False)
+    row = step.attentions[GEN_LAYER][0].mean(0)[-1]      # head-averaged last row
+    gen_rows.append([round(float(v), 5) for v in row])
+    nxt = int(step.logits[0, -1].argmax())               # greedy, temperature 0
+    gen_pieces.append(tok.decode([nxt]))
+    cur = torch.cat([cur, torch.tensor([[nxt]])], dim=1)
+    if nxt == tok.eos_token_id:
+        break
+
 data = {
     "model": MODEL,
     "precision": "float32",
@@ -89,6 +112,14 @@ data = {
     "layers_captured": shown,
     "head_averaged": matrices,
     "last_position_top5": last_row,
+    "generation": {
+        "layer": GEN_LAYER,
+        "steps": len(gen_rows),
+        "pieces": gen_pieces,
+        "text": "".join(gen_pieces),
+        # row g has n + g entries: the prompt plus everything generated so far.
+        "last_row_by_step": gen_rows,
+    },
 }
 
 with open(OUT, "w") as f:
@@ -102,4 +133,6 @@ print(f"matrix per layer {n} x {n}, causal, rows sum to 1")
 print(f"weights per head per layer   {per_head:,}")
 print(f"weights for this one prompt  {per_head:,} x {heads} x {layers} = {total:,}")
 print(f"captured layers  {shown}")
+print(f"generated        {len(gen_rows)} tokens, last-row attention at layer {GEN_LAYER}")
+print(f"                 {''.join(gen_pieces)[:64]!r}")
 print(f"written to       {OUT}")

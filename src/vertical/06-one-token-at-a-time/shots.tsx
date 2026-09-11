@@ -11,16 +11,14 @@ import {
   Readout,
 } from "../../shared/vertical/type";
 import { AttentionField } from "./AttentionField";
-import { ATTENTION_WEIGHTS_TOTAL, WEIGHTS_PER_HEAD } from "./attention";
-import { ChatFrame } from "./ChatFrame";
 import {
-  Cache,
-  cacheRightEdge,
-  Stack,
-  Tokens,
-  Vocabulary,
-  type Piece,
-} from "./parts";
+  ATTENTION_WEIGHTS_TOTAL,
+  GENERATION_LAYER,
+  WEIGHTS_PER_HEAD,
+} from "./attention";
+import { GenerationFan } from "./GenerationFan";
+import { ChatFrame } from "./ChatFrame";
+import { Tokens, Vocabulary, type Piece } from "./parts";
 import {
   ANSWER_PIECES,
   CACHE,
@@ -246,47 +244,34 @@ export const Forward: React.FC = () => {
 /**
  * Shot 3. The loop, and the cache.
  *
- * The layout changes in exactly one way from the shot before it: instead of
- * twenty-five columns rising, one does. Beside it the cache grows by a slot per
- * token and lights across its whole width every pass.
+ * Rebuilt on 2026-09-11 along with shot 2. The first version had three separate
+ * faults and all three came from drawing the idea twice: a single column
+ * standing for the stack, a cache strip beside it, and a chat card on top of
+ * both.
  *
- * That pairing is the claim. Attention reads every stored position and the
- * compute is one token wide, and the first version of this plan had it the
- * other way round.
+ * The column used `rise > 0 ? 1 : 0`, and during the fast passes the sub-pass
+ * progress alternated 0 and 0.5 every frame, so it switched fully dark every
+ * other frame. That is a 15 Hz strobe, not a style.
  *
- * The first three passes run slowly enough to read, then it accelerates to the
- * remaining thirty-seven. The counter tracks the real pass count throughout, so
- * the acceleration is a change of pace and not a change of arithmetic.
+ * The cache strip capped at 51 slots when it needed 65, so the one object whose
+ * whole job is to grow visibly stopped growing at 17.7 seconds and contradicted
+ * the shot's own claim.
+ *
+ * And the chat card with a two-line answer ran 62 pixels into the column.
+ *
+ * The rebuild removes the column and the strip. The row of nodes is the cache:
+ * it starts at the prompt's twenty-five and gains one per token, and each pass
+ * fans an arc from the newest token back across every position before it. One
+ * object, one claim, and no separate thing to fall out of sync.
  */
-const SLOW_PASSES = 3;
-const SLOW_PERIOD = 18;
-const FAST_PERIOD = 2;
-const LOOP_START = 10;
-
-const passAt = (frame: number) => {
-  const x = frame - LOOP_START;
-  if (x < 0) return { n: 0, rise: 0 };
-  const slowSpan = SLOW_PASSES * SLOW_PERIOD;
-  if (x < slowSpan) {
-    return {
-      n: Math.floor(x / SLOW_PERIOD) + 1,
-      rise: (x % SLOW_PERIOD) / SLOW_PERIOD,
-    };
-  }
-  const y = x - slowSpan;
-  return {
-    n: Math.min(SLOW_PASSES + Math.floor(y / FAST_PERIOD) + 1, GENERATION.tokens),
-    rise: (y % FAST_PERIOD) / FAST_PERIOD,
-  };
-};
-
 export const Loop: React.FC = () => {
   const frame = useCurrentFrame();
-  const { n, rise } = passAt(frame);
-  const done = n / GENERATION.tokens;
-
-  const words = Math.round(done * ANSWER_PIECES.length);
-  const answer = ANSWER_PIECES.slice(0, words).join("");
+  const step = interpolate(frame, [14, 136], [0, GENERATION.tokens], {
+    ...clamp,
+    easing: EASE_IN_OUT.easing,
+  });
+  const passes = Math.max(0, Math.min(Math.round(step), GENERATION.tokens));
+  const words = Math.round((passes / GENERATION.tokens) * ANSWER_PIECES.length);
 
   return (
     <>
@@ -294,48 +279,27 @@ export const Loop: React.FC = () => {
         And again · once per token
       </Label>
 
+      <GenerationFan top={398} step={step} opacity={ramp(frame, 0, 10)} />
+
       <ChatFrame
-        top={352}
+        top={744}
         question={PROMPT.text}
-        answer={answer}
-        writing={n > 0 && n < GENERATION.tokens}
-        opacity={ramp(frame, 0, 12)}
-      />
-
-      {/* The newest position sits at the end of the sequence, so the column
-          rises above the right hand end of the cache rather than in the middle
-          of the frame. The first version put it at centre and full height,
-          where it ran from 640 to 1103 and crossed the counter. */}
-      <Stack
-        top={686}
-        rise={rise > 0 ? 1 : 0}
-        keep={1}
-        single
-        left={cacheRightEdge(PROMPT.templatedTokens + n) - 19}
-        rowPitch={5}
-        rowH={3}
-        opacity={ramp(frame, 6, 12) * (0.72 + 0.28 * (1 - rise))}
-      />
-
-      <Cache
-        top={882}
-        slots={PROMPT.templatedTokens + n}
-        read={1 - rise}
-        opacity={ramp(frame, 10, 12)}
+        answer={ANSWER_PIECES.slice(0, words).join("")}
+        writing={passes > 0 && passes < GENERATION.tokens}
+        opacity={ramp(frame, 8, 14)}
+        reply
       />
 
       <Readout top={956} size={62} weight={600}>
-        {n}
+        {passes}
       </Readout>
-      <Label top={1046} opacity={ramp(frame, 14, 14)}>
-        forward passes
-      </Label>
+      <Label top={1046}>forward passes</Label>
 
-      <Provenance top={1150} opacity={ramp(frame, 150, 22)}>
+      <Provenance top={1150} opacity={ramp(frame, 142, 22)}>
         the earlier tokens are not recomputed · they are read
       </Provenance>
-      <Provenance top={1196} opacity={ramp(frame, 180, 20)}>
-        {GENERATION.tokens} tokens out, {GENERATION.tokens} passes
+      <Provenance top={1196} opacity={ramp(frame, 170, 20)}>
+        arcs are the measured weights at layer {GENERATION_LAYER}, head-averaged
       </Provenance>
     </>
   );

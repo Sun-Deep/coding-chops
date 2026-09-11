@@ -80,21 +80,49 @@ rather than a claim.
 
 ## Shot 3. The loop, and the cache
 
-The chosen token drops into the answer line in the chat frame.
+Rebuilt on 2026-09-11 with shot 2. The first version drew the idea three times
+over: a single column standing for the stack, a cache strip beside it, and a
+chat card on top of both. All three of its faults came from that.
 
-Then the layout changes in exactly one way: instead of twenty-five columns
-rising, one narrow column rises. Beside the stack, a cache block grows by one
-slot per step and lights across its full width every time the column climbs.
+The column used `rise > 0 ? 1 : 0`, and during the fast passes the sub-pass
+progress alternated 0 and 0.5 every frame, so it switched fully dark every
+other frame. A 15 Hz strobe, not a style.
 
-That pairing is the whole shot. One token wide going up, the entire cache being
-read across. It is the difference between "attention looks at everything" and
-"the model reprocesses everything", and drawing it wrong is the error this shot
-exists to prevent.
+The cache strip capped at 51 slots when it needed 65, so the one object whose
+entire job is to grow visibly stopped growing at 17.7 seconds and contradicted
+the shot's own claim.
 
-The answer types itself in the chat frame while a forward-pass counter climbs to
-forty.
+The chat card with a two line answer ran 62 pixels into the column.
 
-The hero is the cache widening while the stack stays one column narrow.
+### What it is now
+
+One object. The row of nodes is the cache: it starts at the prompt's
+twenty-five and gains one per generated token, and the pitch compresses to keep
+it in frame, so the context visibly densifies as the answer gets longer. Each
+pass fans an arc from the newest token back across every position before it.
+
+That pairing is the claim the cut turns on. The compute is one token wide and
+the reading is the whole context, and drawing it the other way round is the
+error the original plan made in words before this shot made it in pixels.
+
+Every arc is a measured weight. `scripts/measure-attention.sh` captures the
+final position's attention row at each of the forty generation steps, so row g
+has `25 + g` entries and grows by one a step. The generated text matches
+llama.cpp's output on the same prompt token for token, which is the check that
+the two runtimes are doing the same thing.
+
+Earlier fans persist at a decaying alpha for seven steps so the picture
+accumulates rather than blinking, computed from how many steps ago each fired
+rather than remembered between frames.
+
+The chat card is reply-only here: no header, no question bubble. Shot 1
+established those and repeating them cost three hundred pixels and the overlap.
+
+### Verified
+
+On the finished render the maximum frame-to-frame difference fell from 8.59 to
+3.09, and shot 3 has one frame in two hundred and twenty that jumps more than
+1.5 against its predecessor. The strobe is gone rather than reduced.
 
 ## Shot 4. End card
 

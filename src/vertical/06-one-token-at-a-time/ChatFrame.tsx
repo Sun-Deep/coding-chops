@@ -76,7 +76,23 @@ export const ChatFrame: React.FC<{
   opacity?: number;
   /** 0 to 1, how lit the send control is. */
   send?: number;
-}> = ({ top, question, answer = "", writing = false, opacity = 1, send = 0 }) => (
+  /**
+   * Reply only: no header, no question bubble.
+   *
+   * Shot 3 needs the answer arriving without spending three hundred pixels
+   * restating what shot 1 established. The full frame there ran a two line
+   * answer sixty-two pixels into the object below it.
+   */
+  reply?: boolean;
+}> = ({
+  top,
+  question,
+  answer = "",
+  writing = false,
+  opacity = 1,
+  send = 0,
+  reply = false,
+}) => (
   <div
     style={{
       position: "absolute",
@@ -91,6 +107,7 @@ export const ChatFrame: React.FC<{
       background: "rgba(233,228,216,0.028)",
     }}
   >
+    {reply ? null : (
     <div
       style={{
         display: "flex",
@@ -120,8 +137,9 @@ export const ChatFrame: React.FC<{
         }}
       />
     </div>
+    )}
 
-    <Bubble role="You" text={question} own />
+    {reply ? null : <Bubble role="You" text={question} own />}
     {answer || writing ? (
       <Bubble role="Model" text={answer} caret={writing} />
     ) : null}

@@ -30,27 +30,26 @@ part that would have been false.
 
 ## Narration
 
-Eleven lines, 54 words, twenty-six seconds. Payoff lines are marked, one per
-shot. 2.1 words a second, no line above 2.9.
+Ten lines, 49 words, twenty-six seconds. Payoff lines are marked, one per shot.
+1.9 words a second, no line above 2.9.
 
 ```text
-SHOT 1  the message becomes tokens                       0 to 200
+SHOT 1  the message comes apart                          0 to 140
 
-f4      Your question is 6 tokens.
-f76     The template wraps it first.
-f146    6 became 25.                                     [payoff]
+f4      You typed 6 tokens.
+f86     The model got 25.                                [payoff]
 
-SHOT 2  up the stack, and one token out                200 to 420
+SHOT 2  every token reads every token before it        140 to 380
 
-f204    All 25 go up through 36 layers.
-f288    Only the last one produces anything.
-f360    151,936 scored. One kept.                        [payoff]
+f144    All 25 go up through 36 layers.
+f230    Only the last one produces anything.
+f310    151,936 scored. One kept.                        [payoff]
 
-SHOT 3  the loop, and the cache                        420 to 640
+SHOT 3  the loop, and the cache                        380 to 640
 
-f424    It appends and runs again.
-f492    Only the new token climbs.
-f560    One pass per token.                              [payoff]
+f384    It appends and runs again.
+f452    Only the new token climbs.
+f564    One pass per token.                              [payoff]
 
 SHOT 4  end card                                       640 to 780
 
@@ -58,7 +57,26 @@ f644    Every token adds 36 KB.
 f716    8,192 tokens is 288 MB.                          [payoff]
 ```
 
-## Shot 1. The message becomes tokens, 0:00 to 6:20
+### The opening
+
+Retimed on 2026-09-11 after the creator's verdict that the first two or three
+seconds gave nobody a reason to stay.
+
+Section 10 of the standard says frame zero should have something in motion and
+something changing. The previous version spent its first thirty-four frames on
+a static chat card, so nothing moved until 1.1 seconds and the shot's surprise
+did not land until 4.9. "No hook card" had been read as licence for a slow open
+rather than as the reason not to have one.
+
+The first token now lifts on frame zero and the counter is climbing from frame
+zero. The payoff lands at 2.9 seconds.
+
+Shot 1 lost a line to get there. "The template wraps it first" was narrating
+something the frame shows plainly. The two that remain read against the picture
+on purpose: the first says six while the counter climbs past six, and the label
+above it promises the reveal rather than describing the step.
+
+## Shot 1. The message comes apart, 0:00 to 4:20
 
 ```text
 YOUR MESSAGE · TOKENIZED
@@ -82,7 +100,7 @@ The template wraps it first.
 qwen2.5-3b · prompt_n confirms 25
 ```
 
-## Shot 2. Up the stack, and one token out, 6:20 to 14:00
+## Shot 2. Every token reads every token before it, 4:20 to 12:20
 
 ```text
 ONE FORWARD PASS · 36 LAYERS
@@ -108,7 +126,7 @@ One kept.
 step 5 · temperature 0 · top 5 of 151,936
 ```
 
-## Shot 3. The loop, and the cache, 14:00 to 21:10
+## Shot 3. The loop, and the cache, 12:20 to 21:10
 
 ```text
 AND AGAIN · ONCE PER TOKEN

@@ -99,7 +99,13 @@ export const TokenArrival: React.FC<{
       // first version faded it from 55 percent of the travel, so the words were
       // anonymous bars before they were halfway down and the one thing the shot
       // is for, reading your own sentence come apart, never happened.
-      const label = own ? interpolate(t, [0.82, 1], [1, 0], clamp) : 0;
+      // Invisible until its own token lifts, so the chip never sits on top of
+      // the bubble text it came from. At [0.82, 1] every chip was drawn at full
+      // opacity from frame zero and the opening showed the sentence twice, once
+      // as prose and once as chips, in two different faces.
+      const label = own
+        ? interpolate(t, [0.02, 0.18, 0.82, 1], [0, 1, 1, 0], clamp)
+        : 0;
       const mark = own
         ? interpolate(t, [0.86, 1], [0, 1], clamp)
         : interpolate(

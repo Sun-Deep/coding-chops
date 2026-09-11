@@ -23,8 +23,8 @@ import { EndCard, Forward, Loop, Tokenize } from "./shots";
 const LANDINGS = (() => {
   const out: number[] = [];
   let seen = 0;
-  for (let f = 34; f <= 100; f++) {
-    const fly = interpolate(f, [34, 92], [0, 1], {
+  for (let f = 0; f <= 56; f++) {
+    const fly = interpolate(f, [0, 44], [0, 1], {
       ...clamp,
       easing: EASE_IN_OUT.easing,
     });
@@ -57,8 +57,8 @@ const LANDINGS = (() => {
 const PASSES = (() => {
   const out: number[] = [];
   let seen = 0;
-  for (let f = 14; f <= 136; f++) {
-    const step = interpolate(f, [14, 136], [0, GENERATION.tokens], {
+  for (let f = 14; f <= 176; f++) {
+    const step = interpolate(f, [14, 176], [0, GENERATION.tokens], {
       ...clamp,
       easing: EASE_IN_OUT.easing,
     });
@@ -156,53 +156,65 @@ export const OneTokenAtATimeReel: React.FC = () => (
       The whole audio track. No bed, so every cue has to earn the silence around
       it and the silence has to be the right length.
 
-      Rebuilt on 2026-09-11 against the rebuilt animation. Gains are set from
-      each file's measured peak toward section 11's targets: the heaviest near
-      -5 dBFS, the quiet ones between -14 and -19, checked on the finished
-      render rather than reasoned from the source levels.
+      Everything is placed against `SHOTS` rather than as absolute frames. The
+      first two versions of this map were absolute, and both of them survived a
+      retime still firing at events that had moved or been deleted.
+
+      Gains are set from each file's measured peak toward section 11's targets:
+      the heaviest near -5 dBFS, the quiet ones between -14 and -19, checked on
+      the finished render rather than reasoned from the source levels.
 
       No `scan` anywhere. It marks elapsed time and nothing here is about how
       long something takes.
     */}
 
-    {/* Shot 1. The window, the send, the sentence coming apart. */}
-    <Sfx name="appear" at={2} gain={2.8} />
-    <Sfx name="send" at={8} gain={6} />
+    {/* Shot 1. The sentence is already coming apart on frame zero. */}
+    <Sfx name="appear" at={SHOTS.tokens.from + 1} gain={2.8} />
+    <Sfx name="send" at={SHOTS.tokens.from + 6} gain={6} />
     {/* One per token landing in its slot, from the flight's own stagger. */}
     {LANDINGS.map((f, i) => (
-      <Sfx key={i} name="settle" at={f} gain={4 + i * 0.35} />
+      <Sfx key={i} name="settle" at={SHOTS.tokens.from + f} gain={4 + i * 0.35} />
     ))}
     {/* The nineteen the template adds, arriving as data rather than as objects.
         A different cue from the six because the difference between those two
-        groups is the entire shot. */}
-    <Run name="fill" at={[98, 108, 118, 128, 138]} gain={[8, 17]} />
-    <Sfx name="tick" at={146} gain={4.9} />
+        groups is the whole of this shot. */}
+    <Run
+      name="fill"
+      at={[48, 56, 64, 72, 78].map((f) => SHOTS.tokens.from + f)}
+      gain={[8, 17]}
+    />
+    <Sfx name="tick" at={SHOTS.tokens.from + 86} gain={4.9} />
 
     {/* Shot 2. The network forming, converging, and firing. */}
-    {/* Rows of arcs arriving as the front crosses the layers. */}
-    <Run name="fill" at={[206, 218, 230, 242, 254, 266]} gain={[9, 15]} />
-    {/* Twenty-four columns' worth of arcs going out, leaving one. */}
-    <Sfx name="dissolve" at={292} gain={12} />
-    {/* The vocabulary arriving. */}
-    <Sfx name="appear" at={334} gain={3.6} />
-    {/* It collapses. */}
-    <Sfx name="settle" at={350} gain={4.4} />
+    <Run
+      name="fill"
+      at={[8, 22, 36, 50, 64, 78].map((f) => SHOTS.stack.from + f)}
+      gain={[9, 15]}
+    />
+    {/* The arcs going out, leaving the one that speaks next. */}
+    <Sfx name="dissolve" at={SHOTS.stack.from + 104} gain={12} />
+    <Sfx name="appear" at={SHOTS.stack.from + 128} gain={3.6} />
+    <Sfx name="settle" at={SHOTS.stack.from + 148} gain={4.4} />
     {/* Five candidates, then the one that is kept. The heaviest cue in the cut
         and the moment the whole reel is built around. */}
-    {/* The candidate ticks sit back and the name carries the beat. At [3, 4.4]
-        the fourth tick landed on the same frame as the name and the two summed
-        to -3.2 dBFS, over the target for the loudest thing in the cut. */}
-    <Run name="tick" at={[353, 358, 363, 368, 373]} gain={[2, 3]} />
-    <Sfx name="name" at={368} gain={4.2} />
+    <Run
+      name="tick"
+      at={[150, 156, 162, 168, 174].map((f) => SHOTS.stack.from + f)}
+      gain={[2, 3]}
+    />
+    {/* Back to 5 now the candidate ticks no longer land on the same frame. At
+        4.2 with the collision gone the cut peaked at -6.1, under target for the
+        loudest thing in it. */}
+    <Sfx name="name" at={SHOTS.stack.from + 170} gain={5} />
 
     {/* Shot 3. Forty passes, on the animation's own clock. */}
     <PassCues from={SHOTS.loop.from} />
-    <Sfx name="tick" at={SHOTS.loop.from + 140} gain={4.9} />
+    <Sfx name="tick" at={SHOTS.loop.from + 180} gain={4.9} />
 
     {/* Shot 4. The cost is placed, the mark, the closing line. */}
-    <Sfx name="settle" at={642} gain={4.1} />
-    <Sfx name="name" at={684} gain={4.4} />
-    <Sfx name="land" at={716} gain={4} />
+    <Sfx name="settle" at={SHOTS.endCard.from + 2} gain={4.1} />
+    <Sfx name="name" at={SHOTS.endCard.from + 44} gain={4.4} />
+    <Sfx name="land" at={SHOTS.endCard.from + 76} gain={4} />
 
   </VerticalShell>
 );

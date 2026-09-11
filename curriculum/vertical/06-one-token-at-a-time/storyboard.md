@@ -12,10 +12,10 @@ answer type itself in shot 3, so the interior is not an abstraction sitting
 beside the interface, it is inside it.
 
 ```text
-shot 1   the message becomes tokens      0 to 200   200f   6.7s
-shot 2   up the stack, one token out   200 to 420   220f   7.3s
-shot 3   the loop, and the cache       420 to 640   220f   7.3s
-shot 4   end card                      640 to 780   140f   4.7s
+shot 1   the message comes apart          0 to 140   140f   4.7s
+shot 2   every token reads every token  140 to 380   240f   8.0s
+shot 3   the loop, and the cache        380 to 640   260f   8.7s
+shot 4   end card                       640 to 780   140f   4.7s
 ```
 
 ## Shot 1. The message becomes tokens
@@ -270,3 +270,16 @@ Every shot puts a counter and a payoff line in the narration band, so
 `Vertical-Safe-Area` has to be overlaid on a frame from all four before this is
 believed. The chat frame runs the full width and stands between 190 and 1500,
 with no message bubble crossing either reserve.
+
+## The quiet tail in shot 2
+
+The frozen-frame check reports 1.80 seconds under threshold from frame 318. That
+is the payoff line being read, not the video stalling, and the two are not
+distinguishable to a luminance difference: five lines of 30 pixel text fading in
+on a 1080 by 1920 frame do not move the average enough to register, however they
+are staggered.
+
+The playbook's own rule is that a shot's length is its animation plus the time
+somebody needs to read the payoff. "151,936 scored. One kept." is up from 310 to
+372, which is 2.07 seconds at 1.9 words a second. It is deliberate. Chasing the
+metric here would mean cutting the shot before its payoff can be read.

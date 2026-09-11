@@ -74,16 +74,19 @@ const counting = (t: number, to: number, step: number) => {
 export const Tokenize: React.FC = () => {
   const frame = useCurrentFrame();
   const send = ramp(frame, 6, 14);
-  const frameOut = interpolate(frame, [30, 58], [1, 0], clamp);
+  const frameOut = interpolate(frame, [16, 40], [1, 0], clamp);
   // EASE_IN_OUT, not EASE_OUT. The out curve is heavily front loaded and the
   // six had landed by frame 62 of a window that runs to 92, so two thirds of
   // the flight happened in the first third of its time and the words were
   // unreadable throughout.
-  const fly = interpolate(frame, [34, 92], [0, 1], {
+  // Starts at frame zero. The first token lifts on the opening frame, so there
+  // is motion and a changing number before anything is read, which is what
+  // section 10 asks for and what the old thirty-four frame static card denied.
+  const fly = interpolate(frame, [0, 44], [0, 1], {
     ...clamp,
     easing: EASE_IN_OUT.easing,
   });
-  const template = interpolate(frame, [96, 142], [0, 1], {
+  const template = interpolate(frame, [46, 80], [0, 1], {
     ...clamp,
     easing: EASE_IN_OUT.easing,
   });
@@ -95,7 +98,7 @@ export const Tokenize: React.FC = () => {
   return (
     <>
       <Label top={292} opacity={ramp(frame, -6, 10)}>
-        Your message · tokenized
+        What the model actually receives
       </Label>
 
       <ChatFrame
@@ -105,27 +108,25 @@ export const Tokenize: React.FC = () => {
         send={send}
       />
 
-      <TokenArrival
-        top={398}
-        fly={fly}
-        template={template}
-        opacity={ramp(frame, 30, 10)}
-      />
+      <TokenArrival top={398} fly={fly} template={template} />
 
       {/* The counter arrives with the first token rather than sitting on a zero
           for the opening second, which is the dead frame the playbook warns
           about and the same fault shot 2 had. */}
-      <Readout top={956} size={62} weight={600} opacity={ramp(frame, 32, 12)}>
+      {/* Live from frame zero. It is the changing number the opening needs, and
+          it reads against the first narration line on purpose: the line says
+          six while this climbs past six. */}
+      <Readout top={956} size={62} weight={600}>
         {shown}
       </Readout>
-      <Label top={1046} opacity={ramp(frame, 36, 14)}>
+      <Label top={1046} opacity={ramp(frame, 4, 12)}>
         tokens the model receives
       </Label>
 
-      <Provenance top={1150} opacity={ramp(frame, 132, 22)}>
+      <Provenance top={1150} opacity={ramp(frame, 84, 20)}>
         {PROMPT.rawIds.slice(0, 3).map((id, i) => `${JSON.stringify(PROMPT.rawPieces[i])} ${id}`).join("  ·  ")}
       </Provenance>
-      <Provenance top={1196} opacity={ramp(frame, 164, 20)}>
+      <Provenance top={1196} opacity={ramp(frame, 106, 18)}>
         six of them are yours · the other nineteen are the chat template
       </Provenance>
     </>
@@ -152,21 +153,21 @@ export const Tokenize: React.FC = () => {
  */
 export const Forward: React.FC = () => {
   const frame = useCurrentFrame();
-  const reveal = interpolate(frame, [4, 74], [0, 1], { ...clamp, ...EASE_OUT });
-  const depth = interpolate(frame, [10, 88], [0, 1], {
+  const reveal = interpolate(frame, [4, 82], [0, 1], { ...clamp, ...EASE_OUT });
+  const depth = interpolate(frame, [10, 98], [0, 1], {
     ...clamp,
     easing: EASE_IN_OUT.easing,
   });
-  const converge = ramp(frame, 92, 40);
-  const fieldOut = interpolate(frame, [132, 148], [1, 0], clamp);
-  const arrive = interpolate(frame, [134, 150], [0, 1], { ...clamp, ...EASE_OUT });
-  const collapse = ramp(frame, 150, 16);
+  const converge = ramp(frame, 104, 44);
+  const fieldOut = interpolate(frame, [126, 144], [1, 0], clamp);
+  const arrive = interpolate(frame, [128, 148], [0, 1], { ...clamp, ...EASE_OUT });
+  const collapse = ramp(frame, 148, 18);
 
   // The readout is live from the first frame. Holding a 0 under the field for
   // four seconds while the layers climbed is what the previous version did, and
   // a shot that opens on a zero has a dead frame at every cut.
   const layer = Math.max(1, Math.round(depth * MODEL.layers));
-  const showingVocab = frame >= 134;
+  const showingVocab = frame >= 126;
 
   return (
     <>
@@ -186,7 +187,7 @@ export const Forward: React.FC = () => {
         top={452}
         arrive={arrive}
         collapse={collapse}
-        opacity={interpolate(frame, [136, 152], [0, 1], clamp)}
+        opacity={interpolate(frame, [128, 146], [0, 1], clamp)}
       />
 
       <div
@@ -195,7 +196,7 @@ export const Forward: React.FC = () => {
           top: 616,
           left: (1080 - 620) / 2,
           width: 620,
-          opacity: ramp(frame, 152, 16),
+          opacity: ramp(frame, 150, 18),
         }}
       >
         {STEP.candidates.map((c, i) => (
@@ -206,7 +207,13 @@ export const Forward: React.FC = () => {
               gridTemplateColumns: "150px 1fr",
               alignItems: "baseline",
               marginBottom: 12,
-              opacity: ramp(frame, 152 + i * 5, 14),
+              // Spread wider than the usual stagger so the shot's last motion
+              // runs to 218. At five frames apart it finished at 188 and left
+              // 1.8 seconds of a still frame before the cut.
+              // Twelve frames apart, not eight. The five appear deliberately
+              // rather than together, and the shot's last motion runs to 216
+              // instead of 198, which is what its quiet tail was.
+              opacity: ramp(frame, 150 + i * 12, 18),
               fontFamily: theme.monoFamily,
               fontSize: 30,
               fontVariantNumeric: "tabular-nums",
@@ -229,11 +236,11 @@ export const Forward: React.FC = () => {
         {showingVocab ? "candidates scored" : `of ${MODEL.layers} layers`}
       </Label>
 
-      <Provenance top={1150} opacity={ramp(frame, 40, 24)}>
+      <Provenance top={1150} opacity={ramp(frame, 44, 26)}>
         {WEIGHTS_PER_HEAD} weights per head · {MODEL.heads} heads ·{" "}
         {MODEL.layers} layers · {commas(ATTENTION_WEIGHTS_TOTAL)} in total
       </Provenance>
-      <Provenance top={1196} opacity={ramp(frame, 176, 20)}>
+      <Provenance top={1196} opacity={ramp(frame, 176, 22)}>
         step {STEP.index} · temperature 0 · arc brightness is the measured weight
       </Provenance>
     </>
@@ -265,7 +272,7 @@ export const Forward: React.FC = () => {
  */
 export const Loop: React.FC = () => {
   const frame = useCurrentFrame();
-  const step = interpolate(frame, [14, 136], [0, GENERATION.tokens], {
+  const step = interpolate(frame, [14, 176], [0, GENERATION.tokens], {
     ...clamp,
     easing: EASE_IN_OUT.easing,
   });
@@ -294,10 +301,10 @@ export const Loop: React.FC = () => {
       </Readout>
       <Label top={1046}>forward passes</Label>
 
-      <Provenance top={1150} opacity={ramp(frame, 142, 22)}>
+      <Provenance top={1150} opacity={ramp(frame, 182, 22)}>
         the earlier tokens are not recomputed · they are read
       </Provenance>
-      <Provenance top={1196} opacity={ramp(frame, 170, 20)}>
+      <Provenance top={1196} opacity={ramp(frame, 210, 20)}>
         arcs are the measured weights at layer {GENERATION_LAYER}, head-averaged
       </Provenance>
     </>

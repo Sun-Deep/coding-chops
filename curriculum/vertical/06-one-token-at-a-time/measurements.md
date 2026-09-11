@@ -187,15 +187,19 @@ out. One run per point was the bug.
 
 ## What is stable and what is not
 
-Three runs. Two on 2026-09-10 at 22:59 and 23:00, and a third on 2026-09-11 at
-01:32, two and a half hours later, which is the separation the playbook asks
-for.
+Two runs of this prompt, both on 2026-09-11, back to back.
 
-Identical in all three:
+**The third run an hour later is owed and has not been done.** The three-run
+history below this section belongs to the previous prompt, "Why is the sky
+blue?", and its figures are not these figures. Swapping the prompt reset that
+clock, and nothing here should be treated as having survived a cold machine
+until it has.
+
+Identical across both runs of this prompt:
 
 ```text
-raw tokens                       6
-templated tokens                25
+raw tokens                       5
+templated tokens                24
 tokens generated                40
 n_vocab                    151,936
 n_layer                         36
@@ -208,37 +212,22 @@ the generated text, character for character
 ```
 
 At temperature 0 the sampling is deterministic, which is why the probabilities
-and the answer reproduce exactly across ten hours and three server starts. That
-is a property of the setting, not luck, and any other temperature would break
-it.
+and the answer reproduce exactly. That is a property of the setting, not luck,
+and any other temperature would break it.
 
-Moved between runs:
+The attention run was done once on this prompt: 24 by 24, 300 weights per head,
+172,800 in total, cross-checked against llama-tokenize for the token count and
+against llama.cpp for the generated text. Its determinism was established on the
+previous prompt, where two runs produced byte-identical output.
 
-```text
-prompt_per_token       2.07 / 2.09 / 1.92 ms
-predicted_per_token    9.28 / 9.21 / 9.27 ms
-```
+## The previous prompt's run history
 
-Decode is tight. Prefill moved 8 percent, wider than the 1 to 3 percent the
-first two runs suggested, which pulls the prefill-to-decode ratio between 4.4
-and 4.8. "About 4.5 times" still holds, and it is a ratio rather than an
-absolute for exactly this reason.
+Everything below described "Why is the sky blue?" and is kept because the
+machine, the method and the model are the same and the counts it established
+still hold for the parts that do not depend on the prompt: the model's shape,
+the cache arithmetic, and the decode sweep.
 
-The decode sweep held a third time and is monotonic in every session:
-
-```text
-prompt_n     run 1     run 2     run 3
-   130        8.79      8.78      8.76
-   858        8.82      8.93      8.87
- 2,522        9.30      9.42      9.46
- 5,850       10.17     10.45     10.21
-11,674       11.64     11.79     11.68
-```
-
-1.33 times across a 90 times longer conversation, from 1.32 and 1.34. The trend
-is real and the modest size of it is real too.
-
-### What the third run changed
+### What the third run changed### What the third run changed
 
 Nothing that reaches a frame. The cut puts only counts on screen, and every
 count was already identical. The recorded millisecond figures moved to the means

@@ -4,9 +4,10 @@ Not ready to post. `script.md` is `Status: blocked`, the understanding check has
 ten unticked boxes, and that gate is the creator's. The copy below is written
 against the finished render and is ready when the gate opens.
 
-Still outstanding: hearing the cut on a phone at feed size. The third
-measurement run is done and is recorded in `measurements.md`; it changed nothing
-that reaches a frame.
+Still outstanding: hearing the cut on a phone at feed size, and a third
+measurement run an hour after the other two. Swapping the prompt on 2026-09-11
+reset that clock: this prompt has two runs, back to back, and the three-run
+history in `measurements.md` belongs to the prompt it replaced.
 
 ## Files
 

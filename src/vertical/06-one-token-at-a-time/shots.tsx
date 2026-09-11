@@ -185,7 +185,7 @@ export const Forward: React.FC = () => {
       />
 
       <Vocabulary
-        top={640}
+        top={580}
         arrive={arrive}
         collapse={collapse}
         opacity={interpolate(frame, [128, 146], [0, 1], clamp)}
@@ -194,7 +194,7 @@ export const Forward: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: 790,
+          top: 742,
           left: (1080 - 620) / 2,
           width: 620,
           opacity: ramp(frame, 150, 18),
@@ -207,7 +207,7 @@ export const Forward: React.FC = () => {
               display: "grid",
               gridTemplateColumns: "150px 1fr",
               alignItems: "baseline",
-              marginBottom: 12,
+              marginBottom: 7,
               // Spread wider than the usual stagger so the shot's last motion
               // runs to 218. At five frames apart it finished at 188 and left
               // 1.8 seconds of a still frame before the cut.
@@ -216,7 +216,7 @@ export const Forward: React.FC = () => {
               // instead of 198, which is what its quiet tail was.
               opacity: ramp(frame, 150 + i * 12, 18),
               fontFamily: theme.monoFamily,
-              fontSize: 30,
+              fontSize: 28,
               fontVariantNumeric: "tabular-nums",
               color: i === 0 ? ACCENT : theme.colors.gray,
               fontWeight: i === 0 ? 700 : 500,

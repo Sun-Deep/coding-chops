@@ -11,7 +11,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 MODEL = os.environ.get("MODEL", "Qwen/Qwen2.5-3B-Instruct")
-QUESTION = os.environ.get("QUESTION", "Why is the sky blue?")
+QUESTION = os.environ.get("QUESTION", "Will AI replace programmers?")
 OUT = os.environ.get("OUT", "attention.json")
 
 tok = AutoTokenizer.from_pretrained(MODEL)

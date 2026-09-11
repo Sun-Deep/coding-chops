@@ -31,17 +31,32 @@ n_ff          11,008
 n_ctx_train   32,768
 ```
 
-## Step 1: what the chat template does
-
-The message as typed is six tokens.
+## The prompt
 
 ```text
-"Why is the sky blue?"
-[10234, 374, 279, 12884, 6303, 30]
-'Why' ' is' ' the' ' sky' ' blue' '?'
+"Will AI replace programmers?"
 ```
 
-What the model actually receives is twenty-five, because the template wraps it
+Swapped in on 2026-09-11, from "Why is the sky blue?". It is the question the
+field is actually arguing about, and it makes the cut self-referential: the
+viewer asks a model whether it will replace them and watches the machinery
+decide, one token at a time, out of 151,936.
+
+It is also a question this model can answer. Qwen2.5 was trained in 2024, so a
+prompt about anything newer would produce a confident hallucination in the
+answer bubble. Trending has to mean a live argument, not live news.
+
+## Step 1: what the chat template does
+
+The message as typed is five tokens.
+
+```text
+"Will AI replace programmers?"
+[9945, 15235, 8290, 54846, 30]
+'Will' ' AI' ' replace' ' programmers' '?'
+```
+
+What the model actually receives is twenty-four, because the template wraps it
 in a system message and role markers.
 
 ```text
@@ -56,7 +71,7 @@ in a system message and role markers.
 151644 '<|im_start|>'  77091 'assistant'    198 '\n'
 ```
 
-Six to twenty-five. The server confirms it independently as `prompt_n: 25`.
+Five to twenty-four. The server confirms it independently as `prompt_n: 24`.
 
 Most people have never been told their raw message is not what gets sent, which
 is why this is shot 1 rather than a footnote.

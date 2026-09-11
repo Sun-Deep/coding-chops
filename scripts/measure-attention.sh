@@ -28,7 +28,7 @@
 set -euo pipefail
 
 MODEL="${MODEL:-Qwen/Qwen2.5-3B-Instruct}"
-QUESTION="${QUESTION:-Why is the sky blue?}"
+QUESTION="${QUESTION:-Will AI replace programmers?}"
 OUT="${OUT:-curriculum/vertical/06-one-token-at-a-time/attention.json}"
 VENV="${VENV:-.attention-venv}"
 

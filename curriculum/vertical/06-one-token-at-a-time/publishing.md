@@ -23,9 +23,9 @@ checked before it is, and both come from `scripts/crop-cover.sh`.
 ## Facebook, Instagram, TikTok caption
 
 ```text
-You typed 6 tokens. The model received 25. The chat template wrapped it first.
+You typed 5 tokens. The model received 24. The chat template wrapped it first.
 
-All 25 go up through 36 layers and only the last one produces anything. 151,936 scored, one kept. Then again for the next token.
+All 24 go up through 36 layers and only the last one produces anything. 151,936 scored, one kept. Then again for the next token.
 
 It does not re-read the conversation, it caches it. 36 KB a token, so 8,192 tokens is 288 MB, all read every time.
 
@@ -36,6 +36,13 @@ Code and measurements: github.com/Sun-Deep/coding-chops
 
 Four hundred and forty characters. The finding closes at seventy-eight, so
 all of it clears Facebook's cut before "more".
+
+The prompt is "Will AI replace programmers?", swapped in on 2026-09-11 from
+"Why is the sky blue?". It is the question the field is actually arguing about,
+and it makes the cut self-referential: you ask a model whether it will replace
+you, and the reel shows the machinery deciding, one token at a time, out of
+151,936. The model's own answer at step 3 weighs " unlikely" at 64.9 percent
+against " possible" at 3.8, which is on screen.
 
 The first draft ran to 490 against the playbook's ceiling of about 450, and it
 lost the difference in the mechanism paragraph, which is where it always goes:
@@ -53,7 +60,7 @@ longer chat, which is real and would land as nothing next to 288 MB.
 ## YouTube Shorts title
 
 ```text
-You type 6 tokens. The model receives 25.
+You type 5 tokens. The model receives 24.
 ```
 
 Forty-one characters. The whole surprise is inside the first forty a phone

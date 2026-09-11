@@ -33,7 +33,7 @@ MODEL="${MODEL:-$HOME/Downloads/qwen2.5-3b-instruct-q4_k_m.gguf}"
 PORT="${PORT:-8177}"
 HOST=127.0.0.1
 CTX=16384
-QUESTION="Why is the sky blue?"
+QUESTION="${QUESTION:-Will AI replace programmers?}"
 WORK="$(mktemp -d)"
 SERVER_LOG="$WORK/server.log"
 

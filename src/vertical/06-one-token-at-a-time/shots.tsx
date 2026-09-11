@@ -17,8 +17,9 @@ import {
   WEIGHTS_PER_HEAD,
 } from "./attention";
 import { GenerationFan } from "./GenerationFan";
+import { TokenArrival } from "./TokenArrival";
 import { ChatFrame } from "./ChatFrame";
-import { Tokens, Vocabulary, type Piece } from "./parts";
+import { Vocabulary } from "./parts";
 import {
   ANSWER_PIECES,
   CACHE,
@@ -26,7 +27,6 @@ import {
   MODEL,
   PROMPT,
   STEP,
-  TEMPLATED,
   commas,
 } from "./measurements";
 
@@ -53,12 +53,6 @@ const counting = (t: number, to: number, step: number) => {
   return Math.min(to, Math.round(value / step) * step);
 };
 
-const PIECES: readonly Piece[] = TEMPLATED.map((p) => ({
-  text: p.text,
-  id: p.id,
-  fromTemplate: !p.own,
-}));
-
 /**
  * Shot 1. The message becomes tokens.
  *
@@ -67,24 +61,35 @@ const PIECES: readonly Piece[] = TEMPLATED.map((p) => ({
  * and a title would spend two seconds of a still frame at the moment somebody
  * decides whether to keep scrolling.
  *
- * The six the viewer typed land first and the nineteen the template added
- * arrive around them. That order is the shot.
+ * Rebuilt on 2026-09-11. The first version faded the chat frame out and faded a
+ * wall of twenty-five chips in. It carried the same information and nothing
+ * crossed the frame, which is the readout-instead-of-object failure the
+ * playbook names and the one the creator called a slideshow.
+ *
+ * Now the six tokens the viewer typed lift out of the bubble and fly to their
+ * slots, and the nineteen the template added fill in around them. The row ends
+ * at exactly the positions shot 2 opens on, so the cut walks out of the
+ * interface and into the network without a cut in the object.
  */
 export const Tokenize: React.FC = () => {
   const frame = useCurrentFrame();
   const send = ramp(frame, 6, 14);
-  const frameOut = interpolate(frame, [30, 52], [1, 0], clamp);
-  const own = interpolate(frame, [34, 66], [0, 1], {
+  const frameOut = interpolate(frame, [30, 58], [1, 0], clamp);
+  // EASE_IN_OUT, not EASE_OUT. The out curve is heavily front loaded and the
+  // six had landed by frame 62 of a window that runs to 92, so two thirds of
+  // the flight happened in the first third of its time and the words were
+  // unreadable throughout.
+  const fly = interpolate(frame, [34, 92], [0, 1], {
     ...clamp,
-    ...EASE_OUT,
+    easing: EASE_IN_OUT.easing,
   });
-  const template = interpolate(frame, [74, 132], [0, 1], {
+  const template = interpolate(frame, [96, 142], [0, 1], {
     ...clamp,
     easing: EASE_IN_OUT.easing,
   });
 
   const shown =
-    Math.round(own * PROMPT.rawTokens) +
+    Math.round(fly * PROMPT.rawTokens) +
     Math.round(template * (PROMPT.templatedTokens - PROMPT.rawTokens));
 
   return (
@@ -100,34 +105,28 @@ export const Tokenize: React.FC = () => {
         send={send}
       />
 
-      <Tokens
-        top={438}
-        pieces={PIECES}
-        ownReveal={own}
-        templateReveal={template}
-        opacity={interpolate(frame, [32, 46], [0, 1], clamp)}
+      <TokenArrival
+        top={398}
+        fly={fly}
+        template={template}
+        opacity={ramp(frame, 30, 10)}
       />
 
-      {/* Held back until the first chip lands. Before that nothing has been
-          tokenized and the readout would sit on a zero for a second, which is
-          the dead frame the playbook warns about. */}
-      <Readout
-        top={956}
-        size={62}
-        weight={600}
-        opacity={ramp(frame, 30, 12)}
-      >
+      {/* The counter arrives with the first token rather than sitting on a zero
+          for the opening second, which is the dead frame the playbook warns
+          about and the same fault shot 2 had. */}
+      <Readout top={956} size={62} weight={600} opacity={ramp(frame, 32, 12)}>
         {shown}
       </Readout>
-      <Label top={1046} opacity={ramp(frame, 34, 14)}>
+      <Label top={1046} opacity={ramp(frame, 36, 14)}>
         tokens the model receives
       </Label>
 
-      <Provenance top={1150} opacity={ramp(frame, 136, 22)}>
-        six of them are yours · the other nineteen are the chat template
+      <Provenance top={1150} opacity={ramp(frame, 132, 22)}>
+        {PROMPT.rawIds.slice(0, 3).map((id, i) => `${JSON.stringify(PROMPT.rawPieces[i])} ${id}`).join("  ·  ")}
       </Provenance>
       <Provenance top={1196} opacity={ramp(frame, 164, 20)}>
-        {MODEL.name} · the server confirms it as prompt_n {PROMPT.templatedTokens}
+        six of them are yours · the other nineteen are the chat template
       </Provenance>
     </>
   );

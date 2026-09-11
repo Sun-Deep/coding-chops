@@ -23,16 +23,40 @@ shot 4   end card                      640 to 780   140f   4.7s
 Opens on the chat frame with the line already typed, and send is pressed inside
 the first half second. No card in front of it.
 
-The template arrives around it: the system message and the role markers fade in
-above and below the question, visibly wrapping it rather than replacing it. Then
-the whole block shatters into twenty-five tiles, each carrying its id.
+Rebuilt on 2026-09-11. The first version faded the chat frame out and faded a
+wall of twenty-five chips in. Every fact was on screen and nothing crossed the
+frame, which is the readout-instead-of-object failure the playbook names.
 
-The hero is the count going 6 to 25 while the six original tiles stay visible
-inside the twenty-five. The surprise is not that text becomes numbers, it is
-that four times as much of it arrives as was typed.
+Now the six tokens the viewer typed lift out of the bubble and fly to their
+slots, staggered so the sentence comes apart left to right rather than all at
+once, and the nineteen the template added fill in around them from the middle
+outwards so the six stay legible longest.
 
-Tokens are drawn with their leading spaces shown, because `' is'` is the thing
-that makes a token not a word.
+The row ends at exactly the positions shot 2 opens on. The cut walks out of the
+interface and into the network without the object cutting.
+
+Text rides the flight and drops away on landing. Twenty-five labels do not fit
+at a 35 pixel pitch and `<|im_start|>` does not fit at any pitch, so the row
+ends as marks and a receipt underneath names three of them with their ids.
+Shrinking the type until it technically fitted would have been a chart nobody
+can read instead of an object anybody can.
+
+The hero is six becoming twenty-five while the six stay visible inside the
+twenty-five. The surprise is not that text becomes numbers, it is that four
+times as much of it arrives as was typed.
+
+### What rendering caught
+
+The flight used `EASE_OUT`, which is heavily front loaded, so the six had landed
+by frame 62 of a window running to 92. Two thirds of the travel happened in the
+first third of its time and the words were never readable. It uses the
+symmetric curve now.
+
+The labels also faded from 55 percent of the travel, which made them anonymous
+bars before they were halfway down. They now hold to 82 percent.
+
+And the counter sat on a zero for the opening second, the same dead frame shot 2
+had. It arrives with the first token.
 
 ## Shot 2. The network, and the one token that comes out of it
 

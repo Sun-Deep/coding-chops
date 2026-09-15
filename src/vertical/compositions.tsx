@@ -20,6 +20,9 @@ import { IndexOnlyScanReel } from "./05-index-only-scan/Reel";
 import { DURATION as VR06 } from "./06-one-token-at-a-time/beats";
 import { OneTokenAtATimeCover } from "./06-one-token-at-a-time/Cover";
 import { OneTokenAtATimeReel } from "./06-one-token-at-a-time/Reel";
+import { DURATION as VR07 } from "./07-regex-backtracking/beats";
+import { RegexBacktrackingCover } from "./07-regex-backtracking/Cover";
+import { RegexBacktrackingReel } from "./07-regex-backtracking/Reel";
 
 /**
  * Vertical cuts.
@@ -83,6 +86,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR07-Regex-Backtracking"
+        component={RegexBacktrackingReel}
+        durationInFrames={VR07}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -119,6 +130,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR06-Cover"
         component={OneTokenAtATimeCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR07-Cover"
+        component={RegexBacktrackingCover}
         width={WIDTH}
         height={HEIGHT}
       />

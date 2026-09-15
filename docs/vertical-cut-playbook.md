@@ -34,8 +34,9 @@ because there is no measurement at the end of it.
 Check it has not been covered. Ask the creator for the back catalogue if there
 is no list to hand.
 
-Pick the length from the material, inside the 20 to 30 second band. One
-comparison is 20 seconds. A mechanism and its cost is 30.
+Length is 13 to 15 seconds and it is not a choice the material makes. Section 2
+of the standard has the ninety days of view data behind that. If the material
+needs longer, it is two cuts.
 
 ## 2. Measure it
 
@@ -63,9 +64,13 @@ mechanism. A millisecond is a property of the laptop.
 
 ## 3. Write the narration
 
-Nine or ten lines, about two words a second, roughly 55 words for 27 seconds.
-Section 7 of the standard has the rules. Write it before the shots, because it
-decides how long each shot has to be.
+Five or six lines, about two words a second, roughly 28 words for 14 seconds.
+Section 7 of the standard has the rules. Write it before the shots, because the
+word count is what sets the length.
+
+Twenty-eight words is the hard part of this format. The first draft always runs
+double. The fat is always in the sentence re-explaining what the frame is
+already showing.
 
 Say what is happening while it happens. Each shot ends on a payoff line, set
 large, and that line is the point of the shot.
@@ -75,9 +80,15 @@ out of breath, it is too long for the frame it sits on.
 
 ## 4. Map the shots
 
-Four shots is the default. The slow mechanism, the fast one, the verdict, the
-end card. No hook card in front of any of it, for the reasons in section 10 of
-the standard.
+Three shots at this length. The slow mechanism, the fast one, the verdict with
+the number on it. The end card folds into the last shot rather than taking a
+fourth. No hook card in front of any of it, for the reasons in section 10 of the
+standard.
+
+Frame zero carries the headline and the mechanism together. The headline names
+the topic in the largest type in the frame and the mechanism is already running
+underneath it. Dropping the headline is what made VR01 through VR06 unreadable
+at feed size, and section 10 has the comparison.
 
 Something has to travel across the frame. This is the rule that took VR03 four
 scenes to learn. A bar filling, a grid of squares, a tank draining and two piles
@@ -154,7 +165,8 @@ Register the compositions in `src/vertical/compositions.tsx`. Ids are
 Shared pieces already exist and should not be rebuilt per cut.
 `VerticalShell` carries the canvas, the mark and the grade. `Narration` is the
 subtitle track. `type.tsx` is the scale. `geometry.ts` is the safe areas.
-`palette.ts` holds the one accent.
+`palette.ts` holds the accent, and a comparison cut takes its lane hues from
+`theme.colors` under the rule in section 6 of the standard.
 
 ## 6. Sound
 

@@ -27,18 +27,34 @@ b-tree and a cut about a load balancer share a geometry, not a curriculum.
 | -------------- | --------------------------------- |
 | Resolution     | 1080 x 1920                       |
 | Frame rate     | 30 fps                            |
-| Length         | 20, 25 or 30 seconds              |
+| Length         | 13 to 15 seconds                  |
 | Composition id | `VR<NN>-<Name>`                   |
 | Cover          | a `Still` at the same 1080 x 1920 |
 
-Length is chosen by the material, not by a house default. Twenty seconds carries
-one comparison. Thirty carries a mechanism and its cost. A cut that needs forty
-seconds is an episode with the explanation removed.
+Length comes from the measured band, not from the material. Ninety days of this
+channel's own numbers put every reel above 275,000 views at 14.1 seconds or
+shorter, and every reel of 20 seconds or longer under 208,000 across nine
+attempts, two of them posted at the peak of the page's distribution. Mean view
+duration across 8.0 million views is 5.8 seconds, and 68 percent of viewers
+leave before the third second. A fourteen second cut is 41 percent watched by
+the average viewer. A thirty second cut is 19 percent watched by the same person
+behaving identically, and the platform reads the difference as the worse video.
 
-Anywhere in the band is fine, and the number should be the one the shots add up
-to rather than a round target they were stretched or squeezed to hit. Round the
-last shot's trailing hold to a whole second so the length is a decision and not
-a remainder.
+This replaces the previous rule of 20, 25 or 30 seconds. That rule came from
+section 3.2 of `business/CHANNEL_CONTEXT.md` in the videos repository, which was
+optimising earnings per thousand qualified views, where 24 to 30 seconds paid
+two to three times the rate of 13 seconds. It also claimed there was no observed
+reach penalty for length. The reach data since contradicts that claim, and the
+objective was wrong anyway: a page earning about eighteen dollars from a 1.1
+million view reel gains nothing from a better rate on a tenth of the reach.
+
+Fifteen seconds is a ceiling, not a target. A cut that cannot make its point in
+fourteen has more than one point in it. Round the last shot's trailing hold to a
+whole second so the length is a decision and not a remainder.
+
+Going longer needs evidence rather than a reason. A cut may run past fifteen
+seconds only once a cut at this length has cleared 275,000 views and the longer
+version is being posted as a deliberate comparison against it.
 
 Ids stay stable once a cut is published, the same rule the episode compositions
 follow.
@@ -156,15 +172,14 @@ only colour is the channel's own is recognisable at that speed. Cobalt is also
 the colour every other technical feed is already using, which is the opposite of
 what an accent is for.
 
-The rule's real intent survives intact: there is still exactly one accent, it
-still means one thing, and everything that means nothing is still neutral. What
-changed is which hue carries the signal, not whether the signal has to earn its
-place.
+The rule's real intent survives intact: colour in a teaching frame still means
+something, and everything that means nothing is still neutral. What changed is
+which hue carries the signal, not whether the signal has to earn its place.
 
 ### How it is applied
 
-`src/shared/vertical/palette.ts` exports one value and every shot reads it, so a
-cut cannot quietly pick a second accent.
+`src/shared/vertical/palette.ts` exports the accent and every shot reads it, so
+a cut cannot quietly drift to a second orange.
 
 It is the bright tone, `#FF7A33`, not the burnt `#E4571B`, because the vertical
 canvas is near black and the burnt tone goes muddy on it. That is the same value
@@ -175,6 +190,28 @@ The persistent corner mark is the exception that proves the rule holds. It wears
 the accent and means nothing by it, and that is fine, because it lives in the
 header band rather than in a teaching frame. Section 5 has the argument. Inside
 the content area, from `y 380` down, the accent still means one thing.
+
+### When a cut compares things
+
+One accent is the right rule for a cut teaching one mechanism. It is the wrong
+rule for a cut comparing several, and applying it there cost real reach.
+
+A comparison only works if its lanes can be told apart at a glance, and colour
+is the fastest way anybody does that. The REST against GraphQL against gRPC cut
+gave each of the three its own hue and did 717,000 views, and its opening frame
+is still readable shrunk to a thumbnail. The comparison cuts that followed drew
+their lanes in one accent over grey, and at the same size they are grey mush.
+
+So a cut comparing N things may give each lane its own hue, taken from the
+semantic colours already in `src/shared/brand/theme.ts`: `blueBright`, `sell`,
+`gain`, `loss`. No new hues, and at most four lanes, because a fifth is a table
+rather than a comparison.
+
+The constraint that survives is the one that mattered. A lane hue identifies
+that lane and nothing else, it stays on that lane for the whole cut, and
+anything neutral stays neutral. The orange still marks the thing being looked
+for, so it is not spent on a lane unless the cut has exactly one lane that
+matters.
 
 ### How it gets tested
 
@@ -234,7 +271,9 @@ About two words a second, and no more than three. Subtitles stay readable to
 roughly three words a second when they are the only thing on screen, and in a
 cut like this the picture is asking for attention too.
 
-Twenty-seven seconds takes about 55 words. Count them.
+Fourteen seconds takes about 28 words. Count them before a shot is built. The
+constraint on a cut's length is words, not frames, so the word count is what
+sets the length rather than the other way round.
 
 ### Breaks
 
@@ -268,6 +307,10 @@ equivalent.
 
 Two hierarchies per frame, as the horizontal standard asks. A headline and a
 readout, or a readout and a label. Never three.
+
+The headline is not optional. Section 10 requires one in frame zero, and it is
+the only role in this table that survives being shrunk to the size a scrolling
+thumb resolves.
 
 Break headlines by hand. At these sizes a second sentence is two lines whatever
 happens, and choosing where it breaks is the difference between a headline and a
@@ -311,6 +354,28 @@ stronger as the payoff at the end of that shot than as a promise in front of it.
 The framing a hook was carrying still has to survive somewhere. Fold it into the
 opening shot: the label says what is being watched, the query or input stays on
 screen while it runs, and the counter says how far along it is.
+
+### The headline is not a hook card
+
+Banning the hook card does not ban the headline, and reading it that way is the
+single most expensive mistake in this format so far.
+
+Every cut this channel has published above 275,000 views opens with its topic
+set in the largest type in the frame, over content that is already running.
+"10 GIT COMMANDS" sits over a live terminal. "REST vs GraphQL vs gRPC" sits over
+three lanes already drawn. The headline and the mechanism share frame zero.
+
+VR01 through VR06 read this section as a ban on the headline and opened on the
+mechanism alone. Shrink those openings to the size a scrolling thumb actually
+resolves and they say nothing: VR03 is a toll booth, VR04 is two fields of grey.
+Do the same to the four cuts that opened with a headline and all four are still
+readable.
+
+So frame zero carries both. A headline at the top naming what is being watched,
+at the Headline size in section 8 and never below it, with the mechanism running
+underneath from the first frame. What is banned is a still card that holds the
+whole frame and delays the content. A headline over running content delays
+nothing.
 
 ### Ending
 
@@ -391,14 +456,24 @@ The cover is a brand asset, so the accent is allowed on it.
 
 ## 13. Checks before a cut is finished
 
-1. `Vertical-Safe-Area` over a frame from every shot.
-2. The cover checked at 1:1 and at 3:4, not only at 9:16.
-3. Every number traced to the committed measurement run.
-4. The mark legible, and not the second thing you look at.
-5. One accent inside the teaching frames, and it means something.
-6. Every narration line read at its own length, out loud, on the frame it sits
+1. The opening frame shrunk to a quarter and looked at again. The topic has to
+   be readable there, because that is roughly what a scrolling thumb resolves
+   before it decides. This check is first because it predicts more than the
+   rest of the list put together.
+
+   ```bash
+   ffmpeg -i out/vertical/<slug>.mp4 -vf "select=eq(n\,15),scale=iw/4:ih/4,scale=iw*4:ih*4:flags=neighbor" -frames:v 1 glance.png
+   ```
+
+2. `Vertical-Safe-Area` over a frame from every shot.
+3. The cover checked at 1:1 and at 3:4, not only at 9:16.
+4. Every number traced to the committed measurement run.
+5. The mark legible, and not the second thing you look at.
+6. Colour means something in every teaching frame: one accent, or one hue per
+   lane and nothing spare.
+7. Every narration line read at its own length, out loud, on the frame it sits
    over. No line orphaning a word onto a second row.
-7. Watched end to end at feed size on a phone, muted. If it does not make sense
+8. Watched end to end at feed size on a phone, muted. If it does not make sense
    muted, the narration is not carrying its share.
-8. Watched again with sound.
-9. Typecheck, lint, formatting, curriculum validation, composition discovery.
+9. Watched again with sound.
+10. Typecheck, lint, formatting, curriculum validation, composition discovery.

@@ -53,7 +53,7 @@ and stands on its own in a feed with no episode behind it. It is not a crop of a
 horizontal master: 16:9 cropped to 9:16 loses two thirds of its width, and every
 composition here puts its hero object in that width.
 
-Vertical cuts run 20 to 30 seconds. They carry no voiceover and no music, and
+Vertical cuts run 13 to 15 seconds. They carry no voiceover and no music, and
 the narration is burned into the frame as a subtitle track, because most people
 watch a reel muted. [The vertical format
 standard](docs/vertical-format-standard.md) holds the safe areas and the type

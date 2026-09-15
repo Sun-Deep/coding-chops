@@ -75,13 +75,7 @@ const MiniChart: React.FC<{
           strokeWidth={1.5}
         />
         <path
-          d={chartPath(
-            series,
-            chartWidth,
-            chartLeft,
-            chartTop,
-            chartHeight,
-          )}
+          d={chartPath(series, chartWidth, chartLeft, chartTop, chartHeight)}
           fill="none"
           stroke={ACCENT}
           strokeWidth={6}
@@ -91,9 +85,7 @@ const MiniChart: React.FC<{
         <circle
           cx={chartLeft + chartWidth}
           cy={
-            chartTop +
-            chartHeight -
-            series.shape(MAX_INPUT_SIZE) * chartHeight
+            chartTop + chartHeight - series.shape(MAX_INPUT_SIZE) * chartHeight
           }
           r={7}
           fill={ACCENT}

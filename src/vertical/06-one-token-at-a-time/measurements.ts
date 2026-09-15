@@ -86,7 +86,19 @@ export const TEMPLATED = [
 
 /** The words of the answer, for the chat frame filling in shot 3. */
 export const ANSWER_PIECES = [
-  "It", "'s", " unlikely", " that", " AI", " will", " completely", " replace", " programmers", ",", " but", " it", " will",
+  "It",
+  "'s",
+  " unlikely",
+  " that",
+  " AI",
+  " will",
+  " completely",
+  " replace",
+  " programmers",
+  ",",
+  " but",
+  " it",
+  " will",
 ] as const;
 
 /** 25 over 6, for the shot 1 payoff. */

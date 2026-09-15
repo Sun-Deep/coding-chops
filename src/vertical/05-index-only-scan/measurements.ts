@@ -50,9 +50,27 @@ export const LAYOUT = {
  * 872,200 rechecked rows. The cut must not sell it as correlation alone.
  */
 export const SCATTERED = [
-  { lane: "no index", plan: "Parallel Seq Scan", pages: 123_457, ms: 151, heapFetches: null },
-  { lane: "plain index", plan: "Parallel Bitmap Heap Scan", pages: 69_211, ms: 117, heapFetches: null },
-  { lane: "covering index", plan: "Index Only Scan", pages: 281, ms: 4.8, heapFetches: 0 },
+  {
+    lane: "no index",
+    plan: "Parallel Seq Scan",
+    pages: 123_457,
+    ms: 151,
+    heapFetches: null,
+  },
+  {
+    lane: "plain index",
+    plan: "Parallel Bitmap Heap Scan",
+    pages: 69_211,
+    ms: 117,
+    heapFetches: null,
+  },
+  {
+    lane: "covering index",
+    plan: "Index Only Scan",
+    pages: 281,
+    ms: 4.8,
+    heapFetches: 0,
+  },
 ] as const;
 
 /**
@@ -61,8 +79,20 @@ export const SCATTERED = [
  * covering index is worth 4.8 times here and 246 times when scattered.
  */
 export const CONTIGUOUS = [
-  { lane: "plain index", plan: "Index Scan", pages: 1_322, ms: 6.7, heapFetches: null },
-  { lane: "covering index", plan: "Index Only Scan", pages: 277, ms: 4.8, heapFetches: 0 },
+  {
+    lane: "plain index",
+    plan: "Index Scan",
+    pages: 1_322,
+    ms: 6.7,
+    heapFetches: null,
+  },
+  {
+    lane: "covering index",
+    plan: "Index Only Scan",
+    pages: 277,
+    ms: 4.8,
+    heapFetches: 0,
+  },
 ] as const;
 
 /** What the second copy of `amount` costs. 215 over 66 is 3.3. */

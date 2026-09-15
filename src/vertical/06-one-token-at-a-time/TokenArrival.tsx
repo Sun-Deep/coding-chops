@@ -50,7 +50,11 @@ const chipWidth = (text: string) => text.length * (CHIP_FONT * 0.6) + 22;
  */
 const TEMPLATE_RANK = (() => {
   const mid = TEMPLATED.length / 2;
-  const order = TEMPLATED.map((p, k) => ({ k, own: p.own, d: Math.abs(k - mid) }))
+  const order = TEMPLATED.map((p, k) => ({
+    k,
+    own: p.own,
+    d: Math.abs(k - mid),
+  }))
     .filter((p) => !p.own)
     .sort((a, b) => a.d - b.d)
     .map((p) => p.k);
@@ -96,7 +100,12 @@ export const TokenArrival: React.FC<{
       // Each of the six leaves a little after the one before it, so the
       // sentence comes apart left to right instead of all at once.
       const t = own
-        ? interpolate(fly * (OWN.length + 2.5) - ownIndex, [0, 2.6], [0, 1], clamp)
+        ? interpolate(
+            fly * (OWN.length + 2.5) - ownIndex,
+            [0, 2.6],
+            [0, 1],
+            clamp,
+          )
         : 1;
 
       const x = own

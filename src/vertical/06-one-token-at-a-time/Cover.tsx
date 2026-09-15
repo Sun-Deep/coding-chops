@@ -52,17 +52,11 @@ export const OneTokenAtATimeCover: React.FC = () => (
       templateReveal={1}
     />
 
-    <Readout
-      top={SQUARE_TOP + 726}
-      size={30}
-      color={theme.colors.grayLight}
-    >
+    <Readout top={SQUARE_TOP + 726} size={30} color={theme.colors.grayLight}>
       then {commas(MODEL.vocab)} scored, one kept
     </Readout>
 
-    <Label top={SQUARE_TOP + 800}>
-      {PROMPT.text}
-    </Label>
+    <Label top={SQUARE_TOP + 800}>{PROMPT.text}</Label>
 
     <div
       style={{

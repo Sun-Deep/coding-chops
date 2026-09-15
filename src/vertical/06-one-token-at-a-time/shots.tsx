@@ -4,12 +4,7 @@ import { theme } from "../../shared/brand/theme";
 import { EASE_IN_OUT, EASE_OUT } from "../../shared/video/motion";
 import { clamp } from "../../shared/video/timing";
 import { ACCENT } from "../../shared/vertical/palette";
-import {
-  Label,
-  Provenance,
-  Punch,
-  Readout,
-} from "../../shared/vertical/type";
+import { Label, Provenance, Punch, Readout } from "../../shared/vertical/type";
 import { AttentionField } from "./AttentionField";
 import {
   ATTENTION_WEIGHTS_TOTAL,
@@ -123,7 +118,10 @@ export const Tokenize: React.FC = () => {
       </Label>
 
       <Provenance top={1150} opacity={ramp(frame, 84, 20)}>
-        {PROMPT.rawIds.slice(0, 3).map((id, i) => `${JSON.stringify(PROMPT.rawPieces[i])} ${id}`).join("  ·  ")}
+        {PROMPT.rawIds
+          .slice(0, 3)
+          .map((id, i) => `${JSON.stringify(PROMPT.rawPieces[i])} ${id}`)
+          .join("  ·  ")}
       </Provenance>
       <Provenance top={1196} opacity={ramp(frame, 106, 18)}>
         six of them are yours · the other nineteen are the chat template
@@ -159,7 +157,10 @@ export const Forward: React.FC = () => {
   });
   const converge = ramp(frame, 104, 44);
   const fieldOut = interpolate(frame, [126, 144], [1, 0], clamp);
-  const arrive = interpolate(frame, [128, 148], [0, 1], { ...clamp, ...EASE_OUT });
+  const arrive = interpolate(frame, [128, 148], [0, 1], {
+    ...clamp,
+    ...EASE_OUT,
+  });
   const collapse = ramp(frame, 148, 18);
 
   // The readout is live from the first frame. Holding a 0 under the field for
@@ -242,7 +243,8 @@ export const Forward: React.FC = () => {
         {MODEL.layers} layers · {commas(ATTENTION_WEIGHTS_TOTAL)} in total
       </Provenance>
       <Provenance top={1196} opacity={ramp(frame, 176, 22)}>
-        step {STEP.index} · temperature 0 · arc brightness is the measured weight
+        step {STEP.index} · temperature 0 · arc brightness is the measured
+        weight
       </Provenance>
     </>
   );
@@ -341,8 +343,8 @@ export const EndCard: React.FC = () => {
         {Math.round(CACHE.bytesPerToken / 1024)} KB per token, both sides of the
         conversation
         <br />
-        {commas(big.tokens)} tokens is {big.mb} MB, and every new token reads all
-        of it
+        {commas(big.tokens)} tokens is {big.mb} MB, and every new token reads
+        all of it
       </Readout>
 
       <Provenance top={660} opacity={ramp(frame, 22, 16)}>

@@ -161,6 +161,5 @@ export const IndexOnlyScanReel: React.FC = () => (
     <Sfx name="land" at={576} gain={4} />
     {/* The mark. */}
     <Sfx name="name" at={600} gain={4.4} />
-
   </VerticalShell>
 );

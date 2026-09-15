@@ -79,7 +79,14 @@ export const ChatFrame: React.FC<{
   opacity?: number;
   /** 0 to 1, how lit the send control is. */
   send?: number;
-}> = ({ top, question, answer = "", writing = false, opacity = 1, send = 0 }) => (
+}> = ({
+  top,
+  question,
+  answer = "",
+  writing = false,
+  opacity = 1,
+  send = 0,
+}) => (
   <div
     style={{
       position: "absolute",

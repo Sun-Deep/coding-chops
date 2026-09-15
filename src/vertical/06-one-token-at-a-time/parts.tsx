@@ -160,7 +160,12 @@ export const Vocabulary: React.FC<{
       {Array.from({ length: VOCAB_MARKS }, (_, i) => {
         const x = Math.sin(i * 12.9898) * 43758.5453;
         const rank = x - Math.floor(x);
-        const on = interpolate(arrive * 1.4 - rank * 0.4, [0, 1], [0, 1], clamp);
+        const on = interpolate(
+          arrive * 1.4 - rank * 0.4,
+          [0, 1],
+          [0, 1],
+          clamp,
+        );
         // The five that survive are a fixed scatter, so the eye can follow them
         // out of the field rather than losing them.
         const survives = rank > 0.9944;

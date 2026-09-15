@@ -173,7 +173,12 @@ export const OneTokenAtATimeReel: React.FC = () => (
     <Sfx name="send" at={SHOTS.tokens.from + 6} gain={6} />
     {/* One per token landing in its slot, from the flight's own stagger. */}
     {LANDINGS.map((f, i) => (
-      <Sfx key={i} name="settle" at={SHOTS.tokens.from + f} gain={4 + i * 0.35} />
+      <Sfx
+        key={i}
+        name="settle"
+        at={SHOTS.tokens.from + f}
+        gain={4 + i * 0.35}
+      />
     ))}
     {/* The nineteen the template adds, arriving as data rather than as objects.
         A different cue from the six because the difference between those two
@@ -215,6 +220,5 @@ export const OneTokenAtATimeReel: React.FC = () => (
     <Sfx name="settle" at={SHOTS.endCard.from + 2} gain={4.1} />
     <Sfx name="name" at={SHOTS.endCard.from + 44} gain={4.4} />
     <Sfx name="land" at={SHOTS.endCard.from + 76} gain={4} />
-
   </VerticalShell>
 );

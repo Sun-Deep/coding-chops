@@ -45,8 +45,7 @@ export const SERIES: readonly Series[] = [
     key: "linearithmic",
     label: "O(n log n)",
     code: "for (i < n) for (s = n; s; s >>= 1)",
-    shape: (n) =>
-      (n * (Math.log2(n) + 1)) / (MAX_INPUT_SIZE * 11),
+    shape: (n) => (n * (Math.log2(n) + 1)) / (MAX_INPUT_SIZE * 11),
   },
   {
     key: "quadratic",
@@ -86,8 +85,7 @@ const ComplexityCard: React.FC<{
   const chartHeight = height - 138;
   const progress = (nFloat - 1) / (MAX_INPUT_SIZE - 1);
   const markerX = chartLeft + progress * chartWidth;
-  const markerY =
-    chartTop + chartHeight - series.shape(nFloat) * chartHeight;
+  const markerY = chartTop + chartHeight - series.shape(nFloat) * chartHeight;
   const glow = 0.32 + pulse * 0.28;
 
   return (
@@ -192,13 +190,7 @@ const ComplexityCard: React.FC<{
           strokeWidth={1.5}
         />
         <path
-          d={chartPath(
-            series,
-            chartWidth,
-            chartLeft,
-            chartTop,
-            chartHeight,
-          )}
+          d={chartPath(series, chartWidth, chartLeft, chartTop, chartHeight)}
           fill="none"
           stroke="#E7E1D7"
           strokeWidth={series.key === "constant" ? 4 : 5}

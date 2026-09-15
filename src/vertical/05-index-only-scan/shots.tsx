@@ -113,10 +113,7 @@ export const Fetch: React.FC = () => {
         glow={probe}
         opacity={ramp(frame, 2, 12)}
       />
-      <Heap
-        read={t * heapFraction(PLAIN.pages)}
-        opacity={ramp(frame, 2, 12)}
-      />
+      <Heap read={t * heapFraction(PLAIN.pages)} opacity={ramp(frame, 2, 12)} />
 
       <Readout top={956} size={62} weight={600}>
         {commas(counting(t, PLAIN.pages, 100))}
@@ -179,11 +176,7 @@ export const Covering: React.FC = () => {
         ]}
       />
 
-      <IndexSlab
-        strips={strips}
-        read={COVERING_INDEX_READ}
-        glow={probe}
-      />
+      <IndexSlab strips={strips} read={COVERING_INDEX_READ} glow={probe} />
       {/* Drawn, and never lit. The absence is the hero of this shot, so the
           field has to be present for the whole of it rather than removed. */}
       <Heap read={0} />
@@ -260,7 +253,10 @@ export const Stale: React.FC = () => {
         read={COVERING_INDEX_READ}
         glow={1}
       />
-      <Heap read={t * heapFraction(STALE_VISIBILITY_MAP.stalePages)} stale={stale} />
+      <Heap
+        read={t * heapFraction(STALE_VISIBILITY_MAP.stalePages)}
+        stale={stale}
+      />
 
       <Readout top={956} size={62} weight={600}>
         {commas(pages)}
@@ -271,8 +267,8 @@ export const Stale: React.FC = () => {
         the index did not change · vacuum did not run
       </Provenance>
       <Provenance top={1196} opacity={ramp(frame, 98, 18)}>
-        one vacuum puts it back to {commas(STALE_VISIBILITY_MAP.afterVacuumPages)}{" "}
-        pages
+        one vacuum puts it back to{" "}
+        {commas(STALE_VISIBILITY_MAP.afterVacuumPages)} pages
       </Provenance>
     </>
   );
@@ -284,7 +280,13 @@ const Row: React.FC<{
   opacity?: number;
   color?: string;
   weight?: number;
-}> = ({ top, cells, opacity = 1, color = theme.colors.chalk, weight = 500 }) => (
+}> = ({
+  top,
+  cells,
+  opacity = 1,
+  color = theme.colors.chalk,
+  weight = 500,
+}) => (
   <div
     style={{
       position: "absolute",
@@ -363,8 +365,8 @@ export const Verdict: React.FC = () => {
       </Label>
 
       <Provenance top={1150} opacity={ramp(frame, 60, 16)}>
-        postgres {SETUP.postgres} · {commas(SETUP.rows)} rows · {SETUP.heapMb} mb
-        · {commas(SETUP.heapPages)} pages · warm cache
+        postgres {SETUP.postgres} · {commas(SETUP.rows)} rows · {SETUP.heapMb}{" "}
+        mb · {commas(SETUP.heapPages)} pages · warm cache
       </Provenance>
     </>
   );

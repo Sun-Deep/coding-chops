@@ -117,13 +117,7 @@ export const Heap: React.FC<{
    */
   top?: number;
   rows?: number;
-}> = ({
-  read,
-  stale = 0,
-  opacity = 1,
-  top = HEAP_TOP,
-  rows = HEAP_ROWS,
-}) => (
+}> = ({ read, stale = 0, opacity = 1, top = HEAP_TOP, rows = HEAP_ROWS }) => (
   <div
     style={{
       position: "absolute",
@@ -241,25 +235,28 @@ export const IndexSlab: React.FC<{
 };
 
 /** The query, held above the block in the material it was typed in. */
-export const Sql: React.FC<{ top: number; opacity?: number; lines: string[] }> =
-  ({ top, opacity = 1, lines }) => (
-    <div
-      style={{
-        position: "absolute",
-        top,
-        left: 0,
-        width: 1080,
-        textAlign: "center",
-        opacity,
-        fontFamily: theme.monoFamily,
-        fontSize: 26,
-        fontWeight: 500,
-        lineHeight: 1.44,
-        letterSpacing: "-0.01em",
-        color: theme.colors.grayDark,
-        whiteSpace: "pre",
-      }}
-    >
-      {lines.join("\n")}
-    </div>
-  );
+export const Sql: React.FC<{
+  top: number;
+  opacity?: number;
+  lines: string[];
+}> = ({ top, opacity = 1, lines }) => (
+  <div
+    style={{
+      position: "absolute",
+      top,
+      left: 0,
+      width: 1080,
+      textAlign: "center",
+      opacity,
+      fontFamily: theme.monoFamily,
+      fontSize: 26,
+      fontWeight: 500,
+      lineHeight: 1.44,
+      letterSpacing: "-0.01em",
+      color: theme.colors.grayDark,
+      whiteSpace: "pre",
+    }}
+  >
+    {lines.join("\n")}
+  </div>
+);

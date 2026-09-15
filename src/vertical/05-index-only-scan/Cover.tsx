@@ -72,11 +72,7 @@ export const IndexOnlyScanCover: React.FC = () => (
       rows={10}
     />
 
-    <Readout
-      top={SQUARE_TOP + 606}
-      size={30}
-      color={theme.colors.grayLight}
-    >
+    <Readout top={SQUARE_TOP + 606} size={30} color={theme.colors.grayLight}>
       {commas(SCATTERED[1].pages)} of {commas(SETUP.heapPages)} pages
     </Readout>
 
@@ -86,9 +82,7 @@ export const IndexOnlyScanCover: React.FC = () => (
       {PAGE_RATIO}×
     </Headline>
 
-    <Label top={SQUARE_TOP + 900}>
-      Fewer pages with a covering index
-    </Label>
+    <Label top={SQUARE_TOP + 900}>Fewer pages with a covering index</Label>
 
     <div
       style={{

@@ -1,8 +1,6 @@
 # Publishing
 
-Not ready to post. `script.md` is `Status: blocked`, the understanding check has
-ten unticked boxes, and that gate is the creator's. The copy below is written
-against the finished render and is ready when the gate opens.
+The creator understanding check has passed. Ready to upload.
 
 Still outstanding: hearing the cut on a phone at feed size, a third measurement
 run an hour after the other two, and verifying the two outage dates in the

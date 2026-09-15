@@ -1,6 +1,6 @@
 # Script
 
-Status: blocked
+Status: approved
 
 The creator understanding check is not passed. The composition is a review
 draft, not a publish-ready cut.

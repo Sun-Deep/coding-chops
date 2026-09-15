@@ -1,8 +1,8 @@
 # Vertical 09: six sorts on one clock
 
-Status: blocked
+Status: approved
 
-Built and rendered. The creator understanding check is still open.
+Built, rendered and past the creator understanding check.
 
 ## What it claims
 

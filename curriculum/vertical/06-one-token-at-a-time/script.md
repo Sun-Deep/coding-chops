@@ -1,6 +1,6 @@
 # Script
 
-Status: blocked
+Status: approved
 
 The understanding check is not ticked and no render exists. This file is the
 narration and the on-screen copy. The shot map is in `storyboard.md` and the

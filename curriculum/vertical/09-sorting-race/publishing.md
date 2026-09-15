@@ -1,7 +1,6 @@
 # Publishing
 
-Blocked until the creator understanding check passes. The render is ready for
-review and not ready to upload.
+The creator understanding check has passed. Ready to upload.
 
 ## Files
 

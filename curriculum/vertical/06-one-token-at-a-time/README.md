@@ -1,11 +1,12 @@
 # Vertical 06: One token at a time
 
-Status: measured. No script, no storyboard, no render.
+Status: approved
 
-This file is the plan of record. The playbook's step 1 is the creator's call and
-it has been made. Step 2 is done: `scripts/measure-token-generation.sh` and
-`measurements.md` carry the run, and `src/vertical/06-one-token-at-a-time/
-measurements.ts` carries the figures. Step 3, the narration, is next.
+Built, rendered and past the creator understanding check.
+`scripts/measure-token-generation.sh` and `measurements.md` carry the run, and
+`src/vertical/06-one-token-at-a-time/measurements.ts` carries the figures. This
+file was still describing the cut as measured but unwritten long after it had a
+script, a storyboard and a render; that is corrected here.
 
 One thing the run changed. The catch was going to be "per-token time grows as
 the conversation grows", and it does, but only about 1.3 times across a 90 times

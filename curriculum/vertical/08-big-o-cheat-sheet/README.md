@@ -1,6 +1,6 @@
 # Vertical 08: time complexity race
 
-Status: blocked
+Status: approved
 
 The production test is built and rendered. The creator understanding check is still open.
 

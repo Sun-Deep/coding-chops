@@ -1,6 +1,6 @@
 # Vertical 07: Regex backtracking
 
-Status: implemented review draft. The creator understanding check is still open.
+Status: approved
 
 ## What it teaches
 

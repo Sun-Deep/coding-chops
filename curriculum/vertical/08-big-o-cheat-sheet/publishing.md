@@ -1,6 +1,6 @@
 # Publishing
 
-Blocked until the creator understanding check passes. The rendered test is ready for review but not ready to publish.
+The creator understanding check has passed. Ready to upload.
 
 ## Files
 

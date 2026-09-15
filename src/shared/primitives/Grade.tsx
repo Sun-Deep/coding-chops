@@ -5,6 +5,8 @@ type GradeProps = {
   grain?: number;
   vignette?: number;
   tone?: "paper" | "black";
+  /** Use a specific grain seed when a composition needs a matching seam. */
+  frameOverride?: number;
 };
 
 /**
@@ -19,9 +21,11 @@ export const Grade: React.FC<GradeProps> = ({
   grain = 0.028,
   vignette = 0.16,
   tone = "paper",
+  frameOverride,
 }) => {
   const dark = tone === "black";
-  const frame = useCurrentFrame();
+  const timelineFrame = useCurrentFrame();
+  const frame = frameOverride ?? timelineFrame;
   // Reseeded per frame so the grain moves. Deterministic, so renders repeat.
   const seed = Math.floor(random(`grain-${frame}`) * 10000);
 

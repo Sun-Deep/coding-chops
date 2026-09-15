@@ -17,6 +17,8 @@ type VerticalShellProps = {
    * then.
    */
   handOverAt?: number;
+  /** Total frames when the final frame is authored to match frame zero. */
+  loopFrames?: number;
 };
 
 /**
@@ -43,6 +45,7 @@ export const VerticalShell: React.FC<VerticalShellProps> = ({
   children,
   watermark = true,
   handOverAt,
+  loopFrames,
 }) => {
   const frame = useCurrentFrame();
   const mark =
@@ -61,7 +64,13 @@ export const VerticalShell: React.FC<VerticalShellProps> = ({
     >
       {children}
       {watermark ? <Watermark fade={mark} /> : null}
-      <Grade tone="black" grain={0.022} />
+      <Grade
+        tone="black"
+        grain={0.022}
+        frameOverride={
+          loopFrames !== undefined && frame === loopFrames - 1 ? 0 : undefined
+        }
+      />
     </AbsoluteFill>
   );
 };

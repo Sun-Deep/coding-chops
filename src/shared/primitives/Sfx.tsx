@@ -9,6 +9,8 @@ type SfxProps = {
   gain?: number;
   /** Change pitch with the object. Lower rates make heavier objects sound lower. */
   playbackRate?: number;
+  /** Trim a sustained source to the event it marks. */
+  durationInFrames?: number;
 };
 
 /**
@@ -23,8 +25,9 @@ export const Sfx: React.FC<SfxProps> = ({
   at,
   gain = 1,
   playbackRate = 1,
+  durationInFrames,
 }) => (
-  <Sequence from={at} layout="none">
+  <Sequence from={at} durationInFrames={durationInFrames} layout="none">
     <Audio
       src={staticFile(`sfx/${name}.wav`)}
       volume={gain}

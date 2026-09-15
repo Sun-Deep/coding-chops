@@ -249,18 +249,30 @@ video that does not exist.
 
 ### Facebook caption
 
-Three parts, in this order.
+Two lines of prose. Not three, not a paragraph each.
 
-The finding, with its number. This is the only line most people read, because
-Facebook cuts the caption at about 100 characters and hides the rest behind
-"more". Put the surprise in front of that cut.
+**The whole caption is under 300 characters including the hashtags.** Count
+them before handing it over. This is the rule that gets broken more than any
+other in this file, it has been broken on every cut so far, and the creator has
+had to ask for a shorter caption every single time. A caption is competing with
+a video that is already playing. Nobody is reading a fourth line.
 
-The mechanism, in one or two sentences. What actually happens, not what it feels
-like.
+Line one is the finding, with its number, under 100 characters. This is the only
+line most people read, because Facebook cuts the caption at about 100 characters
+and hides the rest behind "more". Put the surprise in front of that cut.
 
-The catch. Every good technical finding has a cost, and naming it is what
-separates this from an engagement post. A cut with no catch is an incomplete
-cut, not an incomplete caption.
+Line two is the catch. Every good technical finding has a cost, and naming it is
+what separates this from an engagement post. A cut with no catch is an
+incomplete cut, not an incomplete caption.
+
+There is no third line, and in particular there is no mechanism paragraph. The
+reel just spent fourteen seconds showing the mechanism. Writing it out again
+underneath is the single reliable source of caption bloat on this channel: it is
+what overran the ceiling on VR05, VR06 and VR09, and it is always the part that
+gets cut in the end. Skip the draft where it exists.
+
+If the catch will not fit in one sentence, the catch is too complicated for a
+caption and the finding is the wrong one.
 
 Then the repository, on its own line. Every cut is built in the open and the
 measurement run that produced the numbers is in there, so the line is evidence
@@ -271,9 +283,17 @@ can go and check it.
 Code and measurements: github.com/Sun-Deep/coding-chops
 ```
 
-Then a blank line and the hashtags. Keep the whole thing under about 450
-characters, because a reel caption is competing with a video that is already
-playing.
+Then a blank line and the hashtags.
+
+```text
+<finding, with its number, under 100 characters>
+
+<the catch, one sentence>
+
+Code and measurements: github.com/Sun-Deep/coding-chops
+
+#tag #tag #tag #tag #tag
+```
 
 No call to action. No "follow for more", no "which one do you use", no question
 the poster does not want answered. The work is the pitch.
@@ -290,6 +310,13 @@ Five, lowercase, in this order.
 5. One broad tag. `#softwareengineering`, `#coding`, `#programming`
 
 Never `#viral`, `#fyp`, `#reels`, `#trending`, or the channel's own name.
+
+### YouTube Shorts description
+
+The same two lines, the same ceiling. A Short's description is read even less
+than a reel caption, so a longer one there is not a second chance to explain
+the mechanism. If the caption and the description differ by more than a word,
+one of them is wrong.
 
 ### YouTube Shorts title
 
@@ -324,9 +351,11 @@ without opening the file.
 
 ### Check before handing it over
 
+- Is the whole caption under 300 characters, hashtags included? Count them.
+- Is it two lines of prose, with no paragraph re-explaining the mechanism?
 - Do the first 100 characters carry the surprise on their own?
 - Is every number in the caption in `measurements.ts`?
-- Is the catch named?
+- Is the catch named, in one sentence?
 - Five hashtags, none of them the channel name?
 - Title under 60 characters with the hook inside the first 40?
 - No em dashes, no call to action, no question mark?

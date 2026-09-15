@@ -29,6 +29,9 @@ import { BigOCheatSheetReel } from "./08-big-o-cheat-sheet/Reel";
 import { DURATION as VR09 } from "./09-sorting-race/beats";
 import { SortingRaceCover } from "./09-sorting-race/Cover";
 import { SortingRaceReel } from "./09-sorting-race/Reel";
+import { DURATION as VR10 } from "./10-search-race/beats";
+import { SearchRaceCover } from "./10-search-race/Cover";
+import { SearchRaceReel } from "./10-search-race/Reel";
 
 /**
  * Vertical cuts.
@@ -116,6 +119,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR10-Search-Race"
+        component={SearchRaceReel}
+        durationInFrames={VR10}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -170,6 +181,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR09-Cover"
         component={SortingRaceCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR10-Cover"
+        component={SearchRaceCover}
         width={WIDTH}
         height={HEIGHT}
       />

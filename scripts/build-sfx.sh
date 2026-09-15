@@ -45,6 +45,16 @@ gen tick 0.10 -20 \
 gen swap 0.06 -28 \
   "aevalsrc='0.62*sin(2*PI*430*t)*exp(-85*t)+0.3*sin(2*PI*1320*t)*exp(-220*t)+0.18*sin(2*PI*2900*t)*exp(-400*t)':d=0.06:s=48000"
 
+# A search reaches one cell. A short plucked tone rather than a click, because
+# a cut that sonifies a value needs the value to be audible and a 50 millisecond
+# transient carries no pitch: the first version of this was a 25 millisecond
+# decay and a pentatonic mapping laid over it changed nothing a listener could
+# hear. The fundamental rings for about a tenth of a second under three
+# harmonics and a bright attack, which is enough to read as a note when a
+# composition pitches it with `playbackRate`.
+gen probe 0.17 -27 \
+  "aevalsrc='0.58*sin(2*PI*660*t)*exp(-15*t)+0.3*sin(2*PI*1320*t)*exp(-26*t)+0.16*sin(2*PI*1980*t)*exp(-52*t)+0.3*sin(2*PI*5200*t)*exp(-420*t)':d=0.17:s=48000"
+
 # The pile of tools is dismissed. Air leaving the frame.
 gen dissolve 0.85 -23 \
   "anoisesrc=color=brown:duration=0.85:amplitude=0.8:seed=7" \

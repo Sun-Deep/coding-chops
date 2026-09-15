@@ -10,6 +10,7 @@ Re-run the script to reproduce the set. Do not edit the WAV files by hand.
 | ------------- | ------------------------------------------------- |
 | `tick`        | A named thing lands                               |
 | `swap`        | A value lands in a slot during a sort             |
+| `probe`       | A search reaches one cell                         |
 | `dissolve`    | Something is dismissed and leaves the frame       |
 | `appear`      | A hero object is born                             |
 | `settle`      | An object is placed                               |
@@ -34,7 +35,8 @@ They are low because narration is the loudest layer in an episode. A vertical
 cut has no narration, so its gains run above one. That is expected, not a
 mistake: see section 11 of `docs/vertical-format-standard.md`.
 
-`swap` is the one effect here that is fired in runs rather than on its own. A
+`swap` and `probe` are the two effects here fired in runs rather than on their
+own. A
 sorting visualiser moves a bar hundreds of times and a viewer expects to hear
 that, so a cut may play it once every N writes with `playbackRate` carrying the
 value that landed. It is still one cue per event; what makes it legible rather

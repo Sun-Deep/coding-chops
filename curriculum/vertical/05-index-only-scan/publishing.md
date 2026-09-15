@@ -42,8 +42,7 @@ The mechanism sentence splits the cost in two on purpose. Finding the rows was
 88 page reads. Fetching them was everything else. Most people picture an index
 scan as the first half and price it accordingly.
 
-The first draft ran to 565 characters against the playbook's ceiling of about
-450. It lost the difference in the mechanism paragraph, which was restating what
+The first draft ran to 565 characters against the playbook's ceiling of about 450. It lost the difference in the mechanism paragraph, which was restating what
 the reel already shows.
 
 ## YouTube Shorts title

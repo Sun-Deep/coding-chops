@@ -1,0 +1,11 @@
+# Generated measurement data. The format belongs to the script that writes it,
+# not to prettier: `scripts/measure-attention.py` ends with
+# `json.dump(data, f, indent=1)`, so anything prettier does here is undone the
+# next time the measurement is re-run, and `npm run format:check` complains
+# until it is. The committed file has to be byte-for-byte what the run produced,
+# because that is the point of committing it.
+curriculum/**/attention.json
+
+# Renders and build output, already ignored by git.
+out
+renders

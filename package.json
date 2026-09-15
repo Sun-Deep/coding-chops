@@ -47,6 +47,7 @@
     "render:reel": "remotion render src/index.ts VR01-Database-Index out/vertical/vr01-database-index.mp4 && remotion still src/index.ts VR01-Cover out/vertical/vr01-cover.png",
     "render:reel-03": "remotion render src/index.ts VR03-Rate-Limiting out/vertical/vr03-rate-limiting.mp4 && remotion still src/index.ts VR03-Cover out/vertical/vr03-cover.png",
     "render:reel-04": "remotion render src/index.ts VR04-Quicksort out/vertical/vr04-quicksort.mp4 && remotion still src/index.ts VR04-Cover out/vertical/vr04-cover.png",
+    "render:reel-08": "remotion render src/index.ts VR08-Big-O-Cheat-Sheet out/vertical/vr08-big-o-cheat-sheet.mp4 && remotion still src/index.ts VR08-Cover out/vertical/vr08-big-o-cheat-sheet-cover.png",
     "render:hanoi-reel": "remotion render src/index.ts VR02-Tower-Of-Hanoi out/vertical/vr02-tower-of-hanoi.mp4 && remotion still src/index.ts VR02-Cover out/vertical/vr02-cover.png",
     "render:safe-area": "remotion still src/index.ts Vertical-Safe-Area out/vertical/safe-area.png",
     "measure:database-index": "scripts/measure-database-index.sh",

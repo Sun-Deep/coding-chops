@@ -23,6 +23,9 @@ import { OneTokenAtATimeReel } from "./06-one-token-at-a-time/Reel";
 import { DURATION as VR07 } from "./07-regex-backtracking/beats";
 import { RegexBacktrackingCover } from "./07-regex-backtracking/Cover";
 import { RegexBacktrackingReel } from "./07-regex-backtracking/Reel";
+import { DURATION as VR08 } from "./08-big-o-cheat-sheet/beats";
+import { BigOCheatSheetCover } from "./08-big-o-cheat-sheet/Cover";
+import { BigOCheatSheetReel } from "./08-big-o-cheat-sheet/Reel";
 
 /**
  * Vertical cuts.
@@ -94,6 +97,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR08-Big-O-Cheat-Sheet"
+        component={BigOCheatSheetReel}
+        durationInFrames={VR08}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -136,6 +147,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR07-Cover"
         component={RegexBacktrackingCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR08-Cover"
+        component={BigOCheatSheetCover}
         width={WIDTH}
         height={HEIGHT}
       />

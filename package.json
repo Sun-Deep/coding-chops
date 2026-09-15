@@ -48,10 +48,12 @@
     "render:reel-03": "remotion render src/index.ts VR03-Rate-Limiting out/vertical/vr03-rate-limiting.mp4 && remotion still src/index.ts VR03-Cover out/vertical/vr03-cover.png",
     "render:reel-04": "remotion render src/index.ts VR04-Quicksort out/vertical/vr04-quicksort.mp4 && remotion still src/index.ts VR04-Cover out/vertical/vr04-cover.png",
     "render:reel-08": "remotion render src/index.ts VR08-Big-O-Cheat-Sheet out/vertical/vr08-big-o-cheat-sheet.mp4 && remotion still src/index.ts VR08-Cover out/vertical/vr08-big-o-cheat-sheet-cover.png",
+    "render:reel-09": "remotion render src/index.ts VR09-Sorting-Race out/vertical/vr09-sorting-race.mp4 && remotion still src/index.ts VR09-Cover out/vertical/vr09-sorting-race-cover.png",
     "render:hanoi-reel": "remotion render src/index.ts VR02-Tower-Of-Hanoi out/vertical/vr02-tower-of-hanoi.mp4 && remotion still src/index.ts VR02-Cover out/vertical/vr02-cover.png",
     "render:safe-area": "remotion still src/index.ts Vertical-Safe-Area out/vertical/safe-area.png",
     "measure:database-index": "scripts/measure-database-index.sh",
     "measure:tower-of-hanoi": "node scripts/measure-tower-of-hanoi.mjs",
+    "measure:sorting-race": "node scripts/measure-sorting-race.mjs",
     "narration:silent": "node scripts/silent-narration.mjs system-design/01-single-server"
   },
   "sideEffects": [

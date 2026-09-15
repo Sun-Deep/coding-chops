@@ -26,6 +26,9 @@ import { RegexBacktrackingReel } from "./07-regex-backtracking/Reel";
 import { DURATION as VR08 } from "./08-big-o-cheat-sheet/beats";
 import { BigOCheatSheetCover } from "./08-big-o-cheat-sheet/Cover";
 import { BigOCheatSheetReel } from "./08-big-o-cheat-sheet/Reel";
+import { DURATION as VR09 } from "./09-sorting-race/beats";
+import { SortingRaceCover } from "./09-sorting-race/Cover";
+import { SortingRaceReel } from "./09-sorting-race/Reel";
 
 /**
  * Vertical cuts.
@@ -105,6 +108,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR09-Sorting-Race"
+        component={SortingRaceReel}
+        durationInFrames={VR09}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -153,6 +164,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR08-Cover"
         component={BigOCheatSheetCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR09-Cover"
+        component={SortingRaceCover}
         width={WIDTH}
         height={HEIGHT}
       />

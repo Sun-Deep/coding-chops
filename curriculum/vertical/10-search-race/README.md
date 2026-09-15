@@ -1,8 +1,8 @@
 # Vertical 10: six searches, one maze
 
-Status: blocked
+Status: approved
 
-Built and rendered. The creator understanding check is still open.
+Built, rendered and past the creator understanding check.
 
 ## What it claims
 

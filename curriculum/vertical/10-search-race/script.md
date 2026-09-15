@@ -1,6 +1,6 @@
 # Script
 
-Status: blocked
+Status: approved
 
 No voiceover and no music. The narration is burned into the frame. Thirty-two
 words across 14 seconds.

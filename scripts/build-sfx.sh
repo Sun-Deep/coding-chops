@@ -36,6 +36,15 @@ echo "building sfx into public/sfx"
 gen tick 0.10 -20 \
   "aevalsrc='(0.5*sin(2*PI*1850*t)+0.28*sin(2*PI*2760*t))*exp(-28*t)':d=0.1:s=48000"
 
+# A value lands in a slot during a sort. The shortest thing in the set by a long
+# way, because a sorting visualiser fires hundreds of them and anything with a
+# tail turns into a drone. A dry click over a tiny bit of body, pitched low
+# enough that a composition can take it up an octave with `playbackRate` without
+# it turning into a whistle, and levelled far under everything else because
+# twenty of them a second stack.
+gen swap 0.06 -28 \
+  "aevalsrc='0.62*sin(2*PI*430*t)*exp(-85*t)+0.3*sin(2*PI*1320*t)*exp(-220*t)+0.18*sin(2*PI*2900*t)*exp(-400*t)':d=0.06:s=48000"
+
 # The pile of tools is dismissed. Air leaving the frame.
 gen dissolve 0.85 -23 \
   "anoisesrc=color=brown:duration=0.85:amplitude=0.8:seed=7" \

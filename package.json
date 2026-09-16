@@ -50,12 +50,14 @@
     "render:reel-08": "remotion render src/index.ts VR08-Big-O-Cheat-Sheet out/vertical/vr08-big-o-cheat-sheet.mp4 && remotion still src/index.ts VR08-Cover out/vertical/vr08-big-o-cheat-sheet-cover.png",
     "render:reel-09": "remotion render src/index.ts VR09-Sorting-Race out/vertical/vr09-sorting-race.mp4 && remotion still src/index.ts VR09-Cover out/vertical/vr09-sorting-race-cover.png",
     "render:reel-10": "remotion render src/index.ts VR10-Search-Race out/vertical/vr10-search-race.mp4 && remotion still src/index.ts VR10-Cover out/vertical/vr10-search-race-cover.png",
+    "render:reel-11": "remotion render src/index.ts VR11-Text-Search out/vertical/vr11-text-search.mp4 && remotion still src/index.ts VR11-Cover out/vertical/vr11-text-search-cover.png",
     "render:hanoi-reel": "remotion render src/index.ts VR02-Tower-Of-Hanoi out/vertical/vr02-tower-of-hanoi.mp4 && remotion still src/index.ts VR02-Cover out/vertical/vr02-cover.png",
     "render:safe-area": "remotion still src/index.ts Vertical-Safe-Area out/vertical/safe-area.png",
     "measure:database-index": "scripts/measure-database-index.sh",
     "measure:tower-of-hanoi": "node scripts/measure-tower-of-hanoi.mjs",
     "measure:sorting-race": "node scripts/measure-sorting-race.mjs",
     "measure:pathfinding-race": "node scripts/measure-pathfinding-race.mjs",
+    "measure:text-search": "node scripts/measure-text-search.mjs",
     "narration:silent": "node scripts/silent-narration.mjs system-design/01-single-server"
   },
   "sideEffects": [

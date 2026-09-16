@@ -32,6 +32,9 @@ import { SortingRaceReel } from "./09-sorting-race/Reel";
 import { DURATION as VR10 } from "./10-search-race/beats";
 import { SearchRaceCover } from "./10-search-race/Cover";
 import { SearchRaceReel } from "./10-search-race/Reel";
+import { DURATION as VR11 } from "./11-text-search/beats";
+import { TextSearchCover } from "./11-text-search/Cover";
+import { TextSearchReel } from "./11-text-search/Reel";
 
 /**
  * Vertical cuts.
@@ -127,6 +130,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR11-Text-Search"
+        component={TextSearchReel}
+        durationInFrames={VR11}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -187,6 +198,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR10-Cover"
         component={SearchRaceCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR11-Cover"
+        component={TextSearchCover}
         width={WIDTH}
         height={HEIGHT}
       />

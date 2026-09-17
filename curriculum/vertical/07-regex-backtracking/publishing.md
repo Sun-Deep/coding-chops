@@ -1,6 +1,6 @@
 # Publishing
 
-The creator understanding check has passed. Ready to upload.
+Posted.
 
 Still outstanding: hearing the cut on a phone at feed size, a third measurement
 run an hour after the other two, and verifying the two outage dates in the

@@ -1,6 +1,6 @@
 # Publishing
 
-The creator understanding check has passed. Ready to upload.
+Posted.
 
 Still outstanding: hearing the cut on a phone at feed size, and a third
 measurement run an hour after the other two. Swapping the prompt on 2026-09-11

@@ -1,6 +1,6 @@
 # Publishing
 
-Ready to post. `script.md` is `Status: approved` and the understanding check is
+Posted. `script.md` is `Status: published` and the understanding check is
 complete.
 
 ## Files

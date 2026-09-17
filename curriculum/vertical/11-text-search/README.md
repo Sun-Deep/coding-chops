@@ -1,6 +1,6 @@
 # Vertical 11: Ctrl+F, six ways
 
-Status: blocked
+Status: published
 
 Built and rendered. The creator understanding check is still open.
 

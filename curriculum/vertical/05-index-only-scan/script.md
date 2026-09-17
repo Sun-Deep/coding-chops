@@ -1,6 +1,6 @@
 # Script
 
-Status: approved
+Status: published
 
 The understanding check is not ticked and no render exists yet. This file is the
 narration and the on-screen copy. The shot map goes in `storyboard.md` and the

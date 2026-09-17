@@ -1,6 +1,6 @@
 # Vertical 02: Tower of Hanoi code traversal
 
-Status: approved
+Status: published
 
 This 25-second cut follows the recursive JavaScript function and the same four
 plates at once. The tower occupies the upper half of the frame. The code stays in

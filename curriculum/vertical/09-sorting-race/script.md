@@ -1,6 +1,6 @@
 # Script
 
-Status: approved
+Status: published
 
 No voiceover and no music. The narration is burned into the frame. Twenty-five
 words across 14 seconds.

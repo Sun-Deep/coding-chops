@@ -1,6 +1,6 @@
 # Script
 
-Status: approved
+Status: published
 
 The understanding check is complete. The composition, the cover, the copy,
 the mix and the measurement run are finished, and the full render has been

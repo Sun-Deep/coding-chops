@@ -1,6 +1,6 @@
 # Vertical 09: six sorts on one clock
 
-Status: approved
+Status: published
 
 Built, rendered and past the creator understanding check.
 

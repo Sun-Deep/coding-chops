@@ -1,6 +1,6 @@
 # Vertical 10: six searches, one maze
 
-Status: approved
+Status: published
 
 Built, rendered and past the creator understanding check.
 

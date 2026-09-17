@@ -1,6 +1,6 @@
 # Script
 
-Status: approved
+Status: published
 
 The creator understanding check is not passed. The composition is a review
 draft, not a publish-ready cut.

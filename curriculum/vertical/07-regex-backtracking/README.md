@@ -1,6 +1,6 @@
 # Vertical 07: Regex backtracking
 
-Status: approved
+Status: published
 
 ## What it teaches
 

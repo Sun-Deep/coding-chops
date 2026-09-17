@@ -1,6 +1,6 @@
 # Publishing
 
-The creator understanding check has passed. Ready to upload.
+Posted.
 
 Still outstanding: hearing the cut on a phone at feed size. The third
 measurement run is done and is recorded in `measurements.md`; it moved the

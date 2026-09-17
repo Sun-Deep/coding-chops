@@ -1,6 +1,6 @@
 # Publishing
 
-The creator understanding check has passed. Ready to upload.
+Posted.
 
 ## Files
 

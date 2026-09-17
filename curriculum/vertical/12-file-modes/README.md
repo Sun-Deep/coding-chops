@@ -1,6 +1,6 @@
 # Vertical 12: chmod is nine switches
 
-Status: blocked
+Status: published
 
 Built and rendered. The creator understanding check is still open.
 

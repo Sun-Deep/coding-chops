@@ -1,6 +1,6 @@
 # Vertical 04: what a sort actually costs
 
-Status: approved
+Status: published
 
 Both gates are passed. The understanding check is complete, and the finished
 render was watched from beginning to end.

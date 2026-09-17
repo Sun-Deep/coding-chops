@@ -1,6 +1,6 @@
 # Vertical 06: One token at a time
 
-Status: approved
+Status: published
 
 Built, rendered and past the creator understanding check.
 `scripts/measure-token-generation.sh` and `measurements.md` carry the run, and

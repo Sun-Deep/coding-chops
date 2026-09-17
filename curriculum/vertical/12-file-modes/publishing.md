@@ -1,7 +1,13 @@
 # Publishing
 
-Blocked until the creator understanding check passes. The render is ready for
-review and not ready to upload.
+Posted on 2026-09-17, ahead of the understanding check.
+
+The cut went out carrying the figures from the earlier, wider scan: 66.9, 16.4,
+13.8 and 2.6 per cent over 6,186 files. The committed script now scans system
+directories only and prints 56.3, 22.2, 17.6 and 3.6 over 4,572, because the
+first scan included this repository and stopped being reproducible as soon as
+more files were added to it. Both are real runs and the caption carries neither,
+so nothing anybody read has changed. `measurements.md` has the comparison.
 
 ## Files
 

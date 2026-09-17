@@ -68,6 +68,38 @@ Directories are 755 on 126 of 127.
 The reel says "four cover 99.7%" and the script asserts that the top four clear
 99.5, so the claim fails loudly rather than drifting quietly.
 
+## What the published cut says, and why this file says something else
+
+The reel was posted before the scan was narrowed, so the figures burned into it
+are from the earlier run, the one that also walked this repository:
+
+| Mode | Published | Here  |
+| ---- | --------- | ----- |
+| 644  | 66.9%     | 56.3% |
+| 444  | 16.4%     | 22.2% |
+| 755  | 13.8%     | 17.6% |
+| 555  | 2.6%      | 3.6%  |
+
+and 6,186 files against 4,572, with the top four at 99.8 per cent against 99.7.
+
+Both sets are real runs. Nothing on screen was ever wrong: the published figures
+are what the script printed on the day, and the difference is entirely that the
+earlier scan included a JavaScript project, which is mostly documents, so it
+leans harder on 644 than a system tree does.
+
+What the published figures are not is reproducible, because the project they
+counted has had files added to it since. That is the reason for the change, and
+it is why this file, not the reel, is the one that has to move: a measurement
+somebody is invited to check has to still be there when they check it.
+
+The claim the cut makes survives both. Nine modes in use of 512 possible, and
+four of them covering more than 99.5 per cent, is true of either scan, and the
+script asserts that floor rather than the exact share.
+
+The reel is not being re-cut for a tenth of a percentage point. Re-uploading
+costs the distribution a posted reel has already earned, and buys a figure no
+viewer read differently.
+
 ## The catch, run rather than described
 
 ```text

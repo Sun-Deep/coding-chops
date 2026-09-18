@@ -17,13 +17,13 @@ Not posted. The understanding check is open.
 | ------------------- | ---------------------------------------------- |
 | duration            | 14.06s                                         |
 | longest frozen hold | 0.07s                                          |
-| audio peak          | -5.4 dBFS                                      |
-| audio mean          | -24.3 dBFS                                     |
-| silence gaps        | none                                           |
+| audio peak          | -4.8 dBFS                                      |
+| audio mean          | -23.1 dBFS                                     |
+| silence gaps        | one, 0.45s, the closing hold                   |
 | safe areas          | clear, card and bars stop at the rail edge     |
 | cover crops         | both hold the headline, the sheet and the mark |
 | measurement rerun   | byte identical                                 |
 
 ## The copy
 
-In `script.md`. 276 characters including the hashtags.
+In `script.md`. 297 characters including the hashtags.

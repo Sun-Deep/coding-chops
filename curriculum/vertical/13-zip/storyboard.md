@@ -1,64 +1,59 @@
 # Storyboard
 
-Three beats on one object rather than three layouts.
+One cycle per file, because that is what a zip does.
 
-The playbook asks for three shots and warns that three sharing a layout never
-works. The exception it allows is exactly this one: the comparison is between
-the file before and the file after, so cutting away from the file would throw
-away the only thing being compared.
+| Frames  | Beat                    | Hero                                                  |
+| ------- | ----------------------- | ----------------------------------------------------- |
+| 2-128   | mon.log is read         | the first long match, most of a line lighting at once |
+| 130-178 | it collapses and drains | the file losing most of itself, then filing           |
+| 188-316 | tue.log is read         | a fresh sheet with nothing behind it, ticking again   |
+| 318-372 | it collapses and drains | the archive closing on 678 bytes                      |
+| 372-420 | the verdict             | folder and zip side by side, 3.07x                    |
 
-| Frames  | Beat             | Hero                                                  |
-| ------- | ---------------- | ----------------------------------------------------- |
-| 0-150   | the head reads   | the first long match, a whole line lighting at once   |
-| 150-306 | the repeats fire | arcs throwing back, and the zip bar refusing to grow  |
-| 306-352 | the collapse     | the file losing most of itself                        |
-| 352-398 | the drain        | what is left flying into the zip, the log coming back |
+The playbook warns that three shots sharing a layout never works, and allows a
+shared one where the comparison is the point. Here the second pass _is_ the
+comparison. A zip compresses each member against its own window, so the second
+file cannot point at the first however similar they look, and seeing it start
+from nothing is what turns the rule into something you believe rather than
+something you were told.
 
-## Why there are two bars
+## Why a folder
 
-The first cut of this had none, and it was the thing wrong with it. The
-mechanism was all there and nothing on screen said it was a zip: a viewer saw a
-log being highlighted and then crumpling, with a byte count in the card header
-falling. That count was also a small lie, because zipping a file does not shrink
-it.
+The first build compressed a single file. The mechanism was right, measured and
+checked, and it did not look like zipping anything: everything on screen was the
+inside of the encoder and nothing was the household operation it belongs to.
 
-So the lower half of the frame is now the two files, to the same scale. The
-source fills as the head reads it, the zip fills as the encoder writes it, and
-the gap between them is the compression. The empty end of the zip's track is the
-space that was saved, which is where the ratio is written.
-
-## Why the log comes back
-
-The drain used to end on an empty card, which reads as the log having been
-deleted. As each line leaves for the zip the original line now fades back in
-underneath it, plain and neutral, so the last frame is the true one: the log
-exactly as it was, and a copy of it a sixth of the size sitting under it.
-
-It also keeps the closing seconds moving. Taking the header odometer out had
-left two flat seconds on the frozen-frame check; with the drain and the restore
-the longest hold in the cut is 0.07 seconds.
+So the subject is a folder, with a folder icon, and the output is `logs.zip`
+with a zip icon, on the same scale under the card. That is the thing the viewer
+already owns, which is the fix VR11 needed when nobody could tell what word was
+being searched.
 
 ## Why the clock is position and not work
 
-Copies are not spread evenly through the file. The first is 48 bytes long and
+Copies are not spread evenly through a file. The first is 50 bytes long and
 lands in the second line, and a clock counting tokens would crawl through the
 top of the sheet and then fire twenty of them in the last second. Running the
 head along the bytes makes the sweep even, and what varies is how much lights up
-as it goes. VR11 learned this the other way round, with six panels that would
-have finished at wildly different times on a work clock.
+as it goes.
 
 The sweep accelerates gently, `0.45u + 0.55u²`. The opening seconds are where a
 stranger decides and they need long enough on the first two lines to see that
-line two is line one again. After that the file is understood and the sweep can
-run.
+line two is line one again.
 
-## Why the first line stays
+## Why the first lines stay neutral
 
-Nothing precedes it, so nothing in it can be a copy. It survives the collapse
-intact while everything under it goes, and that is the clearest statement of the
-mechanism in the whole cut: the encoder is not deleting repetition, it is
-pointing at the first time something was said, and the first time has to stay.
-It was not designed in. It fell out of the mechanism and was kept.
+Nothing precedes them, so nothing in them can be a copy. It is not a quirk of
+this fixture; it is true of every file, and it happens twice here because the
+second member starts as empty-handed as the first. It was not designed in. It
+fell out of the mechanism and was kept.
+
+## Why the log comes back
+
+Draining a file into the archive with nothing left over reads as the file having
+been deleted, and compressing a folder does not delete it. As each line leaves
+for the archive the original line fades back in underneath it, plain and
+neutral, so the last frame is the true one: the logs exactly as they were, and
+an archive a third of the size under them.
 
 ## Colour
 
@@ -75,9 +70,9 @@ against.
 | -------------------------- | -------- | ---------------------------- |
 | a character spelled out    | `tick`   | fixed                        |
 | a stretch matched          | `probe`  | by distance back, near high  |
-| a stretch being copied     | `probe`  | same note, quieter, every 6f |
+| a stretch being copied     | `probe`  | same note, quieter, every 5f |
 | a stretch collapsing       | `swap`   | falling through the file     |
-| the file at its new size   | `land`   | low                          |
 | a line leaving for the zip | `return` | rising down the page         |
 | a line landing in the zip  | `tick`   | rising down the page         |
-| the zip closed             | `solved` | fixed                        |
+| a member filed             | `land`   | low                          |
+| the archive closed         | `solved` | fixed                        |

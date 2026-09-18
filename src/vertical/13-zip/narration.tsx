@@ -1,26 +1,30 @@
 import type { NarrationLine } from "../../shared/vertical/Narration";
-import { BYTES, DEFLATE, PARSE } from "./measurements";
+import { ARCHIVE, COVERED_TOTAL, RAW_TOTAL } from "./measurements";
 
 const n = (v: number) => v.toLocaleString("en-US");
 
 /**
- * Twenty-five words, cut to the sweep.
+ * Twenty-six words, cut to the two cycles.
  *
- * One unit the whole way down. Line one sets the file in bytes, line four
- * counts copies in bytes, line five reports the output in bytes, so nothing on
+ * One unit the whole way down. Line one sets the folder in bytes, line four
+ * counts copies in bytes, line five reports the archive in bytes, so nothing on
  * screen asks the viewer to convert between two things. That is the mistake
- * VR10 shipped with steps against cost and VR11 nearly shipped with reads
- * against distinct positions, and it is the easiest one to make.
+ * VR10 shipped with steps against cost, and the one VR11 nearly shipped with
+ * reads against distinct positions.
+ *
+ * Line two carries the whole reason there are two cycles. "Each file" is doing
+ * real work: it is why the second sheet starts from nothing, and it is the one
+ * thing about zip most people have never been told.
  */
 export const narration: readonly NarrationLine[] = [
-  { from: 6, to: 70, text: `A log file. ${n(BYTES)} bytes.` },
-  { from: 82, to: 150, text: "Zip reads it once." },
-  { from: 162, to: 240, text: "Every repeat becomes a pointer back." },
-  { from: 252, to: 322, text: `${n(PARSE.covered)} of them are copies.` },
+  { from: 6, to: 74, text: `A folder of logs. ${n(RAW_TOTAL)} bytes.` },
+  { from: 86, to: 154, text: "Zip reads each file on its own." },
+  { from: 168, to: 250, text: "Every repeat becomes a pointer back." },
+  { from: 262, to: 330, text: `${n(COVERED_TOTAL)} of them are copies.` },
   {
-    from: 334,
+    from: 342,
     to: 412,
     emphasis: true,
-    text: `${n(BYTES)} bytes out as ${DEFLATE.out}.`,
+    text: `${n(RAW_TOTAL)} bytes out as ${ARCHIVE}.`,
   },
 ];

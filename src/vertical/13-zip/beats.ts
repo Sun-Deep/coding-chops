@@ -1,21 +1,60 @@
-import { BYTES } from "./measurements";
-import { COPIES } from "./lz77";
+import { MEMBERS } from "./lz77";
 
 /** Fourteen seconds at 30fps. Section 2 of the vertical format standard. */
 export const DURATION = 420;
 
 /**
- * The clock is position in the file, not work done.
+ * One cycle per file, because that is what a zip does.
  *
- * VR11's lesson, and it applies harder here. Copies are not spread evenly
- * through the file -- the first is 48 bytes long and lands in the second line --
- * so a clock counting tokens would crawl through the top of the sheet and then
- * fire twenty of them in the last second. Running the head along the bytes
- * makes the sweep even, and what varies is how much lights up as it goes, which
- * is the thing worth watching.
+ * Each member is read, collapsed onto what the encoder kept, and drained into
+ * the archive, and then the next one comes up. The repeat is not padding: a zip
+ * compresses every member against its own window, so the second file starting
+ * from nothing is the mechanism rather than a transition, and seeing it happen
+ * twice is what makes it a rule instead of an anecdote.
  */
-export const READ_FROM = 0;
-export const READ_TO = 300;
+export type Cycle = {
+  readonly readFrom: number;
+  readonly readTo: number;
+  readonly collapseFrom: number;
+  readonly collapseTo: number;
+  readonly drainFrom: number;
+  readonly drainTo: number;
+};
+
+export const CYCLES: readonly Cycle[] = [
+  {
+    readFrom: 2,
+    readTo: 128,
+    collapseFrom: 130,
+    collapseTo: 154,
+    drainFrom: 154,
+    drainTo: 178,
+  },
+  {
+    readFrom: 188,
+    readTo: 316,
+    collapseFrom: 318,
+    collapseTo: 342,
+    drainFrom: 342,
+    drainTo: 372,
+  },
+];
+
+/** The frame each member's card takes over the sheet. */
+export const SHOWN_FROM = CYCLES.map((cycle, i) =>
+  i === 0 ? -10 : CYCLES[i - 1].drainTo + 2,
+);
+
+/** Which member the sheet is showing. */
+export const memberAt = (frame: number) => {
+  let index = 0;
+  for (let i = 0; i < SHOWN_FROM.length; i++) {
+    if (frame >= SHOWN_FROM[i]) index = i;
+  }
+  return index;
+};
+
+const clamp = (v: number) => Math.min(1, Math.max(0, v));
 
 /**
  * Accelerating, gently.
@@ -26,100 +65,81 @@ export const READ_TO = 300;
  */
 const curve = (u: number) => 0.45 * u + 0.55 * u * u;
 
-/** Which byte the reading head has reached. */
+/** Which byte of the shown member the reading head has reached. */
 export const headAt = (frame: number) => {
-  const u = Math.min(
-    1,
-    Math.max(0, (frame - READ_FROM) / (READ_TO - READ_FROM)),
-  );
-  return curve(u) * BYTES;
+  const index = memberAt(frame);
+  const cycle = CYCLES[index];
+  const u = clamp((frame - cycle.readFrom) / (cycle.readTo - cycle.readFrom));
+  return curve(u) * MEMBERS[index].bytes;
 };
 
-/** The frame the head reaches a byte, which is `headAt` inverted. */
-export const frameOfByte = (byte: number) => {
-  const target = Math.min(1, Math.max(0, byte / BYTES));
+/** The frame the head reaches a byte of a given member. */
+export const frameOfByte = (index: number, byte: number) => {
+  const cycle = CYCLES[index];
+  const target = clamp(byte / MEMBERS[index].bytes);
   // curve is 0.55u^2 + 0.45u - target, solved for the root in [0, 1].
   const u = (-0.45 + Math.sqrt(0.45 ** 2 + 4 * 0.55 * target)) / (2 * 0.55);
-  return READ_FROM + u * (READ_TO - READ_FROM);
+  return cycle.readFrom + u * (cycle.readTo - cycle.readFrom);
 };
 
 /** Frames a copy takes to light up and throw its arc back. */
-export const FIRE = 9;
+export const FIRE = 7;
 
-/** Every copy with the frame it fires on, which the picture and the sound share. */
-export const FIRINGS = COPIES.map((copy) => ({
-  ...copy,
-  frame: frameOfByte(copy.at),
-}));
+/** Every copy in every member, with the frame it fires on. */
+export const FIRINGS = MEMBERS.flatMap((member, index) =>
+  member.copies.map((copy) => ({
+    ...copy,
+    member: index,
+    frame: frameOfByte(index, copy.at),
+  })),
+);
 
-/**
- * The collapse.
- *
- * The hero of the last shot, and the reason the cut is not just a highlighter
- * running over a log. Every copied span contracts into the pointer that
- * replaces it, so the sheet visibly loses most of itself. Until this moment the
- * viewer has been told the repeats are redundant; here they watch them go.
- */
-export const COLLAPSE_FROM = 306;
-export const COLLAPSE_TO = 352;
-
-export const collapsedAt = (frame: number) =>
-  Math.min(
-    1,
-    Math.max(0, (frame - COLLAPSE_FROM) / (COLLAPSE_TO - COLLAPSE_FROM)),
+export const collapsedAt = (frame: number, index: number) => {
+  const cycle = CYCLES[index];
+  return clamp(
+    (frame - cycle.collapseFrom) / (cycle.collapseTo - cycle.collapseFrom),
   );
-
-/** The running count of bytes found to be copies, under the sheet. */
-export const TALLY_FROM = 40;
-
-/**
- * The readout under the card swaps from the reason to the result.
- *
- * One slot, two states, rather than two lines stacked. A strip of counts under
- * a diagram turns the bottom of the frame into a dashboard reporting on the
- * picture above it, which is the note in section 4 of the playbook.
- */
-/**
- * The drain: what survived the collapse goes into the zip.
- *
- * The last beat has to be the data arriving in the file the cut is named after,
- * and it also has to move. The first version of this section counted the
- * source's header down from 1,035 to 177, which was motion but was also a lie:
- * zipping a file does not shrink it, it writes a second one. Taking the
- * odometer out left two flat seconds on the frozen-frame check, which is well
- * over the threshold in section 7 of the playbook.
- *
- * So the stubs and the leftover characters fall out of the sheet and converge
- * on the zip bar, staggered down the page, and the bar brightens as they land.
- * It is the same fix as VR12's drum spins: on a cut with few moving parts, an
- * event has to be given size.
- */
-export const DRAIN_FROM = 352;
-export const DRAIN_TO = 398;
-export const DRAIN_SPAN = 26;
-
-/** Stagger down the sheet, so it empties from the top rather than all at once. */
-export const drainAt = (frame: number, line: number, lines: number) => {
-  const stagger =
-    (line / Math.max(1, lines - 1)) * (DRAIN_TO - DRAIN_FROM - DRAIN_SPAN);
-  return Math.min(1, Math.max(0, (frame - DRAIN_FROM - stagger) / DRAIN_SPAN));
 };
 
-export const RATIO_FROM = 396;
+export const DRAIN_SPAN = 16;
 
-/**
- * Bytes the head has passed that were a copy of something earlier.
- *
- * Counted against the head rather than against whole copies, so the tally rises
- * as the head crosses a stretch instead of jumping forty-eight when it enters
- * one. A counter that leaps is read as a cut; a counter that climbs is read as
- * a measurement being taken.
- */
-export const coveredBy = (byte: number) => {
+/** Stagger down the sheet, so it empties from the top rather than all at once. */
+export const drainAt = (frame: number, index: number, line: number) => {
+  const cycle = CYCLES[index];
+  const lines = MEMBERS[index].lines.length;
+  const spread = cycle.drainTo - cycle.drainFrom - DRAIN_SPAN;
+  const stagger = (line / Math.max(1, lines - 1)) * Math.max(0, spread);
+  return clamp((frame - cycle.drainFrom - stagger) / DRAIN_SPAN);
+};
+
+/** Bytes of the shown member that were a copy of something earlier in it. */
+export const coveredBy = (index: number, byte: number) => {
   let covered = 0;
-  for (const copy of COPIES) {
+  for (const copy of MEMBERS[index].copies) {
     const to = Math.min(byte, copy.at + copy.length);
     if (to > copy.at) covered += to - copy.at;
   }
   return covered;
+};
+
+/** Bytes copied across the members already finished, plus the one in hand. */
+export const coveredSoFar = (frame: number) => {
+  const index = memberAt(frame);
+  let total = 0;
+  for (let i = 0; i < index; i++) total += coveredBy(i, MEMBERS[i].bytes);
+  return total + coveredBy(index, headAt(frame));
+};
+
+/** The archive is finished when the last member has drained. */
+export const SEALED = CYCLES[CYCLES.length - 1].drainTo;
+
+/** The ratio lands after the archive is closed, never before. */
+export const RATIO_FROM = SEALED + 8;
+
+/** Bytes of the folder the head has read, across the members already done. */
+export const readSoFar = (frame: number) => {
+  const index = memberAt(frame);
+  let total = 0;
+  for (let i = 0; i < index; i++) total += MEMBERS[i].bytes;
+  return total + headAt(frame);
 };

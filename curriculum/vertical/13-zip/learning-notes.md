@@ -64,36 +64,75 @@ without being told. Prose would have hidden the repetition inside words.
 
 ## A mechanism is not a subject
 
-The first cut of this was finished and wrong. The head read the file, matches
+The first build of this was finished and wrong. The head read the file, matches
 lit and threw arcs back, the sheet collapsed, the numbers were real and the
 checks passed. What it did not do anywhere was show a zip.
 
-The creator's note was that it was not visually representing that it is zipping,
-and that is exactly right. Everything on screen was the _inside_ of the
-mechanism, and nothing was the thing the mechanism is for. A viewer who did not
-already know what LZ77 was saw a log file being highlighted and then crumpling.
+The creator's note was that it was not visually representing that it is zipping.
+Everything on screen was the _inside_ of the mechanism, and nothing was the
+thing the mechanism is for. A viewer who did not already know what LZ77 was saw
+a log file being highlighted and then crumpling.
 
-The fix is the same one VR11 needed: draw the thing the viewer already owns.
-VR11 drew a find bar; this draws the two files, `server.log` and
-`server.log.zip`, to the same scale, filling as the encoder works. Nothing about
-the mechanism changed. What changed is that the frame now says what the
-mechanism is producing.
+The second note went further: make it the household operation, a folder and a
+zip on somebody's computer. That is the fix VR11 needed too. Draw the thing the
+viewer already owns. VR11 drew a find bar; this draws a folder icon, a zip icon
+and two bars on one scale.
 
-Worth generalising, because it is two cuts in a row now. Having built the
-mechanism correctly is not evidence that the cut shows what it is about. Those
-are separate questions and the second one cannot be answered by the person who
-built the first.
+Worth generalising, because it is two cuts in a row. Having built the mechanism
+correctly is not evidence that the cut shows what it is about. Those are
+separate questions and the second one cannot be answered by the person who built
+the first.
 
-## Two things the fix had to get right anyway
+## Changing the frame changed the facts, and that was the point
+
+Going from one file to a folder was not a re-skin. A `.zip` compresses each
+member on its own, so the moment the subject became a folder, a whole class of
+picture became false: an arc from the second log back into the first would be
+something no archive can do.
+
+Getting that right turned out to be the best thing in the cut. The second file
+comes up with nothing behind it and the encoder spells it out from scratch,
+which is visible, audible, and the one thing about zip most people have never
+been told. And it is the same idea as the headline rather than a second one: it
+can only point at what it has already said, and at a new file it has not said
+anything yet.
+
+The lesson is that a framing decision is a correctness decision. "Show it as a
+folder" sounds like art direction and is not.
+
+## An archive is not only its contents
+
+370 bytes of `logs.zip` are the two members. The other 308 are local headers, the
+central directory and the folder entry, which is why the ratio is 3.07x and not
+the 5.6x the payload alone would suggest.
+
+The honest way to draw that was to leave it in. The archive bar steps up about a
+hundred bytes when the second file begins, before any of its content has been
+read, because that is when its header is written. Smoothing it would have made a
+nicer curve and a false one, and the step is the reason a folder of small files
+zips worse than one big one.
+
+## Two things the measurement had to get right anyway
 
 The bar could have been drawn between the two ends with a curve. It is measured
-instead, a real `deflateRaw` at every sample, and that is what produced the
-moment where the file grows thirty bytes and the zip does not move at all
-because the second line was already the first. A fitted curve would have been a
-smooth ramp and would have thrown that away.
+instead, a real `deflateRaw` at every sample, and each member's table is
+asserted to end exactly on what the archive stores for that file. That last
+check is worth more than it looks: it says zlib at level 9 and Info-ZIP at -9
+are the same encoder here, which is what licenses drawing a bar out of one and
+labelling it with a number from the other.
 
-And an animation that is easy to draw is not always true. The card header
-counting down from 1,035 to 177 was the obvious way to show the file getting
-smaller, and it says something false: zipping does not shrink the original, it
-writes a second file. The number that falls belongs on the zip, and the log has
-to still be there at the end, which is why it fades back in as it drains.
+And an animation that is easy to draw is not always true. A card header counting
+down from the file's size to the archive's is the obvious way to show something
+getting smaller, and it says something false: compressing a folder does not
+shrink what is in it. Each file keeps its size, the falling number lives on the
+archive, and the logs have to still be there at the end, which is why they fade
+back in as they drain.
+
+## An assertion earned its keep
+
+Asserting that each growth table only ever rises failed. It does not: the output
+is a byte or two smaller at some samples than it was fifteen bytes earlier.
+Huffman codes are chosen per block from the frequencies of the whole block, so
+more input can encode everything before it a byte cheaper. The check now allows
+the encoder's own slack. The premise was wrong, not the data, and without the
+assertion it would have been wrong in silence.

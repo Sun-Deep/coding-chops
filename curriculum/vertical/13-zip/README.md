@@ -6,47 +6,58 @@ Built, rendered and reviewed. The creator understanding check is still open.
 
 ## What it claims
 
-A zip is not a shrink ray. It reads the file once, and every time it reaches a
-run of characters it has already seen, it writes down a pointer to the earlier
-copy instead of the characters.
+A zip is not a shrink ray. It reads each file once, and every time it reaches a
+run of characters it has already seen _in that file_, it writes down a pointer
+to the earlier copy instead of the characters.
 
-On a 1,035 byte log, 939 of those bytes are a copy of something earlier in the
-same file. zlib's DEFLATE at level 9 writes it out as 177 bytes.
+A folder with two days of logs in it is 2,080 bytes. 1,867 of those bytes are a
+copy of something earlier in the same file. `zip -9` writes the folder out as
+`logs.zip`, 678 bytes.
 
 ## Why this topic
 
-Everybody has zipped a file. Almost nobody has been shown what the zip actually
-did, and the usual explanation is the word "compression", which is a restatement
-rather than a mechanism.
+Everybody has compressed a folder. Almost nobody has been shown what the zip
+actually did, and the usual explanation is the word "compression", which is a
+restatement rather than a mechanism.
 
 It is also the shape that carries this page. A large search space collapsing is
-behind Dijkstra against A star at 1.4M and Selection Sort at 596K, and a file
-collapsing onto itself is that shape with an object in the middle of it. The
-same reasoning that picked VR12: a thing the viewer already owns, with a
-mechanism hiding inside it.
+behind Dijkstra against A star at 1.4M and Selection Sort at 596K, and a folder
+collapsing onto itself is that shape with an object in the middle of it. Same
+reasoning that picked VR12: a thing the viewer already owns, with a mechanism
+hiding inside it.
 
-A log is the fixture because the repetition is visible before any mechanism
-runs. A stranger reading frame zero can see that most of the file is the same
-few strings over and over, which is the whole claim, and they can see it without
-being told.
+## Why a folder rather than one file
+
+The first build of this compressed a single file and showed the mechanism
+correctly and completely. It did not look like zipping anything. Everything on
+screen was the inside of the encoder and nothing was the household operation it
+belongs to, so the subject is now a folder with a folder icon, and the output is
+`logs.zip` with a zip icon, drawn to the same scale.
+
+The change paid for itself twice. A zip compresses each member on its own, so
+the second file starts with nothing behind it and the encoder has to spell it
+out again from scratch. That is visible, it is audible, and it is the one thing
+about zip most people have never been told. It is the same idea as the headline
+rather than a second one: it can only point at what it has already said, and at
+a new file it has not said anything yet.
 
 ## What is out of scope
 
-Huffman coding, which is the second half of DEFLATE and the reason the 939 bytes
-of copies do not map one to one onto the 858 bytes saved. The reel animates the
-matching and reports the real output size, and never subtracts one from the
-other. `measurements.md` carries the `Z_HUFFMAN_ONLY` run that shows matching is
-the part worth the fourteen seconds.
+Huffman coding, the second half of DEFLATE, and the reason the 1,867 bytes of
+copies do not map onto the 1,402 bytes saved. The reel animates the matching and
+reports the real archive size, and never subtracts one from the other.
 
 Also out of scope: the 32K window, why compressing an already compressed file
-does nothing, and the distinction between `zip` the container and DEFLATE the
-encoder. Each is a second idea, and this cut has one.
+does nothing, and that `tar.gz` beats `zip` on a folder of similar files because
+it compresses the stream rather than the members. That last one is the caption's
+catch. Each is a second idea, and this cut has one.
 
 ## Files
 
-| File                                  | What it is                                 |
-| ------------------------------------- | ------------------------------------------ |
-| `scripts/measure-zip.mjs`             | the measurement, and the source of figures |
-| `src/vertical/13-zip/measurements.ts` | the figures, one module                    |
-| `src/vertical/13-zip/lz77.ts`         | the parse, recomputed and asserted         |
-| `src/vertical/13-zip/Sheet.tsx`       | the file as an object                      |
+| File                                  | What it is                                   |
+| ------------------------------------- | -------------------------------------------- |
+| `scripts/measure-zip.mjs`             | the measurement, and the source of figures   |
+| `src/vertical/13-zip/measurements.ts` | the figures, one module                      |
+| `src/vertical/13-zip/lz77.ts`         | the parse, per file, recomputed and asserted |
+| `src/vertical/13-zip/Sheet.tsx`       | the member being compressed                  |
+| `src/vertical/13-zip/ZipTarget.tsx`   | the folder and the archive                   |

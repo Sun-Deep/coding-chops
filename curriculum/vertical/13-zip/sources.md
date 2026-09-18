@@ -16,5 +16,12 @@ explanations of it.
   Transactions on Information Theory, 1977, for the original of the sliding
   window and why a match may overlap its own source.
 
-The encoder itself is Node's `node:zlib`, which is zlib. It is not a
-reimplementation and the reel's byte counts are its output.
+- APPNOTE.TXT, the ZIP File Format Specification, sections 4.3 and 4.4, for the
+  local file header, the central directory and the end-of-central-directory
+  record. This is where the archive's 308 bytes of structure come from, and why
+  the bar steps up when a new member begins.
+
+The archive is built by Info-ZIP 3.0, the `zip` on this machine, and the reel's
+archive sizes are its output. The per-member curves come from Node's
+`node:zlib`, which is zlib, and the script asserts the two agree on the finished
+size of every member rather than assuming it.

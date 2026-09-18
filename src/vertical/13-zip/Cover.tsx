@@ -12,13 +12,12 @@ import { CARD_TOP } from "./layout";
 import { Sheet } from "./Sheet";
 
 /**
- * The frame the cover holds: late in the sweep, before the collapse, so the
- * sheet is at its most marked up. Most of the file is lit, several arcs are in
- * the air and nothing has contracted yet, which is the picture that says what
- * the cut is about. Frame zero would be a plain log with one caret on it, and
- * the collapsed frame would be a mostly empty card.
+ * The frame the cover holds: late in the second file's sweep, before it
+ * collapses. Most of the member is lit, arcs are in the air, and both bars
+ * under it are well along, so the still carries the mechanism and the folder it
+ * belongs to at once. Frame zero would be a plain log with one caret on it.
  */
-const HELD_FRAME = 268;
+const HELD_FRAME = 300;
 
 const SCALE = 0.82;
 const PLACED_TOP = 700;

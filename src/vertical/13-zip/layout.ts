@@ -1,6 +1,5 @@
 import { RAIL_EDGE, WIDTH } from "../../shared/vertical/geometry";
-import { LINES } from "./measurements";
-import { WIDEST_LINE } from "./lz77";
+import { MOST_LINES, WIDEST_LINE } from "./lz77";
 
 /**
  * The sheet.
@@ -27,7 +26,7 @@ export const CHAR_SIZE = 23;
 export const LINE_H = 32;
 
 export const SHEET_TOP = 464;
-export const SHEET_HEIGHT = LINES.length * LINE_H;
+export const SHEET_HEIGHT = MOST_LINES * LINE_H;
 export const SHEET_BOTTOM = SHEET_TOP + SHEET_HEIGHT;
 
 /** Baseline of a line's text within its row. */

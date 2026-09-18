@@ -18,9 +18,18 @@ import {
   PAD,
   SHEET_TOP,
 } from "./layout";
-import { BYTES, LINES, TEXT } from "./measurements";
-import { COPIES, SEGMENTS, runsOf, seatOf } from "./lz77";
-import { FIRE, FIRINGS, READ_TO, collapsedAt, drainAt, headAt } from "./beats";
+import { FOLDER } from "./measurements";
+import { MEMBERS, runsOf, seatOf } from "./lz77";
+import {
+  CYCLES,
+  FIRE,
+  FIRINGS,
+  SHOWN_FROM,
+  collapsedAt,
+  drainAt,
+  headAt,
+  memberAt,
+} from "./beats";
 
 const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 const mix = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -32,9 +41,9 @@ const channel = (hex: string, at: number) =>
  * Chalk to accent, across the frames a stretch takes to fire.
  *
  * A copied stretch has to look like ordinary text until the head reaches it.
- * Colouring it on load put most of the file in accent from frame zero, which
- * gave the answer away before the mechanism had run and left almost nothing
- * neutral on screen for the accent to mean anything against.
+ * Colouring it on load put most of the file in accent from frame zero, gave the
+ * answer away before the mechanism ran, and left almost nothing neutral on
+ * screen for the accent to mean anything against.
  */
 const blend = (from: string, to: string, t: number) => {
   const channels = [0, 1, 2].map((i) =>
@@ -46,23 +55,17 @@ const blend = (from: string, to: string, t: number) => {
 /** What a copied stretch shrinks to: a stub, roughly a character and a half. */
 const STUB = 21;
 
-/** How long an arc stays up after it is thrown. */
-const ARC_LIFE = 26;
+/** How long an arc stays up. Shorter than one file's sweep can afford to be. */
+const ARC_LIFE = 18;
 
 const x = (column: number) => column * CHAR_W;
 const rowTop = (line: number) => line * LINE_H;
 const mid = (line: number) => rowTop(line) + LINE_H / 2;
 
-/**
- * Where everything that survived the collapse ends up.
- *
- * The filled part of the zip bar, in the sheet's own coordinates, because that
- * is the file the bytes are going into.
- */
-const DRAIN_X = COLUMN_LEFT + 62 - COLUMN_LEFT;
+/** Where everything that survived the collapse ends up: the archive's bar. */
+const DRAIN_X = 62;
 const DRAIN_Y = BAR_TWO_TOP + BAR_HEIGHT / 2 - SHEET_TOP;
 
-/** A drained element, falling toward the zip and shrinking as it goes. */
 const drainTransform = (px: number, py: number, t: number) => {
   if (t <= 0) return undefined;
   const eased = t * t * (3 - 2 * t);
@@ -73,27 +76,39 @@ const drainTransform = (px: number, py: number, t: number) => {
 };
 
 /**
- * The file, as an object rather than a readout.
+ * The file being compressed, as an object rather than a readout.
  *
- * Everything in this cut happens on one sheet of text. The head runs through it
- * once, left to right and top to bottom, the way the encoder does. When it
- * reaches a stretch it has seen before, that stretch lights and throws an arc
- * back to the earlier copy it matched, so the claim is made by the picture
- * before the narration says it: this is the same text again.
+ * One member at a time, because that is how a zip works. The head runs through
+ * it once, and when it reaches a stretch it has seen *in this file* it lights
+ * and throws an arc back to the earlier copy. Then the member collapses onto
+ * what the encoder kept, drains into the archive, and the next file comes up
+ * with nothing behind it.
  *
- * Then it collapses. Every lit stretch contracts to a stub and its characters
- * go, and the size in the file's own header falls with them. Up to that point
- * the viewer is told the repeats are redundant. Here they watch them leave, and
- * the number that changes is the file's, not a caption's.
+ * No arc ever crosses a file boundary, and that is not a simplification. A zip
+ * compresses each member against its own window, so the second file genuinely
+ * cannot point at the first, however similar they look. Watching the ticking
+ * start again from nothing is the truest thing in the cut.
  */
 export const Sheet: React.FC = () => {
   const frame = useCurrentFrame();
-  const head = headAt(frame);
-  const collapse = collapsedAt(frame);
-  const reading = frame <= READ_TO;
-  const seat = seatOf(Math.min(head, TEXT.length - 1));
+  const index = memberAt(frame);
+  const member = MEMBERS[index];
+  const cycle = CYCLES[index];
 
-  const lit = (index: number) => clamp((frame - FIRINGS[index].frame) / FIRE);
+  const head = headAt(frame);
+  const collapse = collapsedAt(frame, index);
+  const reading = frame >= cycle.readFrom - 4 && frame <= cycle.readTo;
+  const seat = seatOf(member, Math.min(head, member.bytes - 1));
+
+  /** The card swaps in when its member takes over. */
+  const arrival = clamp((frame - SHOWN_FROM[index]) / 8);
+
+  const lit = (copyIndex: number) => {
+    const fired = FIRINGS.find(
+      (f) => f.member === index && f.at === member.copies[copyIndex].at,
+    );
+    return fired ? clamp((frame - fired.frame) / FIRE) : 0;
+  };
 
   return (
     <svg
@@ -122,37 +137,41 @@ export const Sheet: React.FC = () => {
         strokeWidth={2}
       />
 
-      {/* The header: the file's name, and the file's size. */}
-      <text
-        x={COLUMN_LEFT}
-        y={HEADER_BASELINE}
-        fontFamily={theme.monoFamily}
-        fontSize={27}
-        fontWeight={500}
-        fill={theme.colors.grayDark}
-      >
-        server.log
-      </text>
       {/*
-        The source keeps its size for the whole cut. Zipping a file does not
-        shrink it, it writes a second file, and the first version of this header
-        counted down from 1,035 to 177 as though the log itself had got smaller.
-        The number that falls belongs on the zip, which is where it is now.
+        The header names the member being compressed and which of the folder's
+        files it is, so the sheet and the folder bar under it are visibly the
+        same job. The size is the file's own and does not change: zipping does
+        not shrink the original, it writes an archive beside it.
       */}
-      <text
-        x={COLUMN_LEFT + COLUMN_WIDTH}
-        y={HEADER_BASELINE}
-        textAnchor="end"
-        fontFamily={theme.monoFamily}
-        fontSize={31}
-        fontWeight={600}
-        fill={theme.colors.chalk}
-        style={{ fontVariantNumeric: "tabular-nums" }}
-      >
-        {BYTES.toLocaleString("en-US")} bytes
-      </text>
+      <g opacity={arrival}>
+        <text
+          x={COLUMN_LEFT}
+          y={HEADER_BASELINE}
+          fontFamily={theme.monoFamily}
+          fontSize={26}
+          fontWeight={500}
+          fill={theme.colors.grayDark}
+        >
+          {FOLDER}/{member.name}
+        </text>
+        <text
+          x={COLUMN_LEFT + COLUMN_WIDTH}
+          y={HEADER_BASELINE}
+          textAnchor="end"
+          fontFamily={theme.monoFamily}
+          fontSize={26}
+          fontWeight={600}
+          fill={theme.colors.chalk}
+          style={{ fontVariantNumeric: "tabular-nums" }}
+        >
+          {member.bytes.toLocaleString("en-US")} bytes
+        </text>
+      </g>
 
-      <g transform={`translate(${COLUMN_LEFT}, ${SHEET_TOP})`}>
+      <g
+        transform={`translate(${COLUMN_LEFT}, ${SHEET_TOP})`}
+        opacity={arrival}
+      >
         {/* The row the head is on, so the eye knows where to be. */}
         {reading ? (
           <rect
@@ -167,16 +186,16 @@ export const Sheet: React.FC = () => {
         ) : null}
 
         {/* Every copy the head has passed, as a band under its characters. */}
-        {COPIES.map((copy, index) => {
-          const on = lit(index);
+        {member.copies.map((copy, c) => {
+          const on = lit(c);
           if (on <= 0) return null;
-          return runsOf(copy.at, copy.length).map((run, r) => {
+          return runsOf(member, copy.at, copy.length).map((run, r) => {
             const full = (run.to - run.from) * CHAR_W;
             const width = mix(full, Math.min(STUB, full), collapse);
-            const gone = drainAt(frame, run.line, LINES.length);
+            const gone = drainAt(frame, index, run.line);
             return (
               <rect
-                key={`band-${index}-${r}`}
+                key={`band-${c}-${r}`}
                 x={x(run.from)}
                 y={rowTop(run.line) + 3}
                 width={mix(full * 0.3, width, on)}
@@ -197,24 +216,19 @@ export const Sheet: React.FC = () => {
         })}
 
         {/*
-          The log, put back.
+          The file, put back.
 
-          Zipping a file does not consume it, and draining the sheet into the
-          zip with nothing left over ended the cut on an empty card, which reads
-          as the log having been deleted. So as each line leaves for the zip,
-          the original line fades back in underneath it, plain and neutral,
-          because the mechanism has finished arguing by then.
-
-          The last frame is then the true one: the log exactly as it was, and a
-          copy of it a sixth of the size sitting under it. It also keeps the
-          closing seconds moving, which is what the frozen-frame check wanted.
+          Zipping does not consume what it reads, and draining the sheet with
+          nothing left over read as the file having been deleted. As each line
+          leaves for the archive the original line fades back in underneath it,
+          plain and neutral, because the mechanism has finished arguing by then.
         */}
-        {SEGMENTS.map((segment, index) => {
-          const back = drainAt(frame, segment.line, LINES.length);
+        {member.segments.map((segment, s) => {
+          const back = drainAt(frame, index, segment.line);
           if (back <= 0) return null;
           return (
             <text
-              key={`back-${index}`}
+              key={`back-${s}`}
               x={x(segment.from)}
               y={rowTop(segment.line) + BASELINE}
               textLength={(segment.to - segment.from) * CHAR_W}
@@ -225,23 +239,22 @@ export const Sheet: React.FC = () => {
               opacity={0.5 * back}
               style={{ whiteSpace: "pre" }}
             >
-              {LINES[segment.line].slice(segment.from, segment.to)}
+              {member.lines[segment.line].slice(segment.from, segment.to)}
             </text>
           );
         })}
 
         {/* The text. One node per stretch that shares an owner. */}
-        {SEGMENTS.map((segment, index) => {
-          const text = LINES[segment.line].slice(segment.from, segment.to);
+        {member.segments.map((segment, s) => {
           const copied = segment.copy >= 0;
           const on = copied ? lit(segment.copy) : 0;
-          const gone = drainAt(frame, segment.line, LINES.length);
+          const gone = drainAt(frame, index, segment.line);
           const base = copied
             ? mix(0.78, 1, on) * (1 - collapse)
             : mix(0.78, 1, collapse);
           return (
             <text
-              key={`text-${index}`}
+              key={`text-${s}`}
               x={x(segment.from)}
               y={rowTop(segment.line) + BASELINE}
               textLength={(segment.to - segment.from) * CHAR_W}
@@ -257,31 +270,32 @@ export const Sheet: React.FC = () => {
               )}
               style={{ whiteSpace: "pre" }}
             >
-              {text}
+              {member.lines[segment.line].slice(segment.from, segment.to)}
             </text>
           );
         })}
 
         {/* The arc back to the earlier copy. This is the whole mechanism. */}
-        {FIRINGS.map((fired, index) => {
+        {FIRINGS.filter((f) => f.member === index).map((fired, f) => {
           const age = frame - fired.frame;
           if (age < 0 || age > ARC_LIFE) return null;
-          const draw = clamp(age / 10);
-          const fade = 1 - clamp((age - 14) / (ARC_LIFE - 14));
+          const draw = clamp(age / 8);
+          const fade = 1 - clamp((age - 10) / (ARC_LIFE - 10));
 
-          const to = seatOf(fired.at);
-          const from = seatOf(fired.source);
+          const to = seatOf(member, fired.at);
+          const from = seatOf(member, fired.source);
           const x1 = x(to.column) + CHAR_W / 2;
           const y1 = mid(to.line);
           const x2 = x(from.column) + CHAR_W / 2;
           const y2 = mid(from.line);
           const bow = 34 + Math.abs(y1 - y2) * 0.3;
+          const d = `M ${x1} ${y1} Q ${Math.min(x1, x2) - bow} ${(y1 + y2) / 2} ${x2} ${y2}`;
 
           return (
-            <g key={`arc-${index}`} opacity={fade}>
+            <g key={`arc-${f}`} opacity={fade}>
               {/* A dark halo, so the arc separates from the text it crosses. */}
               <path
-                d={`M ${x1} ${y1} Q ${Math.min(x1, x2) - bow} ${(y1 + y2) / 2} ${x2} ${y2}`}
+                d={d}
                 fill="none"
                 stroke={theme.colors.black}
                 strokeWidth={9}
@@ -292,7 +306,7 @@ export const Sheet: React.FC = () => {
                 strokeDashoffset={1 - draw}
               />
               <path
-                d={`M ${x1} ${y1} Q ${Math.min(x1, x2) - bow} ${(y1 + y2) / 2} ${x2} ${y2}`}
+                d={d}
                 fill="none"
                 stroke={ACCENT}
                 strokeWidth={3}
@@ -303,9 +317,9 @@ export const Sheet: React.FC = () => {
               />
               <circle cx={x2} cy={y2} r={draw >= 1 ? 4.5 : 0} fill={ACCENT} />
               {/* Where it landed: the text this stretch is a copy of. */}
-              {runsOf(fired.source, fired.length).map((run, r) => (
+              {runsOf(member, fired.source, fired.length).map((run, r) => (
                 <rect
-                  key={`src-${index}-${r}`}
+                  key={`src-${f}-${r}`}
                   x={x(run.from) - 1}
                   y={rowTop(run.line) + 3}
                   width={(run.to - run.from) * CHAR_W + 2}

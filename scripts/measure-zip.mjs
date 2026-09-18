@@ -1,97 +1,195 @@
 #!/usr/bin/env node
 
-// What a zip actually does to a file.
+// What your computer does when you compress a folder.
 //
-// Two kinds of figure here and they are not the same kind of claim.
+// The subject is the household operation: a folder of files, right-clicked and
+// compressed, producing a `.zip` beside it. So the archive here is built by the
+// real `zip` binary rather than by anything in this repository, and the size the
+// reel prints is the size that lands on disk.
 //
-// The output size is exact and it is not mine. It comes off zlib's real
-// DEFLATE, the same encoder behind `zip`, `gzip` and every compressed response
-// your browser has ever received. Nothing in this script estimates it.
+// Three kinds of figure, and they are not the same kind of claim.
+//
+// The archive sizes are exact and they are not ours. They come off Info-ZIP,
+// the same tool behind Finder's Compress and every `zip` on a Unix box.
+//
+// The per-file compressed sizes are exact too, and they come out of the
+// archive's own central directory as `unzip -lv` reports it.
 //
 // The parse is a demonstration. DEFLATE is two mechanisms stacked: LZ77
 // replaces a run of bytes it has seen before with a pointer back to the earlier
 // copy, and Huffman then writes what is left in fewer bits. The reel animates
-// the first one, so this script performs its own LZ77 parse to know which spans
-// of the file are copies and where each one points. That parse is *a* valid
-// parse rather than zlib's own -- zlib uses lazy matching and may split a run
-// differently -- so the script proves it by expanding its own token stream back
-// out and checking the result is the input byte for byte. What it is used for
-// is the picture, never the byte count.
+// the first one, so this script performs its own LZ77 parse per file to know
+// which spans are copies and where each one points, and proves it by expanding
+// the token stream back out and checking it is the input byte for byte.
 //
-// To show that the pointers are the part worth animating rather than a detail,
-// the script also runs DEFLATE with matching switched off
-// (Z_HUFFMAN_ONLY). The gap between that and the real output is what finding
-// the repeats is worth on this file.
+// Per file, and that matters. A zip compresses each member on its own, with the
+// window reset at every file boundary, so nothing in tue.log may point at
+// anything in mon.log. That is why the parse runs twice rather than once over
+// the pair, and it is visible in the reel: when the second file comes up the
+// arcs stop and the encoder has to spell everything out again.
 
 import { deflateRawSync, gzipSync, constants } from "node:zlib";
+import { execFileSync } from "node:child_process";
+import {
+  mkdtempSync,
+  writeFileSync,
+  statSync,
+  rmSync,
+  mkdirSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 // ---------------------------------------------------------------------------
 // The fixture.
 // ---------------------------------------------------------------------------
 //
-// A literal rather than something generated, so the figures cannot drift
-// between runs or between machines. VR12's scan counted this repository and
-// every file added to the project moved the number; a fixture that is written
-// down cannot do that.
+// Literals rather than anything generated at run time, so the figures cannot
+// drift between runs or between machines. VR12's scan counted this repository
+// and every file added to the project moved the number.
 //
-// A log is the fixture because the repetition is visible before any mechanism
-// runs. A stranger looking at frame zero can see that most of this file is the
-// same few strings over and over, which is the whole claim, and they can see it
-// without being told.
+// Two days of the same service. The repetition is visible before any mechanism
+// runs, which is the whole claim, and the second file repeats the first at a
+// glance while sharing none of its compression, which is the thing about zip
+// most people have never been told.
 
-const LINES = [
-  "2026-09-18 09:14:02 INFO  GET  /api/orders 200 14ms",
-  "2026-09-18 09:14:02 INFO  GET  /api/orders 200 11ms",
-  "2026-09-18 09:14:03 INFO  GET  /api/orders 200 12ms",
-  "2026-09-18 09:14:03 INFO  POST /api/orders 201 38ms",
-  "2026-09-18 09:14:04 INFO  GET  /api/orders 200 13ms",
-  "2026-09-18 09:14:04 WARN  GET  /api/orders 429 2ms",
-  "2026-09-18 09:14:05 INFO  GET  /api/orders 200 15ms",
-  "2026-09-18 09:14:05 INFO  GET  /api/users  200 9ms",
-  "2026-09-18 09:14:06 INFO  GET  /api/users  200 8ms",
-  "2026-09-18 09:14:06 INFO  GET  /api/orders 200 12ms",
-  "2026-09-18 09:14:07 ERROR POST /api/orders 500 61ms",
-  "2026-09-18 09:14:07 INFO  GET  /api/orders 200 14ms",
-  "2026-09-18 09:14:08 INFO  GET  /api/orders 200 13ms",
-  "2026-09-18 09:14:08 INFO  GET  /api/users  200 9ms",
-  "2026-09-18 09:14:09 INFO  POST /api/orders 201 41ms",
-  "2026-09-18 09:14:09 INFO  GET  /api/orders 200 12ms",
-  "2026-09-18 09:14:10 INFO  GET  /api/orders 200 14ms",
-  "2026-09-18 09:14:10 WARN  GET  /api/users  429 3ms",
-  "2026-09-18 09:14:11 INFO  GET  /api/orders 200 11ms",
-  "2026-09-18 09:14:11 INFO  GET  /api/orders 200 13ms",
+const FOLDER = "logs";
+
+const FILES = [
+  {
+    name: "mon.log",
+    lines: [
+      "2026-09-16 09:14:02 INFO  GET  /api/orders 200 12ms",
+      "2026-09-16 09:14:02 INFO  GET  /api/cart   200 40ms",
+      "2026-09-16 09:14:03 INFO  GET  /api/orders 200 23ms",
+      "2026-09-16 09:14:03 INFO  GET  /api/orders 200 15ms",
+      "2026-09-16 09:14:04 INFO  GET  /api/cart   200 11ms",
+      "2026-09-16 09:14:04 ERROR GET  /api/orders 500 10ms",
+      "2026-09-16 09:14:05 INFO  GET  /api/orders 200 42ms",
+      "2026-09-16 09:14:05 INFO  GET  /api/orders 200 19ms",
+      "2026-09-16 09:14:06 INFO  GET  /api/orders 200 14ms",
+      "2026-09-16 09:14:06 INFO  GET  /api/orders 200 21ms",
+      "2026-09-16 09:14:07 INFO  GET  /api/orders 200 37ms",
+      "2026-09-16 09:14:07 INFO  GET  /api/orders 200 58ms",
+      "2026-09-16 09:14:08 INFO  GET  /api/orders 200 27ms",
+      "2026-09-16 09:14:08 INFO  POST /api/orders 201 26ms",
+      "2026-09-16 09:14:09 INFO  GET  /api/orders 200 18ms",
+      "2026-09-16 09:14:09 INFO  GET  /api/users  200 10ms",
+      "2026-09-16 09:14:10 INFO  GET  /api/cart   200 58ms",
+      "2026-09-16 09:14:10 INFO  GET  /api/cart   200 46ms",
+      "2026-09-16 09:14:11 INFO  GET  /api/orders 200 13ms",
+      "2026-09-16 09:14:11 INFO  GET  /api/cart   200 11ms",
+    ],
+  },
+  {
+    name: "tue.log",
+    lines: [
+      "2026-09-17 09:14:02 INFO  GET  /api/users  200 51ms",
+      "2026-09-17 09:14:02 INFO  GET  /api/cart   200 50ms",
+      "2026-09-17 09:14:03 INFO  POST /api/orders 201 47ms",
+      "2026-09-17 09:14:03 INFO  GET  /api/orders 200 16ms",
+      "2026-09-17 09:14:04 WARN  GET  /api/users  429 39ms",
+      "2026-09-17 09:14:04 INFO  GET  /api/orders 200 16ms",
+      "2026-09-17 09:14:05 INFO  POST /api/cart   201 34ms",
+      "2026-09-17 09:14:05 INFO  GET  /api/cart   200 22ms",
+      "2026-09-17 09:14:06 INFO  GET  /api/orders 200 22ms",
+      "2026-09-17 09:14:06 INFO  POST /api/orders 201 26ms",
+      "2026-09-17 09:14:07 INFO  GET  /api/orders 200 44ms",
+      "2026-09-17 09:14:07 WARN  GET  /api/orders 429 47ms",
+      "2026-09-17 09:14:08 INFO  GET  /api/users  200 57ms",
+      "2026-09-17 09:14:08 INFO  GET  /api/cart   200 33ms",
+      "2026-09-17 09:14:09 INFO  GET  /api/orders 200 11ms",
+      "2026-09-17 09:14:09 INFO  POST /api/orders 201 15ms",
+      "2026-09-17 09:14:10 INFO  GET  /api/orders 200 17ms",
+      "2026-09-17 09:14:10 INFO  POST /api/orders 201 12ms",
+      "2026-09-17 09:14:11 INFO  GET  /api/cart   200 24ms",
+      "2026-09-17 09:14:11 INFO  GET  /api/cart   200 15ms",
+    ],
+  },
 ];
 
-const TEXT = LINES.join("\n") + "\n";
-const INPUT = Buffer.from(TEXT, "utf8");
+const bodyOf = (file) => file.lines.join("\n") + "\n";
+const BUFFERS = FILES.map((f) => Buffer.from(bodyOf(f), "utf8"));
+const RAW_TOTAL = BUFFERS.reduce((sum, b) => sum + b.length, 0);
 
 // ---------------------------------------------------------------------------
-// 1. LZ77, performed rather than described.
+// 1. The real archive.
+// ---------------------------------------------------------------------------
+
+const work = mkdtempSync(join(tmpdir(), "coding-chops-zip-"));
+const root = join(work, FOLDER);
+mkdirSync(root);
+FILES.forEach((file, i) => writeFileSync(join(root, file.name), BUFFERS[i]));
+
+/** `zip -9 -X`, the same encoder and the same flags every time. */
+const zipTo = (archive, members) => {
+  execFileSync("zip", ["-9", "-X", "-q", "-r", archive, ...members], {
+    cwd: work,
+  });
+  return statSync(join(work, archive)).size;
+};
+
+// The archive as it stands after each file, which is what the reel's bar walks
+// between.
+//
+// Each step is a whole archive of a folder holding the first i files, built the
+// same way the finished one is, so the last step is the finished one and the
+// script asserts that. Zipping the members directly instead would leave out the
+// folder entry and the steps would not be comparable with the archive they end
+// on.
+const AFTER = [];
+for (let i = 0; i < FILES.length; i++) {
+  const step = mkdtempSync(join(tmpdir(), "coding-chops-zip-step-"));
+  mkdirSync(join(step, FOLDER));
+  FILES.slice(0, i + 1).forEach((file, j) =>
+    writeFileSync(join(step, FOLDER, file.name), BUFFERS[j]),
+  );
+  execFileSync("zip", ["-9", "-X", "-q", "-r", "step.zip", FOLDER], {
+    cwd: step,
+  });
+  AFTER.push(statSync(join(step, "step.zip")).size);
+  rmSync(step, { recursive: true, force: true });
+}
+
+const ARCHIVE = zipTo("logs.zip", [FOLDER]);
+
+if (AFTER[AFTER.length - 1] !== ARCHIVE) {
+  throw new Error(
+    `the last step is ${AFTER[AFTER.length - 1]} bytes but the archive is ${ARCHIVE}`,
+  );
+}
+
+// It has to actually be a zip, and it has to still be the files.
+execFileSync("unzip", ["-tqq", join(work, "logs.zip")]);
+const listing = execFileSync("unzip", ["-lv", join(work, "logs.zip")], {
+  encoding: "utf8",
+});
+
+const PER_FILE = FILES.map((file) => {
+  const row = listing
+    .split("\n")
+    .find((l) => l.trim().endsWith(`${FOLDER}/${file.name}`));
+  const cells = row.trim().split(/\s+/);
+  return { name: file.name, raw: Number(cells[0]), stored: Number(cells[2]) };
+});
+
+const STORED_TOTAL = PER_FILE.reduce((sum, f) => sum + f.stored, 0);
+
+// ---------------------------------------------------------------------------
+// 2. LZ77, per file, performed rather than described.
 // ---------------------------------------------------------------------------
 
 /** DEFLATE's limits, from RFC 1951 section 4. */
 const MIN_MATCH = 3;
 const MAX_MATCH = 258;
-const WINDOW = 32 * 1024;
 
-/**
- * Greedy longest match against everything already emitted.
- *
- * Deliberately the simple parse: at each position take the longest run that
- * appears earlier in the window, otherwise emit one literal byte. Matches are
- * allowed to overlap their own source, which is legal and is how DEFLATE
- * encodes a run of one repeated byte.
- */
 const parse = (bytes) => {
   const tokens = [];
   let at = 0;
-
   while (at < bytes.length) {
-    const from = Math.max(0, at - WINDOW);
     let bestLength = 0;
     let bestStart = -1;
-
-    for (let start = from; start < at; start++) {
+    for (let start = 0; start < at; start++) {
       let length = 0;
       while (
         length < MAX_MATCH &&
@@ -105,7 +203,6 @@ const parse = (bytes) => {
         bestStart = start;
       }
     }
-
     if (bestLength >= MIN_MATCH) {
       tokens.push({
         kind: "copy",
@@ -120,16 +217,9 @@ const parse = (bytes) => {
       at += 1;
     }
   }
-
   return tokens;
 };
 
-/**
- * Expand a token stream the way a decompressor does.
- *
- * Byte at a time on purpose, because that is what makes an overlapping copy
- * work: the bytes it reads may be ones this same token just wrote.
- */
 const expand = (tokens) => {
   const out = [];
   for (const token of tokens) {
@@ -143,122 +233,122 @@ const expand = (tokens) => {
   return Buffer.from(out);
 };
 
-const TOKENS = parse(INPUT);
-
-// The parse is only worth showing if it is actually lossless.
-const ROUNDTRIP = expand(TOKENS);
-if (!ROUNDTRIP.equals(INPUT)) {
-  throw new Error("LZ77 parse does not reconstruct the input");
-}
-
-const COPIES = TOKENS.filter((t) => t.kind === "copy");
-const LITERALS = TOKENS.filter((t) => t.kind === "literal");
-const COVERED = COPIES.reduce((sum, t) => sum + t.length, 0);
-
-if (COVERED + LITERALS.length !== INPUT.length) {
-  throw new Error("tokens do not account for every byte");
-}
-
-// ---------------------------------------------------------------------------
-// 2. The real encoder.
-// ---------------------------------------------------------------------------
-
-const DEFLATE = deflateRawSync(INPUT, { level: 9 });
-const HUFFMAN_ONLY = deflateRawSync(INPUT, {
-  level: 9,
-  strategy: constants.Z_HUFFMAN_ONLY,
+const PARSES = BUFFERS.map((buffer, i) => {
+  const tokens = parse(buffer);
+  if (!expand(tokens).equals(buffer)) {
+    throw new Error(
+      `${FILES[i].name}: the parse does not reconstruct the file`,
+    );
+  }
+  const copies = tokens.filter((t) => t.kind === "copy");
+  const literals = tokens.filter((t) => t.kind === "literal");
+  const covered = copies.reduce((sum, t) => sum + t.length, 0);
+  if (covered + literals.length !== buffer.length) {
+    throw new Error(`${FILES[i].name}: tokens do not account for every byte`);
+  }
+  return { tokens, copies, literals, covered };
 });
-const GZIP = gzipSync(INPUT, { level: 9 });
+
+const COVERED_TOTAL = PARSES.reduce((sum, p) => sum + p.covered, 0);
 
 // ---------------------------------------------------------------------------
-// 3. Report.
+// 3. The output as each file is written.
 // ---------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------
-// 2b. The output as it is being written.
-// ---------------------------------------------------------------------------
-//
-// The reel draws the zip filling up while the log is read, so it needs the size
-// of the output at each point through the file rather than only at the end.
-//
-// This is a real run at every sample rather than a curve fitted between the two
-// ends: `deflateRaw` of the first N bytes, which is a well defined and
-// reproducible measurement of what you would have if you stopped there. It is
-// not a prefix of the finished stream -- DEFLATE picks its Huffman tables per
-// block, so the final 177 bytes are not the last sample plus a remainder -- and
-// the reel uses it for the bar and never subtracts one sample from another.
-//
-// Sampled every 15 bytes to keep the exported table small. The last sample is
-// the whole file, so the bar ends on the real figure.
 
 const SAMPLE_STRIDE = 15;
 
-const GROWTH = [];
-for (let at = 0; at <= INPUT.length; at += SAMPLE_STRIDE) {
-  GROWTH.push([at, deflateRawSync(INPUT.subarray(0, at), { level: 9 }).length]);
-}
-if (GROWTH[GROWTH.length - 1][0] !== INPUT.length) {
-  GROWTH.push([INPUT.length, DEFLATE.length]);
-}
+const GROWTH = BUFFERS.map((buffer) => {
+  const samples = [];
+  for (let at = 0; at <= buffer.length; at += SAMPLE_STRIDE) {
+    samples.push([
+      at,
+      deflateRawSync(buffer.subarray(0, at), { level: 9 }).length,
+    ]);
+  }
+  if (samples[samples.length - 1][0] !== buffer.length) {
+    samples.push([buffer.length, deflateRawSync(buffer, { level: 9 }).length]);
+  }
+  return samples;
+});
+
+// ---------------------------------------------------------------------------
+// 4. Report.
+// ---------------------------------------------------------------------------
 
 const pct = (part, whole) => ((part / whole) * 100).toFixed(1);
 
-console.log("# The file");
-console.log(`lines                 ${LINES.length}`);
-console.log(`bytes                 ${INPUT.length}`);
-console.log(`distinct bytes        ${new Set(INPUT).size}`);
+console.log("# The folder");
+console.log(`name                  ${FOLDER}/`);
+for (const file of PER_FILE) {
+  console.log(`  ${file.name.padEnd(18)}${String(file.raw).padStart(5)} bytes`);
+}
+console.log(`raw total             ${RAW_TOTAL} bytes`);
 console.log();
 
-console.log("# LZ77 parse (this script, verified lossless)");
-console.log(`tokens                ${TOKENS.length}`);
-console.log(`  copies              ${COPIES.length}`);
-console.log(`  literals            ${LITERALS.length}`);
-console.log(
-  `bytes covered by copies ${COVERED}  (${pct(COVERED, INPUT.length)}% of the file)`,
-);
-console.log(
-  `longest copy          ${Math.max(...COPIES.map((t) => t.length))} bytes`,
-);
-console.log(
-  `longest back distance ${Math.max(...COPIES.map((t) => t.distance))} bytes`,
-);
-console.log();
-
-console.log("# DEFLATE (zlib, exact)");
-console.log(`raw                   ${INPUT.length} bytes`);
-console.log(
-  `huffman only          ${HUFFMAN_ONLY.length} bytes  (${pct(HUFFMAN_ONLY.length, INPUT.length)}%)`,
-);
-console.log(
-  `deflate -9            ${DEFLATE.length} bytes  (${pct(DEFLATE.length, INPUT.length)}%)`,
-);
-console.log(
-  `gzip -9               ${GZIP.length} bytes  (with header and checksum)`,
-);
-console.log(
-  `ratio                 ${(INPUT.length / DEFLATE.length).toFixed(2)}x`,
-);
-// Reported as two runs rather than as a split of the saving. The two
-// mechanisms do not decompose additively -- Huffman after LZ77 is coding a
-// different stream than Huffman alone -- so the honest comparison is the same
-// encoder with matching off and with matching on.
-console.log(`matching off          ${HUFFMAN_ONLY.length} bytes`);
-console.log(`matching on           ${DEFLATE.length} bytes`);
-console.log();
-
-console.log("# The output as it grows (deflateRaw of the first N bytes)");
-for (const [at, size] of GROWTH) {
+console.log("# The archive (Info-ZIP, -9 -X, exact)");
+console.log(`logs.zip              ${ARCHIVE} bytes`);
+for (const file of PER_FILE) {
   console.log(
-    `  after ${String(at).padStart(4)} bytes  ->  ${String(size).padStart(3)} bytes`,
+    `  ${file.name.padEnd(18)}${String(file.stored).padStart(5)} bytes stored  (${pct(file.stored, file.raw)}% of ${file.raw})`,
   );
 }
+console.log(`compressed payload    ${STORED_TOTAL} bytes`);
+console.log(
+  `zip structure         ${ARCHIVE - STORED_TOTAL} bytes  (headers, central directory, folder entry)`,
+);
+console.log(`ratio                 ${(RAW_TOTAL / ARCHIVE).toFixed(2)}x`);
 console.log();
 
-console.log("# Every copy, in order");
-for (const t of COPIES) {
-  const text = INPUT.slice(t.at, t.at + t.length).toString("utf8");
+console.log("# The archive after each file");
+AFTER.forEach((size, i) => {
   console.log(
-    `  at ${String(t.at).padStart(4)}  back ${String(t.distance).padStart(4)}  ` +
-      `len ${String(t.length).padStart(3)}  ${JSON.stringify(text)}`,
+    `  through ${FILES[i].name.padEnd(12)}${String(size).padStart(5)} bytes`,
   );
-}
+});
+console.log();
+
+console.log("# LZ77 per file (this script, verified lossless)");
+PARSES.forEach((p, i) => {
+  console.log(`${FILES[i].name}`);
+  console.log(`  tokens              ${p.tokens.length}`);
+  console.log(`  copies              ${p.copies.length}`);
+  console.log(`  literals            ${p.literals.length}`);
+  console.log(
+    `  bytes copied        ${p.covered}  (${pct(p.covered, BUFFERS[i].length)}% of the file)`,
+  );
+  console.log(
+    `  longest copy        ${Math.max(...p.copies.map((t) => t.length))} bytes`,
+  );
+  console.log(
+    `  longest back        ${Math.max(...p.copies.map((t) => t.distance))} bytes`,
+  );
+});
+console.log(
+  `copied across both    ${COVERED_TOTAL} of ${RAW_TOTAL}  (${pct(COVERED_TOTAL, RAW_TOTAL)}%)`,
+);
+console.log();
+
+console.log("# What a zip cannot do");
+// The two files are similar and the archive gets nothing for it, because each
+// member is compressed against its own window. Concatenating them and running
+// one DEFLATE over the pair shows what that costs.
+const JOINED = Buffer.concat(BUFFERS);
+const JOINED_DEFLATE = deflateRawSync(JOINED, { level: 9 }).length;
+console.log(`both files, one stream ${JOINED_DEFLATE} bytes`);
+console.log(`both files, zip members ${STORED_TOTAL} bytes`);
+console.log(
+  `gzip of the pair        ${gzipSync(JOINED, { level: 9 }).length} bytes`,
+);
+console.log();
+
+console.log("# The output as each file is written");
+GROWTH.forEach((samples, i) => {
+  console.log(`${FILES[i].name}`);
+  for (const [at, size] of samples) {
+    console.log(
+      `  after ${String(at).padStart(4)} bytes  ->  ${String(size).padStart(3)} bytes`,
+    );
+  }
+});
+
+rmSync(work, { recursive: true, force: true });

@@ -1,28 +1,19 @@
-import {
-  COLLAPSE_FROM,
-  COLLAPSE_TO,
-  DRAIN_FROM,
-  DRAIN_SPAN,
-  DRAIN_TO,
-  FIRINGS,
-  frameOfByte,
-} from "./beats";
-import { LINES, PARSE } from "./measurements";
-import { TOKENS } from "./lz77";
+import { CYCLES, DRAIN_SPAN, FIRINGS, SEALED, frameOfByte } from "./beats";
+import { PARSE } from "./measurements";
+import { MEMBERS } from "./lz77";
 
 /**
  * The encoding, made audible.
  *
  * Two voices, and which one you are hearing is the claim. A `tick` fires as the
  * head spells out a character it has never seen, and a `probe` note fires when
- * it finds a stretch it has seen before. The first line of the file has no
- * earlier text to match, so it is all ticking; after that the ticking nearly
- * stops and the track becomes notes. A listener knows the file has gone
- * redundant before the tally under it says so.
+ * it finds a stretch it has seen before. The first lines of a file have nothing
+ * earlier to match, so they are all ticking; after that the ticking nearly
+ * stops and the track becomes notes.
  *
- * The notes are pitched by how far back the match was found. A stretch repeated
- * from the line above is high and one reaching back most of the file is low, so
- * the pitch is the distance the arc has just drawn on screen.
+ * And it happens twice. When the second file comes up the ticking starts again
+ * from nothing, because a zip compresses each member against its own window. A
+ * listener with their eyes shut can hear the archive start a new file.
  */
 
 export type Pulse = {
@@ -44,127 +35,122 @@ const note = (t: number) => {
   return BASE_RATE * 2 ** (DEGREES[i] / 12);
 };
 
-/** Literal bytes between ticks, so the opening is a texture and not a machine gun. */
-const LITERAL_STRIDE = 3;
+/** Literal bytes between ticks, so a fresh file is a texture not a machine gun. */
+const LITERAL_STRIDE = 4;
 
 const NEAREST = Math.min(...FIRINGS.map((f) => f.distance));
-const FURTHEST = PARSE.longestDistance;
+const FURTHEST = Math.max(...PARSE.map((p) => p.longestDistance));
 
 /**
  * Frames between the repeats that hold a match open.
  *
  * A match fired only on its first byte left the track silent for the whole time
- * the head spent travelling through it, and the longest stretch here is 51
- * bytes. The first render had a 0.70 second gap at 1.1 seconds for exactly that
- * reason: the head was inside the first long copy, which is the most important
- * moment in the cut and was also the quietest.
- *
- * So a match sounds for as long as it is being copied. The strike is loud and
- * the repeats under it are a texture at the same pitch, which makes a long
- * stretch a run on one note and a short one a single hit. Counted in frames
- * rather than in bytes, because the sweep accelerates and a byte stride would
- * thin out at the top of the file and machine-gun at the bottom.
+ * the head spent travelling through it, and the longest stretch here is 50
+ * bytes. So a match sounds for as long as it is being copied: the strike is
+ * loud and the repeats under it are a texture at the same pitch, which makes a
+ * long stretch a run on one note and a short one a single hit.
  */
-const SUSTAIN_EVERY = 6;
+const SUSTAIN_EVERY = 5;
 
 /**
  * The notes the matches make.
  *
  * Near matches high, far matches low, on a log scale because distance runs from
- * 51 bytes to 879 and a linear map would put almost every match at the bottom
- * of the scale. So the pitch is the length of the arc the picture has just
- * drawn: a stretch repeated from the line above rings high, and one reaching
- * back most of the file sits at the bottom.
+ * a few bytes to most of a file and a linear map would put almost every match
+ * at the bottom of the scale. The pitch is the length of the arc the picture
+ * has just drawn.
  */
 export const MATCHES: readonly Pulse[] = FIRINGS.flatMap((fired, index) => {
   const reach =
     Math.log(fired.distance / NEAREST) / Math.log(FURTHEST / NEAREST);
   const rate = note(1 - reach);
   const from = Math.round(fired.frame);
-  const to = Math.round(frameOfByte(fired.at + fired.length));
+  const to = Math.round(frameOfByte(fired.member, fired.at + fired.length));
+  const longest = PARSE[fired.member].longestCopy;
 
-  // The strike: a longer stretch is a bigger saving, so it is louder.
   const pulses: Pulse[] = [
     {
       id: `match-${index}`,
       frame: from,
       rate,
-      gain: 5.4 + Math.min(1, fired.length / PARSE.longestCopy) * 3.4,
+      // A longer stretch is a bigger saving, so it is louder.
+      gain: 5.2 + Math.min(1, fired.length / longest) * 3.2,
     },
   ];
 
   for (let frame = from + SUSTAIN_EVERY; frame < to; frame += SUSTAIN_EVERY) {
-    pulses.push({ id: `match-${index}-${frame}`, frame, rate, gain: 2.4 });
+    pulses.push({ id: `match-${index}-${frame}`, frame, rate, gain: 2.3 });
   }
 
   return pulses;
 });
 
-/** The head spelling out a character it has not seen before. */
-export const LITERALS: readonly Pulse[] = TOKENS.filter(
-  (t) => t.kind === "literal",
-)
-  .filter((_, index) => index % LITERAL_STRIDE === 0)
-  .map((token, index) => ({
-    id: `literal-${index}`,
-    frame: Math.round(frameOfByte(token.at)),
-    rate: 1.32,
-    gain: 2.6,
-  }));
+/** The head spelling out a character it has not seen before, in this file. */
+export const LITERALS: readonly Pulse[] = MEMBERS.flatMap((member, index) =>
+  member.tokens
+    .filter((t) => t.kind === "literal")
+    .filter((_, i) => i % LITERAL_STRIDE === 0)
+    .map((token, i) => ({
+      id: `literal-${index}-${i}`,
+      frame: Math.round(frameOfByte(index, token.at)),
+      rate: 1.32,
+      gain: 2.5,
+    })),
+);
 
 /**
  * The collapse.
  *
- * Thirty-nine stretches contracting inside a second and a half, ordered up the
- * file, which is a crunch rather than a sequence of events. It is the loudest
- * thing in the cut because it is the only thing in the cut the viewer has been
- * waiting for.
+ * Every stretch in the member contracting inside under a second, ordered down
+ * the file, which is a crunch rather than a sequence of events.
  */
-export const CRUSH: readonly Pulse[] = FIRINGS.map((fired, index) => {
-  const through = index / (FIRINGS.length - 1);
-  return {
-    id: `crush-${index}`,
-    frame: Math.round(
-      COLLAPSE_FROM + through * (COLLAPSE_TO - COLLAPSE_FROM - 6),
-    ),
-    // Falling, so the file sounds like it is settling rather than scattering.
-    rate: 1.26 - through * 0.5,
-    gain: 3.6 + through * 1.7,
-  };
+export const CRUSH: readonly Pulse[] = MEMBERS.flatMap((member, index) => {
+  const cycle = CYCLES[index];
+  const span = cycle.collapseTo - cycle.collapseFrom - 4;
+  return member.copies.map((_, c) => {
+    const through = c / Math.max(1, member.copies.length - 1);
+    return {
+      id: `crush-${index}-${c}`,
+      frame: Math.round(cycle.collapseFrom + through * span),
+      // Falling, so the file sounds like it is settling rather than scattering.
+      rate: 1.24 - through * 0.48,
+      gain: 3.4 + through * 1.6,
+    };
+  });
 });
 
 /**
  * The drain.
  *
- * What survived the collapse leaves the sheet and lands in the zip, a line at a
- * time down the page, so there are two cues per line: one as it goes and one as
- * it arrives. Without them the last second and a half of the cut was silent,
- * which is the same defect the sustained matches were added to fix earlier in
- * the timeline.
- *
- * Rising in pitch rather than falling, the opposite of the crush. The crush is
- * the file being compacted and this is the result being filed, and a listener
- * should be able to tell those apart with their eyes shut.
+ * What survived the collapse leaves the sheet and lands in the archive, a line
+ * at a time down the page, so there are two cues per line: one as it goes and
+ * one as it arrives. Rising in pitch where the crush fell, because one is the
+ * file being compacted and the other is the result being filed.
  */
-export const DRAIN: readonly Pulse[] = Array.from({
-  length: LINES.length,
-}).flatMap((_, line) => {
-  const stagger =
-    (line / Math.max(1, LINES.length - 1)) *
-    (DRAIN_TO - DRAIN_FROM - DRAIN_SPAN);
-  const through = line / Math.max(1, LINES.length - 1);
-  return [
-    {
-      id: `drain-go-${line}`,
-      frame: Math.round(DRAIN_FROM + stagger),
-      rate: 0.9 + through * 0.5,
-      gain: 2.4,
-    },
-    {
-      id: `drain-land-${line}`,
-      frame: Math.round(DRAIN_FROM + stagger + DRAIN_SPAN),
-      rate: 1.15 + through * 0.6,
-      gain: 3.0,
-    },
-  ];
+export const DRAIN: readonly Pulse[] = MEMBERS.flatMap((member, index) => {
+  const cycle = CYCLES[index];
+  const lines = member.lines.length;
+  const spread = cycle.drainTo - cycle.drainFrom - DRAIN_SPAN;
+  return member.lines.flatMap((_, line) => {
+    const through = line / Math.max(1, lines - 1);
+    const at = cycle.drainFrom + through * Math.max(0, spread);
+    return [
+      {
+        id: `drain-go-${index}-${line}`,
+        frame: Math.round(at),
+        rate: 0.9 + through * 0.5,
+        gain: 2.2,
+      },
+      {
+        id: `drain-land-${index}-${line}`,
+        frame: Math.round(at + DRAIN_SPAN),
+        rate: 1.15 + through * 0.6,
+        gain: 2.8,
+      },
+    ];
+  });
 });
+
+/** A member being added to the archive, and the archive being closed. */
+export const FILED: readonly number[] = CYCLES.map((c) => c.drainTo);
+export const SEAL = SEALED + 2;

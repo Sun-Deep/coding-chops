@@ -3,26 +3,24 @@ import { theme } from "../../shared/brand/theme";
 import { ACCENT } from "../../shared/vertical/palette";
 import { Eyebrow, Headline, Provenance } from "../../shared/vertical/type";
 import { PROVENANCE_TOP } from "./layout";
-import { BYTES, DEFLATE } from "./measurements";
+import { ARCHIVE, RAW_TOTAL } from "./measurements";
 import { Sheet } from "./Sheet";
 import { ZipTarget } from "./ZipTarget";
 
 const n = (v: number) => v.toLocaleString("en-US");
 
 /**
- * The shot, which is one shot.
+ * The shot, which is two cycles on one object.
  *
- * Three beats on one object rather than three layouts: the head reading, the
- * repeats firing back, and the file collapsing onto what the encoder actually
- * kept. The playbook asks for three shots and warns that three sharing a layout
- * never works, and the exception it allows is exactly this -- the comparison is
- * between the file before and the file after, so cutting away from it would
- * throw away the only thing being compared.
+ * A file is read, collapsed onto what the encoder kept, and drained into the
+ * archive; then the next file comes up with nothing behind it. The playbook
+ * warns that three shots sharing a layout never works, and allows a shared one
+ * where the comparison is the point. Here the second pass is the comparison:
+ * the whole claim of the cut is that a zip does this per file.
  *
- * Under the card are the two files drawn to the same scale. That is what makes
- * this a zip being made rather than a log being marked up, and it was missing
- * from the first cut: the mechanism was all there and nothing on screen said
- * what it was for.
+ * Under the card are the folder and the archive, drawn to the same scale. That
+ * is what makes this a folder being compressed on somebody's computer rather
+ * than an algorithm being demonstrated, and it was missing from the first cut.
  *
  * The headline is up from frame zero and stays. At feed size it is the only
  * thing read before the decision to keep watching is made, and the sheet under
@@ -42,7 +40,7 @@ export const Zip: React.FC = () => (
     <ZipTarget />
 
     <Provenance top={PROVENANCE_TOP}>
-      zlib deflate, level 9 &middot; {n(BYTES)} bytes in, {DEFLATE.out} out
+      zip -9 &middot; {n(RAW_TOTAL)} bytes in, {ARCHIVE} out
     </Provenance>
   </AbsoluteFill>
 );

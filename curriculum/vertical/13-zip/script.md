@@ -83,26 +83,7 @@ Peak -4.8 dBFS. One silence gap, which is the closing hold.
 
 ## Copy
 
-### Facebook, Instagram, TikTok
-
-297 characters including the hashtags.
-
-```text
-2,080 bytes of logs zip to 678, because 1,867 of those bytes were already on the page.
-
-Zip compresses each file on its own, so the second log gets nothing for matching the first.
-
-Code and measurements: github.com/Sun-Deep/coding-chops
-
-#zip #compression #algorithms #backend #softwareengineering
-```
-
-### YouTube Shorts title
-
-```text
-2,080 bytes of logs zip down to 678 bytes
-```
-
-### YouTube Shorts description
-
-The same two lines as the caption.
+In `publishing.md`, with the runtime, the cover and the crops, so everything the
+upload form asks for is in one place. Section 8 of the playbook is explicit
+about that and this cut had it the wrong way round at first, with the copy here
+and a pointer there.

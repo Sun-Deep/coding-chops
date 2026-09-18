@@ -22,15 +22,15 @@ export const COLUMN_LEFT = (WIDTH - COLUMN_WIDTH) / 2;
 
 /** Exact, so a highlight rectangle lands on the characters it describes. */
 export const CHAR_W = COLUMN_WIDTH / WIDEST_LINE;
-export const CHAR_SIZE = 23;
-export const LINE_H = 32;
+export const CHAR_SIZE = 19;
+export const LINE_H = 27;
 
 export const SHEET_TOP = 464;
 export const SHEET_HEIGHT = MOST_LINES * LINE_H;
 export const SHEET_BOTTOM = SHEET_TOP + SHEET_HEIGHT;
 
 /** Baseline of a line's text within its row. */
-export const BASELINE = 24;
+export const BASELINE = 20;
 
 /**
  * The card, and the header strip across the top of it.
@@ -64,7 +64,24 @@ export const BAR_HEIGHT = 24;
 /** The name sits clear above its track, not on it. */
 const LABEL_TO_BAR = 30;
 
-export const BAR_LABEL_ONE = CARD_BOTTOM + 28;
+/**
+ * The callout: one substitution, at a size somebody can actually read.
+ *
+ * This is VR13's answer to chmod's `4 + 2 + 1 = 4`, and the reason the sheet
+ * above it got smaller. The sheet is the "and this happens forty more times"
+ * texture; the lesson is here, where the characters that matched and the
+ * pointer that replaces them are both countable.
+ *
+ * The trade is deliberate. The log dropped from 23 point to 19, which is about
+ * seven points on a phone, and in exchange the mechanism gained a row at twelve
+ * where it had nothing above about one. A three pixel arc was carrying the
+ * whole idea before this.
+ */
+export const CALLOUT_TOP = CARD_BOTTOM + 18;
+export const CALLOUT_HEIGHT = 100;
+export const CALLOUT_BOTTOM = CALLOUT_TOP + CALLOUT_HEIGHT;
+
+export const BAR_LABEL_ONE = CALLOUT_BOTTOM + 22;
 export const BAR_ONE_TOP = BAR_LABEL_ONE + LABEL_TO_BAR;
 export const BAR_LABEL_TWO = BAR_ONE_TOP + BAR_HEIGHT + 22;
 export const BAR_TWO_TOP = BAR_LABEL_TWO + LABEL_TO_BAR;

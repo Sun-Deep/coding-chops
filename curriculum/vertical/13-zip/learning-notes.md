@@ -136,3 +136,29 @@ Huffman codes are chosen per block from the frequencies of the whole block, so
 more input can encode everything before it a byte cheaper. The check now allows
 the encoder's own slack. The premise was wrong, not the data, and without the
 assertion it would have been wrong in silence.
+
+## Clear is not the same as correct, and the test is different
+
+The creator asked whether this cut was as clear as the chmod one, which had
+picked up "the best explanation I've ever seen of Linux permissions". It was
+not, and the gap was measurable rather than a matter of taste.
+
+Counted at feed size, where a 1080 wide frame is about 380 points:
+
+|                                | VR12 chmod           | VR13 zip, before      |
+| ------------------------------ | -------------------- | --------------------- |
+| things on screen to track      | about 15             | 125                   |
+| smallest load-bearing element  | 56px switch, 19.7pt  | 19px character, 6.7pt |
+| the mechanism's own mark       | a switch flipping    | a 3px arc, 1.1pt      |
+| can the viewer check the claim | yes, `4 + 2 + 1 = 4` | no                    |
+
+That last row is the one that matters. VR12 does not explain permissions, it
+hands over a decoding key and lets the viewer prove it works inside the same
+frame. VR13 showed a mechanism running and asked for the result to be believed.
+
+The fix was to give it an arithmetic row of its own: one match at readable size,
+the characters on one side and the pointer on the other. Worth carrying as a
+question to ask of any cut before rendering it. Not "is the mechanism right",
+which is what the measurement script answers, but "is there a moment where the
+viewer can check something themselves, and is it the biggest thing in the
+frame". On this cut the answer to the second half was no by a factor of twenty.

@@ -28,6 +28,34 @@ with a zip icon, on the same scale under the card. That is the thing the viewer
 already owns, which is the fix VR11 needed when nobody could tell what word was
 being searched.
 
+## Why there is a callout
+
+VR12 got "the best explanation I've ever seen of Linux permissions" in the
+comments. What earned that was not the lock. It was `4 + 2 + 1 = 4` sitting in
+the frame at eleven points, where the viewer could check it themselves, so the
+understanding was theirs rather than something they had been told.
+
+VR13 had nothing like that. Measured at feed size, chmod's smallest
+load-bearing element was a 56 pixel switch, about twenty points on a phone.
+VR13's was a 19 pixel character at under seven, and the mechanism itself was a
+three pixel arc at about one. The byte counts at the end had to be taken on
+trust, because nothing on screen let anybody derive them.
+
+So one match at a time is pulled out at readable size: the characters that
+matched, and the pointer that replaces them.
+
+```text
+    GET  /api/users
+19 characters  becomes  [back 208, copy 19]
+```
+
+Countable, and the whole idea. Only matches that sit on one line are shown, and
+each is held long enough to read, which works out at four per file.
+
+The log went from 23 point to 19 to make room, and that is the right way round.
+The sheet is the "and this happens forty more times" texture. The callout is the
+lesson, and before this the lesson was the smallest thing in the frame.
+
 ## Why the clock is position and not work
 
 Copies are not spread evenly through a file. The first is 50 bytes long and

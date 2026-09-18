@@ -5,6 +5,7 @@ import { Eyebrow, Headline, Provenance } from "../../shared/vertical/type";
 import { PROVENANCE_TOP } from "./layout";
 import { ARCHIVE, RAW_TOTAL } from "./measurements";
 import { Sheet } from "./Sheet";
+import { Substitution } from "./Substitution";
 import { ZipTarget } from "./ZipTarget";
 
 const n = (v: number) => v.toLocaleString("en-US");
@@ -37,6 +38,7 @@ export const Zip: React.FC = () => (
     </Headline>
 
     <Sheet />
+    <Substitution />
     <ZipTarget />
 
     <Provenance top={PROVENANCE_TOP}>

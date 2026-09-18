@@ -54,10 +54,11 @@ catch. Each is a second idea, and this cut has one.
 
 ## Files
 
-| File                                  | What it is                                   |
-| ------------------------------------- | -------------------------------------------- |
-| `scripts/measure-zip.mjs`             | the measurement, and the source of figures   |
-| `src/vertical/13-zip/measurements.ts` | the figures, one module                      |
-| `src/vertical/13-zip/lz77.ts`         | the parse, per file, recomputed and asserted |
-| `src/vertical/13-zip/Sheet.tsx`       | the member being compressed                  |
-| `src/vertical/13-zip/ZipTarget.tsx`   | the folder and the archive                   |
+| File                                   | What it is                                   |
+| -------------------------------------- | -------------------------------------------- |
+| `scripts/measure-zip.mjs`              | the measurement, and the source of figures   |
+| `src/vertical/13-zip/measurements.ts`  | the figures, one module                      |
+| `src/vertical/13-zip/lz77.ts`          | the parse, per file, recomputed and asserted |
+| `src/vertical/13-zip/Sheet.tsx`        | the member being compressed                  |
+| `src/vertical/13-zip/ZipTarget.tsx`    | the folder and the archive                   |
+| `src/vertical/13-zip/Substitution.tsx` | one match, at a size somebody can read       |

@@ -1,4 +1,4 @@
-import { MEMBERS } from "./lz77";
+import { MEMBERS, runsOf } from "./lz77";
 
 /** Fourteen seconds at 30fps. Section 2 of the vertical format standard. */
 export const DURATION = 420;
@@ -143,3 +143,78 @@ export const readSoFar = (frame: number) => {
   for (let i = 0; i < index; i++) total += MEMBERS[i].bytes;
   return total + headAt(frame);
 };
+
+/**
+ * The substitution the callout is showing.
+ *
+ * VR12's `4 + 2 + 1 = 4` is the reason people called it the best explanation
+ * they had seen: the viewer does the arithmetic themselves, in the frame, so
+ * the understanding is theirs rather than something they were told. VR13 had no
+ * equivalent. Its mechanism was a three pixel arc over eight point text, which
+ * is about one point on a phone, and the byte counts at the end had to be taken
+ * on trust.
+ *
+ * So one match at a time is pulled out at readable size: the characters it
+ * matched, and the pointer that replaces them. It is countable, it is the whole
+ * idea, and the numbers at the end now follow from something the viewer watched
+ * rather than from an assertion.
+ *
+ * Only matches worth reading are shown, and each is held long enough to read.
+ * Every match still lights on the sheet; the sheet is the "and this happens
+ * forty more times" texture, and the callout is the lesson.
+ */
+const SHOWN_MIN = 18;
+const SHOWN_HOLD = 20;
+
+/** Long enough to actually read before it changes. */
+const SHOWN_LEAST = 16;
+
+/**
+ * Only matches that sit on one line are shown.
+ *
+ * A copy routinely runs over a line ending, and most of the long ones here do.
+ * That is fine on the sheet, where it draws as two rectangles, and no good in a
+ * callout, where the newline would either open a hole in the middle of the text
+ * or need a glyph nobody asked to learn. There are plenty that do not cross.
+ */
+const onOneLine = (member: number, copy: number) => {
+  const c = MEMBERS[member].copies[copy];
+  const runs = runsOf(MEMBERS[member], c.at, c.length);
+  return runs.length === 1 && runs[0].to - runs[0].from === c.length;
+};
+
+export type Showcase = {
+  readonly member: number;
+  readonly copy: number;
+  readonly from: number;
+  readonly to: number;
+};
+
+export const SHOWCASE: readonly Showcase[] = MEMBERS.flatMap(
+  (member, index) => {
+    const cycle = CYCLES[index];
+    const picked: Showcase[] = [];
+    let free = cycle.readFrom;
+
+    member.copies.forEach((copy, c) => {
+      if (copy.length < SHOWN_MIN) return;
+      if (!onOneLine(index, c)) return;
+      const at = Math.round(frameOfByte(index, copy.at));
+      if (at < free) return;
+      picked.push({ member: index, copy: c, from: at, to: cycle.collapseFrom });
+      free = at + SHOWN_HOLD;
+    });
+
+    // Each one ends when the next begins, and the last runs to the collapse.
+    return picked
+      .map((show, i) => ({
+        ...show,
+        to: i + 1 < picked.length ? picked[i + 1].from : cycle.collapseFrom,
+      }))
+      .filter((show) => show.to - show.from >= SHOWN_LEAST);
+  },
+);
+
+/** The substitution on screen at a frame, if there is one. */
+export const showcaseAt = (frame: number) =>
+  SHOWCASE.find((s) => frame >= s.from && frame < s.to);

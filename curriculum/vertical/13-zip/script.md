@@ -32,6 +32,8 @@ card        logs/mon.log                      1,040 bytes   (then logs/tue.log)
 sheet       20 lines of log, 51 characters wide, 23 point mono
 bands       every matched stretch, under its characters
 arcs        from a match back to the text it is a copy of, never across a file
+callout     GET  /api/users
+            19 characters  becomes  [back 208, copy 19]
 bar one     [folder] logs        filling as the files are read     2,080 bytes
 bar two     [zip] logs.zip       filling as the archive is written   678 bytes
 note        3.07x smaller, written inside the empty end of bar two
@@ -42,6 +44,25 @@ The folder and the zip are what make this a folder being compressed on somebody'
 computer rather than an algorithm being demonstrated, and the first build of it
 did not have them. Everything else was already there and nothing said what it
 was for.
+
+The callout is the second thing it did not have, and it is the more important
+one. VR12 got "the best explanation I've ever seen of Linux permissions" in the
+comments, and what earned that was `4 + 2 + 1 = 4` sitting in the frame where
+the viewer could check it themselves. VR13 had no equivalent. Its mechanism was
+a three pixel arc over eight point text, about one point on a phone, and the
+byte counts at the end had to be taken on trust.
+
+So one match at a time is pulled out at readable size: the characters that
+matched, and the pointer that replaces them. It is countable, it is the whole
+idea, and the numbers at the end now follow from something the viewer watched.
+
+The log dropped from 23 point to 19 to make room. That is the right trade. The
+sheet is the "and this happens forty more times" texture; the callout is the
+lesson, and before this the lesson was the smallest thing in the frame.
+
+The pointer carries no byte cost, because it does not have a fixed one. A length
+and a distance are Huffman coded, so what they weigh depends on the rest of the
+block. "One pointer" is exactly true and a number there would not be.
 
 They are drawn to the same scale, so the lower bar stopping a third of the way
 along is the claim and the empty end of it is the space that was saved.

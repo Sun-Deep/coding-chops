@@ -21,8 +21,17 @@ explained is the whole opportunity.
 
 It is also the first cut in this format to use the shape behind the channel's
 two biggest videos: a reference somebody wants to keep. VR09 through VR11 were
-all a search space collapsing, drawn as a six panel grid, and the returns fell
-each time. 512 down to four is both shapes at once.
+all a search space collapsing, drawn as a six panel grid, and varying the shape
+was worth doing on its own. 512 down to four is both shapes at once.
+
+Corrected on 2026-09-18. This section originally said the returns fell each time
+across VR09, VR10 and VR11, and the topic choice was partly argued from that.
+The figures behind it were read at 16 and 21 hours old and they were not
+finished: at four, three and two days the three cuts sit at 96K, 80K and 85K.
+Nothing was falling. The shape change was still the right call and the reasoning
+under "Why a lock" stands on its own, but it was not rescuing a decline, and the
+lesson is about the reading rather than the reel. A reel's number at 16 hours is
+not its number.
 
 ## Why a lock
 

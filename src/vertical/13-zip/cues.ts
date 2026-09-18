@@ -1,5 +1,13 @@
-import { COLLAPSE_FROM, COLLAPSE_TO, FIRINGS, frameOfByte } from "./beats";
-import { PARSE } from "./measurements";
+import {
+  COLLAPSE_FROM,
+  COLLAPSE_TO,
+  DRAIN_FROM,
+  DRAIN_SPAN,
+  DRAIN_TO,
+  FIRINGS,
+  frameOfByte,
+} from "./beats";
+import { LINES, PARSE } from "./measurements";
 import { TOKENS } from "./lz77";
 
 /**
@@ -121,6 +129,42 @@ export const CRUSH: readonly Pulse[] = FIRINGS.map((fired, index) => {
     ),
     // Falling, so the file sounds like it is settling rather than scattering.
     rate: 1.26 - through * 0.5,
-    gain: 4.2 + through * 2.2,
+    gain: 3.6 + through * 1.7,
   };
+});
+
+/**
+ * The drain.
+ *
+ * What survived the collapse leaves the sheet and lands in the zip, a line at a
+ * time down the page, so there are two cues per line: one as it goes and one as
+ * it arrives. Without them the last second and a half of the cut was silent,
+ * which is the same defect the sustained matches were added to fix earlier in
+ * the timeline.
+ *
+ * Rising in pitch rather than falling, the opposite of the crush. The crush is
+ * the file being compacted and this is the result being filed, and a listener
+ * should be able to tell those apart with their eyes shut.
+ */
+export const DRAIN: readonly Pulse[] = Array.from({
+  length: LINES.length,
+}).flatMap((_, line) => {
+  const stagger =
+    (line / Math.max(1, LINES.length - 1)) *
+    (DRAIN_TO - DRAIN_FROM - DRAIN_SPAN);
+  const through = line / Math.max(1, LINES.length - 1);
+  return [
+    {
+      id: `drain-go-${line}`,
+      frame: Math.round(DRAIN_FROM + stagger),
+      rate: 0.9 + through * 0.5,
+      gain: 2.4,
+    },
+    {
+      id: `drain-land-${line}`,
+      frame: Math.round(DRAIN_FROM + stagger + DRAIN_SPAN),
+      rate: 1.15 + through * 0.6,
+      gain: 3.0,
+    },
+  ];
 });

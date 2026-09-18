@@ -100,5 +100,97 @@ export const DEFLATE = {
   gzip: 195,
 } as const;
 
+/** Bytes between samples of the growing output. */
+export const GROWTH_STRIDE = 15;
+
+/**
+ * The size of the zip after the first N bytes of the log.
+ *
+ * A real `deflateRaw` run at every sample rather than a curve drawn between the
+ * two ends, so the bar the reel fills is measured at every point it passes
+ * through. It is not a prefix of the finished stream: DEFLATE picks its Huffman
+ * tables per block, so the final 177 bytes are not the last sample plus a
+ * remainder. The reel uses it to draw the output growing and never subtracts
+ * one sample from another.
+ *
+ * The shape is the argument. The first three samples grow one for one with the
+ * file, because nothing has been said yet that can be pointed at. Then the file
+ * grows from 60 bytes to 90 and the output does not move at all, because the
+ * whole of the second line was already on the first. It never recovers its
+ * early slope.
+ */
+export const GROWTH: readonly (readonly [number, number])[] = [
+  [0, 2],
+  [15, 17],
+  [30, 32],
+  [45, 47],
+  [60, 57],
+  [75, 57],
+  [90, 57],
+  [105, 60],
+  [120, 60],
+  [135, 63],
+  [150, 64],
+  [165, 67],
+  [180, 67],
+  [195, 73],
+  [210, 79],
+  [225, 79],
+  [240, 82],
+  [255, 83],
+  [270, 86],
+  [285, 91],
+  [300, 92],
+  [315, 98],
+  [330, 100],
+  [345, 102],
+  [360, 103],
+  [375, 105],
+  [390, 104],
+  [405, 109],
+  [420, 114],
+  [435, 118],
+  [450, 118],
+  [465, 120],
+  [480, 120],
+  [495, 121],
+  [510, 123],
+  [525, 124],
+  [540, 129],
+  [555, 133],
+  [570, 138],
+  [585, 138],
+  [600, 140],
+  [615, 139],
+  [630, 140],
+  [645, 142],
+  [660, 143],
+  [675, 144],
+  [690, 144],
+  [705, 147],
+  [720, 147],
+  [735, 147],
+  [750, 150],
+  [765, 150],
+  [780, 154],
+  [795, 153],
+  [810, 156],
+  [825, 155],
+  [840, 155],
+  [855, 159],
+  [870, 157],
+  [885, 158],
+  [900, 159],
+  [915, 162],
+  [930, 169],
+  [945, 169],
+  [960, 173],
+  [975, 172],
+  [990, 173],
+  [1005, 175],
+  [1020, 175],
+  [1035, 177],
+];
+
 /** 1,035 into 177. */
 export const RATIO = 5.85;

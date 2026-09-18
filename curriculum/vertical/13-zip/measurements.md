@@ -38,6 +38,31 @@ The same encoder with matching switched off (`Z_HUFFMAN_ONLY`) gets this file to
 a split of the saving, because the two mechanisms do not decompose additively:
 Huffman after LZ77 is coding a different stream than Huffman alone.
 
+## Why matching is the part worth animating
+
+The same encoder with matching switched off (`Z_HUFFMAN_ONLY`) gets this file to
+636 bytes. With matching on it gets to 177. Reported as two runs rather than as
+a split of the saving, because the two mechanisms do not decompose additively:
+Huffman after LZ77 is coding a different stream than Huffman alone.
+
+## The output does not only grow
+
+The script also compresses every prefix of the file, because the reel draws the
+zip filling up while the log is read and the bar has to be measured at every
+point it passes through rather than fitted between the two ends.
+
+Two things fell out of that. The shape is the argument: the first three samples
+grow one for one with the file, and then the file grows from 60 bytes to 90 and
+the output does not move at all, because the whole of the second line was
+already on the first.
+
+And the output is one or two bytes _smaller_ at six of the samples than it was
+fifteen bytes earlier. That is real rather than a fault. Huffman codes are
+chosen per block from the frequencies of the whole block, so fifteen more bytes
+can shift the distribution enough to encode everything before them a byte
+cheaper. It is the same reason the finished 177 bytes are not the last sample
+plus a remainder, and `lz77.ts` allows for it rather than asserting a rise.
+
 ## Raw output
 
 ```text
@@ -62,6 +87,78 @@ gzip -9               195 bytes  (with header and checksum)
 ratio                 5.85x
 matching off          636 bytes
 matching on           177 bytes
+
+# The output as it grows (deflateRaw of the first N bytes)
+  after    0 bytes  ->    2 bytes
+  after   15 bytes  ->   17 bytes
+  after   30 bytes  ->   32 bytes
+  after   45 bytes  ->   47 bytes
+  after   60 bytes  ->   57 bytes
+  after   75 bytes  ->   57 bytes
+  after   90 bytes  ->   57 bytes
+  after  105 bytes  ->   60 bytes
+  after  120 bytes  ->   60 bytes
+  after  135 bytes  ->   63 bytes
+  after  150 bytes  ->   64 bytes
+  after  165 bytes  ->   67 bytes
+  after  180 bytes  ->   67 bytes
+  after  195 bytes  ->   73 bytes
+  after  210 bytes  ->   79 bytes
+  after  225 bytes  ->   79 bytes
+  after  240 bytes  ->   82 bytes
+  after  255 bytes  ->   83 bytes
+  after  270 bytes  ->   86 bytes
+  after  285 bytes  ->   91 bytes
+  after  300 bytes  ->   92 bytes
+  after  315 bytes  ->   98 bytes
+  after  330 bytes  ->  100 bytes
+  after  345 bytes  ->  102 bytes
+  after  360 bytes  ->  103 bytes
+  after  375 bytes  ->  105 bytes
+  after  390 bytes  ->  104 bytes
+  after  405 bytes  ->  109 bytes
+  after  420 bytes  ->  114 bytes
+  after  435 bytes  ->  118 bytes
+  after  450 bytes  ->  118 bytes
+  after  465 bytes  ->  120 bytes
+  after  480 bytes  ->  120 bytes
+  after  495 bytes  ->  121 bytes
+  after  510 bytes  ->  123 bytes
+  after  525 bytes  ->  124 bytes
+  after  540 bytes  ->  129 bytes
+  after  555 bytes  ->  133 bytes
+  after  570 bytes  ->  138 bytes
+  after  585 bytes  ->  138 bytes
+  after  600 bytes  ->  140 bytes
+  after  615 bytes  ->  139 bytes
+  after  630 bytes  ->  140 bytes
+  after  645 bytes  ->  142 bytes
+  after  660 bytes  ->  143 bytes
+  after  675 bytes  ->  144 bytes
+  after  690 bytes  ->  144 bytes
+  after  705 bytes  ->  147 bytes
+  after  720 bytes  ->  147 bytes
+  after  735 bytes  ->  147 bytes
+  after  750 bytes  ->  150 bytes
+  after  765 bytes  ->  150 bytes
+  after  780 bytes  ->  154 bytes
+  after  795 bytes  ->  153 bytes
+  after  810 bytes  ->  156 bytes
+  after  825 bytes  ->  155 bytes
+  after  840 bytes  ->  155 bytes
+  after  855 bytes  ->  159 bytes
+  after  870 bytes  ->  157 bytes
+  after  885 bytes  ->  158 bytes
+  after  900 bytes  ->  159 bytes
+  after  915 bytes  ->  162 bytes
+  after  930 bytes  ->  169 bytes
+  after  945 bytes  ->  169 bytes
+  after  960 bytes  ->  173 bytes
+  after  975 bytes  ->  172 bytes
+  after  990 bytes  ->  173 bytes
+  after 1005 bytes  ->  175 bytes
+  after 1020 bytes  ->  175 bytes
+  after 1035 bytes  ->  177 bytes
 
 # Every copy, in order
   at   52  back   52  len  48  "2026-09-18 09:14:02 INFO  GET  /api/orders 200 1"

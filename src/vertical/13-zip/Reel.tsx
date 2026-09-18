@@ -1,8 +1,8 @@
 import { Sfx } from "../../shared/primitives/Sfx";
 import { Narration } from "../../shared/vertical/Narration";
 import { VerticalShell } from "../../shared/vertical/VerticalShell";
-import { COLLAPSE_TO, VERDICT_TO } from "./beats";
-import { CRUSH, LITERALS, MATCHES } from "./cues";
+import { COLLAPSE_TO, DRAIN_TO, RATIO_FROM } from "./beats";
+import { CRUSH, DRAIN, LITERALS, MATCHES } from "./cues";
 import { narration } from "./narration";
 import { Zip } from "./Zip";
 
@@ -52,8 +52,20 @@ export const ZipReel: React.FC = () => (
       />
     ))}
 
-    {/* The file coming to rest at its new size. */}
-    <Sfx name="land" at={COLLAPSE_TO} gain={5.6} playbackRate={0.86} />
-    <Sfx name="name" at={VERDICT_TO - 6} gain={4.6} />
+    {/* What survived, going into the zip a line at a time. */}
+    {DRAIN.map((pulse) => (
+      <Sfx
+        key={pulse.id}
+        name={pulse.id.startsWith("drain-go") ? "return" : "tick"}
+        at={pulse.frame}
+        gain={pulse.gain}
+        playbackRate={pulse.rate}
+      />
+    ))}
+
+    {/* The file coming to rest at its new size, then the zip closing on it. */}
+    <Sfx name="land" at={COLLAPSE_TO} gain={4.9} playbackRate={0.86} />
+    <Sfx name="solved" at={DRAIN_TO - 4} gain={3.2} />
+    <Sfx name="name" at={RATIO_FROM} gain={3.4} />
   </VerticalShell>
 );

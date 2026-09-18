@@ -26,7 +26,7 @@ export const CHAR_W = COLUMN_WIDTH / WIDEST_LINE;
 export const CHAR_SIZE = 23;
 export const LINE_H = 32;
 
-export const SHEET_TOP = 492;
+export const SHEET_TOP = 464;
 export const SHEET_HEIGHT = LINES.length * LINE_H;
 export const SHEET_BOTTOM = SHEET_TOP + SHEET_HEIGHT;
 
@@ -47,8 +47,30 @@ export const CARD_TOP = SHEET_TOP - HEADER_H - 14;
 export const CARD_BOTTOM = SHEET_BOTTOM + 22;
 export const HEADER_BASELINE = CARD_TOP + 39;
 
-/** One line under the card, never three. */
-export const READOUT_TOP = CARD_BOTTOM + 44;
+/**
+ * The two files, drawn to the same scale.
+ *
+ * This is the part that says a zip is being made rather than a file being
+ * marked up. The source fills as the head reads it and the zip fills as the
+ * encoder writes it, both measured against the same track, so the gap between
+ * the two bars is the compression and the empty end of the lower bar is the
+ * space that was saved.
+ *
+ * It replaced a single readout counting copied bytes. The bars carry that and
+ * the narration says the number, and a count under a diagram was the dashboard
+ * section 4 of the playbook warns about anyway.
+ */
+export const BAR_HEIGHT = 24;
+
+/** The name sits clear above its track, not on it. */
+const LABEL_TO_BAR = 30;
+
+export const BAR_LABEL_ONE = CARD_BOTTOM + 28;
+export const BAR_ONE_TOP = BAR_LABEL_ONE + LABEL_TO_BAR;
+export const BAR_LABEL_TWO = BAR_ONE_TOP + BAR_HEIGHT + 22;
+export const BAR_TWO_TOP = BAR_LABEL_TWO + LABEL_TO_BAR;
+
+export const PROVENANCE_TOP = BAR_TWO_TOP + BAR_HEIGHT + 24;
 
 if (COLUMN_LEFT + COLUMN_WIDTH + PAD > RAIL_EDGE) {
   throw new Error("the card runs under the platform action rail");

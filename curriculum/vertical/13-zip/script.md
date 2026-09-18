@@ -24,18 +24,33 @@ distinct positions.
 ```text
 eyebrow     FILE COMPRESSION
 headline    Zip finds what you / already said.
-card        server.log                        1,035 bytes   (live: it falls to 177)
+card        server.log                        1,035 bytes   (does not change)
 sheet       20 lines of log, 51 characters wide, 23 point mono
 bands       every matched stretch, under its characters
 arcs        from a match back to the text it is a copy of
-readout     939 of 1,035 bytes already said   ->   5.85x smaller
+bar one     server.log       filling to the head        1,035 bytes
+bar two     server.log.zip   filling to the real output   177 bytes
+note        5.85x smaller, written inside the empty end of bar two
 provenance  zlib deflate, level 9 · 1,035 bytes in, 177 out
 ```
 
-The size lives in the file's own header rather than in a strip under the
-diagram. A byte count below the picture is a dashboard reporting on it; a byte
-count in the header is the file saying how big it is, and watching it fall is
-the verdict rather than a caption about the verdict.
+The two bars are what make this a zip being made rather than a log being marked
+up, and the first cut of it did not have them. Everything else was already
+there: the head, the matches, the arcs and the collapse were all on screen and
+nothing said what they were for.
+
+They are drawn to the same scale, so the lower bar stopping a sixth of the way
+along is the claim. Its length at every point is a real `deflateRaw` of the file
+up to there rather than a line between the two ends, which buys the moment where
+the source grows thirty bytes and the zip does not move at all.
+
+The source keeps its size the whole way through. Zipping a file does not shrink
+it, it writes a second file, and an earlier version counted the card's header
+down from 1,035 to 177 as though the log itself had got smaller. The number that
+falls belongs on the zip.
+
+The ratio sits inside the empty end of the zip's track, so it is written in the
+space it is describing.
 
 ## Sound
 
@@ -54,10 +69,12 @@ head was inside the longest copy in the file, which is the most important moment
 in the cut and was also the quietest one.
 
 Then thirty-nine `swap` hits inside a second and a half as the stretches
-collapse, falling in pitch, and a `land` when the file comes to rest at its new
-size.
+collapse, falling in pitch. Then the drain: two cues a line, a `return` as it
+leaves the sheet and a `tick` as it lands in the zip, rising in pitch where the
+crush fell, because one is the file being compacted and the other is the result
+being filed.
 
-Peak -5.1 dBFS. One silence gap, which is the closing hold.
+Peak -5.4 dBFS. No silence gaps.
 
 ## Copy
 

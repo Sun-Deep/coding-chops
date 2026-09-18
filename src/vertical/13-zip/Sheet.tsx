@@ -3,6 +3,8 @@ import { theme } from "../../shared/brand/theme";
 import { HEIGHT, WIDTH } from "../../shared/vertical/geometry";
 import { ACCENT } from "../../shared/vertical/palette";
 import {
+  BAR_HEIGHT,
+  BAR_TWO_TOP,
   BASELINE,
   CARD_BOTTOM,
   CARD_TOP,
@@ -16,17 +18,9 @@ import {
   PAD,
   SHEET_TOP,
 } from "./layout";
-import { BYTES, DEFLATE, LINES, TEXT } from "./measurements";
+import { BYTES, LINES, TEXT } from "./measurements";
 import { COPIES, SEGMENTS, runsOf, seatOf } from "./lz77";
-import {
-  FIRE,
-  FIRINGS,
-  READ_TO,
-  VERDICT_FROM,
-  VERDICT_TO,
-  collapsedAt,
-  headAt,
-} from "./beats";
+import { FIRE, FIRINGS, READ_TO, collapsedAt, drainAt, headAt } from "./beats";
 
 const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 const mix = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -60,6 +54,25 @@ const rowTop = (line: number) => line * LINE_H;
 const mid = (line: number) => rowTop(line) + LINE_H / 2;
 
 /**
+ * Where everything that survived the collapse ends up.
+ *
+ * The filled part of the zip bar, in the sheet's own coordinates, because that
+ * is the file the bytes are going into.
+ */
+const DRAIN_X = COLUMN_LEFT + 62 - COLUMN_LEFT;
+const DRAIN_Y = BAR_TWO_TOP + BAR_HEIGHT / 2 - SHEET_TOP;
+
+/** A drained element, falling toward the zip and shrinking as it goes. */
+const drainTransform = (px: number, py: number, t: number) => {
+  if (t <= 0) return undefined;
+  const eased = t * t * (3 - 2 * t);
+  const dx = (DRAIN_X - px) * eased;
+  const dy = (DRAIN_Y - py) * eased;
+  const scale = 1 - 0.75 * eased;
+  return `translate(${dx}, ${dy}) translate(${px}, ${py}) scale(${scale}) translate(${-px}, ${-py})`;
+};
+
+/**
  * The file, as an object rather than a readout.
  *
  * Everything in this cut happens on one sheet of text. The head runs through it
@@ -79,10 +92,6 @@ export const Sheet: React.FC = () => {
   const collapse = collapsedAt(frame);
   const reading = frame <= READ_TO;
   const seat = seatOf(Math.min(head, TEXT.length - 1));
-
-  /** The header's byte count, easing from the file's size to the zip's. */
-  const shrunk = clamp((frame - VERDICT_FROM) / (VERDICT_TO - VERDICT_FROM));
-  const size = Math.round(mix(BYTES, DEFLATE.out, 1 - (1 - shrunk) ** 3));
 
   const lit = (index: number) => clamp((frame - FIRINGS[index].frame) / FIRE);
 
@@ -124,6 +133,12 @@ export const Sheet: React.FC = () => {
       >
         server.log
       </text>
+      {/*
+        The source keeps its size for the whole cut. Zipping a file does not
+        shrink it, it writes a second file, and the first version of this header
+        counted down from 1,035 to 177 as though the log itself had got smaller.
+        The number that falls belongs on the zip, which is where it is now.
+      */}
       <text
         x={COLUMN_LEFT + COLUMN_WIDTH}
         y={HEADER_BASELINE}
@@ -131,10 +146,10 @@ export const Sheet: React.FC = () => {
         fontFamily={theme.monoFamily}
         fontSize={31}
         fontWeight={600}
-        fill={shrunk > 0 ? ACCENT : theme.colors.chalk}
+        fill={theme.colors.chalk}
         style={{ fontVariantNumeric: "tabular-nums" }}
       >
-        {size.toLocaleString("en-US")} bytes
+        {BYTES.toLocaleString("en-US")} bytes
       </text>
 
       <g transform={`translate(${COLUMN_LEFT}, ${SHEET_TOP})`}>
@@ -158,6 +173,7 @@ export const Sheet: React.FC = () => {
           return runsOf(copy.at, copy.length).map((run, r) => {
             const full = (run.to - run.from) * CHAR_W;
             const width = mix(full, Math.min(STUB, full), collapse);
+            const gone = drainAt(frame, run.line, LINES.length);
             return (
               <rect
                 key={`band-${index}-${r}`}
@@ -167,10 +183,51 @@ export const Sheet: React.FC = () => {
                 height={LINE_H - 6}
                 rx={5}
                 fill={ACCENT}
-                opacity={mix(0.15, 0.3, on) + collapse * 0.55}
+                opacity={
+                  (mix(0.15, 0.3, on) + collapse * 0.55) * (1 - gone ** 2)
+                }
+                transform={drainTransform(
+                  x(run.from),
+                  rowTop(run.line) + LINE_H / 2,
+                  gone,
+                )}
               />
             );
           });
+        })}
+
+        {/*
+          The log, put back.
+
+          Zipping a file does not consume it, and draining the sheet into the
+          zip with nothing left over ended the cut on an empty card, which reads
+          as the log having been deleted. So as each line leaves for the zip,
+          the original line fades back in underneath it, plain and neutral,
+          because the mechanism has finished arguing by then.
+
+          The last frame is then the true one: the log exactly as it was, and a
+          copy of it a sixth of the size sitting under it. It also keeps the
+          closing seconds moving, which is what the frozen-frame check wanted.
+        */}
+        {SEGMENTS.map((segment, index) => {
+          const back = drainAt(frame, segment.line, LINES.length);
+          if (back <= 0) return null;
+          return (
+            <text
+              key={`back-${index}`}
+              x={x(segment.from)}
+              y={rowTop(segment.line) + BASELINE}
+              textLength={(segment.to - segment.from) * CHAR_W}
+              lengthAdjust="spacing"
+              fontFamily={theme.monoFamily}
+              fontSize={CHAR_SIZE}
+              fill={theme.colors.chalk}
+              opacity={0.5 * back}
+              style={{ whiteSpace: "pre" }}
+            >
+              {LINES[segment.line].slice(segment.from, segment.to)}
+            </text>
+          );
         })}
 
         {/* The text. One node per stretch that shares an owner. */}
@@ -178,6 +235,10 @@ export const Sheet: React.FC = () => {
           const text = LINES[segment.line].slice(segment.from, segment.to);
           const copied = segment.copy >= 0;
           const on = copied ? lit(segment.copy) : 0;
+          const gone = drainAt(frame, segment.line, LINES.length);
+          const base = copied
+            ? mix(0.78, 1, on) * (1 - collapse)
+            : mix(0.78, 1, collapse);
           return (
             <text
               key={`text-${index}`}
@@ -188,11 +249,12 @@ export const Sheet: React.FC = () => {
               fontFamily={theme.monoFamily}
               fontSize={CHAR_SIZE}
               fill={blend(theme.colors.chalk, ACCENT, on)}
-              opacity={
-                copied
-                  ? mix(0.78, 1, on) * (1 - collapse)
-                  : mix(0.78, 1, collapse)
-              }
+              opacity={base * (1 - gone ** 2)}
+              transform={drainTransform(
+                x(segment.from),
+                rowTop(segment.line) + LINE_H / 2,
+                gone,
+              )}
               style={{ whiteSpace: "pre" }}
             >
               {text}

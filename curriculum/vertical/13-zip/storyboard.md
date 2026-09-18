@@ -10,8 +10,33 @@ away the only thing being compared.
 | Frames  | Beat             | Hero                                                  |
 | ------- | ---------------- | ----------------------------------------------------- |
 | 0-150   | the head reads   | the first long match, a whole line lighting at once   |
-| 150-306 | the repeats fire | arcs throwing back across the sheet                   |
-| 306-420 | the collapse     | the file losing most of itself, header falling to 177 |
+| 150-306 | the repeats fire | arcs throwing back, and the zip bar refusing to grow  |
+| 306-352 | the collapse     | the file losing most of itself                        |
+| 352-398 | the drain        | what is left flying into the zip, the log coming back |
+
+## Why there are two bars
+
+The first cut of this had none, and it was the thing wrong with it. The
+mechanism was all there and nothing on screen said it was a zip: a viewer saw a
+log being highlighted and then crumpling, with a byte count in the card header
+falling. That count was also a small lie, because zipping a file does not shrink
+it.
+
+So the lower half of the frame is now the two files, to the same scale. The
+source fills as the head reads it, the zip fills as the encoder writes it, and
+the gap between them is the compression. The empty end of the zip's track is the
+space that was saved, which is where the ratio is written.
+
+## Why the log comes back
+
+The drain used to end on an empty card, which reads as the log having been
+deleted. As each line leaves for the zip the original line now fades back in
+underneath it, plain and neutral, so the last frame is the true one: the log
+exactly as it was, and a copy of it a sixth of the size sitting under it.
+
+It also keeps the closing seconds moving. Taking the header odometer out had
+left two flat seconds on the frozen-frame check; with the drain and the restore
+the longest hold in the cut is 0.07 seconds.
 
 ## Why the clock is position and not work
 
@@ -46,10 +71,13 @@ against.
 
 ## Cue map
 
-| Event                    | Sound   | Pitch                        |
-| ------------------------ | ------- | ---------------------------- |
-| a character spelled out  | `tick`  | fixed                        |
-| a stretch matched        | `probe` | by distance back, near high  |
-| a stretch being copied   | `probe` | same note, quieter, every 6f |
-| a stretch collapsing     | `swap`  | falling through the file     |
-| the file at its new size | `land`  | low                          |
+| Event                      | Sound    | Pitch                        |
+| -------------------------- | -------- | ---------------------------- |
+| a character spelled out    | `tick`   | fixed                        |
+| a stretch matched          | `probe`  | by distance back, near high  |
+| a stretch being copied     | `probe`  | same note, quieter, every 6f |
+| a stretch collapsing       | `swap`   | falling through the file     |
+| the file at its new size   | `land`   | low                          |
+| a line leaving for the zip | `return` | rising down the page         |
+| a line landing in the zip  | `tick`   | rising down the page         |
+| the zip closed             | `solved` | fixed                        |

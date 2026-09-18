@@ -16,11 +16,11 @@ Not posted. The understanding check is open.
 | Check               | Result                                         |
 | ------------------- | ---------------------------------------------- |
 | duration            | 14.06s                                         |
-| longest frozen hold | 1.27s, and it is the closing hold              |
-| audio peak          | -5.1 dBFS                                      |
-| audio mean          | -25.4 dBFS                                     |
-| silence gaps        | one, 0.52s, the closing hold                   |
-| safe areas          | clear, card stops exactly at the rail edge     |
+| longest frozen hold | 0.07s                                          |
+| audio peak          | -5.4 dBFS                                      |
+| audio mean          | -24.3 dBFS                                     |
+| silence gaps        | none                                           |
+| safe areas          | clear, card and bars stop at the rail edge     |
 | cover crops         | both hold the headline, the sheet and the mark |
 | measurement rerun   | byte identical                                 |
 

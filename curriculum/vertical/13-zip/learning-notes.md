@@ -61,3 +61,39 @@ The fixture was picked for what frame zero says before any mechanism runs. A
 stranger looking at twenty lines of log can see that most of it is the same few
 strings over and over, which is the entire claim of the cut, and they can see it
 without being told. Prose would have hidden the repetition inside words.
+
+## A mechanism is not a subject
+
+The first cut of this was finished and wrong. The head read the file, matches
+lit and threw arcs back, the sheet collapsed, the numbers were real and the
+checks passed. What it did not do anywhere was show a zip.
+
+The creator's note was that it was not visually representing that it is zipping,
+and that is exactly right. Everything on screen was the _inside_ of the
+mechanism, and nothing was the thing the mechanism is for. A viewer who did not
+already know what LZ77 was saw a log file being highlighted and then crumpling.
+
+The fix is the same one VR11 needed: draw the thing the viewer already owns.
+VR11 drew a find bar; this draws the two files, `server.log` and
+`server.log.zip`, to the same scale, filling as the encoder works. Nothing about
+the mechanism changed. What changed is that the frame now says what the
+mechanism is producing.
+
+Worth generalising, because it is two cuts in a row now. Having built the
+mechanism correctly is not evidence that the cut shows what it is about. Those
+are separate questions and the second one cannot be answered by the person who
+built the first.
+
+## Two things the fix had to get right anyway
+
+The bar could have been drawn between the two ends with a curve. It is measured
+instead, a real `deflateRaw` at every sample, and that is what produced the
+moment where the file grows thirty bytes and the zip does not move at all
+because the second line was already the first. A fitted curve would have been a
+smooth ramp and would have thrown that away.
+
+And an animation that is easy to draw is not always true. The card header
+counting down from 1,035 to 177 was the obvious way to show the file getting
+smaller, and it says something false: zipping does not shrink the original, it
+writes a second file. The number that falls belongs on the zip, and the log has
+to still be there at the end, which is why it fades back in as it drains.

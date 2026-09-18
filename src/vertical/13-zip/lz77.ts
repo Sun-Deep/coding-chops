@@ -1,5 +1,8 @@
 import {
   BYTES,
+  DEFLATE,
+  GROWTH,
+  GROWTH_STRIDE,
   LINES,
   MAX_MATCH,
   MIN_MATCH,
@@ -227,3 +230,57 @@ export const SEGMENTS: readonly Segment[] = (() => {
 
   return segments;
 })();
+
+// ---------------------------------------------------------------------------
+// The growth table.
+// ---------------------------------------------------------------------------
+//
+// This one cannot be double entered, because recomputing it would mean
+// implementing DEFLATE rather than LZ77. What can be checked is that it is the
+// table it claims to be: sampled at the stride it says, and ending on the file
+// and on the output size the rest of the module already asserts.
+//
+// It is deliberately not asserted to rise every step. It does not, and finding
+// that out was worth the failed assertion: the output is one or two bytes
+// smaller at six of these samples than it was fifteen bytes earlier. That is
+// real DEFLATE rather than bad data. Huffman codes are chosen per block from
+// the symbol frequencies of the whole block, so fifteen more bytes can shift
+// the distribution enough to encode everything before them a byte cheaper. It
+// is the same reason the finished 177 bytes are not the last sample plus a
+// remainder.
+//
+// So the check is that no step falls by more than a few bytes, which still
+// catches a mangled or misordered table while allowing the encoder to do what
+// it actually does.
+
+/** The most the output may fall between two samples before it is a data fault. */
+const GROWTH_SLACK = 4;
+
+agree("growth samples end at the file", GROWTH[GROWTH.length - 1][0], BYTES);
+agree(
+  "growth ends at the output size",
+  GROWTH[GROWTH.length - 1][1],
+  DEFLATE.out,
+);
+
+for (let i = 1; i < GROWTH.length; i++) {
+  if (GROWTH[i][0] !== GROWTH[i - 1][0] + GROWTH_STRIDE) {
+    throw new Error(
+      `VR13 growth: sample ${i} is not ${GROWTH_STRIDE} bytes after the one before it`,
+    );
+  }
+  if (GROWTH[i][1] < GROWTH[i - 1][1] - GROWTH_SLACK) {
+    throw new Error(
+      `VR13 growth: the output falls from ${GROWTH[i - 1][1]} to ${GROWTH[i][1]} bytes, which is more than the encoder's own slack`,
+    );
+  }
+}
+
+/** The measured output size after `byte` bytes, straight-line between samples. */
+export const outputAt = (byte: number) => {
+  const at = Math.min(Math.max(byte, 0), BYTES);
+  const i = Math.min(GROWTH.length - 2, Math.floor(at / GROWTH_STRIDE));
+  const [x0, y0] = GROWTH[i];
+  const [x1, y1] = GROWTH[i + 1];
+  return y0 + ((at - x0) / (x1 - x0)) * (y1 - y0);
+};

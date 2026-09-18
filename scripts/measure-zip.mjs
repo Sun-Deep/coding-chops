@@ -174,6 +174,33 @@ const GZIP = gzipSync(INPUT, { level: 9 });
 // 3. Report.
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// 2b. The output as it is being written.
+// ---------------------------------------------------------------------------
+//
+// The reel draws the zip filling up while the log is read, so it needs the size
+// of the output at each point through the file rather than only at the end.
+//
+// This is a real run at every sample rather than a curve fitted between the two
+// ends: `deflateRaw` of the first N bytes, which is a well defined and
+// reproducible measurement of what you would have if you stopped there. It is
+// not a prefix of the finished stream -- DEFLATE picks its Huffman tables per
+// block, so the final 177 bytes are not the last sample plus a remainder -- and
+// the reel uses it for the bar and never subtracts one sample from another.
+//
+// Sampled every 15 bytes to keep the exported table small. The last sample is
+// the whole file, so the bar ends on the real figure.
+
+const SAMPLE_STRIDE = 15;
+
+const GROWTH = [];
+for (let at = 0; at <= INPUT.length; at += SAMPLE_STRIDE) {
+  GROWTH.push([at, deflateRawSync(INPUT.subarray(0, at), { level: 9 }).length]);
+}
+if (GROWTH[GROWTH.length - 1][0] !== INPUT.length) {
+  GROWTH.push([INPUT.length, DEFLATE.length]);
+}
+
 const pct = (part, whole) => ((part / whole) * 100).toFixed(1);
 
 console.log("# The file");
@@ -217,6 +244,14 @@ console.log(
 // encoder with matching off and with matching on.
 console.log(`matching off          ${HUFFMAN_ONLY.length} bytes`);
 console.log(`matching on           ${DEFLATE.length} bytes`);
+console.log();
+
+console.log("# The output as it grows (deflateRaw of the first N bytes)");
+for (const [at, size] of GROWTH) {
+  console.log(
+    `  after ${String(at).padStart(4)} bytes  ->  ${String(size).padStart(3)} bytes`,
+  );
+}
 console.log();
 
 console.log("# Every copy, in order");

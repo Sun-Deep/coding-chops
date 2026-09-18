@@ -73,22 +73,39 @@ export const collapsedAt = (frame: number) =>
 export const TALLY_FROM = 40;
 
 /**
- * The verdict, as an odometer rather than a cut.
- *
- * A number that changes is motion and a number that appears is not. The
- * frozen-frame check reads the last three seconds of a cut like this as a still
- * unless something is moving, which is the note VR12 shipped two of.
- */
-export const VERDICT_FROM = 312;
-export const VERDICT_TO = 384;
-/**
  * The readout under the card swaps from the reason to the result.
  *
  * One slot, two states, rather than two lines stacked. A strip of counts under
  * a diagram turns the bottom of the frame into a dashboard reporting on the
  * picture above it, which is the note in section 4 of the playbook.
  */
-export const RATIO_FROM = 356;
+/**
+ * The drain: what survived the collapse goes into the zip.
+ *
+ * The last beat has to be the data arriving in the file the cut is named after,
+ * and it also has to move. The first version of this section counted the
+ * source's header down from 1,035 to 177, which was motion but was also a lie:
+ * zipping a file does not shrink it, it writes a second one. Taking the
+ * odometer out left two flat seconds on the frozen-frame check, which is well
+ * over the threshold in section 7 of the playbook.
+ *
+ * So the stubs and the leftover characters fall out of the sheet and converge
+ * on the zip bar, staggered down the page, and the bar brightens as they land.
+ * It is the same fix as VR12's drum spins: on a cut with few moving parts, an
+ * event has to be given size.
+ */
+export const DRAIN_FROM = 352;
+export const DRAIN_TO = 398;
+export const DRAIN_SPAN = 26;
+
+/** Stagger down the sheet, so it empties from the top rather than all at once. */
+export const drainAt = (frame: number, line: number, lines: number) => {
+  const stagger =
+    (line / Math.max(1, lines - 1)) * (DRAIN_TO - DRAIN_FROM - DRAIN_SPAN);
+  return Math.min(1, Math.max(0, (frame - DRAIN_FROM - stagger) / DRAIN_SPAN));
+};
+
+export const RATIO_FROM = 396;
 
 /**
  * Bytes the head has passed that were a copy of something earlier.

@@ -38,6 +38,9 @@ import { TextSearchReel } from "./11-text-search/Reel";
 import { DURATION as VR12 } from "./12-file-modes/beats";
 import { FileModesCover } from "./12-file-modes/Cover";
 import { FileModesReel } from "./12-file-modes/Reel";
+import { DURATION as VR13 } from "./13-zip/beats";
+import { ZipCover } from "./13-zip/Cover";
+import { ZipReel } from "./13-zip/Reel";
 
 /**
  * Vertical cuts.
@@ -149,6 +152,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR13-Zip"
+        component={ZipReel}
+        durationInFrames={VR13}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -221,6 +232,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR12-Cover"
         component={FileModesCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR13-Cover"
+        component={ZipCover}
         width={WIDTH}
         height={HEIGHT}
       />

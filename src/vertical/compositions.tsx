@@ -41,6 +41,9 @@ import { FileModesReel } from "./12-file-modes/Reel";
 import { DURATION as VR13 } from "./13-zip/beats";
 import { ZipCover } from "./13-zip/Cover";
 import { ZipReel } from "./13-zip/Reel";
+import { DURATION as VR14 } from "./14-qr/beats";
+import { QrCover } from "./14-qr/Cover";
+import { QrReel } from "./14-qr/Reel";
 
 /**
  * Vertical cuts.
@@ -160,6 +163,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR14-QR"
+        component={QrReel}
+        durationInFrames={VR14}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -238,6 +249,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR13-Cover"
         component={ZipCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR14-Cover"
+        component={QrCover}
         width={WIDTH}
         height={HEIGHT}
       />

@@ -46,11 +46,17 @@ export const BAND_HEIGHT = 190;
 export const BAND_LEFT = 210;
 export const BAND_WIDTH = 660;
 
-/** The 70 codewords, as a grid you can count. */
-export const CHIP_COLS = 14;
-export const CHIP_ROWS = 5;
-export const CHIP_PITCH = 38;
-export const CHIP_SIZE = 34;
+/**
+ * The 134 codewords, as a grid you can read the proportion off.
+ *
+ * Twenty-three columns on purpose: 46 is exactly two rows of them, so the link
+ * is the top two rows and the backup is the four underneath. The split is a
+ * shape rather than a count, which is what survives at feed size.
+ */
+export const CHIP_COLS = 23;
+export const CHIP_ROWS = 6;
+export const CHIP_PITCH = 28;
+export const CHIP_SIZE = 24;
 export const CHIPS_WIDTH = CHIP_COLS * CHIP_PITCH - (CHIP_PITCH - CHIP_SIZE);
 export const CHIPS_LEFT = (WIDTH - CHIPS_WIDTH) / 2;
 

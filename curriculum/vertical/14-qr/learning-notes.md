@@ -23,13 +23,13 @@ not a measurement, and the way to find out is to make the thing and break it.
 
 ## A symbol is mostly not your data
 
-841 modules at level H. 274 of them are structure: three finders and their
-separators, two timing lines, an alignment square, the format strips and the
-dark module. None of that carries a byte of the link.
+1,369 modules at level H. 290 of them are structure: three finders and their
+separators, two timing lines, alignment squares, the format strips and the dark
+module. None of that carries a byte of the link.
 
-The remaining 567 carry 70 codewords and 7 bits with nowhere to go. Of those 70,
-26 are the link and 44 are error correction. So the honest headline is not that
-a QR code is robust; it is that most of a QR code was never the link.
+The remaining 1,079 carry 134 codewords and 7 bits with nowhere to go. Of those
+134, 46 are the link and 88 are error correction. So the honest headline is not
+that a QR code is robust; it is that most of a QR code was never the link.
 
 ## Different libraries for the two directions
 
@@ -67,3 +67,27 @@ the symbol fixed it, and flying is also the truer picture.
 Third cut in a row with a note in this shape, after VR12's drum spins and VR13's
 drain, so it is a rule now: on a cut with few moving parts, an event has to be
 given size, and "given size" means pixels travelling, not opacity changing.
+
+## Changing the payload changed every number
+
+Swapping the encoded link from a short domain to this repository took it from 23
+characters to 40, which pushed level H from version 3 to version 5. That is not
+a text change. 841 modules became 1,369, 70 codewords became 134, the hole grew
+from 11 by 11 to 16 by 16, and the chip grid had to be rebuilt.
+
+It was worth checking rather than assuming, and it made the claim stronger: 66
+per cent of the payload is backup at version 5 against 63 at version 3. The
+chip grid went to 23 columns because 46 is exactly two rows of them, so the link
+is the top two rows and the backup is the four underneath.
+
+The rule: a fixture is not a string, it is the thing every figure depends on.
+
+## A claim you can check with your own phone
+
+The finished mp4 was decoded frame by frame, and every frame outside the scan
+sweep reads the URL, including the ones with the hole fully open. That turns the
+central claim from something measured off screen into something a viewer can
+verify by pointing a phone at the video.
+
+Worth looking for on future cuts. The strongest version of a checkable moment is
+not a number the viewer can recompute, it is an artefact they can test.

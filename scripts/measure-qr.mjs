@@ -37,7 +37,7 @@ import Utils from "qrcode/lib/core/utils.js";
  * wild actually holds, and short enough that the symbol stays small enough to
  * draw one module at a readable size in a vertical frame.
  */
-const TEXT = "https://codingchops.dev";
+const TEXT = "https://github.com/Sun-Deep/coding-chops";
 
 const LEVELS = ["L", "M", "Q", "H"];
 

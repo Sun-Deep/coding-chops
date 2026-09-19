@@ -4,9 +4,9 @@ Three beats on one object, and the object is a QR code.
 
 | Frames  | Beat            | Hero                                               |
 | ------- | --------------- | -------------------------------------------------- |
-| 16-126  | the hole opens  | a square eating the middle, ring by ring, to 11x11 |
+| 16-128  | the hole opens  | a square eating the middle, ring by ring, to 16x16 |
 | 128-214 | it reads anyway | a scan line crossing the damage, then the link     |
-| 158-300 | why             | 70 pieces flying out, 26 of them the link          |
+| 158-300 | why             | 134 pieces flying out, 46 of them the link         |
 | 262-318 | the reference   | four levels, more backup buying a bigger hole      |
 | 318-400 | the heal        | the missing squares coming back                    |
 
@@ -21,16 +21,16 @@ That order is what separates an explanation from a fact.
 
 ## Why the hole is countable
 
-It opens a ring at a time to 11 by 11, with a sound on each ring, and the number
-in the band is 121. A viewer who does not believe it can count the square
+It opens a ring at a time to 16 by 16, with a sound on each ring, and the number
+in the band is 256. A viewer who does not believe it can count the square
 against the grid it sits in. That is chmod's `4 + 2 + 1 = 4`: the frame does not
 ask to be trusted.
 
 ## Why the pieces fly
 
 They used to fade in where they belonged, and the frozen-frame check called the
-whole beat a still. Seventy small squares appearing change almost no pixels in a
-1080 by 1920 frame, so for 1.7 seconds the cut looked stopped while it was busy.
+whole beat a still. Small squares appearing change almost no pixels in a 1080 by
+1920 frame, so for 1.7 seconds the cut looked stopped while it was busy.
 
 Flying them out of the symbol fixed the picture and said something truer at the
 same time: they are not a chart about the code, they are what is in it. Same
@@ -45,6 +45,14 @@ which otherwise held still from the last ladder row to the end.
 
 The last frame is the code whole again with the reference under it, which is the
 true end state: nothing was lost.
+
+## Why the code is the repository
+
+The symbol encodes `https://github.com/Sun-Deep/coding-chops`, and the finished
+reel really does scan: frames pulled out of the mp4 with the hole fully open
+decode to that URL. A viewer who points a phone at the screen lands on the code
+the figures came from, which is the strongest form of a checkable moment there
+is. Not a number they can recompute, an artefact they can test.
 
 ## Colour
 

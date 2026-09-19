@@ -138,11 +138,11 @@ export const Symbol: React.FC = () => {
       ) : null}
 
       {/*
-        It read, and what it read.
+        What it read.
 
-        One strip under the code rather than a badge inside it. The badge sat on
-        modules the cut later shows healing, and the decoded text above the plate
-        ran straight through the headline.
+        The strip is the proof and the narration says "it still scans", so the
+        strip does not repeat it: at 40 characters the link and a label cannot
+        share a line at any size worth reading. A tick and the URL it returned.
       */}
       {scanned > 0 ? (
         <g opacity={scanned}>
@@ -154,23 +154,20 @@ export const Symbol: React.FC = () => {
             rx={10}
             fill={ACCENT}
           />
+          <path
+            d={`M ${SYMBOL_LEFT + 16} ${RESULT_TOP + 22} l 7 8 l 13 -15`}
+            fill="none"
+            stroke={theme.colors.black}
+            strokeWidth={4}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
           <text
-            x={SYMBOL_LEFT + 18}
-            y={RESULT_TOP + 31}
+            x={SYMBOL_LEFT + 46}
+            y={RESULT_TOP + 30}
             fontFamily={theme.monoFamily}
-            fontSize={25}
-            fontWeight={700}
-            fill={theme.colors.black}
-          >
-            STILL SCANS
-          </text>
-          <text
-            x={SYMBOL_LEFT + SYMBOL_WIDTH - 18}
-            y={RESULT_TOP + 31}
-            textAnchor="end"
-            fontFamily={theme.monoFamily}
-            fontSize={25}
-            fontWeight={500}
+            fontSize={22}
+            fontWeight={600}
             fill={theme.colors.black}
           >
             {TEXT.slice(0, typedBy(frame, TEXT.length))}

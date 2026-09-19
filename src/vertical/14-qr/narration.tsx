@@ -11,8 +11,8 @@ const n = (v: number) => v.toLocaleString("en-US");
  * thing happening; lines four and five are why it was survivable.
  *
  * One unit throughout. Squares on screen are modules, pieces are codewords, and
- * no line asks the viewer to convert between them: 841 squares hold 70 pieces,
- * and the two numbers never meet in a sum.
+ * no line asks the viewer to convert between them: 1,369 squares hold 134
+ * pieces, and the two numbers never meet in a sum.
  */
 export const narration: readonly NarrationLine[] = [
   { from: 6, to: 70, text: `A QR code. ${n(MODULES_TOTAL)} squares.` },

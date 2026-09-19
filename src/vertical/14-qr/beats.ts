@@ -12,7 +12,7 @@ export const DURATION = 420;
  * under it is claiming.
  */
 export const HOLE_FROM = 16;
-export const HOLE_STEP = 10;
+export const HOLE_STEP = 7;
 export const HOLE_TO = HOLE_FROM + HERO.hole * HOLE_STEP;
 
 /** How many modules across the hole is, at a frame. */
@@ -35,8 +35,8 @@ export const SCANS_FROM = HOLE_TO + 8;
  * code is not the link, and that is why there was room to lose 121 modules.
  */
 export const CHIPS_FROM = 158;
-export const CHIP_EVERY = 1.0;
-export const SPLIT_FROM = 230;
+export const CHIP_EVERY = 0.55;
+export const SPLIT_FROM = 226;
 
 /**
  * Frames a piece takes to travel from the code to its slot.

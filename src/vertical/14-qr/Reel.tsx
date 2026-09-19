@@ -56,7 +56,7 @@ export const QrReel: React.FC = () => (
 
     {/* The scan, and the code reading through the damage. */}
     <Sfx name="scan" at={SCAN_AT} gain={4.6} playbackRate={1.1} />
-    <Sfx name="solved" at={SCANNED_AT} gain={5.6} />
+    <Sfx name="solved" at={SCANNED_AT} gain={4.8} />
 
     {/* What it read, arriving a character at a time. */}
     {TYPED.map((pulse) => (
@@ -114,6 +114,6 @@ export const QrReel: React.FC = () => (
       />
     ))}
 
-    <Sfx name="solved" at={HEALED_AT} gain={6.2} playbackRate={1.06} />
+    <Sfx name="solved" at={HEALED_AT} gain={5.3} playbackRate={1.06} />
   </VerticalShell>
 );

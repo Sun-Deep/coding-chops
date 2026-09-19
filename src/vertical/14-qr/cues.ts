@@ -52,7 +52,7 @@ export const BITES: readonly Pulse[] = Array.from({
       id: `bite-${i}`,
       frame: at,
       rate: 1.18 - through * 0.42,
-      gain: 8.38 + through * 2.43,
+      gain: 6.8 + through * 1.9,
     },
     {
       id: `bite-half-${i}`,

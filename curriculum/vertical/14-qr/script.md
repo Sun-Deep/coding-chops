@@ -7,18 +7,18 @@ words across 14 seconds.
 
 | Frames  | Line                          |
 | ------- | ----------------------------- |
-| 6-70    | A QR code. 841 squares.       |
-| 80-142  | Blank 121 in the middle.      |
+| 6-70    | A QR code. 1,369 squares.     |
+| 80-142  | Blank 256 in the middle.      |
 | 152-214 | It still scans.               |
-| 226-300 | Only 26 pieces are your link. |
-| 312-412 | **The other 44 rebuild it.**  |
+| 226-300 | Only 46 pieces are your link. |
+| 312-412 | **The other 88 rebuild it.**  |
 
 The surprise first and the reason second, which is the order that earns an "oh,
 that is how it works" rather than a fact. Lines one to three are the thing
 happening; lines four and five are why it was survivable.
 
 One unit throughout. Squares on screen are modules, pieces are codewords, and no
-line asks the viewer to convert between them: 841 squares hold 70 pieces, and
+line asks the viewer to convert between them: 1,369 squares hold 134 pieces, and
 the two numbers never meet in a sum. That is the mistake VR10 shipped with steps
 against cost and VR11 nearly shipped with reads against distinct positions.
 
@@ -27,15 +27,15 @@ against cost and VR11 nearly shipped with reads against distinct positions.
 ```text
 eyebrow     QR CODES
 headline    Most of a QR code / isn't the link.
-symbol      29 x 29 on a light plate with a quiet zone, 20 points a module
-hole        a centred square, opening one ring at a time to 11 x 11
+symbol      37 x 37 on a light plate with a quiet zone, 15.7 points a module
+hole        a centred square, opening one ring at a time to 16 x 16
 scan        a line crosses the damaged code
-result      STILL SCANS   https://codingchops.dev   (typed out)
-band 1      121 of 841 SQUARES BLANKED
-band 2      70 chips flying out of the code, 26 accent and 44 neutral
-            26 your link + 44 backup = 70 pieces
-band 3      L 23% backup  4 x 4 hole   ... H 63% backup  11 x 11 hole
-provenance  841 modules, level H · hole measured by jsqr
+result      [tick] https://github.com/Sun-Deep/coding-chops   (typed out)
+band 1      256 of 1,369 SQUARES BLANKED
+band 2      134 chips flying out of the code, 46 accent and 88 neutral
+            46 your link + 88 backup = 134 pieces
+band 3      L 21% backup  6 x 6 hole   ... H 66% backup  16 x 16 hole
+provenance  1369 modules, level H · hole measured by jsqr
 ```
 
 The code is drawn dark on a light plate, which is what a QR code is. Chalk on
@@ -48,7 +48,11 @@ the band is claiming is countable and so the picture should be countable too.
 Eleven steps, eleven sounds, ending on a square the viewer can measure against
 the grid it sits in.
 
-The 70 pieces fly out of the symbol rather than fading in where they belong.
+The chip grid is 23 columns wide because 46 is exactly two rows of them, so the
+link is the top two rows and the backup is the four underneath. The split is a
+shape rather than a count, which is what survives at feed size.
+
+The 134 pieces fly out of the symbol rather than fading in where they belong.
 That is the frozen-frame fix and it is also truer: they are not a chart about
 the code, they are what is inside it.
 
@@ -64,11 +68,16 @@ The track has the shape of the argument: something is taken apart, and then it
 is put back. Bites fall in pitch as the hole opens and the rebuild rises as it
 closes, so a listener with their eyes shut still hears the two halves.
 
-Eleven bites for eleven rings, a scan sweep, the decoded link typing in, seventy
+Sixteen bites for sixteen rings, a scan sweep, the decoded link typing in, the
 pieces landing, four rows of the reference, and fourteen rising notes as the
 code is rebuilt.
 
-Peak -4.4 dBFS. No silence gaps.
+Peak -3.9 dBFS, which is the loudest of the run and still 3.9 dB clear of
+clipping. The heaviest sustained second sits at -5.6. No silence gaps.
+
+The result strip carries the link alone rather than a label beside it. At forty
+characters they cannot share a line at any size worth reading, and the narration
+already says it still scans.
 
 ## Copy
 

@@ -7,11 +7,15 @@ Built, rendered and reviewed. The creator understanding check is still open.
 ## What it claims
 
 A QR code carries far less of your link than it looks like it does. The level H
-symbol in this cut is 29 by 29, 841 squares. 274 of them are the patterns a
-scanner needs in order to find and read it at all. The rest carry 70 pieces, and
-only 26 of those are the link. The other 44 exist to rebuild it.
+symbol in this cut is 37 by 37, 1,369 squares. 290 of them are the patterns a
+scanner needs in order to find and read it at all. The rest carry 134 pieces,
+and only 46 of those are the link. The other 88 exist to rebuild it.
 
-That is why you can blank 121 squares out of the middle and it still scans.
+That is why you can blank 256 squares out of the middle and it still scans.
+
+The symbol encodes this repository, and the finished reel really does scan:
+frames pulled out of the mp4 with the hole fully open decode to the URL. A phone
+pointed at the screen goes to the code the figures came from.
 
 ## Why this topic
 
@@ -31,6 +35,9 @@ cent of a QR code. That is false as stated and the measurement caught it. See
 `measurements.md`; the short form is that the 30 per cent is a share of
 codewords, random damage fails at a few per cent because it takes out the
 corners, and where the damage falls matters more than how much of it there is.
+
+One finder square is 49 modules against the 256 the middle survives, and
+blanking it is fatal. Less damage, worse outcome.
 
 What survived the check is better anyway, because it is a thing people have
 already seen with their own eyes.

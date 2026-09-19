@@ -19,6 +19,9 @@ reel scans. Frames pulled out of the mp4 at 2.0, 3.3, 4.3, 5.3, 6.7, 8.7, 10.0,
 hole fully open. The only frames that do not are the twenty-two during the scan
 sweep, where an orange wash is drawn over the code on purpose.
 
+The cover and both grid crops scan too, so the thumbnail sitting in the profile
+grid is itself a working link to the repository.
+
 Nobody will think to try unless they are told. A pinned first comment saying so
 is the cheapest way to turn that into traffic, and it is a creator call rather
 than something that belongs in the caption, which is already at its ceiling.
@@ -85,3 +88,4 @@ Code and measurements: github.com/Sun-Deep/coding-chops
 | cover crops         | both hold the headline, the code and the mark              |
 | measurement rerun   | byte identical                                             |
 | rendered reel scans | every frame outside the scan sweep decodes to the repo URL |
+| cover scans         | 9:16, 1:1 and 3:4 all decode to the repo URL               |

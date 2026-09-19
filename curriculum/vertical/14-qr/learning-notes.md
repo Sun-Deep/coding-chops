@@ -91,3 +91,21 @@ verify by pointing a phone at the video.
 
 Worth looking for on future cuts. The strongest version of a checkable moment is
 not a number the viewer can recompute, it is an artefact they can test.
+
+## A cover is a frame of the reel, so it can catch the reel mid-animation
+
+The cover held frame 150 and came out wrong in three ways at once: the scan
+sweep was crossing the code as an orange bar, the link was half typed and read
+"https://gi", and the headline ran through the top of the symbol.
+
+The first two are the same mistake. A cover picks a frame, and a frame in the
+middle of an animation is a frame of something half done. The fix is to pick the
+frame from the beats rather than by eye: after the sweep ends at 152 and the
+typing at 186, before the rebuild at 318.
+
+The third was a fixed offset that had never been rechecked after the symbol
+changed size. It is derived now, off the headline's own bottom edge and the
+symbol's own extent, so a layout change in the reel moves the cover with it.
+
+Worth a checklist line: look at the cover, not just the reel. It is the only
+frame most people will ever see.

@@ -44,6 +44,9 @@ import { ZipReel } from "./13-zip/Reel";
 import { DURATION as VR14 } from "./14-qr/beats";
 import { QrCover } from "./14-qr/Cover";
 import { QrReel } from "./14-qr/Reel";
+import { DURATION as VR15 } from "./15-cron/beats";
+import { CronCover } from "./15-cron/Cover";
+import { CronReel } from "./15-cron/Reel";
 
 /**
  * Vertical cuts.
@@ -171,6 +174,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR15-Cron"
+        component={CronReel}
+        durationInFrames={VR15}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -255,6 +266,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR14-Cover"
         component={QrCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR15-Cover"
+        component={CronCover}
         width={WIDTH}
         height={HEIGHT}
       />

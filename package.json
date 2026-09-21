@@ -23,6 +23,7 @@
     "@remotion/install-whisper-cpp": "^4.0.512",
     "@types/react": "19.2.7",
     "@types/web": "0.0.166",
+    "cron-parser": "^5.10.1",
     "eslint": "9.19.0",
     "jsqr": "^1.4.0",
     "prettier": "3.8.1",

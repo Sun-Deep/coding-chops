@@ -28,7 +28,7 @@ export const LABEL_TOP = 484;
  */
 export const GRID_TOP = 528;
 export const CELL_W = COLUMN_WIDTH / HOURS;
-export const CELL_H = 40;
+export const CELL_H = 37;
 export const GRID_HEIGHT = DAYS.length * CELL_H;
 export const GRID_BOTTOM = GRID_TOP + GRID_HEIGHT;
 
@@ -36,11 +36,21 @@ export const GRID_BOTTOM = GRID_TOP + GRID_HEIGHT;
 export const DAY_LABEL_RIGHT = COLUMN_LEFT - 14;
 
 /** The number that falls. */
-export const COUNT_TOP = GRID_BOTTOM + 34;
+export const COUNT_TOP = GRID_BOTTOM + 30;
+
+/**
+ * The unit, under the count, live.
+ *
+ * This is the line that was missing. The four numbers are recognisable but not
+ * checkable, so at the moment 8,760 lands nothing on screen said "hours" and
+ * the viewer had to wait for the small list at the end to find out. Naming the
+ * unit as the number arrives is what turns a count into the lesson.
+ */
+export const UNIT_SIZE = 30;
 export const COUNT_SIZE = 76;
 
 /** The reference the cut leaves behind, one row per step. */
-export const LIST_TOP = COUNT_TOP + COUNT_SIZE + 46;
+export const LIST_TOP = COUNT_TOP + COUNT_SIZE + 78;
 export const LIST_ROW = 52;
 export const LIST_HEIGHT = STEPS.length * LIST_ROW;
 

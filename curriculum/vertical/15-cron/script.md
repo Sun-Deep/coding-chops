@@ -30,7 +30,8 @@ slots       *  *  *  *  *     the five fields, largest type after the headline
 labels      MINUTE HOUR DAY MONTH WEEKDAY
 grid        a week, 24 hours across by 7 days down, all 168 cells drawn
 marker      an hour line sweeping the week, striking every live cell it crosses
-count       525,600 -> 8,760 -> 365 -> 52, TIMES A YEAR
+count       525,600 -> 8,760 -> 365 -> 52
+unit        MINUTES IN A YEAR -> HOURS -> DAYS -> WEEKS, named as each lands
 list        each step kept, with what its number is a year of
 provenance  every minute of 2026, counted twice · cron-parser agrees
 ```
@@ -39,6 +40,16 @@ The slots carry the lesson and so they carry the type. Pairing them with their
 names is the whole decoding key: after fourteen seconds a viewer knows which
 position is which, which is what chmod does for permissions and why chmod is the
 best performing cut on this page.
+
+Both halves of that pairing have to be readable, and in the first cut only one
+was. The values were 21 points at feed size and the names under them were 6.7,
+which is what chmod uses for secondary furniture, so half the lesson was
+unreadable on a phone. The names are 9.2 points now.
+
+The unit is named as each number lands rather than only in the list at the end.
+The first cut read TIMES A YEAR at every step, which is true and says nothing:
+the whole claim is that each field drops you to the next unit of time, so at the
+moment 8,760 arrives the frame now says HOURS IN A YEAR.
 
 The grid is a week rather than a year because a year has 525,600 minutes and no
 grid can draw them. The week shows the shape that repeats and the counter holds

@@ -62,13 +62,14 @@ Code and measurements: github.com/Sun-Deep/coding-chops
 
 ## Review
 
-| Check               | Result                                            |
-| ------------------- | ------------------------------------------------- |
-| duration            | 14.06s                                            |
-| longest frozen hold | none anywhere in the cut                          |
-| audio peak          | -4.9 dBFS                                         |
-| audio mean          | -23.2 dBFS                                        |
-| silence gaps        | none                                              |
-| safe areas          | clear, slots, grid and list inside the rail       |
-| cover crops         | both hold the headline, the schedule and the mark |
-| measurement rerun   | byte identical                                    |
+| Check               | Result                                             |
+| ------------------- | -------------------------------------------------- |
+| duration            | 14.06s                                             |
+| longest frozen hold | none anywhere in the cut                           |
+| audio peak          | -4.9 dBFS                                          |
+| decoding key size   | value 21.1pt, name 9.2pt, unit 10.6pt at feed size |
+| audio mean          | -23.2 dBFS                                         |
+| silence gaps        | none                                               |
+| safe areas          | clear, slots, grid and list inside the rail        |
+| cover crops         | both hold the headline, the schedule and the mark  |
+| measurement rerun   | byte identical                                     |

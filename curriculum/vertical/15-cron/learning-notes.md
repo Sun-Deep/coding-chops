@@ -71,3 +71,28 @@ exactly what `qr.ts` beside `Qr.tsx` did on VR14 the day before. Renamed to
 
 Two cuts running. The rule is that the port module never takes the episode's own
 name, because the scene component already has it.
+
+## Half a decoding key is not a decoding key
+
+Asked whether this was as clearly explained as chmod, the honest answer was no,
+and the gap measured rather than being a matter of taste.
+
+At feed size, where a 1080 frame is about 380 points: chmod's switches are 19.7
+points and its `4 + 2 + 1 = 4` is 11.6, and it asks the viewer to track about
+fifteen things. Cron's field values were 21.1, which is fine, and the names
+under them were 6.7, which is the size chmod uses for furniture. The lesson is
+the pairing of position with name, so exactly half of it was unreadable on a
+phone.
+
+The second half of the answer was that there was nothing to verify. chmod lets
+the viewer check `4 + 2 + 1 = 4` in the frame. Cron gives numbers that are
+recognisable rather than checkable, and worse, the unit was only spelled out in
+a small list at the end, so at the moment 8,760 landed nothing on screen said
+hours.
+
+Both fixes were cheap. Names to 9.2 points, and the unit named live under each
+count. Worth carrying as the question to ask of any cut: not "is the mechanism
+right", which the measurement script answers, but "is every part of the thing
+the viewer is supposed to leave with actually legible, and is there a moment
+they can check". On this one the answer was no twice and both were one-line
+changes.

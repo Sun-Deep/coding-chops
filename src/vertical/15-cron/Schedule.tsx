@@ -14,8 +14,9 @@ import {
   SLOT_SIZE,
   SLOT_TOP,
   SLOT_WIDTH,
+  UNIT_SIZE,
 } from "./layout";
-import { DAYS, FIELDS, HOURS, STEPS } from "./measurements";
+import { DAYS, FIELDS, HOURS, STEPS, UNITS } from "./measurements";
 import { PINNED, STEP_GRIDS, slotsOf } from "./fields";
 import { countAt, headAt, headFrac, settledAt, stepAt } from "./beats";
 
@@ -102,11 +103,11 @@ export const Schedule: React.FC = () => {
               y={LABEL_TOP}
               textAnchor="middle"
               fontFamily={theme.monoFamily}
-              fontSize={19}
-              fontWeight={500}
-              letterSpacing="0.12em"
-              fill={pinned ? ACCENT : theme.colors.grayDark}
-              opacity={pinned ? 1 : 0.85}
+              fontSize={26}
+              fontWeight={600}
+              letterSpacing="0.08em"
+              fill={pinned ? ACCENT : theme.colors.grayLight}
+              opacity={pinned ? 1 : 0.9}
             >
               {FIELDS[i].label}
             </text>
@@ -235,17 +236,26 @@ export const Schedule: React.FC = () => {
       >
         {count.toLocaleString("en-US")}
       </text>
+      {/*
+        What that number is a year of, named as it lands.
+
+        It used to read TIMES A YEAR at every step, which is true and says
+        nothing: the whole claim is that each field drops you to the next unit
+        of time, and the unit was only spelled out in the small list at the end.
+        Saying it here, at the size of the thing it explains, is what makes the
+        count a lesson rather than a counter.
+      */}
       <text
         x={WIDTH / 2}
-        y={COUNT_TOP + COUNT_SIZE + 28}
+        y={COUNT_TOP + COUNT_SIZE + 34}
         textAnchor="middle"
         fontFamily={theme.monoFamily}
-        fontSize={19}
-        fontWeight={500}
-        letterSpacing="0.16em"
-        fill={theme.colors.grayDark}
+        fontSize={UNIT_SIZE}
+        fontWeight={600}
+        letterSpacing="0.1em"
+        fill={theme.colors.chalk}
       >
-        TIMES A YEAR
+        {UNITS[step].toUpperCase()} IN A YEAR
       </text>
     </svg>
   );

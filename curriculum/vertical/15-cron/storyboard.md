@@ -25,6 +25,16 @@ cut has no frozen holds anywhere, which is a first for this format.
 The collapse then becomes audible as well as visible. At `* * * * *` almost
 every tick carries an accent; by `0 9 * * 1` one in twenty-four does.
 
+## Why both halves of the key are big
+
+The lesson is a pairing: position two is HOUR. The first cut drew the value at
+21 points of feed size and the name under it at 6.7, so the half that does the
+teaching was the half nobody could read. Measured against VR12, whose switches
+are 19.7 points and whose `4 + 2 + 1` is 11.6, the names were furniture-sized.
+
+They are 9.2 points now, and the unit each count belongs to is named as the
+count lands rather than waiting for the list at the end.
+
 ## Why the empty cells are drawn
 
 Without a skeleton the grid only exists where it fires, and the late states read

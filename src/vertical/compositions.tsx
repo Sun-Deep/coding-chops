@@ -47,6 +47,9 @@ import { QrReel } from "./14-qr/Reel";
 import { DURATION as VR15 } from "./15-cron/beats";
 import { CronCover } from "./15-cron/Cover";
 import { CronReel } from "./15-cron/Reel";
+import { DURATION as VR16 } from "./16-password-hash/beats";
+import { PasswordHashCover } from "./16-password-hash/Cover";
+import { PasswordHashReel } from "./16-password-hash/Reel";
 
 /**
  * Vertical cuts.
@@ -182,6 +185,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR16-Password-Hash"
+        component={PasswordHashReel}
+        durationInFrames={VR16}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -272,6 +283,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR15-Cover"
         component={CronCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR16-Cover"
+        component={PasswordHashCover}
         width={WIDTH}
         height={HEIGHT}
       />

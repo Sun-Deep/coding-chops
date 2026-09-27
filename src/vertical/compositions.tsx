@@ -56,6 +56,9 @@ import { MazeGeneratorsReel } from "./17-maze-generators/Reel";
 import { DURATION as VR18 } from "./18-ls-long/beats";
 import { LsLongCover } from "./18-ls-long/Cover";
 import { LsLongReel } from "./18-ls-long/Reel";
+import { DURATION as VR19 } from "./19-git-storage/beats";
+import { GitStorageCover } from "./19-git-storage/Cover";
+import { GitStorageReel } from "./19-git-storage/Reel";
 
 /**
  * Vertical cuts.
@@ -215,6 +218,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR19-Git-Storage"
+        component={GitStorageReel}
+        durationInFrames={VR19}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -323,6 +334,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR18-Cover"
         component={LsLongCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR19-Cover"
+        component={GitStorageCover}
         width={WIDTH}
         height={HEIGHT}
       />

@@ -53,6 +53,9 @@ import { PasswordHashReel } from "./16-password-hash/Reel";
 import { DURATION as VR17 } from "./17-maze-generators/beats";
 import { MazeGeneratorsCover } from "./17-maze-generators/Cover";
 import { MazeGeneratorsReel } from "./17-maze-generators/Reel";
+import { DURATION as VR18 } from "./18-ls-long/beats";
+import { LsLongCover } from "./18-ls-long/Cover";
+import { LsLongReel } from "./18-ls-long/Reel";
 
 /**
  * Vertical cuts.
@@ -204,6 +207,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR18-Ls-Long"
+        component={LsLongReel}
+        durationInFrames={VR18}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -306,6 +317,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR17-Cover"
         component={MazeGeneratorsCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR18-Cover"
+        component={LsLongCover}
         width={WIDTH}
         height={HEIGHT}
       />

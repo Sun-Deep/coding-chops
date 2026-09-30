@@ -134,4 +134,11 @@ gen code-step 0.075 -31 \
 gen solved 0.95 -22 \
   "aevalsrc='0.34*sin(2*PI*98*t)*exp(-4.2*t)+0.22*sin(2*PI*523.25*t)*exp(-3.0*t)+0.18*sin(2*PI*659.25*t)*exp(-3.3*t)+0.15*sin(2*PI*783.99*t)*exp(-3.6*t)':d=0.95:s=48000"
 
+# A lift arriving at a floor. A struck bell: one clear fundamental with two
+# inharmonic partials that die faster, so it reads as a chime rather than a
+# beep, and short enough that a car stopping every half second does not ring
+# over its own next arrival.
+gen ding 0.80 -20 \
+  "aevalsrc='0.62*sin(2*PI*1318.5*t)*exp(-5.5*t)+0.24*sin(2*PI*3165*t)*exp(-11*t)+0.12*sin(2*PI*4410*t)*exp(-17*t)':d=0.8:s=48000"
+
 echo "done"

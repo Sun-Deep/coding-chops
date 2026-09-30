@@ -62,6 +62,9 @@ import { GitStorageReel } from "./19-git-storage/Reel";
 import { DURATION as VR20 } from "./20-docker-layers/beats";
 import { DockerLayersCover } from "./20-docker-layers/Cover";
 import { DockerLayersReel } from "./20-docker-layers/Reel";
+import { DURATION as VR21 } from "./21-elevator/beats";
+import { ElevatorCover } from "./21-elevator/Cover";
+import { ElevatorReel } from "./21-elevator/Reel";
 
 /**
  * Vertical cuts.
@@ -237,6 +240,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR21-Elevator"
+        component={ElevatorReel}
+        durationInFrames={VR21}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -357,6 +368,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR20-Cover"
         component={DockerLayersCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR21-Cover"
+        component={ElevatorCover}
         width={WIDTH}
         height={HEIGHT}
       />

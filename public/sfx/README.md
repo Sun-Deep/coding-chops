@@ -27,6 +27,7 @@ Re-run the script to reproduce the set. Do not edit the WAV files by hand.
 | `solved`      | The completed tower resolves                      |
 | `scan`        | A sequential scan running, for as long as it runs |
 | `reject`      | A request is turned away                          |
+| `ding`        | A lift arrives at a floor and its doors open      |
 
 Levels are deliberately low. Set per-use gain in the composition rather than
 regenerating a file, so one loud placement never forces the whole set down.

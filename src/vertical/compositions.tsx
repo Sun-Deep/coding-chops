@@ -65,6 +65,9 @@ import { DockerLayersReel } from "./20-docker-layers/Reel";
 import { DURATION as VR21 } from "./21-elevator/beats";
 import { ElevatorCover } from "./21-elevator/Cover";
 import { ElevatorReel } from "./21-elevator/Reel";
+import { DURATION as VR22 } from "./22-checkout/beats";
+import { CheckoutCover } from "./22-checkout/Cover";
+import { CheckoutReel } from "./22-checkout/Reel";
 
 /**
  * Vertical cuts.
@@ -248,6 +251,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR22-Checkout"
+        component={CheckoutReel}
+        durationInFrames={VR22}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -374,6 +385,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR21-Cover"
         component={ElevatorCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR22-Cover"
+        component={CheckoutCover}
         width={WIDTH}
         height={HEIGHT}
       />

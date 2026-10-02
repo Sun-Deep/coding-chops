@@ -141,4 +141,11 @@ gen solved 0.95 -22 \
 gen ding 0.80 -20 \
   "aevalsrc='0.62*sin(2*PI*1318.5*t)*exp(-5.5*t)+0.24*sin(2*PI*3165*t)*exp(-11*t)+0.12*sin(2*PI*4410*t)*exp(-17*t)':d=0.8:s=48000"
 
+# A checkout scanner reading an item. A plain square-ish tone at the pitch
+# shop scanners sit near, cut short with a fast fade so a run of them reads as
+# a till working rather than an alarm.
+gen beep 0.13 -24 \
+  "aevalsrc='0.55*sin(2*PI*2900*t)+0.12*sin(2*PI*8700*t)':d=0.13:s=48000" \
+  "afade=t=out:st=0.09:d=0.04"
+
 echo "done"

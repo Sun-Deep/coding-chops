@@ -148,4 +148,11 @@ gen beep 0.13 -24 \
   "aevalsrc='0.55*sin(2*PI*2900*t)+0.12*sin(2*PI*8700*t)':d=0.13:s=48000" \
   "afade=t=out:st=0.09:d=0.04"
 
+# A car braking, heard from the roadside: a short band of tyre and pad noise
+# with a faint squeal sliding down under it. Used in runs as a brake wave
+# travels, so it is short and soft at the edges.
+gen brake 0.30 -24 \
+  "aevalsrc='0.5*(random(0)*2-1)*exp(-9*t)+0.1*sin(2*PI*(2700*t-900*t*t))*exp(-6*t)':d=0.3:s=48000" \
+  "highpass=f=900,lowpass=f=5200,afade=t=in:st=0:d=0.03,afade=t=out:st=0.18:d=0.12"
+
 echo "done"

@@ -68,6 +68,9 @@ import { ElevatorReel } from "./21-elevator/Reel";
 import { DURATION as VR22 } from "./22-checkout/beats";
 import { CheckoutCover } from "./22-checkout/Cover";
 import { CheckoutReel } from "./22-checkout/Reel";
+import { DURATION as VR23 } from "./23-phantom-jam/beats";
+import { PhantomJamCover } from "./23-phantom-jam/Cover";
+import { PhantomJamReel } from "./23-phantom-jam/Reel";
 
 /**
  * Vertical cuts.
@@ -259,6 +262,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR23-Phantom-Jam"
+        component={PhantomJamReel}
+        durationInFrames={VR23}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -391,6 +402,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR22-Cover"
         component={CheckoutCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR23-Cover"
+        component={PhantomJamCover}
         width={WIDTH}
         height={HEIGHT}
       />

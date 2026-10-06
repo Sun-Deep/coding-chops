@@ -30,7 +30,9 @@ export const Car: React.FC<{
   /** 0 to 1, how hard it is braking. */
   brake: number;
   brakeColor: string;
-}> = ({ id, scale, body, brake, brakeColor }) => {
+  /** Headlights on. Off for a parked car. */
+  beam?: boolean;
+}> = ({ id, scale, body, brake, brakeColor, beam = true }) => {
   const hl = L / 2;
   const hw = W / 2;
   return (
@@ -46,11 +48,13 @@ export const Car: React.FC<{
       </defs>
 
       {/* Headlight beam on the road ahead. */}
-      <path
-        d={`M ${-0.7} ${-hl} L ${-1.6} ${-hl - 4.2} L ${1.6} ${-hl - 4.2} L ${0.7} ${-hl} Z`}
-        fill={theme.colors.chalk}
-        opacity={0.07}
-      />
+      {beam ? (
+        <path
+          d={`M ${-0.7} ${-hl} L ${-1.6} ${-hl - 4.2} L ${1.6} ${-hl - 4.2} L ${0.7} ${-hl} Z`}
+          fill={theme.colors.chalk}
+          opacity={0.07}
+        />
+      ) : null}
 
       {/* Shadow. */}
       <rect

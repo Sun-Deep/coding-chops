@@ -77,6 +77,9 @@ import { PlaneBoardingReel } from "./24-plane-boarding/Reel";
 import { DURATION as VR26 } from "./26-escalator/beats";
 import { EscalatorCover } from "./26-escalator/Cover";
 import { EscalatorReel } from "./26-escalator/Reel";
+import { DURATION as VR27 } from "./27-gridlock/beats";
+import { GridlockCover } from "./27-gridlock/Cover";
+import { GridlockReel } from "./27-gridlock/Reel";
 
 /**
  * Vertical cuts.
@@ -292,6 +295,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR27-Gridlock"
+        component={GridlockReel}
+        durationInFrames={VR27}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -442,6 +453,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR26-Cover"
         component={EscalatorCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR27-Cover"
+        component={GridlockCover}
         width={WIDTH}
         height={HEIGHT}
       />

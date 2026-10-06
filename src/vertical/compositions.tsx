@@ -80,6 +80,9 @@ import { EscalatorReel } from "./26-escalator/Reel";
 import { DURATION as VR27 } from "./27-gridlock/beats";
 import { GridlockCover } from "./27-gridlock/Cover";
 import { GridlockReel } from "./27-gridlock/Reel";
+import { DURATION as VR28 } from "./28-microwave/beats";
+import { MicrowaveCover } from "./28-microwave/Cover";
+import { MicrowaveReel } from "./28-microwave/Reel";
 
 /**
  * Vertical cuts.
@@ -303,6 +306,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR28-Microwave"
+        component={MicrowaveReel}
+        durationInFrames={VR28}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -459,6 +470,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR27-Cover"
         component={GridlockCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR28-Cover"
+        component={MicrowaveCover}
         width={WIDTH}
         height={HEIGHT}
       />

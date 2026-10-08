@@ -83,6 +83,9 @@ import { GridlockReel } from "./27-gridlock/Reel";
 import { DURATION as VR28 } from "./28-microwave/beats";
 import { MicrowaveCover } from "./28-microwave/Cover";
 import { MicrowaveReel } from "./28-microwave/Reel";
+import { DURATION as VR29 } from "./29-lights/beats";
+import { LightsCover } from "./29-lights/Cover";
+import { LightsReel } from "./29-lights/Reel";
 
 /**
  * Vertical cuts.
@@ -314,6 +317,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR29-Lights"
+        component={LightsReel}
+        durationInFrames={VR29}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -476,6 +487,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR28-Cover"
         component={MicrowaveCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR29-Cover"
+        component={LightsCover}
         width={WIDTH}
         height={HEIGHT}
       />

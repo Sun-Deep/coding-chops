@@ -86,6 +86,9 @@ import { MicrowaveReel } from "./28-microwave/Reel";
 import { DURATION as VR29 } from "./29-lights/beats";
 import { LightsCover } from "./29-lights/Cover";
 import { LightsReel } from "./29-lights/Reel";
+import { DURATION as VR30 } from "./30-hallway/beats";
+import { HallwayCover } from "./30-hallway/Cover";
+import { HallwayReel } from "./30-hallway/Reel";
 
 /**
  * Vertical cuts.
@@ -325,6 +328,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR30-Hallway"
+        component={HallwayReel}
+        durationInFrames={VR30}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -493,6 +504,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR29-Cover"
         component={LightsCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR30-Cover"
+        component={HallwayCover}
         width={WIDTH}
         height={HEIGHT}
       />

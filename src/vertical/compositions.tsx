@@ -92,6 +92,9 @@ import { HallwayReel } from "./30-hallway/Reel";
 import { DURATION as VR31 } from "./31-zipper/beats";
 import { ZipperCover } from "./31-zipper/Cover";
 import { ZipperReel } from "./31-zipper/Reel";
+import { DURATION as VR32 } from "./32-kiosk/beats";
+import { KioskCover } from "./32-kiosk/Cover";
+import { KioskReel } from "./32-kiosk/Reel";
 
 /**
  * Vertical cuts.
@@ -347,6 +350,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR32-Kiosk"
+        component={KioskReel}
+        durationInFrames={VR32}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -527,6 +538,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR31-Cover"
         component={ZipperCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR32-Cover"
+        component={KioskCover}
         width={WIDTH}
         height={HEIGHT}
       />

@@ -1,0 +1,38 @@
+Machine: Apple M5 Pro; darwin 25.5.0; Node v22.14.0
+Model: 8 dishes, 60 people, 100 seeds; arrivals average 8 s; each dish wanted with probability 0.4; serving 3 to 7 s, 1 in 7 people take 5 times as long; walk 0.8 m/s; spacing 0.5 m; step 0.25 s.
+{
+  "seed": 13,
+  "people": 60,
+  "dishes": 8,
+  "runs": 100,
+  "average": {
+    "line": 139.1830040590271,
+    "skip": 51.34717072569376,
+    "ratio": 2.710626546544675,
+    "worse": 3.433333333333332,
+    "extra": 10.384708737864083
+  },
+  "dessert": {
+    "id": 4,
+    "line": 69.0155489185432,
+    "skip": 23.26554891854321
+  },
+  "shown": {
+    "line": 192.73692533913749,
+    "skip": 50.936925339137545,
+    "end": 680.5,
+    "worse": []
+  }
+}
+Arrival gap 2 s: {"line":286.2423343480901,"skip":101.45516768142343,"ratio":2.8213677123565724,"worse":4.899999999999998,"extra":27.128401360544228}
+Arrival gap 4 s: {"line":230.57900202951353,"skip":73.65433536284688,"ratio":3.13055573570247,"worse":3.0833333333333317,"extra":13.577027027027034}
+Arrival gap 8 s: {"line":139.1830040590271,"skip":51.34717072569376,"ratio":2.710626546544675,"worse":3.433333333333332,"extra":10.384708737864083}
+Arrival gap 12 s: {"line":88.77400608854065,"skip":45.42542275520733,"ratio":1.9542802400966992,"worse":4.2333333333333325,"extra":9.314960629921261}
+Arrival gap 20 s: {"line":61.98692681423439,"skip":41.55017681423441,"ratio":1.491857112699426,"worse":4.283333333333332,"extra":6.582684824902725}
+Slow factor 2: {"line":46.31117072569375,"skip":33.46917072569376,"ratio":1.3836963904857489,"worse":7.499999999999995,"extra":4.951666666666671}
+Slow factor 3: {"line":66.65292072569378,"skip":38.14446239236043,"ratio":1.7473813116066623,"worse":5.349999999999995,"extra":6.556853582554523}
+Slow factor 7: {"line":230.3951707256937,"skip":68.71829572569378,"ratio":3.352748613635203,"worse":2.3499999999999996,"extra":16.581560283687946}
+Dish choice probability 0.2: {"line":63.954362694987374,"skip":28.911612694987415,"ratio":2.2120648671416223,"worse":2.55,"extra":8.362745098039216}
+Dish choice probability 0.6: {"line":219.86306457937593,"skip":90.55989791270922,"ratio":2.427819262686252,"worse":3.7833333333333306,"extra":14.754405286343623}
+Dish choice probability 1: {"line":354.8177829277626,"skip":235.4190745944293,"ratio":1.507175166409216,"worse":0,"extra":null}
+Mechanism checks passed: no passing in line, exclusive dish service, all requested portions served.

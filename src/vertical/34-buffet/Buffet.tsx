@@ -6,7 +6,8 @@ import { clamp } from "../../shared/video/timing";
 import { VERDICT_FROM, simAt } from "./beats";
 import { CONDITIONS, MEASURED } from "./measurements";
 import { DESSERT, DINERS, RUNS, sampleAt } from "./runs";
-import type { Pose, Rule } from "./simulation";
+import type { Rule } from "./simulation";
+import { floorPose, poseAt, STRIDE_RATE, SCOOP_RATE } from "./motion";
 
 const LEFT = 150;
 const W = 780;
@@ -37,50 +38,6 @@ const CLOTHES = [
 ];
 const LAMP = "#FFE3B8";
 const px = (x: number) => 102 + x * 72;
-
-/** A continuous path from the foreground queue to the salad, then right. */
-const floorPose = (rule: Rule, p: Pose) => {
-  if (p.x < -0.5 && rule === "line") {
-    const d = -p.x - 0.5;
-    return d < 1.8
-      ? { x: px(-0.5) + d * 28, y: 222 + d * 28, scale: 0.84 + d * 0.025 }
-      : { x: px(-0.5) + 50 + (d - 1.8) * 65, y: 273, scale: 0.9 };
-  }
-  if (rule === "skip" && p.state === "wait")
-    return {
-      x: px(p.x) + (p.queue % 2) * 19,
-      y: 226 + Math.floor(p.queue / 2) * 39,
-      scale: 0.84,
-    };
-  return {
-    x: px(p.x),
-    y: rule === "skip" && p.state === "walk" ? 280 : 222,
-    scale: rule === "skip" && p.state === "walk" ? 0.92 : 0.84,
-  };
-};
-
-/** Smooth model positions over four frames without changing their order. */
-const poseAt = (rule: Rule, id: number, frame: number) => {
-  const p = sampleAt(rule, simAt(frame))[id];
-  const pos = floorPose(rule, p);
-  let x = 0,
-    y = 0,
-    scale = 0;
-  for (let k = 0; k < 4; k++) {
-    const old = floorPose(rule, sampleAt(rule, simAt(frame - k))[id]);
-    x += old.x / 4;
-    y += old.y / 4;
-    scale += old.scale / 4;
-  }
-  const old = floorPose(rule, sampleAt(rule, simAt(frame - 4))[id]);
-  return {
-    p,
-    x,
-    y,
-    scale,
-    speed: Math.min(1, Math.hypot(pos.x - old.x, pos.y - old.y) / 12),
-  };
-};
 
 const Plate: React.FC<{ portions: number; dessert?: boolean }> = ({
   portions,
@@ -127,10 +84,10 @@ const Diner: React.FC<{ rule: Rule; id: number; frame: number }> = ({
   const hair = HAIR[(id * 3 + 2) % HAIR.length];
   const shirt = slow ? ACCENT : CLOTHES[(id * 7 + 3) % CLOTHES.length];
   const height = 0.95 + ((id * 37) % 12) / 100;
-  const step = Math.sin(frame * 0.46 + id * 2.3) * speed;
-  const bob = Math.abs(Math.cos(frame * 0.46 + id * 2.3)) * speed * 1.5;
+  const step = Math.sin(frame * STRIDE_RATE + id * 2.3) * speed;
+  const bob = Math.abs(Math.cos(frame * STRIDE_RATE + id * 2.3)) * speed * 1.5;
   const serve = p.state === "serve";
-  const scoop = serve ? Math.sin(frame * 0.23 + id) * 0.5 + 0.5 : 0;
+  const scoop = serve ? Math.sin(frame * SCOOP_RATE + id) * 0.5 + 0.5 : 0;
   const sway = Math.sin(frame * 0.07 + id) * 0.65 * (1 - speed);
   return (
     <g

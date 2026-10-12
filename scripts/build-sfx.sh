@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Synthesize the channel's sound effect set.
 #
-# Usage: scripts/build-sfx.sh
+# Usage: scripts/build-sfx.sh [effect names]
 #
 # Every effect is generated here rather than licensed, so the repository owns
 # them and there is no third-party term to track. Re-running reproduces the set.
@@ -22,6 +22,13 @@ mkdir -p "$out"
 # gen <name> <duration> <peak-dB> <lavfi-source> [extra-filters]
 gen() {
   local name="$1" dur="$2" peak="$3" src="$4" extra="${5:-anull}"
+  if (( ${#requested[@]} > 0 )); then
+    local selected=false item
+    for item in "${requested[@]}"; do
+      if [[ "$item" == "$name" ]]; then selected=true; fi
+    done
+    if [[ "$selected" == false ]]; then return; fi
+  fi
   ffmpeg -hide_banner -loglevel error -y -f lavfi -i "$src" \
     -af "${extra},afade=t=in:st=0:d=0.006,alimiter=limit=0.9,volume=${peak}dB" \
     -ar 48000 -ac 1 -c:a pcm_s16le -t "$dur" "$out/$name.wav"
@@ -29,6 +36,8 @@ gen() {
     "$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$out/$name.wav")" \
     "$(ffmpeg -hide_banner -nostats -i "$out/$name.wav" -af astats=metadata=1:reset=0 -f null - 2>&1 | grep 'Peak level dB' | tail -1 | awk '{print $NF}')"
 }
+
+requested=("$@")
 
 echo "building sfx into public/sfx"
 
@@ -154,5 +163,24 @@ gen beep 0.13 -24 \
 gen brake 0.30 -24 \
   "aevalsrc='0.5*(random(0)*2-1)*exp(-9*t)+0.1*sin(2*PI*(2700*t-900*t*t))*exp(-6*t)':d=0.3:s=48000" \
   "highpass=f=900,lowpass=f=5200,afade=t=in:st=0:d=0.03,afade=t=out:st=0.18:d=0.12"
+
+# Air through powered buffet warmers. No chatter, melody or rhythmic layer.
+gen buffet-room 14.00 -20 \
+  "anoisesrc=color=brown:duration=14:amplitude=0.8:seed=104" \
+  "highpass=f=85,lowpass=f=540,tremolo=f=0.65:d=0.10,afade=t=in:st=0:d=0.15,afade=t=out:st=13.4:d=0.6"
+
+# A ceramic plate touched by a serving utensil. Inharmonic partials decay
+# separately, with a short contact click under the ringing edge.
+gen ceramic-clink 0.26 -24 \
+  "aevalsrc='0.35*sin(2*PI*1840*t)*exp(-26*t)+0.28*sin(2*PI*3071*t)*exp(-36*t)+0.18*sin(2*PI*4913*t)*exp(-55*t)+0.24*sin(2*PI*740*t)*exp(-120*t)':d=0.26:s=48000"
+
+# Metal tongs touch the rim of a serving tray, short and dry.
+gen serving-tongs 0.16 -25 \
+  "aevalsrc='0.35*sin(2*PI*1260*t)*exp(-56*t)+0.22*sin(2*PI*2639*t)*exp(-72*t)+0.2*sin(2*PI*4157*t)*exp(-98*t)+0.22*sin(2*PI*310*t)*exp(-60*t)':d=0.16:s=48000"
+
+# A shoe lands on tile. A low heel impact followed by a filtered sole scuff.
+gen tile-step 0.18 -23 \
+  "aevalsrc='0.48*sin(2*PI*(110*t-65*t*t))*exp(-42*t)+0.18*sin(2*PI*437*t)*exp(-72*t)+0.13*sin(2*PI*1877*t)*exp(-130*t)':d=0.18:s=48000" \
+  "lowpass=f=1800"
 
 echo "done"

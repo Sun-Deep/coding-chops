@@ -35,11 +35,21 @@ of VR32. They do not identify policies or outcomes. Numeric results stay chalk.
 
 ## Sound
 
-A rejection as the salad pause becomes legible, a departure cue as skipping is
-explained, a plate landing when the dessert-only diner finishes below, a probe
-as the blocked line is explained, another plate event, a settle for the
-average, a rejection for the fairness cost and a settle for the computing
-name. Effects come from the repository's generated set. No music bed.
+The room carries a quiet fan sound from the powered hot trays. Visible
+footfalls sound on the drawing's stride cycle. Serving tongs click on service
+starts and scoops, and ceramic plates clink when a portion lands. The top
+room is pitched lower, the bottom higher. Finished plates for the dessert-only
+diner get a short success chord in each room, at their actual exit frame.
+
+Salad blocking gets a dull knock; the average lands with weight, the fairness
+receipt gets a rejection and the computing term gets the channel's naming
+sound. Dense events are limited per room, with plate contacts winning over
+tongs and footsteps. Motion and sound use the same position, stride and scoop
+functions in motion.ts. No music or voices.
+
+The four material sounds are synthesized in scripts/build-sfx.sh. Their
+sources and use are recorded in public/sfx/README.md. The existing sounds and
+older reels retain their levels.
 
 ## Safe geometry
 
@@ -52,7 +62,7 @@ headline, both rooms and lockup inside the centred square crop.
 
 420 video frames at 30 fps, 1080 x 1920. AAC container duration 14.059 seconds.
 Reviewed the complete muted playback at a 360-pixel width, then played with
-sound. The final audio peak is -5.3 dBFS. The quarter-size opening reads, all
+sound. The revised sound mix is reviewed in audio-review.md. The quarter-size opening reads, all
 five narration intervals clear the safe-area overlay, and both cover crops
 retain the headline, rooms and lockup. The longest run of near-still frames
 under YAVG 0.06 is 0.4 seconds. Typecheck, lint, formatting, curriculum

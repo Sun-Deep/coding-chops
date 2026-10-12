@@ -22,6 +22,7 @@ export const BuffetReel: React.FC = () => (
         at={cue.frame}
         gain={cue.gain}
         playbackRate={cue.rate}
+        durationInFrames={cue.length}
       />
     ))}
   </VerticalShell>

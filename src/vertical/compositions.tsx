@@ -104,6 +104,9 @@ import { BuffetReel } from "./34-buffet/Reel";
 import { DURATION as VR35 } from "./35-gym/beats";
 import { GymCover } from "./35-gym/Cover";
 import { GymReel } from "./35-gym/Reel";
+import { DURATION as VR36 } from "./36-deplane/beats";
+import { DeplaneCover } from "./36-deplane/Cover";
+import { DeplaneReel } from "./36-deplane/Reel";
 
 /**
  * Vertical cuts.
@@ -391,6 +394,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR36-Deplane"
+        component={DeplaneReel}
+        durationInFrames={VR36}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -595,6 +606,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR35-Cover"
         component={GymCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR36-Cover"
+        component={DeplaneCover}
         width={WIDTH}
         height={HEIGHT}
       />

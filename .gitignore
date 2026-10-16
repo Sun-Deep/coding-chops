@@ -43,3 +43,9 @@ public/narration
 
 # Attention measurement environment. Rebuilt by scripts/measure-attention.sh.
 .attention-venv
+
+# Third-party 3D assets, downloaded on demand. See third_party/README.md.
+third_party/*/
+
+# The deplaning reel's Blender renders, made by scripts/blender/deplane/render.sh.
+public/vr36/

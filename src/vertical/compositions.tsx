@@ -110,6 +110,9 @@ import { DeplaneReel } from "./36-deplane/Reel";
 import { DURATION as VR38 } from "./38-elevator-door/beats";
 import { ElevatorDoorCover } from "./38-elevator-door/Cover";
 import { ElevatorDoorReel } from "./38-elevator-door/Reel";
+import { DURATION as VR39 } from "./39-roadster-roll/beats";
+import { RoadsterRollCover } from "./39-roadster-roll/Cover";
+import { RoadsterRollReel } from "./39-roadster-roll/Reel";
 
 /**
  * Vertical cuts.
@@ -413,6 +416,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR39-Roadster-Roll"
+        component={RoadsterRollReel}
+        durationInFrames={VR39}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -629,6 +640,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR38-Cover"
         component={ElevatorDoorCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR39-Cover"
+        component={RoadsterRollCover}
         width={WIDTH}
         height={HEIGHT}
       />

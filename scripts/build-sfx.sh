@@ -221,5 +221,49 @@ gen lobby-step 0.16 -22 \
 gen floor-blip 0.12 -24 \
   "aevalsrc='0.5*sin(2*PI*1175*t)*exp(-32*t)+0.18*sin(2*PI*2350*t)*exp(-50*t)':d=0.12:s=48000"
 
+# The Roadster's electric motor pulling away: a whine climbing in pitch as
+# it speeds up, with a little road noise under it.
+gen ev-whine 2.60 -20 \
+  "aevalsrc='min(1,t/0.25)*if(lt(t,2.35),1,max(0,1-(t-2.35)/0.25))*(0.42*sin(2*PI*(240*t+95*t*t))+0.16*sin(2*PI*(480*t+190*t*t))+0.07*sin(2*PI*(960*t+380*t*t))+0.06*(random(0)*2-1))':d=2.6:s=48000" \
+  "highpass=f=90,lowpass=f=6000"
+
+# The suction fan holding the car to the ramp: a steady blade hum inside a
+# rush of air, fading out as the car lets go.
+gen fan-hum 2.80 -24 \
+  "aevalsrc='min(1,t/0.2)*if(lt(t,2.4),1,max(0,1-(t-2.4)/0.4))*(0.3*(random(0)*2-1)+0.22*sin(2*PI*215*t)*(0.8+0.2*sin(2*PI*9*t))+0.1*sin(2*PI*430*t))':d=2.8:s=48000" \
+  "bandpass=f=520:width_type=o:w=2.2,lowpass=f=2600"
+
+# The car letting go of the ramp: a heavy metal clunk.
+gen ramp-release 0.60 -18 \
+  "aevalsrc='0.8*sin(2*PI*118*t)*exp(-16*t)+0.38*sin(2*PI*860*t)*exp(-24*t)+0.22*sin(2*PI*1430*t)*exp(-30*t)+0.3*(random(0)*2-1)*exp(-70*t)':d=0.6:s=48000" \
+  "lowpass=f=6000,highpass=f=50"
+
+# Air rushing past a falling car, heard slowed down: a low swell.
+gen fall-air 7.00 -26 \
+  "anoisesrc=color=pink:duration=7:amplitude=0.9:seed=39" \
+  "lowpass=f=650,highpass=f=60,afade=t=in:d=1.4,afade=t=out:st=5.4:d=1.6"
+
+# A cold-gas thruster firing: a valve thump, then a hard hiss of compressed
+# air for as long as it is open. Trimmed in the composition to the firing.
+gen jet-hiss 4.00 -20 \
+  "aevalsrc='min(1,t/0.02)*(0.75*(random(0)*2-1)*(0.92+0.08*sin(2*PI*37*t))+0.5*sin(2*PI*90*t)*exp(-28*t))':d=4:s=48000" \
+  "highpass=f=380,lowpass=f=9500,afade=t=out:st=3.85:d=0.15"
+
+# A car landing on its roof: a deep thump, crumpling metal, a crack of glass.
+gen roof-crash 1.60 -14 \
+  "aevalsrc='0.95*sin(2*PI*(68*t-18*t*t))*exp(-8*t)+0.55*(random(0)*2-1)*exp(-9*t)+0.3*sin(2*PI*523*t)*exp(-5*t)+0.24*sin(2*PI*1187*t)*exp(-6*t)+0.18*sin(2*PI*1873*t)*exp(-8*t)+if(gt(t,0.06),0.2*(random(1)*2-1)*(gt(random(2),0.85))*exp(-6*(t-0.06)),0)':d=1.6:s=48000" \
+  "lowpass=f=7500,highpass=f=35"
+
+# A car landing on its wheels: a soft heavy thump, the suspension taking it,
+# a short chirp of tyre.
+gen tyre-land 0.90 -18 \
+  "aevalsrc='0.8*sin(2*PI*(84*t-24*t*t))*exp(-13*t)+0.22*(random(0)*2-1)*exp(-32*t)+0.12*sin(2*PI*340*t+3*sin(2*PI*7*t))*exp(-6*t)+0.14*sin(2*PI*1850*t)*exp(-22*t)':d=0.9:s=48000" \
+  "lowpass=f=5200,highpass=f=40"
+
+# Open air over a concrete test pad: low and steady.
+gen pad-air 14.00 -28 \
+  "anoisesrc=color=brown:duration=14:amplitude=0.8:seed=40" \
+  "lowpass=f=520,highpass=f=40,afade=t=out:st=13.6:d=0.4"
+
 
 echo "done"

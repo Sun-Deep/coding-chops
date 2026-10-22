@@ -39,6 +39,14 @@ Pass effect names to build only those files, for example
 | `lobby-room`      | The air of a stone-floored lobby, no voices       |
 | `lobby-step`      | A heel lands on a stone lobby floor               |
 | `floor-blip`      | A lift's floor display moves on by one            |
+| `ev-whine`        | An electric motor pulls away, rising in pitch     |
+| `fan-hum`         | A suction fan holds a car to a ramp               |
+| `ramp-release`    | A car lets go of a ramp: a heavy metal clunk      |
+| `fall-air`        | Air rushes past a falling car, slowed down        |
+| `jet-hiss`        | A cold-gas thruster opens and hisses              |
+| `roof-crash`      | A car lands on its roof                           |
+| `tyre-land`       | A car lands on its wheels                         |
+| `pad-air`         | Open air over a concrete test pad                 |
 | `buffet-room`     | Air through powered buffet warmers                |
 | `ceramic-clink`   | A serving utensil touches a ceramic plate         |
 | `serving-tongs`   | Tongs touch the rim of a serving tray             |

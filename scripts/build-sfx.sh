@@ -265,5 +265,27 @@ gen pad-air 14.00 -28 \
   "anoisesrc=color=brown:duration=14:amplitude=0.8:seed=40" \
   "lowpass=f=520,highpass=f=40,afade=t=out:st=13.6:d=0.4"
 
+# Heavy rain on a street: a broad hiss of drops with the crackle of the
+# nearer ones landing.
+gen rain-bed 14.00 -24 \
+  "aevalsrc='0.55*(random(0)*2-1)+0.5*(random(1)*2-1)*gt(random(2),0.985)':d=14:s=48000" \
+  "highpass=f=320,lowpass=f=9000,afade=t=in:d=0.3,afade=t=out:st=13.6:d=0.4"
+
+# Rain drumming on a bus shelter roof, heard from under it: denser and
+# higher than the street, with a hollow ring.
+gen roof-patter 11.00 -26 \
+  "aevalsrc='min(1,t/0.35)*(0.7*(random(0)*2-1)*gt(random(1),0.9)+0.12*(random(2)*2-1))':d=11:s=48000" \
+  "bandpass=f=2400:width_type=o:w=2.4,highpass=f=500,afade=t=out:st=10.6:d=0.4"
+
+# Distant thunder: a low rolling rumble.
+gen thunder 3.50 -16 \
+  "anoisesrc=color=brown:duration=3.5:amplitude=1.0:seed=41" \
+  "lowpass=f=240,highpass=f=28,afade=t=in:d=0.08,afade=t=out:st=0.6:d=2.9:curve=exp"
+
+# A foot coming down on a wet pavement: a slap and a splash.
+gen wet-step 0.22 -22 \
+  "aevalsrc='0.55*(random(0)*2-1)*exp(-26*t)+0.45*sin(2*PI*95*t)*exp(-40*t)':d=0.22:s=48000" \
+  "highpass=f=70,lowpass=f=7000"
+
 
 echo "done"

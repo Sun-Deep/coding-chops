@@ -8,49 +8,53 @@ Re-run the script to reproduce the set. Do not edit the WAV files by hand.
 Pass effect names to build only those files, for example
 `scripts/build-sfx.sh ceramic-clink serving-tongs tile-step buffet-room`.
 
-| File              | Event it marks                                    |
-| ----------------- | ------------------------------------------------- |
-| `tick`            | A named thing lands                               |
-| `swap`            | A value lands in a slot during a sort             |
-| `probe`           | A search reaches one cell                         |
-| `dissolve`        | Something is dismissed and leaves the frame       |
-| `appear`          | A hero object is born                             |
-| `settle`          | An object is placed                               |
-| `send`            | Something departs along a path                    |
-| `land`            | Something arrives                                 |
-| `process`         | The machine does one named piece of work          |
-| `return`          | A reply travels back                              |
-| `fill`            | Data arriving, one piece at a time                |
-| `name`            | A concept is named and holds                      |
-| `plate-lift`      | A rubber weight plate leaves a stack              |
-| `plate-swish`     | A weight plate crosses between pegs               |
-| `plate-land`      | A rubber plate and metal hub land                 |
-| `code-step`       | Execution advances to the next code line          |
-| `solved`          | The completed tower resolves                      |
-| `scan`            | A sequential scan running, for as long as it runs |
-| `reject`          | A request is turned away                          |
-| `ding`            | A lift arrives at a floor and its doors open      |
-| `beep`            | A shopper reaches a checkout and is scanned       |
-| `brake`           | A car brakes                                      |
-| `lift-chime`      | A lift arrives at a floor                         |
-| `lift-door-open`  | Lift doors slide open                             |
-| `lift-door-close` | Lift doors slide shut and meet                    |
-| `lift-door-bump`  | Closing lift doors meet an arm and open again     |
-| `lobby-room`      | The air of a stone-floored lobby, no voices       |
-| `lobby-step`      | A heel lands on a stone lobby floor               |
-| `floor-blip`      | A lift's floor display moves on by one            |
-| `ev-whine`        | An electric motor pulls away, rising in pitch     |
-| `fan-hum`         | A suction fan holds a car to a ramp               |
-| `ramp-release`    | A car lets go of a ramp: a heavy metal clunk      |
-| `fall-air`        | Air rushes past a falling car, slowed down        |
-| `jet-hiss`        | A cold-gas thruster opens and hisses              |
-| `roof-crash`      | A car lands on its roof                           |
-| `tyre-land`       | A car lands on its wheels                         |
-| `pad-air`         | Open air over a concrete test pad                 |
-| `buffet-room`     | Air through powered buffet warmers                |
-| `ceramic-clink`   | A serving utensil touches a ceramic plate         |
-| `serving-tongs`   | Tongs touch the rim of a serving tray             |
-| `tile-step`       | A shoe lands on a tiled floor                     |
+| File              | Event it marks                                     |
+| ----------------- | -------------------------------------------------- |
+| `tick`            | A named thing lands                                |
+| `swap`            | A value lands in a slot during a sort              |
+| `probe`           | A search reaches one cell                          |
+| `dissolve`        | Something is dismissed and leaves the frame        |
+| `appear`          | A hero object is born                              |
+| `settle`          | An object is placed                                |
+| `send`            | Something departs along a path                     |
+| `land`            | Something arrives                                  |
+| `process`         | The machine does one named piece of work           |
+| `return`          | A reply travels back                               |
+| `fill`            | Data arriving, one piece at a time                 |
+| `name`            | A concept is named and holds                       |
+| `plate-lift`      | A rubber weight plate leaves a stack               |
+| `plate-swish`     | A weight plate crosses between pegs                |
+| `plate-land`      | A rubber plate and metal hub land                  |
+| `code-step`       | Execution advances to the next code line           |
+| `solved`          | The completed tower resolves                       |
+| `scan`            | A sequential scan running, for as long as it runs  |
+| `reject`          | A request is turned away                           |
+| `ding`            | A lift arrives at a floor and its doors open       |
+| `beep`            | A shopper reaches a checkout and is scanned        |
+| `brake`           | A car brakes                                       |
+| `lift-chime`      | A lift arrives at a floor                          |
+| `lift-door-open`  | Lift doors slide open                              |
+| `lift-door-close` | Lift doors slide shut and meet                     |
+| `lift-door-bump`  | Closing lift doors meet an arm and open again      |
+| `lobby-room`      | The air of a stone-floored lobby, no voices        |
+| `lobby-step`      | A heel lands on a stone lobby floor                |
+| `floor-blip`      | A lift's floor display moves on by one             |
+| `ev-whine`        | An electric motor pulls away, rising in pitch      |
+| `fan-hum`         | A suction fan holds a car to a ramp                |
+| `ramp-release`    | A car lets go of a ramp: a heavy metal clunk       |
+| `fall-air`        | Air rushes past a falling car, slowed down         |
+| `jet-hiss`        | A cold-gas thruster opens and hisses               |
+| `roof-crash`      | A car lands on its roof                            |
+| `tyre-land`       | A car lands on its wheels                          |
+| `pad-air`         | Open air over a concrete test pad                  |
+| `rain-bed`        | Heavy rain on a street                             |
+| `roof-patter`     | Rain drumming on a bus shelter roof, from under it |
+| `thunder`         | Distant thunder                                    |
+| `wet-step`        | A foot coming down on a wet pavement               |
+| `buffet-room`     | Air through powered buffet warmers                 |
+| `ceramic-clink`   | A serving utensil touches a ceramic plate          |
+| `serving-tongs`   | Tongs touch the rim of a serving tray              |
+| `tile-step`       | A shoe lands on a tiled floor                      |
 
 Levels are deliberately low. Set per-use gain in the composition rather than
 regenerating a file, so one loud placement never forces the whole set down.

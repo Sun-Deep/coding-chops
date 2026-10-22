@@ -1,0 +1,7 @@
+{
+  "cpu": "Apple M5 Pro",
+  "architecture": "arm64",
+  "platform": "darwin",
+  "kernel": "25.5.0",
+  "node": "v22.14.0"
+}

@@ -32,6 +32,7 @@ Pass effect names to build only those files, for example
 | `ding`            | A lift arrives at a floor and its doors open       |
 | `beep`            | A shopper reaches a checkout and is scanned        |
 | `brake`           | A car brakes                                       |
+| `bus-horn`        | A bus signals as it approaches a stop              |
 | `lift-chime`      | A lift arrives at a floor                          |
 | `lift-door-open`  | Lift doors slide open                              |
 | `lift-door-close` | Lift doors slide shut and meet                     |
@@ -89,6 +90,11 @@ something across the whole thing.
 `buffet-room` belongs to a room with powered hot trays. It is ventilation,
 without voices or music, under the footsteps and serving sounds. VR34 keeps
 it below the material events, following the room sound in VR32 and VR33.
+
+`bus-horn` is a 0.2-second two-tone tap. VR37 repeats pairs of taps from the
+following bus's entrance through the end, with a headlight flash on each tap.
+Rebuild it with
+`scripts/build-sfx.sh bus-horn`.
 
 Narration stays the clearest layer. If an effect competes with a word, it is
 wrong regardless of how good it sounds alone.

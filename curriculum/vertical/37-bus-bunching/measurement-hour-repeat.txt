@@ -1,0 +1,64 @@
+{
+  "recordedAt": "2026-10-15T06:07:38.778Z",
+  "node": "v22.14.0",
+  "platform": "darwin",
+  "settings": {
+    "seed": 37,
+    "route": 1200,
+    "stops": 4,
+    "speed": 8,
+    "clearance": 18,
+    "arrivalsPerSecond": 0.075,
+    "boardingSeconds": 2.5,
+    "doorsSeconds": 5,
+    "initialDelay": 35,
+    "step": 0.25,
+    "seconds": 420
+  },
+  "sha256": "6b990d88974cf38fc604ac5302ac46920b30fbdd5771c5fe666601462bafd713"
+}
+
+Visits: bus, stop, arrival, departure, queue on arrival, boarded
+1	2	0	15	3	4
+0	0	35	85	15	18
+1	3	52.25	89.75	12	13
+0	1	122.25	174.75	15	19
+1	0	127	149.5	5	7
+1	1	186.75	191.75	0	0
+0	2	212	249.5	12	13
+1	2	251.5	256.5	0	0
+0	3	286.75	331.75	12	16
+1	3	333.75	338.75	0	0
+0	0	369	409	12	14
+1	0	411	416	0	0
+
+Checks passed: repeatability, forward motion, equal speed limit, clearance, no-boarding control.
+
+Following bus blocked behind the boarding bus:
+[
+  {
+    "from": 226.75,
+    "to": 249.5,
+    "seconds": 22.75
+  },
+  {
+    "from": 291.5,
+    "to": 331.75,
+    "seconds": 40.25
+  },
+  {
+    "from": 373.75,
+    "to": 409,
+    "seconds": 35.25
+  }
+]
+
+On-screen following-bus pickup:
+{
+  "arrivalFrame": 54,
+  "arrivalSeconds": 1.8,
+  "departureFrame": 125,
+  "passengersPickedUp": 13,
+  "visibleBoardedAtFrame70": 2,
+  "visibleBoardedAtFrame110": 10
+}

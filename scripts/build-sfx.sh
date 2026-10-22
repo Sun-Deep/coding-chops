@@ -164,6 +164,11 @@ gen brake 0.30 -24 \
   "aevalsrc='0.5*(random(0)*2-1)*exp(-9*t)+0.1*sin(2*PI*(2700*t-900*t*t))*exp(-6*t)':d=0.3:s=48000" \
   "highpass=f=900,lowpass=f=5200,afade=t=in:st=0:d=0.03,afade=t=out:st=0.18:d=0.12"
 
+# A short two-tone bus horn. The composition places each tap with its flash.
+gen bus-horn 0.20 -20 \
+  "aevalsrc='0.32*sin(2*PI*220*t)+0.25*sin(2*PI*277*t)+0.12*sin(2*PI*440*t)+0.1*sin(2*PI*554*t)+0.08*sin(2*PI*660*t)':d=0.2:s=48000" \
+  "afade=t=in:st=0:d=0.02,afade=t=out:st=0.12:d=0.08"
+
 # Air through powered buffet warmers. No chatter, melody or rhythmic layer.
 gen buffet-room 14.00 -20 \
   "anoisesrc=color=brown:duration=14:amplitude=0.8:seed=104" \

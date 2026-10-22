@@ -119,6 +119,9 @@ import { RainRunReel } from "./40-rain-run/Reel";
 import { DURATION as VR42 } from "./42-roundabout/beats";
 import { RoundaboutCover } from "./42-roundabout/Cover";
 import { RoundaboutReel } from "./42-roundabout/Reel";
+import { DURATION as VR43 } from "./43-git-bisect/beats";
+import { GitBisectCover } from "./43-git-bisect/Cover";
+import { GitBisectReel } from "./43-git-bisect/Reel";
 
 /**
  * Vertical cuts.
@@ -446,6 +449,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR43-Git-Bisect"
+        component={GitBisectReel}
+        durationInFrames={VR43}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -680,6 +691,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR42-Cover"
         component={RoundaboutCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR43-Cover"
+        component={GitBisectCover}
         width={WIDTH}
         height={HEIGHT}
       />

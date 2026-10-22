@@ -98,3 +98,9 @@ Rebuild it with
 
 Narration stays the clearest layer. If an effect competes with a word, it is
 wrong regardless of how good it sounds alone.
+
+The coin puzzle adds four generated material sounds. `coin-clink` is a thin
+coin meeting a metal pan. `coin-handle` is tweezers supporting a transfer,
+trimmed to its duration. `scale-release` marks the arrest lever releasing.
+`coin-turn` lasts while the answer is turned onto its edge. Rebuild them with
+`scripts/build-sfx.sh coin-clink coin-handle scale-release coin-turn`.

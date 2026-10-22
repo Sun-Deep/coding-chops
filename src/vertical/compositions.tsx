@@ -128,6 +128,11 @@ import { RoundaboutReel } from "./42-roundabout/Reel";
 import { DURATION as VR43 } from "./43-git-bisect/beats";
 import { GitBisectCover } from "./43-git-bisect/Cover";
 import { GitBisectReel } from "./43-git-bisect/Reel";
+import { CoinPuzzleLook, CoinPuzzlePreview } from "./41-coin-puzzle/Preview";
+import { PREVIEW_DURATION as COIN_PREVIEW } from "./41-coin-puzzle/beats";
+import { DURATION as VR41 } from "./41-coin-puzzle/beats";
+import { CoinPuzzleReel } from "./41-coin-puzzle/Reel";
+import { CoinPuzzleCover } from "./41-coin-puzzle/Cover";
 
 /**
  * Vertical cuts.
@@ -143,6 +148,14 @@ import { GitBisectReel } from "./43-git-bisect/Reel";
 export const VerticalCompositions: React.FC = () => (
   <>
     <Folder name="Reels">
+      <Composition
+        id="VR41-Coin-Puzzle"
+        component={CoinPuzzleReel}
+        durationInFrames={VR41}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
       <Composition
         id="VR01-Database-Index"
         component={DatabaseIndexReel}
@@ -483,6 +496,12 @@ export const VerticalCompositions: React.FC = () => (
 
     <Folder name="Covers">
       <Still
+        id="VR41-Cover"
+        component={CoinPuzzleCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
         id="VR01-Cover"
         component={DatabaseIndexCover}
         width={WIDTH}
@@ -737,6 +756,20 @@ export const VerticalCompositions: React.FC = () => (
     </Folder>
 
     <Folder name="Review">
+      <Composition
+        id="VR41-Coin-Puzzle-Preview"
+        component={CoinPuzzlePreview}
+        durationInFrames={COIN_PREVIEW}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR41-Coin-Puzzle-Look"
+        component={CoinPuzzleLook}
+        width={WIDTH}
+        height={HEIGHT}
+      />
       <Still
         id="Vertical-Safe-Area"
         component={SafeArea}

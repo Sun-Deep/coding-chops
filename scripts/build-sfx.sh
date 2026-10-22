@@ -292,6 +292,26 @@ gen wet-step 0.22 -22 \
   "aevalsrc='0.55*(random(0)*2-1)*exp(-26*t)+0.45*sin(2*PI*95*t)*exp(-40*t)':d=0.22:s=48000" \
   "highpass=f=70,lowpass=f=7000"
 
+# A thin coin landing in a metal pan: inharmonic ringing above a dry contact.
+gen coin-clink 0.48 -16 \
+  "aevalsrc='0.42*sin(2*PI*2263*t)*exp(-17*t)+0.24*sin(2*PI*3791*t)*exp(-25*t)+0.16*sin(2*PI*6107*t)*exp(-37*t)+0.24*(random(0)*2-1)*exp(-150*t)':d=0.48:s=48000" \
+  "highpass=f=300,aecho=0.8:0.25:19:0.12"
+
+# Nylon-tipped tweezers handling a coin. Friction lasts for the transfer.
+gen coin-handle 1.40 -25 \
+  "aevalsrc='pow(sin(PI*t/1.4),0.7)*(0.42*(random(0)*2-1)+0.09*sin(2*PI*1673*t)*(0.5+0.5*sin(2*PI*13*t)))':d=1.4:s=48000" \
+  "highpass=f=650,lowpass=f=3600"
+
+# The balance arrest lever releasing and the beam settling.
+gen scale-release 0.95 -20 \
+  "aevalsrc='0.52*sin(2*PI*320*t)*exp(-43*t)+0.25*sin(2*PI*1317*t)*exp(-29*t)+0.20*(random(0)*2-1)*exp(-90*t)+0.12*(random(1)*2-1)*sin(PI*t/0.95)*exp(-2*t)':d=0.95:s=48000" \
+  "highpass=f=160,lowpass=f=4200"
+
+# The answer coin turning on its edge in the tweezers.
+gen coin-turn 1.40 -22 \
+  "aevalsrc='pow(sin(PI*t/1.4),0.8)*(0.32*(random(0)*2-1)+0.06*sin(2*PI*2189*t)*(0.5+0.5*sin(2*PI*9*t)))+0.20*sin(2*PI*3041*t)*exp(-26*t)':d=1.4:s=48000" \
+  "highpass=f=420,lowpass=f=4800"
+
 # A suburban junction on a quiet afternoon: a low wash of distant traffic.
 gen street-air 14.00 -28 \
   "anoisesrc=color=brown:duration=14:amplitude=0.8:seed=42" \

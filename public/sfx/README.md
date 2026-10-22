@@ -51,6 +51,10 @@ Pass effect names to build only those files, for example
 | `roof-patter`     | Rain drumming on a bus shelter roof, from under it |
 | `thunder`         | Distant thunder                                    |
 | `wet-step`        | A foot coming down on a wet pavement               |
+| `street-air`      | Distant traffic at a suburban junction             |
+| `signal-click`    | A traffic signal's relay changing                  |
+| `engine-pull`     | A car pulling away through first gear              |
+| `tyre-roll`       | A car rolling through without stopping             |
 | `buffet-room`     | Air through powered buffet warmers                 |
 | `ceramic-clink`   | A serving utensil touches a ceramic plate          |
 | `serving-tongs`   | Tongs touch the rim of a serving tray              |

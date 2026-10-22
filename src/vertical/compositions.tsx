@@ -116,6 +116,9 @@ import { RoadsterRollReel } from "./39-roadster-roll/Reel";
 import { DURATION as VR40 } from "./40-rain-run/beats";
 import { RainRunCover } from "./40-rain-run/Cover";
 import { RainRunReel } from "./40-rain-run/Reel";
+import { DURATION as VR42 } from "./42-roundabout/beats";
+import { RoundaboutCover } from "./42-roundabout/Cover";
+import { RoundaboutReel } from "./42-roundabout/Reel";
 
 /**
  * Vertical cuts.
@@ -435,6 +438,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR42-Roundabout"
+        component={RoundaboutReel}
+        durationInFrames={VR42}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -663,6 +674,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR40-Cover"
         component={RainRunCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR42-Cover"
+        component={RoundaboutCover}
         width={WIDTH}
         height={HEIGHT}
       />

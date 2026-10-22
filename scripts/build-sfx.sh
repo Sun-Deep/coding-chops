@@ -287,5 +287,25 @@ gen wet-step 0.22 -22 \
   "aevalsrc='0.55*(random(0)*2-1)*exp(-26*t)+0.45*sin(2*PI*95*t)*exp(-40*t)':d=0.22:s=48000" \
   "highpass=f=70,lowpass=f=7000"
 
+# A suburban junction on a quiet afternoon: a low wash of distant traffic.
+gen street-air 14.00 -28 \
+  "anoisesrc=color=brown:duration=14:amplitude=0.8:seed=42" \
+  "lowpass=f=700,highpass=f=60,afade=t=in:d=0.3,afade=t=out:st=13.6:d=0.4"
+
+# A traffic signal changing: the relay in the controller cabinet.
+gen signal-click 0.12 -22 \
+  "aevalsrc='0.7*(random(0)*2-1)*exp(-90*t)+0.35*sin(2*PI*1650*t)*exp(-60*t)':d=0.12:s=48000" \
+  "highpass=f=400,lowpass=f=8000"
+
+# A car pulling away: an engine note climbing through first gear.
+gen engine-pull 2.20 -20 \
+  "aevalsrc='min(1,t/0.15)*if(lt(t,1.9),1,max(0,1-(t-1.9)/0.3))*(0.5*sin(2*PI*(55*t+28*t*t))+0.25*sin(2*PI*(110*t+56*t*t))+0.12*sin(2*PI*(165*t+84*t*t))+0.12*(random(0)*2-1))':d=2.2:s=48000" \
+  "lowpass=f=1800,highpass=f=40"
+
+# A car rolling through without stopping: tyres on asphalt, a steady hum.
+gen tyre-roll 2.40 -24 \
+  "anoisesrc=color=pink:duration=2.4:amplitude=0.9:seed=43" \
+  "bandpass=f=420:width_type=o:w=1.6,afade=t=in:d=0.4,afade=t=out:st=1.6:d=0.8"
+
 
 echo "done"

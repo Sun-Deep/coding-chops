@@ -183,4 +183,43 @@ gen tile-step 0.18 -23 \
   "aevalsrc='0.48*sin(2*PI*(110*t-65*t*t))*exp(-42*t)+0.18*sin(2*PI*437*t)*exp(-72*t)+0.13*sin(2*PI*1877*t)*exp(-130*t)':d=0.18:s=48000" \
   "lowpass=f=1800"
 
+# A lift arriving at a floor: one struck bell, a G with the inharmonic
+# partials a real chime bar has, ringing on in a hard lobby.
+gen lift-chime 1.80 -16 \
+  "aevalsrc='0.42*sin(2*PI*784*t)*exp(-2.4*t)+0.22*sin(2*PI*1576*t)*exp(-3.6*t)+0.13*sin(2*PI*2163*t)*exp(-5*t)+0.08*sin(2*PI*3190*t)*exp(-7.5*t)+0.12*sin(2*PI*4230*t)*exp(-30*t)':d=1.8:s=48000" \
+  "aecho=0.7:0.45:47|83:0.22|0.12,lowpass=f=8000"
+
+# Lift doors sliding open: a latch click, then the door motor hum under the
+# rush of the panels moving, swelling and dying away.
+gen lift-door-open 0.90 -24 \
+  "aevalsrc='if(lt(t,0.85),pow(sin(PI*t/0.85),0.9),0)*(0.32*(random(0)*2-1)+0.18*sin(2*PI*92*t)+0.09*sin(2*PI*184*t)+0.04*sin(2*PI*368*t))+0.25*sin(2*PI*900*t)*exp(-120*t)':d=0.9:s=48000" \
+  "lowpass=f=1600,highpass=f=60"
+
+# Lift doors sliding shut: the same motor and rush, then the panels meeting
+# with a soft heavy thud.
+gen lift-door-close 1.10 -22 \
+  "aevalsrc='if(lt(t,0.85),pow(sin(PI*t/0.85),0.9),0)*(0.32*(random(0)*2-1)+0.18*sin(2*PI*92*t)+0.09*sin(2*PI*184*t)+0.04*sin(2*PI*368*t))+if(gte(t,0.86),0.75*sin(2*PI*78*(t-0.86))*exp(-26*(t-0.86))+0.22*(random(1)*2-1)*exp(-70*(t-0.86)),0)':d=1.1:s=48000" \
+  "lowpass=f=1800,highpass=f=40"
+
+# Closing lift doors meeting an arm and opening again: a rubber-edged thud,
+# a rattle, and the motor reversing.
+gen lift-door-bump 0.50 -20 \
+  "aevalsrc='0.75*sin(2*PI*(95*t-30*t*t))*exp(-24*t)+0.25*(random(0)*2-1)*exp(-55*t)+if(between(t,0.1,0.48),sin(PI*(t-0.1)/0.38),0)*(0.12*(random(1)*2-1)+0.1*sin(2*PI*110*t))':d=0.5:s=48000" \
+  "lowpass=f=1500,highpass=f=45"
+
+# The air of a stone-floored office lobby: low and steady, no voices.
+gen lobby-room 14.00 -27 \
+  "anoisesrc=color=brown:duration=14:amplitude=0.8:seed=38" \
+  "lowpass=f=650,highpass=f=45,afade=t=out:st=13.6:d=0.4"
+
+# A hard heel on a stone lobby floor: the knock, the click, a short echo.
+gen lobby-step 0.16 -22 \
+  "aevalsrc='0.55*sin(2*PI*(140*t-90*t*t))*exp(-55*t)+0.35*(random(0)*2-1)*exp(-110*t)+0.12*sin(2*PI*2400*t)*exp(-180*t)':d=0.16:s=48000" \
+  "highpass=f=70,lowpass=f=5200,aecho=0.6:0.3:35:0.15"
+
+# The floor display moving on by one: a soft, short two-partial blip.
+gen floor-blip 0.12 -24 \
+  "aevalsrc='0.5*sin(2*PI*1175*t)*exp(-32*t)+0.18*sin(2*PI*2350*t)*exp(-50*t)':d=0.12:s=48000"
+
+
 echo "done"

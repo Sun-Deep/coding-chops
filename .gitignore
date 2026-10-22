@@ -49,3 +49,9 @@ third_party/*/
 
 # The deplaning reel's Blender renders, made by scripts/blender/deplane/render.sh.
 public/vr36/
+
+# The lift-door reel's Blender renders, made by scripts/blender/elevator/render.sh.
+public/vr38/
+
+# Python bytecode from the Blender scripts importing each other.
+__pycache__/

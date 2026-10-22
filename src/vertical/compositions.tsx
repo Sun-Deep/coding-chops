@@ -128,6 +128,9 @@ import { RoundaboutReel } from "./42-roundabout/Reel";
 import { DURATION as VR43 } from "./43-git-bisect/beats";
 import { GitBisectCover } from "./43-git-bisect/Cover";
 import { GitBisectReel } from "./43-git-bisect/Reel";
+import { DURATION as VR44 } from "./44-sql-order/beats";
+import { SqlOrderCover } from "./44-sql-order/Cover";
+import { SqlOrderReel } from "./44-sql-order/Reel";
 import { CoinPuzzleLook, CoinPuzzlePreview } from "./41-coin-puzzle/Preview";
 import { PREVIEW_DURATION as COIN_PREVIEW } from "./41-coin-puzzle/beats";
 import { DURATION as VR41 } from "./41-coin-puzzle/beats";
@@ -492,6 +495,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR44-SQL-Order"
+        component={SqlOrderReel}
+        durationInFrames={VR44}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -750,6 +761,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR43-Cover"
         component={GitBisectCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR44-Cover"
+        component={SqlOrderCover}
         width={WIDTH}
         height={HEIGHT}
       />

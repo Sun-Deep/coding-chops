@@ -6,10 +6,10 @@ released under Creative Commons Zero, so they can be used, changed and
 redistributed with no conditions. `License.txt` is the pack's own licence
 file.
 
-| Pack                   | Downloaded from                           | Files here                                                                              |
-| ---------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------- |
-| Impact Sounds (1.0)    | https://kenney.nl/assets/impact-sounds    | `impactWood_*`, `impactGeneric_light_*`, `impactBell_heavy_000`, `impactSoft_heavy_000` |
-| Interface Sounds (1.0) | https://kenney.nl/assets/interface-sounds | `click_002` to `click_005`, `tick_*`, `confirmation_001`, `error_004`, `drop_002`       |
+| Pack                   | Downloaded from                           | Files here                                                                                                                 |
+| ---------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Impact Sounds (1.0)    | https://kenney.nl/assets/impact-sounds    | `impactWood_*`, `impactGeneric_light_*`, `impactBell_heavy_000`, `impactSoft_heavy_000`                                    |
+| Interface Sounds (1.0) | https://kenney.nl/assets/interface-sounds | `click_002` to `click_005`, `tick_*`, `confirmation_001`, `error_004`, `drop_002`, `switch_003`, `switch_004`, `glass_003` |
 
 Downloaded 2026-10-22 and converted from Ogg to 48 kHz mono WAV with ffmpeg.
 The clicks shorter than one video frame (`click_002` to `click_005`,

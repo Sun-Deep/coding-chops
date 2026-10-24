@@ -16,8 +16,9 @@ WHERE (`ERROR:  column "total" does not exist`) and is there in ORDER BY.
 ## Why this topic
 
 The second reel of the month plan, a list worth keeping for the audience
-SQL joins reached (389K). It follows git bisect, so it gets its own look:
-flat rows of a table, stacks and a bar chart, not a field of cards.
+SQL joins reached (389K). It is drawn as a mailroom at eye level, parcels,
+cubbies and coins, so it does not look like the field of glowing
+objects git bisect and PHP2Shell use.
 
 ## Scope and honesty
 
@@ -38,4 +39,4 @@ the picture. Nothing is timed.
 
 - `src/vertical/44-sql-order/`: the data, the overlays and the reel
 - `scripts/measure-sql-order.mjs`: the committed run
-- `scripts/blender/sql/`: the table, the stacks, the bars and the render
+- `scripts/blender/sql/`: the mailroom (`mailroom.py`) and the render

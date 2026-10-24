@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Renders the SQL reel's table of 1,000 orders in Blender and encodes it for
+# Renders the SQL reel's mailroom of 1,000 orders in Blender and encodes it for
 # Remotion, which lays the headline, query, labels, narration and sound
 # over it.
 #
@@ -15,10 +15,10 @@ COVER=0400
 mkdir -p "$OUT"
 node --experimental-strip-types --no-warnings \
   --import ./scripts/ts-register.mjs scripts/blender/sql/export.mjs "$OUT/timeline.json"
-"$BLENDER" -b --factory-startup -P scripts/blender/sql/rows.py -- \
+"$BLENDER" -b --factory-startup -P scripts/blender/sql/mailroom.py -- \
   "$OUT/timeline.json" "$OUT/track.json"
 rm -rf "$FRAMES" && mkdir -p "$FRAMES"
-"$BLENDER" -b --factory-startup -P scripts/blender/sql/rows.py -- \
+"$BLENDER" -b --factory-startup -P scripts/blender/sql/mailroom.py -- \
   "$OUT/timeline.json" "$FRAMES"
 ffmpeg -v error -y -framerate 30 -start_number 0 -i "$FRAMES/f%04d.png" \
   -c:v libx264 -crf 12 -pix_fmt yuv420p "$OUT/table.mp4"

@@ -11,7 +11,7 @@ crops    out/vertical/vr44-sql-order-cover-crop-1x1.png
          out/vertical/vr44-sql-order-cover-crop-3x4.png
 ```
 
-The table is rendered first with `scripts/blender/sql/render.sh`.
+The mailroom is rendered first with `scripts/blender/sql/render.sh`.
 
 ## Facebook, Instagram and TikTok caption
 

@@ -18,14 +18,16 @@ No voiceover and no music. The narration is burned into the frame.
 headline   SQL doesn't run / top to bottom.
 query      the query as written; as each step runs its number lands
            beside its line, ending 5 1 2 3 4 6 7
-scene      1,000 orders as glowing table rows on a dark floor, rendered
-           in Blender: a scan lights the table, the unpaid rows sink, the
-           rest fly into stacks per customer, the small stacks go dark,
-           each stack left stands up as one bar as tall as its total,
-           the bars sort, all but five fall
+scene      1,000 orders as parcels in a mailroom at eye level, rendered
+           in Blender: they pour onto a table, the unpaid ones slide off
+           the end, the rest fly into one cubby per customer, shutters
+           close on the cubbies under 8, each open cubby's parcels turn
+           into a coin stack as tall as its total, the stacks line up on
+           the table tallest first, all but five are swept off
 chips      STEP n and the clause; the rows or groups out of that step,
            from EXPLAIN ANALYZE
-tags       the five customers and their totals
+tags       UNPAID at the end of the table during WHERE; the five
+           customers and their totals at the foot of their stacks
 proof      psql's answers: the alias in WHERE, ERROR; in ORDER BY, 1 row
 orange     what SELECT makes: its line, its step number, its result rows
 ```

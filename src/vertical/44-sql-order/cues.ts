@@ -1,22 +1,23 @@
 import { PROOF_FROM, STAGES, VERDICT_FROM, badgeAt } from "./beats";
-import { ORDERS, orders, steps } from "./data";
 
 /**
  * The sound of what is on screen, from the recorded CC0 set in
  * `public/sfx/kenney/`:
  *
  * - a tick as each step's number lands beside its line;
- * - FROM: a soft run of clicks as the scan reads the table;
- * - WHERE: soft knocks as the scan sinks the unpaid rows;
- * - GROUP BY: rows landing on their stacks, a wooden tap each few;
- * - HAVING: a low thud as the small stacks go dark;
- * - SELECT: a confirmation as the result rows stand up;
- * - ORDER BY: a quick run of clicks as the bars slide into line;
- * - LIMIT: the rest falling, then the bell for the five that are left;
+ * - FROM: cardboard thuds as 1,000 parcels pour onto the table;
+ * - WHERE: hollow knocks as the unpaid ones drop into the returns bin;
+ * - GROUP BY: wooden taps as parcels land in their cubbies;
+ * - HAVING: a low thud and shutters clacking down on the small piles;
+ * - SELECT: a confirmation, then coins clinking as each open cubby's
+ *   parcels become a stack;
+ * - ORDER BY: each stack set down on the table, tallest first;
+ * - LIMIT: the rest swept off the back of the table, then the bell for
+ *   the five that are left;
  * - the proof: an error for the alias in WHERE, a confirmation for ORDER BY,
  *   and the bell slowed down ringing out under the verdict.
  *
- * The landing frames follow the motion in `scripts/blender/sql/rows.py`.
+ * The frames follow the motion in `scripts/blender/sql/mailroom.py`.
  * Every file peaks near -1 dBFS, so a gain is the level it should sit at.
  */
 
@@ -50,60 +51,23 @@ const LIGHT = [0, 1, 2].map((i) => `impactGeneric_light_00${i}`);
 const CLICKS = ["tick_001", "tick_002", "click_004", "click_002"];
 const at = (clause: string) => STAGES.find((s) => s.clause === clause)!.at;
 
-const rows = orders();
-const s = steps(rows);
-const unpaid = rows.flatMap((o, i) => (o.status === "paid" ? [] : [i]));
-const bars = s.ordered.length;
-
-/** `count` frames spread evenly through a sorted list of frames. */
-const spread = (frames: number[], count: number) =>
-  Array.from(
-    { length: count },
-    (_, h) => frames[Math.floor((h / count) * frames.length)],
-  );
-
-/** The band sweeping the table, frames 10 to 58 in rows.py. */
-const read: Cue[] = Array.from({ length: 16 }, (_, h) => ({
-  id: `read-${h}`,
-  name: k(h % 3 === 0 ? "tick_001" : h % 3 === 1 ? "click_004" : "tick_002"),
-  frame: Math.round(10 + (h * 48) / 15),
-  rate: 1.1 + rng() * 0.3,
-  gain: dB(-17 - rng() * 3),
-}));
-
-/** Rows leaving the table for their stacks. */
-const lift: Cue[] = Array.from({ length: 6 }, (_, h) => ({
-  id: `lift-${h}`,
-  name: k(pick(LIGHT)),
-  frame: at("GROUP BY") + h * 4,
-  rate: 1.3 + rng() * 0.3,
-  gain: dB(-20 - rng() * 4),
-}));
-
-/** Small stacks going dark, one knock each few, through HAVING's wave. */
-const dark: Cue[] = Array.from({ length: 7 }, (_, h) => ({
-  id: `dark-${h}`,
-  name: k(pick(LIGHT)),
-  frame: at("HAVING") + 2 + h * 2,
-  rate: 0.7 + rng() * 0.1,
-  gain: dB(-17 - rng() * 4),
-}));
-
-/** The result rows standing up, then setting off for the line. */
-const stand: Cue[] = Array.from({ length: 10 }, (_, h) => ({
-  id: `stand-${h}`,
-  name: k(pick(WOOD)),
-  frame: at("SELECT") + 6 + h * 2,
-  rate: 1.25 + rng() * 0.25,
-  gain: dB(-16 - rng() * 4),
-}));
-const leave: Cue[] = Array.from({ length: 8 }, (_, h) => ({
-  id: `leave-${h}`,
-  name: k(pick(CLICKS)),
-  frame: at("ORDER BY") + h * 2,
-  rate: 0.8 + rng() * 0.2,
-  gain: dB(-18 - rng() * 4),
-}));
+/** `count` cues spread evenly from frame `a` to frame `b`. */
+const evenly = (
+  id: string,
+  a: number,
+  b: number,
+  count: number,
+  names: readonly string[],
+  level: number,
+  rate: [number, number],
+): Cue[] =>
+  Array.from({ length: count }, (_, h) => ({
+    id: `${id}-${h}`,
+    name: k(pick(names)),
+    frame: Math.round(a + ((b - a) * h) / Math.max(1, count - 1)),
+    rate: rate[0] + rng() * (rate[1] - rate[0]),
+    gain: dB(level - rng() * 4),
+  }));
 
 const ticks: Cue[] = STAGES.map((_, i) => ({
   id: `badge-${i}`,
@@ -113,64 +77,76 @@ const ticks: Cue[] = STAGES.map((_, i) => ({
   gain: dB(-10),
 }));
 
-const sink: Cue[] = spread(
-  unpaid.map((i) => Math.round(at("WHERE") + (18 * i) / ORDERS + 10)),
-  9,
-).map((frame, h) => ({
-  id: `sink-${h}`,
-  name: k(pick(LIGHT)),
-  frame,
-  rate: 0.8 + rng() * 0.15,
-  gain: dB(-19 - rng() * 5),
-}));
-
-const stack: Cue[] = spread(
-  Array.from({ length: s.where }, (_, q) =>
-    Math.round(at("GROUP BY") + (30 * q) / s.where + 18),
-  ),
-  24,
-).map((frame, h) => ({
-  id: `stack-${h}`,
-  name: k(pick(WOOD)),
-  frame,
-  rate: 1.1 + rng() * 0.3,
-  gain: dB(-15 - rng() * 6),
-}));
-
-const slide: Cue[] = Array.from({ length: bars }, (_, r) =>
-  Math.round(at("ORDER BY") + r * 0.7 + 20),
-)
-  .filter((_, r) => r % 2 === 0)
-  .map((frame, h) => ({
-    id: `slide-${h}`,
-    name: k(pick(CLICKS)),
-    frame,
-    rate: 0.9 + rng() * 0.3,
-    gain: dB(-15 - rng() * 4),
-  }));
-
-const fall: Cue[] = spread(
-  Array.from({ length: bars - 5 }, (_, r) =>
-    Math.round(at("LIMIT") + r * 0.5 + 12),
-  ),
+/** Parcels land on the table over frames 2 to 48, the bottom of the heap first. */
+const pour = evenly("pour", 3, 48, 20, [...WOOD, ...LIGHT], -15, [0.8, 1.1]);
+/** Unpaid parcels slide off the end and drop into the bin. */
+const bin = evenly(
+  "bin",
+  at("WHERE") + 18,
+  at("WHERE") + 46,
   10,
-).map((frame, h) => ({
-  id: `fall-${h}`,
-  name: k(pick(WOOD)),
-  frame,
-  rate: 0.95 + rng() * 0.3,
-  gain: dB(-14 - rng() * 5),
-}));
+  LIGHT,
+  -15,
+  [0.7, 0.85],
+);
+/** Paid parcels land in their cubbies, left columns first. */
+const cubby = evenly(
+  "cubby",
+  at("GROUP BY") + 18,
+  at("GROUP BY") + 52,
+  22,
+  WOOD,
+  -15,
+  [1.1, 1.4],
+);
+/** Shutters come down, a wave from the top left. */
+const shut = evenly(
+  "shut",
+  at("HAVING") + 11,
+  at("HAVING") + 36,
+  12,
+  LIGHT,
+  -16,
+  [0.65, 0.8],
+);
+/** Coins stacking up in the 29 open cubbies. */
+const coins = evenly(
+  "coins",
+  at("SELECT") + 8,
+  at("SELECT") + 32,
+  14,
+  ["glass_003", ...CLICKS],
+  -17,
+  [1.3, 1.7],
+);
+/** Stacks set down on the table, tallest first. */
+const set = evenly(
+  "set",
+  at("ORDER BY") + 16,
+  at("ORDER BY") + 42,
+  15,
+  LIGHT,
+  -15,
+  [1.2, 1.4],
+);
+/** All but five swept off the back of the table and dropping. */
+const drop = evenly(
+  "drop",
+  at("LIMIT") + 10,
+  at("LIMIT") + 24,
+  8,
+  WOOD,
+  -14,
+  [0.9, 1.2],
+);
 
 export const CUES: readonly Cue[] = [
   ...ticks,
-  ...read,
-  ...sink,
-  ...lift,
-  ...stack,
-  ...dark,
-  ...stand,
-  ...leave,
+  ...pour,
+  ...bin,
+  ...cubby,
+  ...shut,
+  ...coins,
   {
     id: "having",
     name: k("impactSoft_heavy_000"),
@@ -185,12 +161,12 @@ export const CUES: readonly Cue[] = [
     rate: 1,
     gain: dB(-7),
   },
-  ...slide,
-  ...fall,
+  ...set,
+  ...drop,
   {
     id: "kept",
     name: k("impactBell_heavy_000"),
-    frame: at("LIMIT") + 12,
+    frame: at("LIMIT") + 24,
     rate: 1,
     gain: dB(-8),
   },

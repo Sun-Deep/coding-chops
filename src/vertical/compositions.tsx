@@ -140,6 +140,9 @@ import { Php2ShellReel } from "./46-php2shell/Reel";
 import { DURATION as VR47 } from "./47-last-ticket/beats";
 import { LastTicketCover } from "./47-last-ticket/Cover";
 import { LastTicketReel } from "./47-last-ticket/Reel";
+import { DURATION as VR48 } from "./48-stock-lesson/clock";
+import { StockLessonCover } from "./48-stock-lesson/Cover";
+import { StockLessonReel } from "./48-stock-lesson/Reel";
 import { CoinPuzzleLook, CoinPuzzlePreview } from "./41-coin-puzzle/Preview";
 import { PREVIEW_DURATION as COIN_PREVIEW } from "./41-coin-puzzle/beats";
 import { DURATION as VR41 } from "./41-coin-puzzle/beats";
@@ -536,6 +539,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR48-Stock-Lesson"
+        component={StockLessonReel}
+        durationInFrames={VR48}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -818,6 +829,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR47-Cover"
         component={LastTicketCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR48-Cover"
+        component={StockLessonCover}
         width={WIDTH}
         height={HEIGHT}
       />

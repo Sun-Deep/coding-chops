@@ -490,3 +490,45 @@ The cover is a brand asset, so the accent is allowed on it.
    muted, the narration is not carrying its share.
 9. Watched again with sound.
 10. Typecheck, lint, formatting, curriculum validation, composition discovery.
+
+## 14. The voiced pilot
+
+One cut, VR48, is allowed past two rules in this document, as a deliberate
+comparison. Recorded here in the form section 14 of the production standard
+asks for.
+
+### Which rules change
+
+Section 2, length: VR48 runs 100.4 seconds, set by the recording. Section 7 and section 11, no
+voiceover: VR48 carries the creator's recorded voice as its narration.
+
+### What problem it solves
+
+The creator wants reels people can learn a problem from, in their own
+voice, and fourteen seconds holds one idea rather than a lesson. Section 2
+allows a longer cut only once a cut at this length has cleared 275,000
+views and the longer one is posted as a comparison against it. Both hold:
+SQL joins did 389,000, and VR48 is posted against VR49, a 14-second silent
+cut of the same problem, a week apart.
+
+### What does not change
+
+It still has to work muted. Every spoken word is burned into the frame,
+taken from the whisper.cpp transcription of the stems rather than retyped,
+at the narration baseline and size in section 7. The voice adds to the
+captions; it does not replace them. Every number is still measured and
+committed, the canvas is still dark and the accent still orange. No music
+bed: the voice and the effects are the track, and the effects sit under the
+voice.
+
+### How it is tested
+
+VR48 against VR49 and the coding reels before them, at 15 minutes, 1 hour
+and 24 hours: 3-second view rate, average watch time, completion,
+non-follower share, and follows per 1,000 viewers. Follows decide it. If
+VR48 earns more follows per 1,000 viewers than VR49, voiced lessons become
+a recorded format of their own; if not, they stay an exception.
+
+### Scope
+
+VR48 only, until the numbers are in.

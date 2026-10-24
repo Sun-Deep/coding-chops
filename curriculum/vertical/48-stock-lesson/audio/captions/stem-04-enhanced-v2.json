@@ -1,0 +1,387 @@
+[
+  {
+    "text": "So",
+    "startMs": 0,
+    "endMs": 430,
+    "timestampMs": 680,
+    "confidence": 0.944916
+  },
+  {
+    "text": " let's",
+    "startMs": 430,
+    "endMs": 600,
+    "timestampMs": 900,
+    "confidence": 0.857829
+  },
+  {
+    "text": " go",
+    "startMs": 600,
+    "endMs": 770,
+    "timestampMs": 1200,
+    "confidence": 0.9987
+  },
+  {
+    "text": " day",
+    "startMs": 770,
+    "endMs": 1020,
+    "timestampMs": 1460,
+    "confidence": 0.980527
+  },
+  {
+    "text": " by",
+    "startMs": 1020,
+    "endMs": 1200,
+    "timestampMs": 1620,
+    "confidence": 0.935537
+  },
+  {
+    "text": " day,",
+    "startMs": 1200,
+    "endMs": 1630,
+    "timestampMs": 1940,
+    "confidence": 0.999112
+  },
+  {
+    "text": " seven",
+    "startMs": 1630,
+    "endMs": 2030,
+    "timestampMs": 2600,
+    "confidence": 0.827914
+  },
+  {
+    "text": " is",
+    "startMs": 2030,
+    "endMs": 2400,
+    "timestampMs": 2840,
+    "confidence": 0.998258
+  },
+  {
+    "text": " the",
+    "startMs": 2400,
+    "endMs": 2490,
+    "timestampMs": 3060,
+    "confidence": 0.994306
+  },
+  {
+    "text": " cheapest",
+    "startMs": 2490,
+    "endMs": 3220,
+    "timestampMs": 3260,
+    "confidence": 0.994949
+  },
+  {
+    "text": " so",
+    "startMs": 3220,
+    "endMs": 3370,
+    "timestampMs": 3600,
+    "confidence": 0.989383
+  },
+  {
+    "text": " far,",
+    "startMs": 3370,
+    "endMs": 4370,
+    "timestampMs": 3960,
+    "confidence": 0.98757
+  },
+  {
+    "text": " then",
+    "startMs": 4370,
+    "endMs": 4390,
+    "timestampMs": 4640,
+    "confidence": 0.615892
+  },
+  {
+    "text": " one",
+    "startMs": 4390,
+    "endMs": 4670,
+    "timestampMs": 4900,
+    "confidence": 0.972281
+  },
+  {
+    "text": " is",
+    "startMs": 4670,
+    "endMs": 4870,
+    "timestampMs": 5100,
+    "confidence": 0.993862
+  },
+  {
+    "text": " even",
+    "startMs": 4870,
+    "endMs": 5280,
+    "timestampMs": 5360,
+    "confidence": 0.987212
+  },
+  {
+    "text": " cheaper.",
+    "startMs": 5280,
+    "endMs": 6320,
+    "timestampMs": 5780,
+    "confidence": 0.993059
+  },
+  {
+    "text": " So",
+    "startMs": 6320,
+    "endMs": 6500,
+    "timestampMs": 6480,
+    "confidence": 0.999287
+  },
+  {
+    "text": " we",
+    "startMs": 6500,
+    "endMs": 6680,
+    "timestampMs": 6700,
+    "confidence": 0.975383
+  },
+  {
+    "text": " remember",
+    "startMs": 6680,
+    "endMs": 7400,
+    "timestampMs": 7100,
+    "confidence": 0.994924
+  },
+  {
+    "text": " one,",
+    "startMs": 7400,
+    "endMs": 8140,
+    "timestampMs": 7520,
+    "confidence": 0.942371
+  },
+  {
+    "text": " selling",
+    "startMs": 8140,
+    "endMs": 8630,
+    "timestampMs": 8320,
+    "confidence": 0.972162
+  },
+  {
+    "text": " at",
+    "startMs": 8630,
+    "endMs": 8660,
+    "timestampMs": 8540,
+    "confidence": 0.996592
+  },
+  {
+    "text": " five",
+    "startMs": 8660,
+    "endMs": 9160,
+    "timestampMs": 8920,
+    "confidence": 0.961885
+  },
+  {
+    "text": " would",
+    "startMs": 9160,
+    "endMs": 9470,
+    "timestampMs": 9340,
+    "confidence": 0.936451
+  },
+  {
+    "text": " make",
+    "startMs": 9470,
+    "endMs": 9830,
+    "timestampMs": 9600,
+    "confidence": 0.998464
+  },
+  {
+    "text": " four,",
+    "startMs": 9830,
+    "endMs": 10400,
+    "timestampMs": 9940,
+    "confidence": 0.984932
+  },
+  {
+    "text": " at",
+    "startMs": 10400,
+    "endMs": 10670,
+    "timestampMs": 10540,
+    "confidence": 0.819658
+  },
+  {
+    "text": " three",
+    "startMs": 10670,
+    "endMs": 11070,
+    "timestampMs": 10840,
+    "confidence": 0.991605
+  },
+  {
+    "text": " only",
+    "startMs": 11070,
+    "endMs": 11460,
+    "timestampMs": 11240,
+    "confidence": 0.659672
+  },
+  {
+    "text": " two,",
+    "startMs": 11460,
+    "endMs": 11960,
+    "timestampMs": 11560,
+    "confidence": 0.990471
+  },
+  {
+    "text": " at",
+    "startMs": 11960,
+    "endMs": 12140,
+    "timestampMs": 12140,
+    "confidence": 0.997668
+  },
+  {
+    "text": " six",
+    "startMs": 12140,
+    "endMs": 12400,
+    "timestampMs": 12440,
+    "confidence": 0.99717
+  },
+  {
+    "text": " we",
+    "startMs": 12400,
+    "endMs": 12700,
+    "timestampMs": 12820,
+    "confidence": 0.829855
+  },
+  {
+    "text": " would",
+    "startMs": 12700,
+    "endMs": 13000,
+    "timestampMs": 12980,
+    "confidence": 0.984741
+  },
+  {
+    "text": " make",
+    "startMs": 13000,
+    "endMs": 13350,
+    "timestampMs": 13200,
+    "confidence": 0.998167
+  },
+  {
+    "text": " five,",
+    "startMs": 13350,
+    "endMs": 14110,
+    "timestampMs": 13640,
+    "confidence": 0.998068
+  },
+  {
+    "text": " which",
+    "startMs": 14110,
+    "endMs": 14310,
+    "timestampMs": 14280,
+    "confidence": 0.998498
+  },
+  {
+    "text": " is",
+    "startMs": 14310,
+    "endMs": 14480,
+    "timestampMs": 14440,
+    "confidence": 0.998711
+  },
+  {
+    "text": " our",
+    "startMs": 14480,
+    "endMs": 14740,
+    "timestampMs": 14620,
+    "confidence": 0.996569
+  },
+  {
+    "text": " new",
+    "startMs": 14740,
+    "endMs": 14990,
+    "timestampMs": 14800,
+    "confidence": 0.998944
+  },
+  {
+    "text": " best.",
+    "startMs": 14990,
+    "endMs": 15720,
+    "timestampMs": 15200,
+    "confidence": 0.99891
+  },
+  {
+    "text": " And",
+    "startMs": 15720,
+    "endMs": 16140,
+    "timestampMs": 15860,
+    "confidence": 0.996698
+  },
+  {
+    "text": " at",
+    "startMs": 16140,
+    "endMs": 16220,
+    "timestampMs": 16020,
+    "confidence": 0.990856
+  },
+  {
+    "text": " four",
+    "startMs": 16220,
+    "endMs": 16620,
+    "timestampMs": 16320,
+    "confidence": 0.99162
+  },
+  {
+    "text": " only",
+    "startMs": 16620,
+    "endMs": 17010,
+    "timestampMs": 16660,
+    "confidence": 0.583257
+  },
+  {
+    "text": " three,",
+    "startMs": 17010,
+    "endMs": 17720,
+    "timestampMs": 17020,
+    "confidence": 0.996337
+  },
+  {
+    "text": " so",
+    "startMs": 17720,
+    "endMs": 17920,
+    "timestampMs": 17680,
+    "confidence": 0.997181
+  },
+  {
+    "text": " the",
+    "startMs": 17920,
+    "endMs": 18210,
+    "timestampMs": 17920,
+    "confidence": 0.994844
+  },
+  {
+    "text": " most",
+    "startMs": 18210,
+    "endMs": 18620,
+    "timestampMs": 18120,
+    "confidence": 0.990133
+  },
+  {
+    "text": " we",
+    "startMs": 18620,
+    "endMs": 19060,
+    "timestampMs": 18340,
+    "confidence": 0.99682
+  },
+  {
+    "text": " can",
+    "startMs": 19060,
+    "endMs": 19120,
+    "timestampMs": 18560,
+    "confidence": 0.999199
+  },
+  {
+    "text": " make",
+    "startMs": 19120,
+    "endMs": 19520,
+    "timestampMs": 18880,
+    "confidence": 0.998738
+  },
+  {
+    "text": " is",
+    "startMs": 19520,
+    "endMs": 19720,
+    "timestampMs": 19260,
+    "confidence": 0.992926
+  },
+  {
+    "text": " $5.",
+    "startMs": 19720,
+    "endMs": 20180,
+    "timestampMs": 19640,
+    "confidence": 0.941146
+  }
+]

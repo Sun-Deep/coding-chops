@@ -1,0 +1,401 @@
+[
+  {
+    "text": "Everyone",
+    "startMs": 420,
+    "endMs": 690,
+    "timestampMs": 740,
+    "confidence": 0.941266
+  },
+  {
+    "text": " says,",
+    "startMs": 690,
+    "endMs": 1450,
+    "timestampMs": 1160,
+    "confidence": 0.994556
+  },
+  {
+    "text": " buy",
+    "startMs": 1450,
+    "endMs": 1490,
+    "timestampMs": 1800,
+    "confidence": 0.940456
+  },
+  {
+    "text": " when",
+    "startMs": 1490,
+    "endMs": 1790,
+    "timestampMs": 2080,
+    "confidence": 0.997037
+  },
+  {
+    "text": " the",
+    "startMs": 1790,
+    "endMs": 2040,
+    "timestampMs": 2260,
+    "confidence": 0.995957
+  },
+  {
+    "text": " price",
+    "startMs": 2040,
+    "endMs": 2510,
+    "timestampMs": 2460,
+    "confidence": 0.99032
+  },
+  {
+    "text": " is",
+    "startMs": 2510,
+    "endMs": 2640,
+    "timestampMs": 2660,
+    "confidence": 0.996504
+  },
+  {
+    "text": " low",
+    "startMs": 2640,
+    "endMs": 2890,
+    "timestampMs": 2920,
+    "confidence": 0.998753
+  },
+  {
+    "text": " and",
+    "startMs": 2890,
+    "endMs": 3200,
+    "timestampMs": 3260,
+    "confidence": 0.896069
+  },
+  {
+    "text": " sell",
+    "startMs": 3200,
+    "endMs": 3460,
+    "timestampMs": 3540,
+    "confidence": 0.98003
+  },
+  {
+    "text": " when",
+    "startMs": 3460,
+    "endMs": 3720,
+    "timestampMs": 3760,
+    "confidence": 0.994708
+  },
+  {
+    "text": " it's",
+    "startMs": 3720,
+    "endMs": 3970,
+    "timestampMs": 3900,
+    "confidence": 0.981145
+  },
+  {
+    "text": " high.",
+    "startMs": 3970,
+    "endMs": 4440,
+    "timestampMs": 4240,
+    "confidence": 0.998673
+  },
+  {
+    "text": " But",
+    "startMs": 4440,
+    "endMs": 4630,
+    "timestampMs": 4720,
+    "confidence": 0.998612
+  },
+  {
+    "text": " how",
+    "startMs": 4630,
+    "endMs": 4900,
+    "timestampMs": 5000,
+    "confidence": 0.91598
+  },
+  {
+    "text": " would",
+    "startMs": 4900,
+    "endMs": 5140,
+    "timestampMs": 5200,
+    "confidence": 0.97452
+  },
+  {
+    "text": " you",
+    "startMs": 5140,
+    "endMs": 5330,
+    "timestampMs": 5360,
+    "confidence": 0.996698
+  },
+  {
+    "text": " actually",
+    "startMs": 5330,
+    "endMs": 5840,
+    "timestampMs": 5780,
+    "confidence": 0.997048
+  },
+  {
+    "text": " know",
+    "startMs": 5840,
+    "endMs": 6090,
+    "timestampMs": 6140,
+    "confidence": 0.995748
+  },
+  {
+    "text": " which",
+    "startMs": 6090,
+    "endMs": 6470,
+    "timestampMs": 6440,
+    "confidence": 0.965889
+  },
+  {
+    "text": " day",
+    "startMs": 6470,
+    "endMs": 6600,
+    "timestampMs": 6660,
+    "confidence": 0.962614
+  },
+  {
+    "text": " is",
+    "startMs": 6600,
+    "endMs": 6720,
+    "timestampMs": 6840,
+    "confidence": 0.811476
+  },
+  {
+    "text": " the",
+    "startMs": 6720,
+    "endMs": 6910,
+    "timestampMs": 6980,
+    "confidence": 0.99049
+  },
+  {
+    "text": " lowest",
+    "startMs": 6910,
+    "endMs": 7290,
+    "timestampMs": 7240,
+    "confidence": 0.998152
+  },
+  {
+    "text": " and",
+    "startMs": 7290,
+    "endMs": 7540,
+    "timestampMs": 7560,
+    "confidence": 0.890654
+  },
+  {
+    "text": " which",
+    "startMs": 7540,
+    "endMs": 7940,
+    "timestampMs": 7780,
+    "confidence": 0.998978
+  },
+  {
+    "text": " day",
+    "startMs": 7940,
+    "endMs": 8180,
+    "timestampMs": 7980,
+    "confidence": 0.984237
+  },
+  {
+    "text": " is",
+    "startMs": 8180,
+    "endMs": 8340,
+    "timestampMs": 8140,
+    "confidence": 0.995505
+  },
+  {
+    "text": " the",
+    "startMs": 8340,
+    "endMs": 8560,
+    "timestampMs": 8280,
+    "confidence": 0.995862
+  },
+  {
+    "text": " highest?",
+    "startMs": 8560,
+    "endMs": 9400,
+    "timestampMs": 8600,
+    "confidence": 0.998978
+  },
+  {
+    "text": " Let's",
+    "startMs": 9400,
+    "endMs": 9730,
+    "timestampMs": 9560,
+    "confidence": 0.991866
+  },
+  {
+    "text": " say",
+    "startMs": 9730,
+    "endMs": 9930,
+    "timestampMs": 9800,
+    "confidence": 0.9991
+  },
+  {
+    "text": " we",
+    "startMs": 9930,
+    "endMs": 10060,
+    "timestampMs": 10000,
+    "confidence": 0.896117
+  },
+  {
+    "text": " already",
+    "startMs": 10060,
+    "endMs": 10520,
+    "timestampMs": 10380,
+    "confidence": 0.992313
+  },
+  {
+    "text": " have",
+    "startMs": 10520,
+    "endMs": 10840,
+    "timestampMs": 10580,
+    "confidence": 0.995251
+  },
+  {
+    "text": " a",
+    "startMs": 10840,
+    "endMs": 10840,
+    "timestampMs": 10760,
+    "confidence": 0.793132
+  },
+  {
+    "text": " stock's",
+    "startMs": 10840,
+    "endMs": 11210,
+    "timestampMs": 11020,
+    "confidence": 0.921909
+  },
+  {
+    "text": " prices",
+    "startMs": 11210,
+    "endMs": 11560,
+    "timestampMs": 11540,
+    "confidence": 0.816872
+  },
+  {
+    "text": " for",
+    "startMs": 11560,
+    "endMs": 11800,
+    "timestampMs": 11860,
+    "confidence": 0.997383
+  },
+  {
+    "text": " six",
+    "startMs": 11800,
+    "endMs": 12160,
+    "timestampMs": 12080,
+    "confidence": 0.936315
+  },
+  {
+    "text": " days",
+    "startMs": 12160,
+    "endMs": 12630,
+    "timestampMs": 12460,
+    "confidence": 0.998277
+  },
+  {
+    "text": " and",
+    "startMs": 12630,
+    "endMs": 13000,
+    "timestampMs": 12940,
+    "confidence": 0.504607
+  },
+  {
+    "text": " we",
+    "startMs": 13000,
+    "endMs": 13160,
+    "timestampMs": 13160,
+    "confidence": 0.999077
+  },
+  {
+    "text": " want",
+    "startMs": 13160,
+    "endMs": 13540,
+    "timestampMs": 13340,
+    "confidence": 0.998056
+  },
+  {
+    "text": " to",
+    "startMs": 13540,
+    "endMs": 13650,
+    "timestampMs": 13500,
+    "confidence": 0.998262
+  },
+  {
+    "text": " find",
+    "startMs": 13650,
+    "endMs": 13980,
+    "timestampMs": 13680,
+    "confidence": 0.999207
+  },
+  {
+    "text": " the",
+    "startMs": 13980,
+    "endMs": 14220,
+    "timestampMs": 13880,
+    "confidence": 0.99875
+  },
+  {
+    "text": " best",
+    "startMs": 14220,
+    "endMs": 14480,
+    "timestampMs": 14060,
+    "confidence": 0.999645
+  },
+  {
+    "text": " day",
+    "startMs": 14480,
+    "endMs": 14910,
+    "timestampMs": 14400,
+    "confidence": 0.994548
+  },
+  {
+    "text": " to",
+    "startMs": 14910,
+    "endMs": 14950,
+    "timestampMs": 15000,
+    "confidence": 0.958142
+  },
+  {
+    "text": " buy",
+    "startMs": 14950,
+    "endMs": 15190,
+    "timestampMs": 15360,
+    "confidence": 0.998852
+  },
+  {
+    "text": " and",
+    "startMs": 15190,
+    "endMs": 15530,
+    "timestampMs": 15820,
+    "confidence": 0.961452
+  },
+  {
+    "text": " the",
+    "startMs": 15530,
+    "endMs": 15670,
+    "timestampMs": 15980,
+    "confidence": 0.994871
+  },
+  {
+    "text": " best",
+    "startMs": 15670,
+    "endMs": 16000,
+    "timestampMs": 16160,
+    "confidence": 0.999607
+  },
+  {
+    "text": " day",
+    "startMs": 16000,
+    "endMs": 16240,
+    "timestampMs": 16380,
+    "confidence": 0.990656
+  },
+  {
+    "text": " to",
+    "startMs": 16240,
+    "endMs": 16450,
+    "timestampMs": 16560,
+    "confidence": 0.999359
+  },
+  {
+    "text": " sell.",
+    "startMs": 16450,
+    "endMs": 16840,
+    "timestampMs": 16820,
+    "confidence": 0.997794
+  }
+]

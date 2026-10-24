@@ -1,0 +1,18 @@
+{
+  "stem-01-enhanced-v2": [
+    { "from": "stock", "before": "prices", "to": "stock's" }
+  ],
+  "stem-05-enhanced-v2": [
+    { "from": "peer", "to": "pair" },
+    { "from": "big", "before": "of", "to": "O(n²)." },
+    { "from": "of", "before": "n", "drop": true },
+    { "from": "n", "before": "squared", "drop": true },
+    { "from": "squared", "drop": true },
+    { "from": "big", "before": "of", "to": "O(n)," },
+    { "from": "of", "before": "n", "drop": true },
+    { "from": "n", "before": "since", "drop": true },
+    { "from": "big", "before": "of", "to": "O(1)," },
+    { "from": "of", "before": "1", "drop": true },
+    { "from": "1", "before": "because", "drop": true }
+  ]
+}

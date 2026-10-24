@@ -1,0 +1,282 @@
+[
+  {
+    "text": "But",
+    "startMs": 0,
+    "endMs": 590,
+    "timestampMs": 820,
+    "confidence": 0.89389
+  },
+  {
+    "text": " think",
+    "startMs": 590,
+    "endMs": 720,
+    "timestampMs": 1100,
+    "confidence": 0.80321
+  },
+  {
+    "text": " about",
+    "startMs": 720,
+    "endMs": 1170,
+    "timestampMs": 1440,
+    "confidence": 0.990373
+  },
+  {
+    "text": " it",
+    "startMs": 1170,
+    "endMs": 1350,
+    "timestampMs": 1680,
+    "confidence": 0.510875
+  },
+  {
+    "text": " this",
+    "startMs": 1350,
+    "endMs": 1710,
+    "timestampMs": 1820,
+    "confidence": 0.964834
+  },
+  {
+    "text": " way,",
+    "startMs": 1710,
+    "endMs": 2320,
+    "timestampMs": 2140,
+    "confidence": 0.998662
+  },
+  {
+    "text": " if",
+    "startMs": 2320,
+    "endMs": 2400,
+    "timestampMs": 2560,
+    "confidence": 0.820749
+  },
+  {
+    "text": " you",
+    "startMs": 2400,
+    "endMs": 2580,
+    "timestampMs": 2720,
+    "confidence": 0.993724
+  },
+  {
+    "text": " sell",
+    "startMs": 2580,
+    "endMs": 2900,
+    "timestampMs": 2940,
+    "confidence": 0.990688
+  },
+  {
+    "text": " on",
+    "startMs": 2900,
+    "endMs": 3060,
+    "timestampMs": 3120,
+    "confidence": 0.982456
+  },
+  {
+    "text": " a",
+    "startMs": 3060,
+    "endMs": 3140,
+    "timestampMs": 3280,
+    "confidence": 0.98012
+  },
+  {
+    "text": " certain",
+    "startMs": 3140,
+    "endMs": 3720,
+    "timestampMs": 3540,
+    "confidence": 0.985883
+  },
+  {
+    "text": " day,",
+    "startMs": 3720,
+    "endMs": 4150,
+    "timestampMs": 3880,
+    "confidence": 0.983592
+  },
+  {
+    "text": " the",
+    "startMs": 4150,
+    "endMs": 4420,
+    "timestampMs": 4360,
+    "confidence": 0.611541
+  },
+  {
+    "text": " best",
+    "startMs": 4420,
+    "endMs": 4730,
+    "timestampMs": 4620,
+    "confidence": 0.990308
+  },
+  {
+    "text": " day",
+    "startMs": 4730,
+    "endMs": 4800,
+    "timestampMs": 4860,
+    "confidence": 0.956977
+  },
+  {
+    "text": " to",
+    "startMs": 4800,
+    "endMs": 4920,
+    "timestampMs": 5000,
+    "confidence": 0.970378
+  },
+  {
+    "text": " have",
+    "startMs": 4920,
+    "endMs": 5200,
+    "timestampMs": 5300,
+    "confidence": 0.972142
+  },
+  {
+    "text": " bought",
+    "startMs": 5200,
+    "endMs": 5640,
+    "timestampMs": 5600,
+    "confidence": 0.950876
+  },
+  {
+    "text": " is",
+    "startMs": 5640,
+    "endMs": 5780,
+    "timestampMs": 5940,
+    "confidence": 0.96523
+  },
+  {
+    "text": " just",
+    "startMs": 5780,
+    "endMs": 6160,
+    "timestampMs": 6160,
+    "confidence": 0.981429
+  },
+  {
+    "text": " the",
+    "startMs": 6160,
+    "endMs": 6340,
+    "timestampMs": 6380,
+    "confidence": 0.994495
+  },
+  {
+    "text": " cheapest",
+    "startMs": 6340,
+    "endMs": 6840,
+    "timestampMs": 6600,
+    "confidence": 0.996204
+  },
+  {
+    "text": " day",
+    "startMs": 6840,
+    "endMs": 7120,
+    "timestampMs": 6860,
+    "confidence": 0.989564
+  },
+  {
+    "text": " before",
+    "startMs": 7120,
+    "endMs": 7500,
+    "timestampMs": 7180,
+    "confidence": 0.996124
+  },
+  {
+    "text": " it.",
+    "startMs": 7500,
+    "endMs": 7880,
+    "timestampMs": 7500,
+    "confidence": 0.973357
+  },
+  {
+    "text": " So",
+    "startMs": 7880,
+    "endMs": 8010,
+    "timestampMs": 7980,
+    "confidence": 0.988286
+  },
+  {
+    "text": " we",
+    "startMs": 8010,
+    "endMs": 8220,
+    "timestampMs": 8160,
+    "confidence": 0.990932
+  },
+  {
+    "text": " only",
+    "startMs": 8220,
+    "endMs": 8410,
+    "timestampMs": 8480,
+    "confidence": 0.986342
+  },
+  {
+    "text": " need",
+    "startMs": 8410,
+    "endMs": 8750,
+    "timestampMs": 8740,
+    "confidence": 0.995159
+  },
+  {
+    "text": " to",
+    "startMs": 8750,
+    "endMs": 8810,
+    "timestampMs": 8860,
+    "confidence": 0.996774
+  },
+  {
+    "text": " remember",
+    "startMs": 8810,
+    "endMs": 9350,
+    "timestampMs": 9280,
+    "confidence": 0.996421
+  },
+  {
+    "text": " the",
+    "startMs": 9350,
+    "endMs": 9550,
+    "timestampMs": 9680,
+    "confidence": 0.944764
+  },
+  {
+    "text": " cheapest",
+    "startMs": 9550,
+    "endMs": 10140,
+    "timestampMs": 10000,
+    "confidence": 0.980712
+  },
+  {
+    "text": " price",
+    "startMs": 10140,
+    "endMs": 10490,
+    "timestampMs": 10380,
+    "confidence": 0.973476
+  },
+  {
+    "text": " we",
+    "startMs": 10490,
+    "endMs": 10560,
+    "timestampMs": 10640,
+    "confidence": 0.980662
+  },
+  {
+    "text": " have",
+    "startMs": 10560,
+    "endMs": 10870,
+    "timestampMs": 10780,
+    "confidence": 0.912005
+  },
+  {
+    "text": " seen",
+    "startMs": 10870,
+    "endMs": 11100,
+    "timestampMs": 11000,
+    "confidence": 0.996584
+  },
+  {
+    "text": " so",
+    "startMs": 11100,
+    "endMs": 11270,
+    "timestampMs": 11200,
+    "confidence": 0.994199
+  },
+  {
+    "text": " far.",
+    "startMs": 11270,
+    "endMs": 11520,
+    "timestampMs": 11500,
+    "confidence": 0.998986
+  }
+]

@@ -137,6 +137,9 @@ import { MontyHallReel } from "./45-monty-hall/Reel";
 import { DURATION as VR46 } from "./46-php2shell/beats";
 import { Php2ShellCover } from "./46-php2shell/Cover";
 import { Php2ShellReel } from "./46-php2shell/Reel";
+import { DURATION as VR47 } from "./47-last-ticket/beats";
+import { LastTicketCover } from "./47-last-ticket/Cover";
+import { LastTicketReel } from "./47-last-ticket/Reel";
 import { CoinPuzzleLook, CoinPuzzlePreview } from "./41-coin-puzzle/Preview";
 import { PREVIEW_DURATION as COIN_PREVIEW } from "./41-coin-puzzle/beats";
 import { DURATION as VR41 } from "./41-coin-puzzle/beats";
@@ -525,6 +528,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR47-Last-Ticket"
+        component={LastTicketReel}
+        durationInFrames={VR47}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -801,6 +812,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR46-Cover"
         component={Php2ShellCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR47-Cover"
+        component={LastTicketCover}
         width={WIDTH}
         height={HEIGHT}
       />

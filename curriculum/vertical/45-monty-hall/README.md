@@ -28,11 +28,14 @@ random, and it keeps the picture readable: in every game YOU is on the
 left door.
 
 The first game shown is game 1 of the seeded run; it happens to be a
-switch win. The field shows the first 300 games (94 stick wins, 206
-switch wins); the tallies count all 10,000.
+switch win. The glass cases count all 10,000 games, one car per 200 wins,
+rounded down: 16 cars for 3,272 and 33 for 6,728. A case holds 50 cars,
+so the 50/50 line is at 25. Each car lands on the frame the score above
+passes its 200, by the same rule in `Stage.tsx` and `studio.py`.
 
 ## Files
 
 - `scripts/measure-monty-hall.py`: the committed run, and the loop on screen
 - `src/vertical/45-monty-hall/`: the overlays and the reel
-- `scripts/blender/monty/`: the doors, the car, the goats and the render
+- `scripts/blender/monty/`: the doors, the car and the goats (`doors.py`), the
+  studio (`studio.py`) and the render

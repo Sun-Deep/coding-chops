@@ -1,4 +1,5 @@
 import { RUN } from "./measurements";
+import { CAR_WINS } from "./beats";
 
 /**
  * The run the reel draws, checked against itself on load. The script
@@ -17,3 +18,6 @@ if (shownStick !== RUN.shownStick)
 for (let i = 0; i < 300; i++)
   if (RUN.opened[i] === RUN.cars[i] || RUN.opened[i] === "1")
     throw new Error(`runs.ts: game ${i + 1} opened the car or your door`);
+// Each glass case holds 50 cars, 5 a layer: every game, at one car per 200.
+if (RUN.games / CAR_WINS !== 50)
+  throw new Error("runs.ts: a case holds 50 cars, one per CAR_WINS wins");

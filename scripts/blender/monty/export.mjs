@@ -3,7 +3,8 @@
 
 // Writes the Monty Hall reel's games and beats for Blender: for each of the
 // first 300 games, the car's door and the door the host opened, from the
-// committed run, and the frames each part of the reel starts on.
+// committed run, the running wins after every 100 games, and the frames
+// each part of the reel starts on.
 //
 // Usage: node --experimental-strip-types --no-warnings \
 //          --import ./scripts/ts-register.mjs scripts/blender/monty/export.mjs <out.json>
@@ -22,6 +23,11 @@ writeFileSync(
     pull: B.PULL,
     wave: B.WAVE,
     sort: B.SORT,
+    tallyFrom: B.TALLY_FROM,
+    tallyTo: B.TALLY_TO,
+    react: B.REACT,
+    carWins: B.CAR_WINS,
+    running: RUN.running,
     games: [...RUN.cars].map((c, i) => [
       Number(c) - 1,
       Number(RUN.opened[i]) - 1,

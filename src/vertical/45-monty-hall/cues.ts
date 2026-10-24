@@ -1,12 +1,12 @@
 import {
   HOST_OPENS,
   PULL,
+  REACT,
   REVEAL,
-  SORT,
   TALLY_TO,
   VERDICT_FROM,
-  WAVE,
 } from "./beats";
+import { landings } from "./Stage";
 
 /**
  * The sound of what is on screen, from the recorded CC0 set in
@@ -16,10 +16,12 @@ import {
  *   the host's door swings, a clock ticking while you decide, rising a
  *   little each tick, two knocks as yours and the other open, and a bell
  *   for the car;
- * - the 299 other games rising around it, a soft run of knocks;
- * - their doors opening in a wave, a clatter of small wooden knocks;
- * - the tally counting, quiet ticks;
- * - the games sliding into two blocks, knocks as they land;
+ * - the cut to the studio, a switch as its lights come up, and the clock
+ *   carrying on while the cases stand empty;
+ * - every car landing in its case, a light plastic clack, the switch case
+ *   a little higher, so the switch side is heard landing twice as often;
+ * - the count in, a wooden knock; the switcher's win, a chime, and the
+ *   sticker's slump, a low buzz;
  * - the verdict, a low hit and the bell slowed down ringing out.
  *
  * Every file peaks near -1 dBFS, so a gain is the level it should sit at.
@@ -49,26 +51,7 @@ const random = (seed: number) => {
 const rng = random(45);
 const pick = <T>(xs: readonly T[]) => xs[Math.floor(rng() * xs.length)];
 const k = (name: string) => `kenney/${name}`;
-const WOOD = [0, 1, 2, 3, 4].map((i) => `impactWood_light_00${i}`);
 const LIGHT = [0, 1, 2].map((i) => `impactGeneric_light_00${i}`);
-const TICKS = ["tick_001", "tick_002", "click_004"];
-
-const run = (
-  id: string,
-  from: number,
-  to: number,
-  count: number,
-  names: readonly string[],
-  level: number,
-  rate: [number, number],
-): Cue[] =>
-  Array.from({ length: count }, (_, h) => ({
-    id: `${id}-${h}`,
-    name: k(pick(names)),
-    frame: Math.round(from + ((to - from) * h) / Math.max(1, count - 1)),
-    rate: rate[0] + rng() * (rate[1] - rate[0]),
-    gain: dB(level - rng() * 4),
-  }));
 
 export const CUES: readonly Cue[] = [
   { id: "you", name: k("tick_001"), frame: 6, rate: 1, gain: dB(-10) },
@@ -124,9 +107,34 @@ export const CUES: readonly Cue[] = [
       gain: dB(-12),
     }),
   ),
-  ...run("rise", PULL + 2, PULL + 40, 12, LIGHT, -18, [1.2, 1.5]),
-  ...run("wave", WAVE, WAVE + 60, 26, WOOD, -15, [1.1, 1.45]),
-  ...run("count", WAVE + 62, TALLY_TO, 18, TICKS, -15, [1.0, 1.3]),
+  {
+    id: "studio",
+    name: k("switch_003"),
+    frame: PULL,
+    rate: 0.8,
+    gain: dB(-9),
+  },
+  ...Array.from(
+    { length: 6 },
+    (_, h): Cue => ({
+      id: `wait-${h}`,
+      name: k(h % 2 ? "tick_002" : "tick_001"),
+      frame: PULL + 6 + h * 5,
+      rate: 1.25 + h * 0.03,
+      gain: dB(-14),
+    }),
+  ),
+  ...landings().flatMap((frames, side) =>
+    frames.map(
+      (frame, j): Cue => ({
+        id: `car-${side}-${j}`,
+        name: k(pick(LIGHT)),
+        frame,
+        rate: (side ? 1.15 : 0.95) + rng() * 0.12,
+        gain: dB(-13 - rng() * 3),
+      }),
+    ),
+  ),
   {
     id: "counted",
     name: k("impactWood_medium_001"),
@@ -134,13 +142,19 @@ export const CUES: readonly Cue[] = [
     rate: 0.9,
     gain: dB(-10),
   },
-  ...run("slide", SORT + 8, SORT + 52, 16, WOOD, -15, [0.9, 1.2]),
   {
-    id: "blocks",
+    id: "win",
     name: k("confirmation_001"),
-    frame: SORT + 42,
+    frame: REACT,
     rate: 1,
     gain: dB(-9),
+  },
+  {
+    id: "slump",
+    name: k("error_004"),
+    frame: REACT + 6,
+    rate: 0.7,
+    gain: dB(-15),
   },
   {
     id: "verdict",

@@ -10,14 +10,21 @@ import {
 import { theme } from "../../shared/brand/theme";
 import { ACCENT, ON_ACCENT } from "../../shared/vertical/palette";
 import { clamp } from "../../shared/video/timing";
-import { PULL, REVEAL, SORT, TALLY_FROM, TALLY_TO } from "./beats";
+import {
+  BOARD_FROM,
+  CAR_WINS,
+  PULL,
+  REVEAL,
+  TALLY_FROM,
+  TALLY_TO,
+} from "./beats";
 import { RUN } from "./measurements";
 
 /**
- * The games, rendered in Blender by `scripts/blender/monty/render.sh`, with
- * the running wins for sticking and for switching across all 10,000, the
- * door you picked in the first game, and the two blocks the first 300
- * sort into.
+ * The first game close up, then the studio, rendered in Blender by
+ * `scripts/blender/monty/render.sh`. Over it: the door you picked, the
+ * first game's score in the corners, the name on each glass case, the
+ * 50/50 line between them, and what one car stands for.
  */
 
 export const SCENE_TOP = 706;
@@ -43,7 +50,10 @@ const useTrack = () => {
   return track;
 };
 
-/** Wins so far for each choice. The first game alone, then the run. */
+/**
+ * Wins so far for each choice. The first game alone, then the run.
+ * `scripts/blender/monty/studio.py` drops its cars by the same rule.
+ */
 export const tallyAt = (f: number): [number, number] => {
   if (f < REVEAL + 8) return [0, 0];
   if (f < TALLY_FROM) return [0, 1];
@@ -99,6 +109,18 @@ const Chip: React.FC<{
     </span>
   </div>
 );
+
+/** The frames a car lands in each case: when its count passes 200 more. */
+export const landings = () => {
+  const out: [number[], number[]] = [[], []];
+  for (let f = TALLY_FROM; f < 420; f++) {
+    const t = tallyAt(f);
+    for (const side of [0, 1] as const)
+      while (out[side].length < Math.floor(t[side] / CAR_WINS))
+        out[side].push(f);
+  }
+  return out;
+};
 
 const Tag: React.FC<{
   at: Point;
@@ -159,8 +181,16 @@ export const Stage: React.FC<{
     [0, 1, 1, 0],
     clamp,
   );
-  const blocks = interpolate(frame, [SORT + 40, SORT + 50], [0, 1], clamp);
-  const chips = interpolate(frame, [REVEAL + 8, REVEAL + 14], [0, 1], clamp);
+  const names = interpolate(frame, [PULL + 4, PULL + 10], [0, 1], clamp);
+  const key = interpolate(frame, [TALLY_FROM, TALLY_FROM + 6], [0, 1], clamp);
+  // The first game's score sits in the corners; from the run on, the code
+  // panel carries it at full size.
+  const chips = interpolate(
+    frame,
+    [REVEAL + 8, REVEAL + 14, BOARD_FROM, BOARD_FROM + 8],
+    [0, 1, 1, 0],
+    clamp,
+  );
   return (
     <div
       style={{
@@ -185,7 +215,7 @@ export const Stage: React.FC<{
         />
       ) : (
         <OffthreadVideo
-          src={staticFile("vr45/doors.mp4")}
+          src={staticFile("vr45/scene.mp4")}
           muted
           style={{
             position: "absolute",
@@ -200,14 +230,40 @@ export const Stage: React.FC<{
           <Tag at={row[0]} opacity={you} fill={C.chalk} ink={ON_ACCENT}>
             YOU
           </Tag>
-          <Tag at={row[1]} opacity={blocks} fill={C.chalk} ink={ON_ACCENT}>
+          <Tag at={row[1]} opacity={names} fill={C.chalk} ink={ON_ACCENT}>
             STICK WON
           </Tag>
-          <Tag at={row[2]} opacity={blocks} fill={ACCENT} ink={ON_ACCENT}>
+          <Tag at={row[2]} opacity={names} fill={ACCENT} ink={ON_ACCENT}>
             SWITCH WON
+          </Tag>
+          <Tag
+            at={row[3]}
+            opacity={names}
+            fill="rgba(10,11,13,0.84)"
+            ink={C.grayLight}
+          >
+            50/50
           </Tag>
         </>
       ) : null}
+      <div
+        style={{
+          position: "absolute",
+          left: 56,
+          bottom: 16,
+          opacity: tallies ? key : 0,
+          padding: "5px 12px",
+          borderRadius: 7,
+          background: "rgba(10,11,13,0.84)",
+          fontFamily: theme.monoFamily,
+          fontSize: 21,
+          letterSpacing: "0.04em",
+          color: C.grayLight,
+          whiteSpace: "nowrap",
+        }}
+      >
+        1 car = {CAR_WINS} wins
+      </div>
       <div style={{ opacity: tallies ? chips : 0 }}>
         <Chip label="stick won" value={stick} />
         <Chip right label="switch won" value={sw} accent />

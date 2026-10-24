@@ -2,13 +2,23 @@ import { interpolate } from "remotion";
 import { theme } from "../../shared/brand/theme";
 import { ACCENT } from "../../shared/vertical/palette";
 import { clamp } from "../../shared/video/timing";
-import { HOST_OPENS, PULL, REVEAL, TALLY_FROM, TALLY_TO } from "./beats";
+import {
+  BOARD_FROM,
+  HOST_OPENS,
+  PULL,
+  REVEAL,
+  TALLY_FROM,
+  TALLY_TO,
+} from "./beats";
+import { tallyAt } from "./Stage";
 import { CODE, CONDITIONS, RUN } from "./measurements";
 
 /**
  * The loop that played the 10,000 games, exactly as it ran. While the
- * first game plays, the line doing each part of it lights up; while the
- * tallies count, the loop line does, with the game it is on.
+ * first game plays, the line doing each part of it lights up. When the
+ * run starts, the panel turns into what the loop printed: the wins for
+ * each choice at full size, counting with the game it is on, over a bar
+ * split between them with a mark where 50/50 would sit.
  */
 
 export const CODE_TOP = 420;
@@ -53,9 +63,122 @@ const paint = (text: string) => {
   );
 };
 
+const BOARD_IN = 12;
+
+const Score: React.FC<{
+  label: string;
+  value: number;
+  accent?: boolean;
+}> = ({ label, value, accent }) => (
+  <div style={{ flex: 1, textAlign: "center" }}>
+    <div
+      style={{
+        fontFamily: theme.monoFamily,
+        fontSize: 24,
+        letterSpacing: "0.1em",
+        textTransform: "uppercase",
+        color: accent ? ACCENT : C.grayLight,
+      }}
+    >
+      {label}
+    </div>
+    <div
+      style={{
+        fontFamily: theme.fontFamily,
+        fontSize: 104,
+        lineHeight: "112px",
+        fontWeight: 800,
+        letterSpacing: "-0.02em",
+        fontVariantNumeric: "tabular-nums",
+        color: accent ? ACCENT : C.chalk,
+      }}
+    >
+      {value.toLocaleString("en-US")}
+    </div>
+  </div>
+);
+
+const Board: React.FC<{ frame: number }> = ({ frame }) => {
+  const [stick, sw] = tallyAt(frame);
+  const share = stick + sw > 0 ? stick / (stick + sw) : 0;
+  const BAR = WIDTH - 88;
+  return (
+    <div
+      style={{ position: "absolute", top: HEADER + 16, left: 44, right: 44 }}
+    >
+      <div style={{ display: "flex" }}>
+        <Score label="stick won" value={stick} />
+        <Score label="switch won" value={sw} accent />
+      </div>
+      <div
+        style={{
+          position: "relative",
+          marginTop: 16,
+          height: 22,
+          width: BAR,
+          borderRadius: 6,
+          overflow: "hidden",
+          background: ACCENT,
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: share * BAR,
+            background: C.chalk,
+          }}
+        />
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          left: BAR / 2 - 2,
+          top: 152,
+          width: 4,
+          height: 36,
+          background: C.black,
+          boxShadow: "0 0 0 1px rgba(233,228,216,0.5)",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          left: BAR / 2 - 60,
+          width: 120,
+          top: 190,
+          textAlign: "center",
+          fontFamily: theme.monoFamily,
+          fontSize: 18,
+          letterSpacing: "0.06em",
+          color: C.grayDark,
+        }}
+      >
+        50/50
+      </div>
+    </div>
+  );
+};
+
 export const Code: React.FC<{ frame: number }> = ({ frame }) => {
   const on = lit(frame);
-  const counting = frame >= TALLY_FROM && frame < TALLY_TO + 30;
+  const counting = frame >= TALLY_FROM;
+  // The code goes out first, then the score comes in, so the two never
+  // sit on top of each other.
+  const code = interpolate(
+    frame,
+    [BOARD_FROM, BOARD_FROM + BOARD_IN / 2],
+    [1, 0],
+    clamp,
+  );
+  const board = interpolate(
+    frame,
+    [BOARD_FROM + BOARD_IN / 2, BOARD_FROM + BOARD_IN],
+    [0, 1],
+    clamp,
+  );
   return (
     <div
       style={{
@@ -98,7 +221,13 @@ export const Code: React.FC<{ frame: number }> = ({ frame }) => {
         <span>{CONDITIONS}</span>
       </div>
       <div
-        style={{ position: "absolute", top: HEADER + 12, left: 14, right: 14 }}
+        style={{
+          position: "absolute",
+          top: HEADER + 12,
+          left: 14,
+          right: 14,
+          opacity: code,
+        }}
       >
         {CODE.map((text, i) => {
           const active = on.includes(i);
@@ -127,6 +256,11 @@ export const Code: React.FC<{ frame: number }> = ({ frame }) => {
           );
         })}
       </div>
+      {board > 0 ? (
+        <div style={{ opacity: board }}>
+          <Board frame={frame} />
+        </div>
+      ) : null}
     </div>
   );
 };

@@ -12,6 +12,10 @@ they all play out in a wave, and then they slide apart: on the left the
 games where sticking with door 1 won, on the right the ones where
 switching did.
 
+The reel uses this scene only up to the cut (the `pull` beat); studio.py
+takes over from there, and render.sh renders only those frames. The field
+of 300 below is what the first cut ended on.
+
 Given a directory, renders every frame into it (or only FRAMES=a,b,c).
 Given a .json path, writes where Remotion's labels go on every frame
 instead, without rendering.

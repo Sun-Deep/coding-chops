@@ -1,0 +1,10 @@
+{
+  "stem-01": [
+    { "from": "lead", "before": "code", "to": "LeetCode" },
+    { "from": "code", "before": "and", "drop": true },
+    { "from": "Germany's", "to": "Gemini's" },
+    { "from": "great", "to": "grade" },
+    { "from": "Germany", "to": "Gemini" },
+    { "from": "their", "before": "regular", "to": "the" }
+  ]
+}

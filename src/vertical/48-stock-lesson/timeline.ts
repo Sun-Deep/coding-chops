@@ -1,4 +1,5 @@
 import type { Caption } from "@remotion/captions";
+import { spokenLines } from "../../shared/vertical/spoken";
 
 /**
  * The reel's clock, built from the creator's six recorded stems.
@@ -155,100 +156,8 @@ export const buildTimeline = (
     keep: stems[5].at,
   };
 
-  /**
-   * The burned-in captions: the spoken words, up to two lines at a time.
-   * A caption ends at a full stop, at a comma or pause once it has some
-   * length, or before it would pass two lines; it never ends on a small
-   * word like "the", which moves on to the next one. Each caption is split
-   * into its two lines at the space nearest the middle.
-   */
-  const SMALL = new Set([
-    "the",
-    "a",
-    "to",
-    "and",
-    "of",
-    "is",
-    "at",
-    "we",
-    "you",
-    "it's",
-    "that's",
-    "with",
-    "for",
-    "but",
-    "so",
-    "if",
-    "on",
-    "our",
-    "in",
-  ]);
-  const MAX = 64;
-  const lines: { from: number; to: number; text: string }[] = [];
-  const join = (ws: Caption[]) =>
-    ws
-      .map((w) => w.text)
-      .join("")
-      .trim();
-  caps.forEach((c, k) => {
-    const groups: Caption[][] = [];
-    let words: Caption[] = [];
-    c.forEach((w, i) => {
-      // A sentence's last word or two may run a little over rather than be
-      // left alone in a caption of their own.
-      const ends =
-        /[.?!]$/.test(w.text.trim()) ||
-        /[.?!]$/.test((c[i + 1]?.text ?? ".").trim());
-      const over = (join(words) + w.text).length > (ends ? MAX + 12 : MAX);
-      if (words.length && over) {
-        // Do not leave a small word at the end of a caption.
-        const carry: Caption[] = [];
-        while (
-          words.length > 1 &&
-          SMALL.has(bare(words[words.length - 1].text))
-        )
-          carry.unshift(words.pop()!);
-        groups.push(words);
-        words = carry;
-      }
-      words.push(w);
-      const next = c[i + 1];
-      const pause = next ? next.startMs - w.endMs : 0;
-      const len = join(words).length;
-      if (/[.?!]$/.test(w.text.trim()) && len > 14) {
-        groups.push(words);
-        words = [];
-      } else if ((/,$/.test(w.text.trim()) || pause > 280) && len > 34) {
-        groups.push(words);
-        words = [];
-      }
-    });
-    if (words.length) groups.push(words);
-    groups.forEach((g, n) => {
-      const text = join(g);
-      // Two lines, split at the space nearest the middle that does not
-      // leave a small word at the end of the first line.
-      let cut = -1;
-      if (text.length > 34) {
-        const okAt = (x: number) =>
-          text[x] === " " &&
-          !SMALL.has(bare(text.slice(0, x).split(" ").pop()!));
-        for (let d = 0; d < text.length / 2 && cut < 0; d++) {
-          const a = Math.floor(text.length / 2) - d;
-          const b = Math.floor(text.length / 2) + d;
-          if (okAt(a)) cut = a;
-          else if (okAt(b)) cut = b;
-        }
-      }
-      const next = groups[n + 1];
-      const end = frameOf(k, g[g.length - 1].endMs);
-      lines.push({
-        from: frameOf(k, g[0].startMs),
-        to: next ? Math.max(end, frameOf(k, next[0].startMs) - 2) : end + 8,
-        text: cut > 0 ? `${text.slice(0, cut)}\n${text.slice(cut + 1)}` : text,
-      });
-    });
-  });
+  /** The burned-in captions: the spoken words, a phrase at a time. */
+  const lines = caps.flatMap((c, k) => spokenLines(c, (ms) => frameOf(k, ms)));
 
   return { stems, duration, beats, lines };
 };

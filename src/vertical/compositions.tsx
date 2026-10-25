@@ -143,6 +143,9 @@ import { LastTicketReel } from "./47-last-ticket/Reel";
 import { DURATION as VR48 } from "./48-stock-lesson/clock";
 import { StockLessonCover } from "./48-stock-lesson/Cover";
 import { StockLessonReel } from "./48-stock-lesson/Reel";
+import { DURATION as VR50 } from "./50-google-ai-interview/clock";
+import { GoogleInterviewCover } from "./50-google-ai-interview/Cover";
+import { GoogleInterviewReel } from "./50-google-ai-interview/Reel";
 import { CoinPuzzleLook, CoinPuzzlePreview } from "./41-coin-puzzle/Preview";
 import { PREVIEW_DURATION as COIN_PREVIEW } from "./41-coin-puzzle/beats";
 import { DURATION as VR41 } from "./41-coin-puzzle/beats";
@@ -547,6 +550,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR50-Google-AI-Interview"
+        component={GoogleInterviewReel}
+        durationInFrames={VR50}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -835,6 +846,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR48-Cover"
         component={StockLessonCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR50-Cover"
+        component={GoogleInterviewCover}
         width={WIDTH}
         height={HEIGHT}
       />

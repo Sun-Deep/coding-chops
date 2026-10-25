@@ -531,4 +531,6 @@ a recorded format of their own; if not, they stay an exception.
 
 ### Scope
 
-VR48 only, until the numbers are in.
+VR48, and VR50, a 29-second news cut voiced at the creator's request before
+VR48's numbers are in, judged the same way. No further voiced cuts until
+both have their 24-hour numbers.

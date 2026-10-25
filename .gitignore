@@ -62,6 +62,7 @@ public/vr45/
 public/vr46/
 public/vr47/
 public/vr48/
+public/vr50/
 
 # Python bytecode from the Blender scripts importing each other.
 __pycache__/

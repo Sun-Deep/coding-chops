@@ -1,6 +1,6 @@
 # Script
 
-Status: blocked
+Status: published
 
 The creator's own voice, one take, 27.9 seconds recorded, the reel 29.
 Built around the creator's hook: people are saying LeetCode and DSA are

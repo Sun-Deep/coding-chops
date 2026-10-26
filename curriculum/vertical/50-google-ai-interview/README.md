@@ -1,6 +1,6 @@
 # Vertical 50: Google's AI interview, and why LeetCode isn't dead
 
-Status: recorded and built, waiting on the understanding check.
+Status: published 25 Oct 2026 at 8:44 PM.
 
 A 29-second news cut in the creator's voice. Google is piloting a coding
 round where candidates fix existing code with Gemini and are graded on how

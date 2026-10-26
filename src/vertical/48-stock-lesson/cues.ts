@@ -5,7 +5,8 @@ import { B, T } from "./clock";
  * `public/sfx/kenney/`. The voice carries the cut, so these sit low, around
  * -18 to -24 dBFS, one per thing arriving:
  *
- * - the six pillars rising, a stone knock each;
+ * - the six pillars rising, a stone knock each, day two's lower, as it
+ *   lands at 1 under the price paid; the line drawn at 7, a click;
  * - each price lighting as the six days are named, a tick;
  * - the backwards trade crossed out, a low buzz;
  * - each of the fifteen pairs, a tick, and a low hit at five billion;
@@ -41,11 +42,23 @@ const cue = (
   gain: dB(level),
 });
 const S = T.stems.map((s) => s.at);
+const O = B.open;
+/** When each pillar lands, as `scripts/blender/stock/pillars.py` raises them. */
+const landed = (i: number) =>
+  (i === 0 ? -4 : i === 1 ? O.sell + 6 : O.but + 10 + (i - 2) * 16) + 12;
 
 export const CUES: readonly Cue[] = [
-  ...[0, 1, 2, 3, 4, 5].map((i) =>
-    cue(`rise-${i}`, `impactWood_light_00${i % 5}`, 2 + i * 7 + 12, -20, 0.8),
+  ...[0, 2, 3, 4, 5].map((i) =>
+    cue(
+      `rise-${i}`,
+      `impactWood_light_00${i % 5}`,
+      Math.max(0, landed(i)),
+      -20,
+      0.8,
+    ),
   ),
+  cue("paid", "click_003", O.buy + 4, -20),
+  cue("fell", "impactWood_medium_001", landed(1), -17, 0.7),
   ...[0, 1, 2, 3, 4, 5].map((i) =>
     cue(
       `lit-${i}`,

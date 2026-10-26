@@ -19,8 +19,17 @@ sideways, and the motion is a person walking.
 
 ## Shots, one per stem
 
-1. **The hook.** The six pillars, the walker at day one, the headline
-   above. As the prices are mentioned, they light up one after another.
+1. **The hook.** Close on day one as its pillar rises to 7. At "buy"
+   the orange line is drawn at 7, tagged "bought at 7". At "sell" the
+   walker steps to day two, which rises only to 1, under the line; a
+   dashed drop is tagged "lost 6" and the walker slumps. At "but how" the
+   camera pulls back while the other four days rise. At "let's say" the
+   line goes and the walker steps back to day one, and as the prices are
+   mentioned they light up one after another.
+
+   Rebuilt on 26 Oct after VR50 lost half its viewers between 0:03 and
+   0:05 on an opening where only a cursor moved. The first version of this
+   reel held its six pillars still for 10 seconds.
 2. **The obvious way.** The lowest pillar, 1, and the highest, 7, light;
    an arrow from 1 back to 7 points the wrong way in time and is struck
    out. Then from each pillar an arc to every later one, fifteen arcs in

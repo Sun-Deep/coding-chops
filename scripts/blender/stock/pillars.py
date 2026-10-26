@@ -10,8 +10,12 @@ its face. A person stands in front of day one.
 
 Every beat is a frame the creator says a word on, from timeline.json:
 
-  the hook      the pillars rise; their prices light as the six days are
-                named;
+  the opening   close on day one, the person buys at 7: the orange line
+                at 7 is what they paid. At "sell" they step to day two,
+                which rises only to 1, under the line, and they slump. At
+                "but how" the camera pulls back while the other four days
+                rise; at "let's say" the line goes and they step back;
+  the hook      the prices light as the six days are named;
   every pair    at "a hundred thousand days" the row runs on, 150 more
                 pillars, and the camera swings to look down it;
   the trick     back to six;
@@ -95,11 +99,23 @@ def clamp01(t):
 
 DAY = B["day"]
 WALK_ON = B["noMatter"]  # second long row, and the walk along it
+O = B["open"]
+STEP = 20  # frames for the walker to cross one gap
+
+
+def rise_at(i):
+    """The frame each of the six starts to rise: day one is already coming
+    up on the first frame, day two as the walker reaches it, the other four
+    a beat apart while the camera pulls back."""
+    if i == 0:
+        return -4
+    if i == 1:
+        return O["sell"] + 6
+    return O["but"] + 10 + (i - 2) * 16
 
 
 def pillar_rise(i, f):
-    """The six rise at the start, a beat apart."""
-    a = 2 + i * 7
+    a = rise_at(i)
     return ramp(f, a, a + 14)
 
 
@@ -123,6 +139,8 @@ def walker_x(f):
     """Day one until the walk; then arriving at each day as it is said; then
     on along the long row."""
     x = X[0] + BESIDE
+    # The opening: over to day two at "sell", back to day one at "let's say".
+    x += (X[1] - X[0]) * (ramp(f, O["sell"], O["sell"] + STEP) - ramp(f, O["letsSay"], O["letsSay"] + STEP))
     for i in range(1, 6):
         x = x + (X[i] - X[i - 1]) * ramp(f, DAY[i] - 20, DAY[i])
     # On along the long row, at walking pace, to the end.
@@ -132,9 +150,14 @@ def walker_x(f):
 
 
 def walking(f):
+    """1 walking on, -1 walking back, 0 standing."""
+    if O["letsSay"] <= f < O["letsSay"] + STEP:
+        return -1
+    if O["sell"] <= f < O["sell"] + STEP:
+        return 1
     if any(DAY[i] - 20 <= f < DAY[i] for i in range(1, 6)):
-        return True
-    return f >= WALK_ON + 4
+        return 1
+    return 1 if f >= WALK_ON + 4 else 0
 
 
 def cheapest_z(f):
@@ -144,6 +167,12 @@ def cheapest_z(f):
 
 def line_state(f):
     """Start x, end x, height and opacity of the orange line, or None."""
+    # The opening: what they paid, 7, held over day two when it falls to 1.
+    if O["buy"] <= f < O["letsSay"] + 12:
+        x0 = X[0] - 0.45
+        x1 = X[0] + 0.45 + (X[1] - X[0]) * ramp(f, O["sell"], O["sell"] + STEP)
+        grow = ramp(f, O["buy"], O["buy"] + 10)
+        return x0, x0 + (x1 - x0) * grow, TOP[0], 1.0 - ramp(f, O["letsSay"], O["letsSay"] + 12)
     # A first look in the trick: day two's price carried to day five.
     if B["remember"] <= f < B["walk"]:
         u = ramp(f, B["remember"], B["remember"] + 16)
@@ -180,6 +209,9 @@ def camera_at(f):
     if f < B["trick"]:
         # The hook and every pair: a slow push in on the six, then down the row.
         cam = side(0.0, 9.0 - 0.8 * ramp(f, 0, B["hundredK"]))
+        # The opening starts close on days one and two and pulls back to it.
+        close = side(X[0] + 0.65, 5.9 - 0.3 * ramp(f, 0, O["but"]), z=1.6, look_z=1.3)
+        cam = mix(close, cam, ramp(f, O["but"], O["highest"]))
         return mix(cam, down_row(), ramp(f, B["hundredK"] - 4, B["hundredK"] + 34))
     if f < B["walk"]:
         return side(-0.25, 8.4 - 0.4 * ramp(f, B["trick"], B["walk"]))
@@ -355,7 +387,12 @@ def build():
     person = load("Casual_Male")
     dress(person, "#5D6B7E", "#C99272", "#3A2A20")
     strip(person, "Idle", 0, D)
-    walks = [(DAY[i] - 20, DAY[i]) for i in range(1, 6)] + [(WALK_ON + 4, D)]
+    # The slump when day two comes in at 1, once, before the step back.
+    slump = bpy.data.actions["Defeat"]
+    n = slump.frame_range[1] - slump.frame_range[0]
+    strip(person, "Defeat", O["high"], min(O["high"] + n, O["letsSay"] - 4))
+    walks = [(O["sell"], O["sell"] + STEP), (O["letsSay"], O["letsSay"] + STEP)]
+    walks += [(DAY[i] - 20, DAY[i]) for i in range(1, 6)] + [(WALK_ON + 4, D)]
     for a, b in walks:
         strip(person, "Walk", a, b)
 
@@ -415,6 +452,8 @@ def track():
         pts = [Vector((X[i], FRONT, TOP[i] * pillar_rise(i, f))) for i in range(6)]
         pts += [Vector((X[i], LINE_Y, TOP[1])) for i in range(6)]
         pts.append(Vector((walker_x(f), WALK_Y, 1.35)))
+        # The opening's line over day two: what was paid, above what it is now.
+        pts.append(Vector((X[1], LINE_Y, TOP[0])))
         row = []
         for p in pts:
             x, y, z = project(p, cam, at)
@@ -454,7 +493,7 @@ def render():
             line.scale = (max(x1 - x0, 0.001), 0.04, 0.04)
             lm.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value = 4.0 * a
         person.location = (walker_x(f), WALK_Y, 0)
-        person.rotation_euler.z = math.radians(90) if walking(f) else 0.0
+        person.rotation_euler.z = math.radians(90) * walking(f)
         pos, at = camera_at(f)
         for L, off in ((key, Vector((-1.5, -4.5, 4.2))), (rim, Vector((1.0, 3.5, 3.5)))):
             L.location = Vector((at.x, 0, 0)) + off

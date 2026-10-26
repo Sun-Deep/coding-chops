@@ -1,6 +1,6 @@
 # Script
 
-Status: blocked
+Status: approved
 
 The first voiced vertical cut. The creator reads it, and the recording is
 the timing: every shot is cut to the stems, not the other way round. The

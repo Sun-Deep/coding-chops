@@ -108,6 +108,16 @@ export const buildTimeline = (
   };
 
   const beats = {
+    // 0. The opening: buy at 7, and the next day it is 1.
+    open: {
+      buy: say(0, "buy when"),
+      sell: say(0, "and sell"),
+      high: say(0, "high"),
+      but: say(0, "but how"),
+      lowest: say(0, "the lowest"),
+      highest: say(0, "the highest"),
+      letsSay: say(0, "let's say"),
+    },
     // 1. The hook: six days of prices.
     sixDays: say(0, "six days"),
     bestBuy: say(0, "best day to buy"),

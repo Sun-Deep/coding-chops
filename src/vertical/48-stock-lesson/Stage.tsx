@@ -17,7 +17,8 @@ import { RUN } from "./measurements";
 /**
  * The pillars and the walker, rendered in Blender by
  * `scripts/blender/stock/render.sh`, and what is drawn over them from the
- * track it writes: the lowest and highest days and the trade that would
+ * track it writes: in the opening, the price paid on day one and what
+ * was lost when day two came in at 1; the lowest and highest days and the trade that would
  * need a time machine; every pair as fifteen arcs, counted; for one sell
  * day, the four arcs that end there and the one that wins; each day's
  * profit as a bar from the carried line up to the price; and the two
@@ -97,15 +98,16 @@ const Tag: React.FC<{
   fill: string;
   ink: string;
   dy?: number;
+  dx?: number;
   children: React.ReactNode;
-}> = ({ at, opacity, fill, ink, dy = -44, children }) => {
+}> = ({ at, opacity, fill, ink, dy = -44, dx = 0, children }) => {
   if (opacity <= 0 || at[2] !== 1) return null;
   const [x, y] = xy(at);
   return (
     <div
       style={{
         position: "absolute",
-        left: x - 110,
+        left: x - 110 + dx,
         top: y + dy,
         width: 220,
         textAlign: "center",
@@ -196,6 +198,14 @@ export const Stage: React.FC<{ frame: number; still?: string }> = ({
     : null;
   const top = (i: number) => row![i];
   const base = (i: number) => row![6 + i];
+  /** The opening's line over day two, at the price paid on day one. */
+  const paidOver2 = () => row![13];
+
+  // 0. The opening: bought at 7, and day two came in at 1.
+  const O = B.open;
+  const paid = fade(f, O.buy + 6, O.buy + 12, O.letsSay, O.letsSay + 8);
+  // Gone before the pull-back brings day three up beside it.
+  const lost = fade(f, O.sell + 24, O.sell + 30, O.but + 36, O.but + 44);
 
   // 2. Lowest, highest, and the trade that runs backwards in time.
   const lowHigh = fade(f, B.lowest, B.lowest + 6, B.compare, B.compare + 8);
@@ -270,6 +280,24 @@ export const Stage: React.FC<{ frame: number; still?: string }> = ({
             height={SCENE_H}
             style={{ position: "absolute", left: 0, top: 0 }}
           >
+            {lost > 0
+              ? (() => {
+                  const [x0, y0] = xy(paidOver2());
+                  const [, y1] = xy(top(1));
+                  return (
+                    <line
+                      x1={x0}
+                      y1={y0 + 8}
+                      x2={x0}
+                      y2={y1 - 6}
+                      stroke={C.chalk}
+                      strokeWidth={3}
+                      strokeDasharray="10 8"
+                      opacity={lost}
+                    />
+                  );
+                })()
+              : null}
             {/* Buy at the lowest, sell at the highest: the arrow runs back in time. */}
             <Arc
               from={top(1)}
@@ -350,6 +378,26 @@ export const Stage: React.FC<{ frame: number; still?: string }> = ({
               head
             />
           </svg>
+          <Tag
+            at={top(0)}
+            opacity={paid}
+            fill={ACCENT}
+            ink={ON_ACCENT}
+            dy={-56}
+          >
+            bought at {P[0]}
+          </Tag>
+          {/* Beside the drop, halfway down, clear of the walker. */}
+          <Tag
+            at={top(1)}
+            opacity={lost}
+            fill={C.chalk}
+            ink={ON_ACCENT}
+            dy={(xy(paidOver2())[1] - xy(top(1))[1]) / 2 - 16}
+            dx={74}
+          >
+            lost {P[0] - P[1]}
+          </Tag>
           <Tag
             at={top(1)}
             opacity={lowHigh}

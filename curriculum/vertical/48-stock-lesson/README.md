@@ -1,6 +1,6 @@
 # Vertical 48: Best Time to Buy and Sell Stock, voiced
 
-Status: recorded and built, waiting on the understanding check.
+Status: approved, posting 26 Oct 2026 at 8:45 PM.
 
 ## What it is
 

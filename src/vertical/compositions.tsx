@@ -149,6 +149,9 @@ import { GoogleInterviewReel } from "./50-google-ai-interview/Reel";
 import { DURATION as VR51 } from "./51-gangnam-counter/beats";
 import { GangnamCounterCover } from "./51-gangnam-counter/Cover";
 import { GangnamCounterReel } from "./51-gangnam-counter/Reel";
+import { DURATION as VR52 } from "./52-sql-offset/beats";
+import { SqlOffsetCover } from "./52-sql-offset/Cover";
+import { SqlOffsetReel } from "./52-sql-offset/Reel";
 import { CoinPuzzleLook, CoinPuzzlePreview } from "./41-coin-puzzle/Preview";
 import { PREVIEW_DURATION as COIN_PREVIEW } from "./41-coin-puzzle/beats";
 import { DURATION as VR41 } from "./41-coin-puzzle/beats";
@@ -569,6 +572,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR52-SQL-Offset"
+        component={SqlOffsetReel}
+        durationInFrames={VR52}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -869,6 +880,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR51-Cover"
         component={GangnamCounterCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR52-Cover"
+        component={SqlOffsetCover}
         width={WIDTH}
         height={HEIGHT}
       />

@@ -1,37 +1,48 @@
 # Storyboard
 
-One continuous five-tile first guess carries the reel. Three beats share that
-object. This replaces the default slow/fast race because the mechanism is a
-comparison of search partitions, not a race in elapsed time.
+One physical Wordle board, rendered in Blender. Its six rows, five columns,
+Wordle masthead and three-row keyboard carry the complete cut. The camera moves
+with the feedback reveal and pulls back for the result. The typography and
+burned-in narration follow the recent Blender cuts, including SQL order,
+OFFSET and Gangnam Style.
 
-| Frames     | Picture                                                                                            | Purpose                                                                              |
-| ---------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| 0 to 119   | ADIEU tiles above passing answer tickets. The running mean resolves at frame 62.                   | Establish the test and show a useful result before the four-second drop in VR53.     |
-| 120 to 241 | The same tiles flip in place to ROATE. The recorded test resolves at frame 188.                    | Preserve the guess while changing the input; reveal the winner before seven seconds. |
-| 242 to 419 | ADIEU's mean returns above ROATE's mean. The ending states ROATE cannot be an answer on this list. | Hold the comparison, then name the cost of the winning guess.                        |
+| Frames     | Event                                                  | Why it is on screen                                                          |
+| ---------- | ------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| 0 to 33    | ADIEU types into the first row. Keys depress.          | Open inside a recognizable game already in progress.                         |
+| 34 to 115  | The five tiles flip, yellow/gray/gray/yellow/gray.     | The matching candidate set narrows from 2,309 to 187.                        |
+| 116 to 165 | The board resets, then ROATE types into the first row. | Compare a different opener against the same hidden answer.                   |
+| 166 to 251 | ROATE flips yellow/gray/green/yellow/green.            | Only STARE, TRACE and TRADE match.                                           |
+| 252 to 335 | TRACE enters the second row and flips all green.       | Finish an actual valid play sequence. This guess is selected for the replay. |
+| 336 to 419 | The camera returns to the full solved board.           | Hold the all-answer mean comparison and the limit of ROATE.                  |
 
-Tickets are sampled displays of real target-word outcomes. The tested counter
-and running mean include all targets processed, not just the visible tickets.
-No interpolated number is presented as a measurement. The mean remains in the
-same location between guesses. The full ranking is available in the raw run.
+`game.ts` computes every displayed game state from a Remotion frame. The Blender
+export records that same state for each of the 420 frames. No animation uses CSS
+transitions or keyframes. Blender only gives the recorded states a physical body.
 
-No stand-alone hook card, leaderboard, terminal window, or new metaphor. The
-corner CC lockup persists. The end keeps the answer visible instead of replacing
-it with an outro. Orange identifies the selected winning opener and its mean.
-Other content stays neutral. Tile fills encode selection, not Wordle feedback.
+## Feedback colors
 
-Content stays between y 190 and 1500. Below y 1000 it stays inside x 150 to 930. The cover's text and lockup sit inside the shared square crop.
+This episode uses Wordle's green, yellow and gray to encode its rules. The
+creator explicitly asked for real Wordle gameplay after rejecting the orange
+score display. Green means the letter and place match, yellow means an available
+copy occurs elsewhere, and gray means this occurrence is absent. Colors on the
+keyboard preserve the strongest known state for each letter.
+
+This is an episode-only exception to the single teaching accent rule. It solves
+recognition and preserves the actual game semantics. It does not change the
+shared palette or other cuts. Verify every colored tile against the measured
+feedback, and review the game at phone size. Orange stays on the channel mark
+and the final measured winner, outside the game board.
+
+## Set and camera
+
+A graphite board stands on a low foot against a curved charcoal studio backdrop.
+Beveled tile edges and keycaps show depth. A soft key and a restrained rim light
+separate it from the ground. The camera moves closer while the first row flips,
+then returns to the complete board. It keeps letters sharp and leaves the lower
+caption band clear. No extra characters or scene metaphors are introduced.
 
 ## Sound
 
-`cues.ts` supplies the event map. Quiet recorded clicks accompany sampled tests
-and the tile flips. Wooden impacts mark each completed mean, with the winner
-louder. A switch marks the comparison returning; a final click marks the catch.
-No bed or voiceover. Sources and CC0 terms are in `public/sfx/kenney/`.
-
-## Review target
-
-Shrink the opening to a quarter. Read the topic, recognize a first guess, and
-identify what the changing number counts. Watch muted to check the two averages
-and the final limitation are understandable without sound. Repeat with sound.
-Retention screenshots motivate this test but do not establish why VR53 dropped.
+Recorded Kenney CC0 key clicks follow actual key presses. Quiet wooden taps
+follow tile flips. A switch marks the alternate replay. A confirmation marks the
+all-green row. The final comparison has the strongest cue. No voice or music bed.

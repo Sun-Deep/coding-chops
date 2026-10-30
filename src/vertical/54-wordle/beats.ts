@@ -1,5 +1,13 @@
 export const DURATION = 420;
-export const SECOND_GUESS = 120;
-export const WINNER_LANDS = 188;
-export const COMPARE = 242;
-export const CATCH = 302;
+export const TYPE_A = -6;
+export const FLIP_A = 34;
+export const RESET = 116;
+export const TYPE_B = 132;
+export const FLIP_B = 166;
+export const TYPE_SOLVE = 252;
+export const FLIP_SOLVE = 288;
+export const WIN = 322;
+export const COMPARE = 336;
+export const TYPE_STEP = 6;
+export const FLIP_STEP = 6;
+export const FLIP_DURATION = 10;

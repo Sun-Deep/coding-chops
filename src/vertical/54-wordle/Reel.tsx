@@ -1,4 +1,5 @@
-import { useCurrentFrame } from "remotion";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
+import { theme } from "../../shared/brand/theme";
 import { Sfx } from "../../shared/primitives/Sfx";
 import { Narration } from "../../shared/vertical/Narration";
 import { VerticalShell } from "../../shared/vertical/VerticalShell";
@@ -7,16 +8,15 @@ import { CUES } from "./cues";
 import { narration } from "./narration";
 import { Stage } from "./Stage";
 
-export const WordleReel: React.FC = () => {
+export const WordleReel: React.FC<{ still?: string }> = ({ still }) => {
   const frame = useCurrentFrame();
   return (
     <VerticalShell>
-      <Headline top={266} size={96}>
-        Wordle&apos;s best
-        <br />
-        first guess.
+      <AbsoluteFill style={{ background: theme.colors.black }} />
+      <Stage frame={frame} still={still} />
+      <Headline top={260} size={84}>
+        Wordle&apos;s best opener.
       </Headline>
-      <Stage frame={frame} />
       <Narration lines={narration} />
       {CUES.map((cue) => (
         <Sfx

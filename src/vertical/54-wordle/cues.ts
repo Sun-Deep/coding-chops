@@ -6,33 +6,35 @@ const cue = (
   frame: number,
   db: number,
   rate = 1,
-) => ({
-  id,
-  name: `kenney/${name}`,
-  frame,
-  gain: 10 ** ((db + 1) / 20),
-  rate,
-});
-
+) => ({ id, name: `kenney/${name}`, frame, gain: 10 ** ((db + 1) / 20), rate });
 export const CUES = [
-  cue("first-word", "impactWood_light_001", 0, -14),
-  ...[8, 23, 38, 53].map((frame, i) =>
-    cue(`test-a-${i}`, "click_003", frame, -15, 0.95 + i * 0.05),
+  ...[B.TYPE_A, B.TYPE_B, B.TYPE_SOLVE].flatMap((from, row) =>
+    [0, 1, 2, 3, 4]
+      .filter((i) => from + i * B.TYPE_STEP >= 0)
+      .map((i) =>
+        cue(
+          `key-${row}-${i}`,
+          "click_005",
+          from + i * B.TYPE_STEP,
+          -13,
+          0.97 + i * 0.04,
+        ),
+      ),
   ),
-  cue("adieu-result", "impactWood_medium_001", 62, -9),
-  ...[0, 1, 2, 3, 4].map((i) =>
-    cue(
-      `tile-${i}`,
-      "click_005",
-      B.SECOND_GUESS + i * 3 + 6,
-      -15,
-      0.95 + i * 0.06,
+  ...[B.FLIP_A, B.FLIP_B, B.FLIP_SOLVE].flatMap((from, row) =>
+    [0, 1, 2, 3, 4].map((i) =>
+      cue(
+        `flip-${row}-${i}`,
+        "impactWood_light_001",
+        from + i * B.FLIP_STEP + 5,
+        -17,
+        0.95 + i * 0.06,
+      ),
     ),
   ),
-  ...[148, 163, 178].map((frame, i) =>
-    cue(`test-b-${i}`, "click_003", frame, -15, 1.05 + i * 0.05),
-  ),
-  cue("winner", "impactWood_medium_001", B.WINNER_LANDS, -2),
-  cue("compare", "switch_004", B.COMPARE + 6, -13),
-  cue("catch", "click_004", B.CATCH + 4, -13),
+  cue("reset", "switch_004", B.RESET, -13),
+  cue("first-result", "tick_001", 70, -12),
+  cue("second-result", "tick_001", 202, -10),
+  cue("solved", "confirmation_001", B.WIN, -4),
+  cue("comparison", "impactWood_medium_001", B.COMPARE, -2),
 ];

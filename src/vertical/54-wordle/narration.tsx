@@ -1,31 +1,30 @@
 import type { NarrationLine } from "../../shared/vertical/Narration";
-import { RUN } from "./measurements";
-
-const adieu = RUN.selected.find((row) => row.word === "adieu")!;
-const winner = RUN.selected.find((row) => row.word === RUN.winner)!;
+import { GAME } from "./gameplay";
 
 export const narration: readonly NarrationLine[] = [
-  { from: 4, to: 55, text: "Try every possible answer." },
+  { from: 4, to: 64, text: "ADIEU. One guess, how many left?" },
   {
-    from: 65,
-    to: 111,
-    text: `ADIEU averages ${adieu.meanRemaining.toFixed(1)} left.`,
-  },
-  { from: 126, to: 179, text: "Repeat with every opener." },
-  {
-    from: 191,
-    to: 291,
+    from: 74,
+    to: 110,
     emphasis: true,
-    text: `${RUN.winner.toUpperCase()} averages ${winner.meanRemaining.toFixed(1)} left.`,
+    text: `${GAME.adieu.length} still fit.`,
   },
+  { from: 132, to: 194, text: "Same puzzle. Try ROATE." },
   {
-    from: 307,
+    from: 205,
+    to: 243,
+    emphasis: true,
+    text: `${GAME.roate.length} answers left.`,
+  },
+  { from: 258, to: 326, text: "TRACE solves it." },
+  {
+    from: 344,
     to: 415,
     text: (
       <>
-        On this list, ROATE
+        ROATE cannot be
         <br />
-        cannot win immediately.
+        an answer here.
       </>
     ),
   },

@@ -12,6 +12,10 @@
   objectives and the expected cost of the whole game.
 - [Recorded effects](../../../../public/sfx/kenney/README.md).
   Existing Kenney CC0 recordings. No voiceover or music bed.
+- `scripts/blender/wordle/board.py` builds the board from primitives. No game
+  screenshot, official artwork or website recording is copied into the scene.
+- The NYT game page was unavailable to the computer-use tool. The result is an
+  authored physical gameplay replay with verified rules, not captured NYT UI.
 
 The lists describe a historical game configuration. We do not call them the
 current NYT answer pool or claim the historical winner is today's optimum.

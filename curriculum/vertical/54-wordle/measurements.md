@@ -47,3 +47,19 @@ node scripts/measure-wordle.mjs curriculum/vertical/54-wordle/runs/module.json -
 node scripts/measure-wordle.mjs curriculum/vertical/54-wordle/runs/reference.json --reference --summary
 node scripts/measure-wordle.mjs curriculum/vertical/54-wordle/runs/hour-apart.json --summary
 ```
+
+## Gameplay replay
+
+`runs/gameplay.json` records the full candidate sets for the historical answer
+TRACE. `scripts/measure-wordle-game.mjs` reproduces it and generates
+`src/vertical/54-wordle/gameplay.ts`. The example counts match the selected
+feedback histograms in the complete original run. Each partial flip's count is
+also measured by filtering the answer list on the revealed feedback prefix.
+
+```sh
+node --experimental-strip-types --no-warnings scripts/measure-wordle-game.mjs
+```
+
+ADIEU leaves 187 candidates. ROATE leaves three, STARE, TRACE and TRADE. The
+second-row TRACE guess completes the replay. These are per-puzzle counts, not
+the all-answer averages shown at the end.

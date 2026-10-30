@@ -18,7 +18,19 @@ ROATE minimizes this one-step mean over all allowed guesses in this fixture.
 RAISE is the best guess when restricted to words that can be answers. Neither
 statement proves a complete optimal strategy or a guarantee for any one day.
 
-The moving tickets replay sampled outcomes from the real test. The running mean
-uses every target processed through that point. Each ticket gives the number of
-compatible answers in the full list for that target's feedback. Playback speed
-is editorial and is not a benchmark of runtime.
+## The replay
+
+The hidden answer is TRACE, taken from the historical list. ADIEU produces
+10010, using absent = 0, present elsewhere = 1 and correct place = 2. That
+feedback group contains 187 answers. ROATE produces 10212, a group of three:
+STARE, TRACE and TRADE. TRACE then produces 22222.
+
+The keyboard starts fresh for the alternate opening. A later yellow cannot
+downgrade a known green. A gray duplicate cannot erase another occurrence's
+green or yellow status. This replay contains no repeated-letter guess, but the
+scorer checks those cases.
+
+The example is selected to show elimination. It is not the evidence for the
+average claim. The complete benchmark, checked by two scorers and repeated an
+hour later, supplies the means. Never imply that the opener guarantees the
+number shown for this particular puzzle on every day.

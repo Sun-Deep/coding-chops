@@ -152,6 +152,9 @@ import { GangnamCounterReel } from "./51-gangnam-counter/Reel";
 import { DURATION as VR52 } from "./52-sql-offset/beats";
 import { SqlOffsetCover } from "./52-sql-offset/Cover";
 import { SqlOffsetReel } from "./52-sql-offset/Reel";
+import { DURATION as VR54 } from "./54-wordle/beats";
+import { WordleCover } from "./54-wordle/Cover";
+import { WordleReel } from "./54-wordle/Reel";
 import { CoinPuzzleLook, CoinPuzzlePreview } from "./41-coin-puzzle/Preview";
 import { PREVIEW_DURATION as COIN_PREVIEW } from "./41-coin-puzzle/beats";
 import { DURATION as VR41 } from "./41-coin-puzzle/beats";
@@ -580,6 +583,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR54-Wordle"
+        component={WordleReel}
+        durationInFrames={VR54}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -886,6 +897,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR52-Cover"
         component={SqlOffsetCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR54-Cover"
+        component={WordleCover}
         width={WIDTH}
         height={HEIGHT}
       />

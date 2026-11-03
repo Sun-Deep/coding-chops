@@ -29,6 +29,13 @@ Code and measurements: github.com/Sun-Deep/coding-chops
 #algorithms #pathfinding #newyork #javascript #coding
 ```
 
+## Bilibili
+
+Cover: `VR59-Bilibili-Cover`, 1920 x 1080, rendered to
+`out/vertical/vr59-manhattan-route-bilibili-cover.png`. Same video.
+
+Title: 从哈莱姆到华尔街：A\* 只查了 Dijkstra 二十分之一的路口
+
 ## After posting
 
 Record at 1 hour, 24 hours and 7 days: views, three-second views, average

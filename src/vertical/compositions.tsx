@@ -158,6 +158,11 @@ import { WordleReel } from "./54-wordle/Reel";
 import { ManhattanRouteReel } from "./59-manhattan-route/Reel";
 import { ManhattanRouteCover } from "./59-manhattan-route/Cover";
 import { DURATION as VR59 } from "./59-manhattan-route/beats";
+import { BirthdaysReel } from "./60-birthdays/Reel";
+import { BirthdaysCover } from "./60-birthdays/Cover";
+import { DURATION as VR60 } from "./60-birthdays/beats";
+import { BirthdaysBilibiliCover } from "./60-birthdays/BilibiliCover";
+import { ManhattanRouteBilibiliCover } from "./59-manhattan-route/BilibiliCover";
 import { CoinPuzzleLook, CoinPuzzlePreview } from "./41-coin-puzzle/Preview";
 import { PREVIEW_DURATION as COIN_PREVIEW } from "./41-coin-puzzle/beats";
 import { DURATION as VR41 } from "./41-coin-puzzle/beats";
@@ -602,6 +607,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR60-Birthdays"
+        component={BirthdaysReel}
+        durationInFrames={VR60}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -922,6 +935,24 @@ export const VerticalCompositions: React.FC = () => (
         component={ManhattanRouteCover}
         width={WIDTH}
         height={HEIGHT}
+      />
+      <Still
+        id="VR60-Cover"
+        component={BirthdaysCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR59-Bilibili-Cover"
+        component={ManhattanRouteBilibiliCover}
+        width={1920}
+        height={1080}
+      />
+      <Still
+        id="VR60-Bilibili-Cover"
+        component={BirthdaysBilibiliCover}
+        width={1920}
+        height={1080}
       />
     </Folder>
 

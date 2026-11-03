@@ -1,0 +1,35 @@
+{
+  "measured": "2026-11-03T08:40:26.925Z",
+  "osmSnapshot": "2026-11-03T08:28:45Z",
+  "licence": "Map data (c) OpenStreetMap contributors, ODbL",
+  "node": "v22.14.0",
+  "streets": 55216,
+  "intersections": 63050,
+  "edges": 143792,
+  "start": {
+    "name": "Harlem, W 125th St and Adam Clayton Powell Jr Blvd",
+    "lat": 40.8095,
+    "lon": -73.948,
+    "snappedMetres": 15.6
+  },
+  "goal": {
+    "name": "Financial District, Wall St and Broadway",
+    "lat": 40.7074,
+    "lon": -74.0113,
+    "snappedMetres": 54.4
+  },
+  "straightLineMetres": 12506,
+  "dijkstra": {
+    "checked": 21559,
+    "routeMetres": 13231.2,
+    "ms": 21.4
+  },
+  "astar": {
+    "checked": 1062,
+    "routeMetres": 13231.2,
+    "ms": 4.1
+  },
+  "ratio": 20.3,
+  "sameRoute": true,
+  "boxMarginMetres": 13832
+}

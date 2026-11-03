@@ -155,6 +155,9 @@ import { SqlOffsetReel } from "./52-sql-offset/Reel";
 import { DURATION as VR54 } from "./54-wordle/beats";
 import { WordleCover } from "./54-wordle/Cover";
 import { WordleReel } from "./54-wordle/Reel";
+import { ManhattanRouteReel } from "./59-manhattan-route/Reel";
+import { ManhattanRouteCover } from "./59-manhattan-route/Cover";
+import { DURATION as VR59 } from "./59-manhattan-route/beats";
 import { CoinPuzzleLook, CoinPuzzlePreview } from "./41-coin-puzzle/Preview";
 import { PREVIEW_DURATION as COIN_PREVIEW } from "./41-coin-puzzle/beats";
 import { DURATION as VR41 } from "./41-coin-puzzle/beats";
@@ -591,6 +594,14 @@ export const VerticalCompositions: React.FC = () => (
         width={WIDTH}
         height={HEIGHT}
       />
+      <Composition
+        id="VR59-Manhattan-Route"
+        component={ManhattanRouteReel}
+        durationInFrames={VR59}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </Folder>
 
     <Folder name="Covers">
@@ -903,6 +914,12 @@ export const VerticalCompositions: React.FC = () => (
       <Still
         id="VR54-Cover"
         component={WordleCover}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Still
+        id="VR59-Cover"
+        component={ManhattanRouteCover}
         width={WIDTH}
         height={HEIGHT}
       />
